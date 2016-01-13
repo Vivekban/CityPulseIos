@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CocoaLumberjack
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,6 +32,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        DDLog.addLogger(DDTTYLogger.sharedInstance()) // TTY = Xcode console
+        DDLog.addLogger(DDASLLogger.sharedInstance()) // ASL = Apple System Logs
+        
+        let fileLogger: DDFileLogger = DDFileLogger() // File Logger
+        fileLogger.rollingFrequency = 60*60*24  // 24 hours
+        fileLogger.logFileManager.maximumNumberOfLogFiles = 7
+        DDLog.addLogger(fileLogger)
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
@@ -41,6 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask {
+        return .All;
 
+    }
 }
 

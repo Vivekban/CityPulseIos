@@ -1,0 +1,61 @@
+/* 
+  Localizable.strings
+  MyVoice
+
+  Created by PB014 on 29/12/15.
+  Copyright © 2015 Vivek. All rights reserved.
+*/
+
+"Ok" = "Ok";
+
+
+"Own"       = "Own";
+"Popular"   = "Popular";
+"Relevant"  = "Relevant";
+"Subscribed" = "Subscribed";
+"Resolved"  = "Resolved";
+
+
+// brief items
+
+"Followers" = "Followers";
+"Badges" = "Badges";
+"Credits" = "Credits";
+"Issue_resolved" = "Issue Resolved";
+"Total_donations" = "Total Donations";
+"Reviews" = "Reviews";
+
+//
+"New Issue" = "New Issue";
+"Add_Views" = "Add Views";
+"Add_Work" = "Add Work";
+
+
+//
+
+"View" = "View";
+"Work" = "Work";
+
+// Info headings
+"BASIC_INFO"      = "Basic Info";
+"CONTACT_INFO"    = "Contact Info";
+"EDUCATION_INFO"  = "Education Info";
+"OCCUPATION_INFO" = "Occupation Info";
+
+// EDUCATION IFO items
+"YEAR" = "Year";
+"LAST_DEGREE_HELD" = "Last Degree Held";
+
+// OCCUPATION INFO items
+
+"COMPANY" = "Company";
+"TITLE"= "Title";
+"FROM" = "From" ;
+"TO" = "To";
+
+// Info Options
+"SINGLE" = "Single";
+"MARRIED" = "Married";
+"MALE" = "Male";
+"FEMALE" = "Female";
+"OTHERS" = "Others";

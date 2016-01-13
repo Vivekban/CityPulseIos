@@ -1,0 +1,40 @@
+PODS:
+  - Alamofire (3.1.4)
+  - CocoaLumberjack/Core (2.2.0)
+  - CocoaLumberjack/Default (2.2.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.2.0):
+    - CocoaLumberjack/Default
+  - CocoaLumberjack/Swift (2.2.0):
+    - CocoaLumberjack/Extensions
+  - Kingfisher (1.8.5)
+  - MBProgressHUD (0.9.1)
+  - SwiftyJSON (2.3.2)
+  - TZStackView (1.1.2)
+
+DEPENDENCIES:
+  - Alamofire (~> 3.0)
+  - CocoaLumberjack/Swift
+  - Kingfisher (~> 1.8)
+  - MBProgressHUD (~> 0.9.1)
+  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
+  - TZStackView (= 1.1.2)
+
+EXTERNAL SOURCES:
+  SwiftyJSON:
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+CHECKOUT OPTIONS:
+  SwiftyJSON:
+    :commit: 8e618c8baf6323a5079c6549bb38d48357b31630
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+SPEC CHECKSUMS:
+  Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
+  CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
+  Kingfisher: 780fed0fa82692a3bd59d53329ae2b85cdd354a5
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  TZStackView: 19aeaa414fb653f4be9b80a73f4f0c66e33bf033
+
+COCOAPODS: 0.39.0

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PopPickerViewController" customModule="MyVoice" customModuleProvider="target">
+            <connections>
+                <outlet property="pickerView" destination="mKf-16-5oa" id="bGU-QN-8LC"/>
+                <outlet property="view" destination="iN0-l3-epB" id="3Bj-fe-9tU"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="387" height="417"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kpz-9H-MhC">
+                    <rect key="frame" x="0.0" y="0.0" width="387" height="200"/>
+                    <subviews>
+                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mKf-16-5oa">
+                            <rect key="frame" x="0.0" y="0.0" width="387" height="162"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="162" id="i0y-Tm-WCh" userLabel="height = 162"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="HnO-FS-9TH"/>
+                                <outlet property="delegate" destination="-1" id="LRt-fE-DaV"/>
+                            </connections>
+                        </pickerView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCA-na-a6o">
+                            <rect key="frame" x="179" y="166" width="30" height="30"/>
+                            <animations/>
+                            <state key="normal" title="OK">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="onOkButtonClick:" destination="-1" eventType="touchUpInside" id="72w-oa-oHx"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="mKf-16-5oa" secondAttribute="trailing" id="11S-Ul-xed"/>
+                        <constraint firstItem="hCA-na-a6o" firstAttribute="top" secondItem="mKf-16-5oa" secondAttribute="bottom" constant="4" id="Tyi-lR-1Jc"/>
+                        <constraint firstItem="mKf-16-5oa" firstAttribute="top" secondItem="Kpz-9H-MhC" secondAttribute="top" id="asr-jA-gVF"/>
+                        <constraint firstAttribute="height" constant="200" id="gnW-zo-6UO"/>
+                        <constraint firstItem="mKf-16-5oa" firstAttribute="leading" secondItem="Kpz-9H-MhC" secondAttribute="leading" id="kbt-tY-IIR"/>
+                        <constraint firstItem="hCA-na-a6o" firstAttribute="centerX" secondItem="Kpz-9H-MhC" secondAttribute="centerX" id="uUh-PL-ofg"/>
+                        <constraint firstAttribute="centerX" secondItem="hCA-na-a6o" secondAttribute="centerX" id="uz3-ww-W92"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Kpz-9H-MhC" secondAttribute="trailing" id="jZJ-rH-rUB"/>
+                <constraint firstItem="Kpz-9H-MhC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lUZ-Kq-cVT"/>
+                <constraint firstItem="Kpz-9H-MhC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="lZp-tk-Iow"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="419.5" y="258.5"/>
+        </view>
+    </objects>
+</document>
