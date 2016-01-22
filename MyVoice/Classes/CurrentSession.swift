@@ -6,7 +6,7 @@
 //  Copyright © 2015 Vivek. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class CurrentSession {
     
@@ -14,12 +14,25 @@ class CurrentSession {
     
     private init(){
         personUI = LeaderUI()
-        mainPersonUI = LeaderUI()
+        mainPersonUI = personUI
         secondaryPersonUI = ResidentUI()
+        var id = NSUserDefaults.standardUserDefaults().doubleForKey(PermanentDataKey.userId)
+        
+        if Constants.isDebug {
+            id = Constants.tempUserId
+        }
+        
+         personController = PersonController(userID: id)
+        mainPersonController = personController
     }
     
-    var personUI:PersonUI?
+    var personUI:PersonUI? // current person
     var mainPersonUI:PersonUI?
     var secondaryPersonUI:PersonUI?
+    
+    // controller
+    
+    var personController:PersonController!
+    var mainPersonController:PersonController!
     
 }

@@ -24,13 +24,13 @@ class MyUtils{
         if let sectionController = controller.storyboard?.instantiateViewControllerWithIdentifier(identifier)
         {
             if let pController = controller.parentViewController {
-           // controller.presentViewController(sectionController, animated: true, completion: nil)
+                // controller.presentViewController(sectionController, animated: true, completion: nil)
                 controller.view.window?.rootViewController?.presentViewController(sectionController, animated: true, completion: nil)
             }
             else{
-               // controller.presentViewController(sectionController, animated: true, completion: nil)
+                // controller.presentViewController(sectionController, animated: true, completion: nil)
                 controller.view.window?.rootViewController?.presentViewController(sectionController, animated: true, completion: nil)
-
+                
             }
             return sectionController
         }
@@ -43,18 +43,45 @@ class MyUtils{
         return formatter.stringFromDate(date)
     }
     
+    static func getStringFrom(date : NSDate, mode:UIDatePickerMode) -> String{
+        let formatter = NSDateFormatter()
+        
+        switch (mode) {
+        case .Date:
+            formatter.dateStyle = .MediumStyle
+            formatter.timeStyle = .NoStyle
+            break
+        case .Time:
+            formatter.dateStyle = .NoStyle
+            formatter.timeStyle = .ShortStyle
+            break
+        case .DateAndTime:
+            formatter.dateStyle = .MediumStyle
+            formatter.timeStyle = .ShortStyle
+            break
+        case .CountDownTimer:
+            formatter.dateStyle = .NoStyle
+            formatter.timeStyle = .MediumStyle
+            break
+        }
+        
+        
+        
+        return formatter.stringFromDate(date)
+    }
+    
     static func getCurrentDateInlong() -> Double{
         return NSDate().timeIntervalSince1970
     }
     
     static func imageResize (image:UIImage, sizeChange:CGSize)-> UIImage{
-                
+        
         UIGraphicsBeginImageContext(sizeChange)
         image.drawInRect(CGRect(origin: CGPointZero, size: sizeChange))
         
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext();
-
+        
         return scaledImage
     }
     
@@ -70,6 +97,21 @@ class MyUtils{
         view.layer.shadowOffset = CGSize(width: 0, height: 0.5)
         view.layer.shadowOpacity = 0.2
         view.layer.shadowPath = shadowPath.CGPath
+    }
+    
+    static func makeNavigationBarTransparent(bar: UINavigationBar){
+        bar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        bar.shadowImage = UIImage()
+        bar.translucent = true
+        //self.navigationController.view.backgroundColor = UIColor.clearColor()
+    }
+    
+    static func delay(time:Double, work:()->()) {
+        dispatch_after(
+            dispatch_time(DISPATCH_TIME_NOW,
+                Int64(time * Double(NSEC_PER_SEC))),
+            dispatch_get_main_queue(),
+            work)
     }
     
 }

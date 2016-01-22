@@ -87,6 +87,7 @@ extension IssueViewController : UICollectionViewDataSource {
             //4
             assert(false, "Unexpected element kind")
         }
+        return UICollectionReusableView()
     }
     
 }

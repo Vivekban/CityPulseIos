@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import ObjectMapper
 
 
 class Constants {
+    
+    static let isDebug = true
+    static let tempUserId:Double = 1
+    
     static let personInfoHeader = ["BASIC_INFO".localized,"CONTACT_INFO".localized,"EDUCATION_INFO".localized,"OCCUPATION_INFO".localized]
     static let accentColor = UIColor(red: CGFloat(5.0/255), green: CGFloat(146.0/255), blue: CGFloat(1), alpha: 1)
     
@@ -20,11 +25,20 @@ class Constants {
     static let BriefItemUI_Credits = BriefItemUI(heading: "Credits".localized, index: 4, isClickable: false)
     static let BriefItemUI_Reviews = BriefItemUI(heading: "Reviews".localized, index: 5, isClickable: true)
   
-    
+}
+
+class PermanentDataKey {
+    static let isLoginDone = "isLoginDone"
+    static let userId = "userId"
+
 }
 
 enum IssuesConrollerType : Int {
     case Own = 0, Popular, Relevant, Subscribed, Resolved
+}
+
+enum PersonInfoType:Int{
+    case Basic = 0, Contact, Education, Occupation
 }
 
 
@@ -58,5 +72,43 @@ struct TextFieldInputData {
     // in case of online picker fields
     var isDataFetched = false
 }
+
+
+struct Location {
+    var latitude:Double = 0.0
+    var longitude:Double = 0.0
+    var city:String = ""
+}
+
+/**
+*   For header and content info UITable or UiCollection view
+*/
+
+protocol ListHeaderDelegate : class{
+    func onHeaderClick(index : Int)
+    func onEditButtonclick(index : Int)
+    func onDetailClick(index: Int)
+}
+
+/**
+ * UITable cell or CollectionView  content delegate
+*/
+
+protocol LisContentDelegate{
+}
+
+struct TwoString {
+    var string_1 :String!
+    var string_2 :String!
+    
+    init(str1:String, str2:String){
+        string_1 = str1
+        string_2 = str2
+    }
+}
+
+
+
+
 
 

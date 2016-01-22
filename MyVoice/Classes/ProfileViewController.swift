@@ -9,8 +9,6 @@
 import UIKit
 
 class ProfileViewController: BaseTabViewController {
-    
-   
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,10 +31,18 @@ class ProfileViewController: BaseTabViewController {
     
     override func setTabsParameter() {
         storyBoardName = "Me"
-        addTab("BasicInfo", title: "Info")
-        addTab("MyViews", title: "My Views")
-        addTab("MyWorkViewController", title: "My Work")
-        addTab("BasicInfo", title: "Events")
+        
+        if  let tabs = CurrentSession.i.personUI?.profileTabs {
+        
+        for i in tabs {
+            addTab(i.string_1 , title: i.string_2)
+
+        }
+        }
+        
+//        addTab("MyViews", title: "My Views")
+//        addTab("MyWorkViewController", title: "My Work")
+//        addTab("EventViewController", title: "Events")
     }
 
     override func willMoveToPage(controller: UIViewController, index: Int) {
@@ -47,19 +53,25 @@ class ProfileViewController: BaseTabViewController {
         print(index)
         switch index {
             
-        case 0: // info
+        case 0,1: // info
             changeVisibilityOfActionButton(false)
             break
-        case 1:
+        case 4:
             changeVisibilityOfActionButton(true)
             setTitleOfActionButton("Add_Views".localized)
             break
-        case 2:
+            
+        case 3:
             changeVisibilityOfActionButton(true)
             setTitleOfActionButton("Add_Work".localized)
             break
-        case 3:
+        case 2:
+            changeVisibilityOfActionButton(true)
+            setTitleOfActionButton("ADD_EVENT".localized)
             break
+        case 5:
+            changeVisibilityOfActionButton(true)
+            setTitleOfActionButton("ADD_VIDEO".localized)
         default:
             assertionFailure("pata ni")
         }

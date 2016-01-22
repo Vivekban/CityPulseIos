@@ -8,17 +8,27 @@
 
 import UIKit
 
-class MyViewsViewController: BaseNestedTabTableViewController {
+class MyViewsViewController: BaseNestedTabViewController {
     
-    var expandedRows = Set<Int>()
+    @IBOutlet var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.estimatedRowHeight = 90
+        self.tableView.estimatedRowHeight = 70
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
         expandedRows.insert(0)
+        
+        editControlllerIdentifier = "EditViewsViewController"
+        detailControllerIdentifier = "MyViewDetailController"
+        reuseIdentifier = "MyViewsCell"
+        
+        let data = CurrentSession.i.personController.person.views
+        
+        for entry in data {
+            entries.append(entry)
+        }
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -32,31 +42,28 @@ class MyViewsViewController: BaseNestedTabTableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func onActionButtonClick(sender: AnyObject) {
-        let controller = MyUtils.presentViewController(self, identifier: "EditViewsViewController")
-        if let editController = controller as? BaseEditViewController {
-            editController.setDataSourceWith(.NEW, and: nil)
-        }
+    override func getDataForNewItem() ->BaseData {
+        return MyViewData()
     }
+    
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return entries.count
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MyViewsCell", forIndexPath: indexPath) as! MyViewTableCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MyViewTableCell
         cell.tag = indexPath.row
         cell.touchDelegate = self
-        cell.heading.text = "Heading \(indexPath.row)"
         if expandedRows.contains(indexPath.row){
             cell.isExpanded = true
         }
@@ -64,9 +71,12 @@ class MyViewsViewController: BaseNestedTabTableViewController {
             cell.isExpanded = false
         }
         
-        cell.detailLabel.text = "Detail of my view\nASDsdfasfadsfasd\nASDsdfasfadsfasd\nASDsdfasfadsfasd\nASDsdfasfadsfasd\nASDsdfasfadsfasd\nASDsdfasfadsfasd\nASDsdfasfadsfasd\nASDsdfasfadsfasd\nASDsdfasfadsfasd\nASDsdfasfadsfasd\nASDsdfasfadsfasd"
-        // Configure the cell...
-        
+        if let entry = entries[indexPath.row] as? MyViewData{
+            cell.heading.text = entry.title
+            cell.detailLabel.text = entry.description
+            cell.detailLabel.sizeToFit()
+            cell.dateField.text = entry.date
+        }
         return cell
     }
     
@@ -116,14 +126,15 @@ class MyViewsViewController: BaseNestedTabTableViewController {
     }
     */
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         if(expandedRows.contains(indexPath.row)){
-            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+            return 150
         }
         else{
             return 55;
         }
+        
     }
     
     func updateRow(section: Int, row:Int){
@@ -133,36 +144,20 @@ class MyViewsViewController: BaseNestedTabTableViewController {
         self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: .Automatic)
         print("update rows.........")
     }
+    
+    
+    override func reloadData(index: Int) {
+        updateRow(0, row: index)
+        
+    }
+    
+    override func onDetailClick(index: Int) {
+        super.onDetailClick(index)
+        updateRow(0, row: index)
+        // updateRow(0, row: cell.tag)
+    }
+    
 }
 
-
-
-//MARK: Cell Touch
-
-extension MyViewsViewController : MyViewsCellTouchDelegate {
-    
-    func onDetailClick(cell: UITableViewCell) {
-        updateRow(0, row: cell.tag)
-       // updateRow(0, row: cell.tag)
-    }
-    
-    func onHeaderClick(cell: UITableViewCell) {
-        if expandedRows.contains(cell.tag){
-            expandedRows.remove(cell.tag)
-        }
-        else{
-            expandedRows.insert(cell.tag)
-        }
-        updateRow(0, row: cell.tag)
-    }
-    
-    func onEditButtonClick(cell: UITableViewCell) {
-    
-        let controller = MyUtils.presentViewController(self, identifier: "EditViewsViewController")
-        if let editController = controller as? BaseEditViewController {
-            editController.setDataSourceWith(.EDIT, and: MyViews())
-        }
-    }
-}
 
 

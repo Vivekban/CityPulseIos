@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>AlamofireImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AlamofireObjectMapper.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>CocoaLumberjack.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -20,6 +30,11 @@
 			<false/>
 		</dict>
 		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ObjectMapper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -47,17 +62,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>49187BD1D9ACD7D454B11CEA9529E67C</key>
+		<key>57699730FA3C6CABE1A6BBB1CD6A560E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>56118B26E15F43A56176B721B34AAECA</key>
+		<key>7014BE67FDE067F157403F2CC0D13E98</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B68566421CBE74E60B54F444C768DD66</key>
+		<key>A1BF58736B6CCECB5DB30E2108366143</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C5CBCAA97E951CC882334464FBDF983D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,7 +92,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>F7A8CDC25F8B1CD6931907A2E4D9C0AA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>F91226101ECE8FCFD221A3EC54481F82</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FBD082A0D35F7917EAB9DD9D3CCA9976</key>
 		<dict>
 			<key>primary</key>
 			<true/>

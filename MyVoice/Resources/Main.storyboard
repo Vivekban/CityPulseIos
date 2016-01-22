@@ -19,7 +19,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" id="PZW-h3-AO7"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="home" selectedImage="home" id="PZW-h3-AO7"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y8K-43-TEe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -82,7 +82,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Public Figures" selectedImage="tab" id="aAi-Kn-mGs"/>
+                    <tabBarItem key="tabBarItem" title="Public Figures" image="Public figure" selectedImage="Public figure" id="aAi-Kn-mGs"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4P9-0g-FsI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -102,7 +102,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Community Hub" id="Dtk-MQ-RaG"/>
+                    <tabBarItem key="tabBarItem" title="Community Hub" image="Community Hub" selectedImage="Community Hub" id="Dtk-MQ-RaG"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tm9-x6-TGc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -122,7 +122,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Messages" id="8eZ-pO-JDc"/>
+                    <tabBarItem key="tabBarItem" title="Messages" image="Chat" selectedImage="Chat" id="8eZ-pO-JDc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pne-lP-Qrt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -130,6 +130,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="tab" width="16" height="16"/>
+        <image name="Chat" width="80" height="80"/>
+        <image name="Community Hub" width="40" height="40"/>
+        <image name="Public figure" width="22" height="27"/>
+        <image name="home" width="37" height="37"/>
     </resources>
 </document>

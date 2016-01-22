@@ -8,11 +8,23 @@
 
 import UIKit
 
-class EditEventViewController: BaseEditViewController {
+class EditEventViewController: BaseImageEditViewController {
 
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var name: FloatLabelTextField!
+    @IBOutlet weak var startTime: FloatLabelTextField!
+    @IBOutlet weak var endTime: FloatLabelTextField!
+    @IBOutlet weak var allDaySwitch: UISwitch!
+    @IBOutlet weak var location: FloatLabelTextField!
+    @IBOutlet weak var webSite: FloatLabelTextField!
+    @IBOutlet weak var descrip: FloatLabelTextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        popDatePickerTextFields.append(PopDatePickerParam(field: startTime, mode: UIDatePickerMode.DateAndTime))
+        popDatePickerTextFields.append(PopDatePickerParam(field: endTime, mode: UIDatePickerMode.DateAndTime))
+        collection = collectionView
+        shadowObject.append(descrip)
         // Do any additional setup after loading the view.
     }
 
@@ -20,6 +32,7 @@ class EditEventViewController: BaseEditViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
 
     /*

@@ -18,11 +18,13 @@ public class PopDatePicker : NSObject, UIPopoverPresentationControllerDelegate, 
     var dataChanged : PopDatePickerCallback?
     var presented = false
     var offset : CGFloat = 8.0
+    var mode:UIDatePickerMode = .Date
     
-    public init(forTextField: UITextField) {
+    public init(forTextField: UITextField, mode:UIDatePickerMode) {
         
         datePickerVC = PopDateViewController()
         self.textField = forTextField
+        self.mode = mode
         super.init()
     }
     
@@ -34,7 +36,9 @@ public class PopDatePicker : NSObject, UIPopoverPresentationControllerDelegate, 
         
         datePickerVC.delegate = self
         datePickerVC.modalPresentationStyle = UIModalPresentationStyle.Popover
-        datePickerVC.preferredContentSize = CGSizeMake(500,208)
+        datePickerVC.datePickerMode = mode
+        
+        datePickerVC.preferredContentSize = CGSizeMake(getPickerWidth(),208)
         datePickerVC.currentDate = initDate
         
         popover = datePickerVC.popoverPresentationController
@@ -47,6 +51,20 @@ public class PopDatePicker : NSObject, UIPopoverPresentationControllerDelegate, 
             inViewController.presentViewController(datePickerVC, animated: true, completion: nil)
             presented = true
         }
+    }
+    
+    func getPickerWidth() ->CGFloat {
+        switch mode {
+        case .Date:
+             return 420
+        case .DateAndTime :
+            return 460
+        case .Time:
+            return 280
+        case .CountDownTimer:
+            return 360
+        }
+        
     }
     
     public func adaptivePresentationStyleForPresentationController(PC: UIPresentationController) -> UIModalPresentationStyle {
@@ -66,4 +84,19 @@ public class PopDatePicker : NSObject, UIPopoverPresentationControllerDelegate, 
         }
         presented = false
     }
+}
+
+struct PopDatePickerParam :Equatable{
+    var textField:UITextField!
+    var mode:UIDatePickerMode = .Date
+    
+    init(field:UITextField, mode:UIDatePickerMode){
+        self.mode = mode
+        self.textField = field
+    }
+    
+}
+
+func ==(lhs: PopDatePickerParam, rhs: PopDatePickerParam) -> Bool {
+    return lhs.textField == rhs.textField
 }

@@ -8,22 +8,24 @@
 
 import UIKit
 
-private let reuseIdentifier = "WorkCell"
 
 class MyWorkCollectionViewController: BaseNestedTabViewController {
     
-    var myWorks = [MyWork]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        numberOfSections = 1
+        reuseIdentifier = "WorkCell"
+        editControlllerIdentifier = "EditWorkViewController"
+        detailControllerIdentifier = "MyWorkDetailController"
         // add dummy data
         for i in 1...4 {
-            let dummyWork = MyWork()
+            let dummyWork = MyWorkData()
             dummyWork.description = "Description of work \(i)"
             dummyWork.title = "Title of work \(i)"
-            dummyWork.date = MyUtils.getCurrentDateInlong()
-            myWorks.append(dummyWork)
+            dummyWork.date = ""
+            entries.append(dummyWork)
         }
         
     }
@@ -33,6 +35,11 @@ class MyWorkCollectionViewController: BaseNestedTabViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override func getDataForNewItem() ->BaseData {
+        return MyWorkData()
+    }
+
+    
     /*
     // MARK: - Navigation
 
@@ -76,42 +83,21 @@ class MyWorkCollectionViewController: BaseNestedTabViewController {
     }
     */
     
-    override func onActionButtonClick(sender: AnyObject) {
-         let controller = MyUtils.presentViewController(self, identifier: "EditWorkViewController")
-        if let editController = controller as? BaseEditViewController {
-            editController.setDataSourceWith(.NEW, and: nil)
-        }
-    }
-
-}
-
-extension MyWorkCollectionViewController : UICollectionViewDelegate{
-    
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        let controller = MyUtils.presentViewController(self, identifier: "EditWorkViewController")
-        if let editController = controller as? BaseEditViewController {
-            editController.setDataSourceWith(.EDIT, and: myWorks[indexPath.row])
-        }
-    }
-    
-}
-
-
-
-extension MyWorkCollectionViewController : UICollectionViewDataSource {
-    
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+       return entries.count
         
-        return 1
     }
     
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return myWorks.count
-    }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+//    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+//        let controller = MyUtils.presentViewController(self, identifier: "EditWorkViewController")
+//        if let editController = controller as? BaseEditViewController {
+//            editController.setDataSourceWith(.EDIT, and: entries[indexPath.row])
+//        }
+//    }
+    
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
         
         // indexPath.section
@@ -121,14 +107,14 @@ extension MyWorkCollectionViewController : UICollectionViewDataSource {
         return cell
     }
     
+
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        showDetailViewController(indexPath.row)
+    }
     
+    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+
 }
 
-extension MyWorkCollectionViewController : UICollectionViewDelegateFlowLayout{
-    
-    //    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
-    //    {
-    //        return CGSize(width: Int(collectionView.frame.size.width) - 5, height: Int(collectionView.frame.size.height))
-    //    }
-    
-}

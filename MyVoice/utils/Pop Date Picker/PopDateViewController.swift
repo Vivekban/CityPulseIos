@@ -18,7 +18,7 @@ class PopDateViewController : UIViewController {
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var datePicker: UIDatePicker!
     weak var delegate : DataPickerViewControllerDelegate?
-
+    var datePickerMode :UIDatePickerMode = .Date
     var currentDate : NSDate? {
         didSet {
             updatePickerCurrentDate()
@@ -52,6 +52,7 @@ class PopDateViewController : UIViewController {
     override func viewDidLoad() {
         
         updatePickerCurrentDate()
+        datePicker.datePickerMode = self.datePickerMode
     }
     
     override func viewDidDisappear(animated: Bool) {

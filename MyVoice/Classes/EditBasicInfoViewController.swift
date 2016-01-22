@@ -16,26 +16,34 @@ class EditBasicInfoViewController: BaseEditViewController {
     private let reuseIdentifier = "EditInfoCell"
     
     var items:[String]?
+    var allTextFields = [UITextField]()
     var textFieldsDatas:[TextFieldInputData]?
+    var infoType:PersonInfoType = .Basic {
+        didSet{
+            items = CurrentSession.i.personUI?.getInfoItemBy(infoType)
+            textFieldsDatas  = CurrentSession.i.personUI?.getTextFieldDataBy(infoType.rawValue)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateItemUrl = ServerUrls.updateUserDetailsUrl
         collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismissKeyboard"))
     }
    
     
-    override func saveDetails() {
-        
-    }
+//    override func saveDetails() {
+//        
+//    }
     
-    override func setDataSourceWith(type: Type, and data: AnyObject?) {
-        super.setDataSourceWith(type, and: data)
-        if let d = data as? EditInfoData {
-            items = CurrentSession.i.personUI?.getInfoItemBy(d.type)
-            textFieldsDatas  = CurrentSession.i.personUI?.getTextFieldDataBy(d.type)
+    override func fetchDataFromUIElements() {
+        let data = CurrentSession.i.personController.person.basicInfo
+        
+        for i in 0..<allTextFields.count {
+            data.setValueBy(infoType, row: i, value: allTextFields[i].text ?? "")
         }
     }
-    
+
 }
 
 
@@ -62,7 +70,7 @@ extension EditBasicInfoViewController : UICollectionViewDataSource {
             
             switch (tFData.inputType){
             case .DATE_PICKER:
-                addTextFieldForDatePopOver(cell.textField)
+                addTextFieldForDatePopOver(PopDatePickerParam(field: cell.textField, mode: .Date))
                 break
             case .PICKER:
                 var info = PickerInfo()
@@ -76,6 +84,10 @@ extension EditBasicInfoViewController : UICollectionViewDataSource {
             }
             
         }
+        if let infoType = PersonInfoType(rawValue: indexPath.section) {
+            cell.textField.text = CurrentSession.i.personController.person.basicInfo.getValueBy(infoType, row: indexPath.row) ?? ""
+        }
+        allTextFields.append(cell.textField)
         // indexPath.section
         // indexPath.row
         // Configure the cell

@@ -14,12 +14,17 @@ class ResidentUI: PersonUI {
         super.init()
         basicInfoItems += ["Full Name","Martial Status", "Date of Birth", "City you care for","Gender", "Issues you care for"]
         contactInfoItems += ["Address","Facebook","City","Twitter Handle", "Zip", "LinkedIn","Phone","Email"]
-        nHomeTabs = 3
         
         breifViewCollectionRect = CGRectMake(750, 10, 240, 80)
         briefViewItems = [Constants.BriefItemUI_Credits,Constants.BriefItemUI_Badges,Constants.BriefItemUI_Total_donations]
         
+        profileTabs = [TwoString(str1: "BasicInfo", str2: "Info"),TwoString(str1: "BasicInfo", str2: "Activity"),TwoString(str1: "EventViewController", str2: "Events")]
+    }
+    
+    override func personSpecificParmeter() {
+        nHomeTabs = 3
         
+
     }
     
     override func getTextFieldDataBy(index: Int)->[TextFieldInputData]?{

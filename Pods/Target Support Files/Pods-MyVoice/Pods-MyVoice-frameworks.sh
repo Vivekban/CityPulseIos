@@ -85,17 +85,23 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-MyVoice/Alamofire.framework"
+  install_framework "Pods-MyVoice/AlamofireImage.framework"
+  install_framework "Pods-MyVoice/AlamofireObjectMapper.framework"
   install_framework "Pods-MyVoice/CocoaLumberjack.framework"
   install_framework "Pods-MyVoice/Kingfisher.framework"
   install_framework "Pods-MyVoice/MBProgressHUD.framework"
+  install_framework "Pods-MyVoice/ObjectMapper.framework"
   install_framework "Pods-MyVoice/SwiftyJSON.framework"
   install_framework "Pods-MyVoice/TZStackView.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-MyVoice/Alamofire.framework"
+  install_framework "Pods-MyVoice/AlamofireImage.framework"
+  install_framework "Pods-MyVoice/AlamofireObjectMapper.framework"
   install_framework "Pods-MyVoice/CocoaLumberjack.framework"
   install_framework "Pods-MyVoice/Kingfisher.framework"
   install_framework "Pods-MyVoice/MBProgressHUD.framework"
+  install_framework "Pods-MyVoice/ObjectMapper.framework"
   install_framework "Pods-MyVoice/SwiftyJSON.framework"
   install_framework "Pods-MyVoice/TZStackView.framework"
 fi

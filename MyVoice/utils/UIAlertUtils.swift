@@ -11,17 +11,22 @@ import UIKit
 
 class UIAlertUtils {
     
-    public typealias AlertActionHandler = (UIAlertAction) -> Void
+    typealias AlertActionHandler = (UIAlertAction) -> Void
     
-    static func createAlertFor(controller : UIViewController, with message : String , and action :UIAlertAction){
+    static func createAlertFor(controller : UIViewController, with message : String , and actions :[UIAlertAction]){
         let alert:UIAlertController = UIAlertController(title: controller.title, message: message, preferredStyle:.Alert)
+        for action in actions {
         alert.addAction(action)
+        }
         controller.presentViewController(alert, animated:true, completion:nil);
     }
     
     static func createOkAlertFor(controller : UIViewController, with message : String){
-        createAlertFor(controller, with: message, and: UIAlertAction(title: "Ok".localized, style: .Default, handler: nil))
+        createAlertFor(controller, with: message, and: [UIAlertAction(title: MyStrings.ok, style: .Default, handler: nil)])
     }
     
-    
+    static func createTryAgainWithCancelAlertFor(controller : UIViewController, with message : String, tryAgainHandler:AlertActionHandler){
+        createAlertFor(controller, with: message, and: [UIAlertAction(title: MyStrings.cancel, style: .Default, handler: nil),
+            UIAlertAction(title: MyStrings.tryAgain, style: .Default, handler: tryAgainHandler)])
+    }
 }

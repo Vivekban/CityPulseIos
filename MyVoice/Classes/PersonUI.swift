@@ -12,6 +12,9 @@ import UIKit
 
 
 class PersonUI {
+    
+    // profile tabs
+    var profileTabs = [TwoString]()
     // Person info items
     var basicInfoItems = [String]()
     var contactInfoItems = [String]()
@@ -23,28 +26,34 @@ class PersonUI {
     var breifViewCollectionRect = CGRectMake(0, 0, 220, 80)
     var briefViewItems = [BriefItemUI]()
     
+    
     init(){
         educationInfoItems = ["LAST_DEGREE_HELD".localized,"YEAR".localized]
         occupationInfoItems = ["COMPANY".localized,"TITLE".localized,"FROM".localized, "TO".localized]
+        personSpecificParmeter()
     }
     
-    func getInfoItemBy(index :Int) -> [String]{
+    func personSpecificParmeter(){
+        assertionFailure("method must be overriden")
+    }
+    
+    func getInfoItemBy(index :PersonInfoType) -> [String]{
         switch (index){
-        case 0:
-        return basicInfoItems
-        case 1:
-        return contactInfoItems
-        case 2:
-        return educationInfoItems
-        case 3:
-        return occupationInfoItems
-        default:
-            assertionFailure()
+        case .Basic:
+            return basicInfoItems
+        case .Contact:
+            return contactInfoItems
+        case .Education:
+            return educationInfoItems
+        case .Occupation:
+            return occupationInfoItems
+            
         }
-        return basicInfoItems
     }
     
-    func getTextFieldDataBy(index:Int)->[TextFieldInputData]?{
-        return nil
-    }
+        func getTextFieldDataBy(index:Int)->[TextFieldInputData]?{
+            return nil
+        }
+        
 }
+

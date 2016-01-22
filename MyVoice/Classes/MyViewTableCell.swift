@@ -21,7 +21,8 @@ class MyViewTableCell: UITableViewCell {
     
     @IBOutlet weak var header: UIView!
     
-    
+    @IBOutlet weak var dateField: UILabel!
+
     var isExpanded = true{
         didSet{
             updateArrowLabel()
@@ -29,7 +30,7 @@ class MyViewTableCell: UITableViewCell {
     }
    
     
-    var touchDelegate:MyViewsCellTouchDelegate?
+    weak var touchDelegate:ListHeaderDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -51,23 +52,18 @@ class MyViewTableCell: UITableViewCell {
         //        else{
         //            addSubview(detailLabel)
         //        }
-        
-        print("On header click.........\(tag).........")
-
-        touchDelegate?.onHeaderClick(self)
+    
+        touchDelegate?.onHeaderClick(self.tag)
     }
     
     func onDetailLabelClick(gesture : UIGestureRecognizer){
-        print("number of line \(detailLabel.numberOfLines)")
         if detailLabel.numberOfLines > 0 {
             detailLabel.numberOfLines = 0
         }
         else{
             detailLabel.numberOfLines = 6
         }
-        print("number of line after \(detailLabel.numberOfLines)")
-
-        touchDelegate?.onDetailClick(self)
+        touchDelegate?.onDetailClick(self.tag)
     }
     
     
@@ -80,7 +76,7 @@ class MyViewTableCell: UITableViewCell {
     //MARK: Actions
     
     @IBAction func onEditButtonClick(sender: UIButton) {
-        touchDelegate?.onEditButtonClick(self)
+        touchDelegate?.onEditButtonclick(self.tag)
     }
     
     func updateArrowLabel(){
@@ -106,12 +102,6 @@ class MyViewTableCell: UITableViewCell {
 
 
 
-protocol MyViewsCellTouchDelegate{
-    
-    func onHeaderClick(cell: UITableViewCell)
-    func onDetailClick(cell: UITableViewCell)
-    func onEditButtonClick(cell: UITableViewCell)
-}
 
 
 

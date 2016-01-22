@@ -16,7 +16,7 @@ class BaseTabViewController: UIViewController {
     var tabsMenu:CAPSPageMenu?
     var tabTitles = [String]()
     var tabIndentifiers = [String]()
-    
+    var isBriefBar = true
     // MARK: properties
     
     var controllers:[UIViewController] = [UIViewController]()
@@ -36,8 +36,9 @@ class BaseTabViewController: UIViewController {
         topBar?.frame = CGRectMake(0, 20, view.frame.width, 45)
         view.addSubview(topBar!)
         
-        
+        if isBriefBar {
         loadBriefView()
+        }
         
         setTabsParameter()
         
