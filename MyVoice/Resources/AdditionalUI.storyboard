@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="onY-Y1-JhQ">
+            <objects>
+                <viewController storyboardIdentifier="ReviewViewController" id="nFa-h8-ZDc" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fjC-Hl-3Ed"/>
+                        <viewControllerLayoutGuide type="bottom" id="OgE-xV-1ZC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dVS-TN-ZcN">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="155" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IE0-oW-hgz">
+                                <rect key="frame" x="20" y="0.0" width="560" height="600"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="155" id="Bhe-nc-UPp" customClass="ReviewCell" customModule="MyVoice" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="560" height="155"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bhe-nc-UPp" id="whj-91-duG">
+                                            <rect key="frame" x="0.0" y="0.0" width="560" height="154"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AKZ-LC-4qU">
+                                                    <rect key="frame" x="8" y="8" width="544" height="23"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cou-Ny-Zv9">
+                                                    <rect key="frame" x="8" y="39" width="544" height="21"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="VJh-zH-wZH"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdk-2w-7TK">
+                                                    <rect key="frame" x="8" y="68" width="544" height="21"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ObV-zz-NJC">
+                                                    <rect key="frame" x="415" y="116" width="137" height="30"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="145" id="J95-TS-YUh"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <state key="normal" title="Report a concern"/>
+                                                    <connections>
+                                                        <action selector="onRepotButtonClick:" destination="Bhe-nc-UPp" eventType="touchUpInside" id="Xi8-ms-Vfp"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="cou-Ny-Zv9" secondAttribute="trailing" id="7YQ-IO-yYu"/>
+                                                <constraint firstItem="AKZ-LC-4qU" firstAttribute="top" secondItem="whj-91-duG" secondAttribute="topMargin" id="CXe-QB-mGD"/>
+                                                <constraint firstItem="AKZ-LC-4qU" firstAttribute="leading" secondItem="whj-91-duG" secondAttribute="leadingMargin" id="LKT-RT-5Fj"/>
+                                                <constraint firstItem="ObV-zz-NJC" firstAttribute="trailing" secondItem="whj-91-duG" secondAttribute="trailingMargin" id="Nep-2E-UTD"/>
+                                                <constraint firstItem="cou-Ny-Zv9" firstAttribute="top" secondItem="AKZ-LC-4qU" secondAttribute="bottom" constant="4" id="O3C-lh-XNh"/>
+                                                <constraint firstItem="hdk-2w-7TK" firstAttribute="top" secondItem="cou-Ny-Zv9" secondAttribute="bottom" constant="8" id="Pld-y0-ZaQ"/>
+                                                <constraint firstItem="ObV-zz-NJC" firstAttribute="bottom" secondItem="whj-91-duG" secondAttribute="bottomMargin" id="RYI-Oq-6re"/>
+                                                <constraint firstItem="cou-Ny-Zv9" firstAttribute="leading" secondItem="whj-91-duG" secondAttribute="leadingMargin" id="Twv-pO-ZHQ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="hdk-2w-7TK" secondAttribute="trailing" id="ag9-2L-dLq"/>
+                                                <constraint firstItem="AKZ-LC-4qU" firstAttribute="trailing" secondItem="whj-91-duG" secondAttribute="trailingMargin" id="hDD-Sc-Yob"/>
+                                                <constraint firstItem="ObV-zz-NJC" firstAttribute="top" secondItem="hdk-2w-7TK" secondAttribute="bottom" constant="8" id="j6O-X9-plT"/>
+                                                <constraint firstItem="hdk-2w-7TK" firstAttribute="leading" secondItem="whj-91-duG" secondAttribute="leadingMargin" id="o7L-D6-SAy"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                        <connections>
+                                            <outlet property="descriptionLabel" destination="hdk-2w-7TK" id="haa-iy-N4P"/>
+                                            <outlet property="heading" destination="AKZ-LC-4qU" id="BnB-nv-Xiv"/>
+                                            <outlet property="nameDateLabel" destination="cou-Ny-Zv9" id="Xax-jW-83g"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="IE0-oW-hgz" firstAttribute="top" secondItem="dVS-TN-ZcN" secondAttribute="topMargin" id="16i-Im-Fge"/>
+                            <constraint firstItem="IE0-oW-hgz" firstAttribute="leading" secondItem="dVS-TN-ZcN" secondAttribute="leadingMargin" id="LQG-St-jji"/>
+                            <constraint firstItem="OgE-xV-1ZC" firstAttribute="top" secondItem="IE0-oW-hgz" secondAttribute="bottom" id="eMw-OT-tW0"/>
+                            <constraint firstItem="IE0-oW-hgz" firstAttribute="trailing" secondItem="dVS-TN-ZcN" secondAttribute="trailingMargin" id="xQb-uZ-9uf"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OEA-Dd-ZqX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="463" y="324"/>
+        </scene>
+    </scenes>
+</document>

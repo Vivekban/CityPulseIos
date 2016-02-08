@@ -8,9 +8,8 @@
 
 import UIKit
 
-private let reuseIdentifier = "IssueCell"
 
-class IssueViewController: UIViewController {
+class IssueViewController: BaseNestedTabViewController {
     
     var type = IssuesConrollerType.Own
     
@@ -19,7 +18,18 @@ class IssueViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        editControlllerIdentifier = "EditIssueControlller"
+        detailControllerIdentifier = "IssueDetailController"
+        reuseIdentifier = "IssueCell"
+        
+        for i in 0...4 {
+            let issue = IssueData()
+            issue.title = "Title of issue\(i)"
+            issue.description = "Description of issue\(i)"
+            issue.disPlayDate = TimeDateUtils.getShortDateInString(NSDate())
+            entries.append(issue)
+        }
+        
         // Do any additional setup after loading the view.
     }
     
@@ -37,36 +47,27 @@ class IssueViewController: UIViewController {
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        print("view will disapper")
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func newIssue(){
-        print("on new issue")
-    }
-    
-}
-
-extension IssueViewController : UICollectionViewDataSource {
-    
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            return entries.count
         
-        return 1
     }
     
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 6
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! IssueCollectionViewCell
+        
+        
+        if let d = entries[indexPath.row] as? IssueData{
+            cell.title.text = d.title
+            cell.detail.text = d.description
+            cell.category.text = d.category
+            cell.date.text = d.disPlayDate
+        }
         
         // indexPath.section
         // indexPath.row
@@ -75,27 +76,16 @@ extension IssueViewController : UICollectionViewDataSource {
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        //1
-        switch kind {
-            //2
-        case UICollectionElementKindSectionHeader:
-            //3
-            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind,withReuseIdentifier: "BasicInfoHeaderView",forIndexPath: indexPath)
-            return headerView
-        default:
-            //4
-            assert(false, "Unexpected element kind")
-        }
-        return UICollectionReusableView()
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        showDetailViewController(indexPath.row)
+    }
+    
+    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
     }
     
 }
-extension IssueViewController : UICollectionViewDelegateFlowLayout{
-    
-    //    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
-    //    {
-    //        return CGSize(width: Int(collectionView.frame.size.width) - 5, height: Int(collectionView.frame.size.height))
-    //    }
-    
-}
+
+
+
+

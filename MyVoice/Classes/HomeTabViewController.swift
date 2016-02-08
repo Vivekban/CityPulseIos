@@ -42,7 +42,7 @@ class HomeTabViewController: BaseTabViewController {
     
     
     override func onActionButtonClick(sender: UIButton) {
-        (tabsMenu?.controllerArray[(tabsMenu?.currentPageIndex)!] as? IssueViewController)?.newIssue()
+        (tabsMenu?.controllerArray[(tabsMenu?.currentPageIndex)!] as? BaseNestedTabViewController)?.onActionButtonClick(sender)
 
     }
     

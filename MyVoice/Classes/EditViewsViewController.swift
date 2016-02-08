@@ -20,10 +20,14 @@ class EditViewsViewController: BaseEditViewController {
         super.viewDidLoad()
         popDatePickerTextFields.append(PopDatePickerParam(field: dateField, mode: .Date))
         addItemUrl = ServerUrls.addViewUrl
-        shadowObject.append(descriptionField)
+        updateItemUrl = ServerUrls.updateViewUrl
+        // shadowObject.append(descriptionField)
         // Do any additional setup after loading the view.
     }
     
+    override func getDataForNewItem() -> BaseData {
+        return MyViewData()
+    }
 
     
     override func didReceiveMemoryWarning() {
@@ -36,7 +40,7 @@ class EditViewsViewController: BaseEditViewController {
         if let d = data as? MyViewData {
             titleField.text = d.title
             descriptionField.text = d.description
-            dateField.text = d.date.isEmpty ? MyUtils.getShortDateInString(NSDate()): d.date
+            dateField.text = d.disPlayDate.isEmpty ? TimeDateUtils.getShortDateInString(NSDate()): d.disPlayDate
         }
         
     }
@@ -45,7 +49,7 @@ class EditViewsViewController: BaseEditViewController {
         if let d = data as? MyViewData {
             d.title = titleField.text ?? ""
             d.description = descriptionField.text ?? ""
-            d.date = dateField.text ?? ""
+            d.disPlayDate = dateField.text ?? ""
         }
     }
     

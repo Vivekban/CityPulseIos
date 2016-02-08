@@ -28,6 +28,7 @@ class TopBarView: UIView {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
+        changeVisibiltOfBackButton(true)
     }
     
     func changeVisibiltOfBackButton(visible:Bool){

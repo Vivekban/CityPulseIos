@@ -44,6 +44,7 @@ import UIKit
 			title.frame = r
 			hintLabel.text = hint
 			hintLabel.sizeToFit()
+            // hintLabel.textColor = UIColor(red: CGFloat(5.0/255), green: CGFloat(146.0/255), blue: CGFloat(1), alpha: 1)
 		}
 	}
 	
@@ -128,6 +129,7 @@ import UIKit
 	
 	// MARK:- Private Methods
 	private func setup() {
+        
 		initialTopInset = textContainerInset.top
 		textContainer.lineFragmentPadding = 0.0
 		titleActiveTextColour = tintColor
@@ -156,6 +158,10 @@ import UIKit
 			nc.addObserver(self, selector:"layoutSubviews", name:UITextViewTextDidBeginEditingNotification, object:self)
 			nc.addObserver(self, selector:"layoutSubviews", name:UITextViewTextDidEndEditingNotification, object:self)
 		}
+        
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.lightGrayColor().CGColor
+        //clipsToBounds = true
 	}
 
 	private func adjustTopTextInset() {
@@ -225,4 +231,6 @@ import UIKit
             self.title.frame = r
             }, completion:nil)
 	}
+    
+    
 }

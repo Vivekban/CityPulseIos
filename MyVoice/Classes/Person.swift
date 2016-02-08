@@ -10,122 +10,55 @@ import Foundation
 import ObjectMapper
 import SwiftyJSON
 
-class PersonController {
-    var person:Person!
-    var userId:Double!
-    
-    init(userID:Double){
-        self.userId = userID
-        person = Person()
-        getUserViews(nil)
-        getUserInfo(nil)
-        
-    }
-    
-    func getUserInfo(completionHandler:ServerRequestCallback?){
-        let uInfoRequest = ServerRequest(url: ServerUrls.getUserDetailsUrl, postData: ["userid":"\(userId)"]) { (result) -> Void in
-            
-            if let cH = completionHandler {
-                cH(result)
-            }
-            
-            switch result {
-            case .Success(let data):
-                if let d = data {
-                    print(d)
-                    self.person.basicInfo  = Mapper<PersonBasicData>().map(data)!
-                    
-                    
-                }
-                break
-            case .Failure(let error):
-                print(error)
-                
-            }
-        }
-        ServerRequestInitiater.i.initiateServerRequest(uInfoRequest)
-        
-        
-    }
-    
-    func getUserViews(completionHandler:ServerRequestCallback?){
-        let uInfoRequest = ServerRequest(url: ServerUrls.getViewByUserIdUrl, postData: ["userid":"\(userId)"]) { (result) -> Void in
-            
-            if let cH = completionHandler {
-                cH(result)
-            }
-            
-            switch result {
-            case .Success(let data):
-                if let d = data {
-                    // print(d)
-                    
-                    let viewArray = JSON(d)
-                    self.person.views.removeAll()
-                    for (i,obj) in viewArray {
-                        if let finalString = obj.rawString() {
-                            // print(" value is \(i)...+....\(finalString)")
-                            if let view = Mapper<MyViewData>().map(finalString) {
-                                self.person.views.append(view)
-                            }
-                        }
-                    }
-                    // person.basicInfo  = Mapper<PersonBasicData>().map(data)
-                    
-                    
-                }
-                break
-            case .Failure(let error):
-                print(error)
-                
-            }
-        }
-        ServerRequestInitiater.i.initiateServerRequest(uInfoRequest)
-    }
-    
-}
-
 class Person{
     var basicInfo:PersonBasicData = PersonBasicData()
+    var profileData:ProfileData = ProfileData()
     var views:[MyViewData] = [MyViewData]()
     var work:[MyWorkData] = [MyWorkData]()
     var event:[EventData] = [EventData]()
     var video:[MyVideo] = [MyVideo]()
     
     init(){
+        for i in 1...2 {
+            let dummyWork = MyWorkData()
+            dummyWork.description = "Description of work \(i)"
+            dummyWork.title = "Title of work \(i)"
+            work.append(dummyWork)
+        }
     }
 }
 
 
 class PersonBasicData : BaseData{
     var user_type = PersonType.RESIDENT.rawValue
-    var password:String?
-    var initials:String?
-    var first_name:String?
-    var dOB	 :String?
-    var gender:String?
-    var political_party:String?
-    var maritial_status:String?
-    var issue_care	 :String?
-    var city_care	 :String?
-    var address1	 :String?
-    var city	 :String?
-    var zip	 :String?
-    var landline	 :String?
-    var mobile	 :String?
-    var facebook	 :String?
-    var linkedin	 :String?
-    var twitter :String?
-    var email	 :String?
-    var last_degree	 :String?
-    var degree_year	 :String?
-    var company	 :String?
-    var position	 :String?
-    var occupation_time_from :String?
-    var occupation_time_to :String?
+    var password:String = ""
+    var initials:String = ""
+    var first_name:String = ""
+    var twitter :String = ""
+    var dob	 :String = ""
+    var gender:String = ""
+    var political_party:String = ""
+    var marital_status:String = ""
+    var issue_care	 :String = ""
+    var city_care	 :String = ""
+    var address1	 :String = ""
+    var city	 :String = ""
+    var zip	 :String = ""
+    var landline	 :String = ""
+    var mobile	 :String = ""
+    var facebook	 :String = ""
+    var linkedin	 :String = ""
+    var email	 :String = ""
+    var last_degree	 :String = ""
+    var degree_year	 :String = ""
+    var company	 :String = ""
+    var position	 :String = ""
+    var occupation_time_from :String = ""
+    var occupation_time_to :String = ""
     
     override init() {
         super.init()
+        dob = TimeDateUtils.getShortDateInString(NSDate())
     }
     
     required init?(_ map: Map) {
@@ -133,13 +66,11 @@ class PersonBasicData : BaseData{
     }
     
     override func isReadyToSave() -> String {
-        if let name = first_name {
-            if name.isEmpty {
-                return MyStrings.messageNameEmpty
-            }
-        }
-        else {
+        if first_name.isEmpty {
             return MyStrings.messageNameEmpty
+        }
+        else if  dob.isEmpty {
+            return MyStrings.messageDobEmpty
         }
         
         return ""
@@ -147,18 +78,39 @@ class PersonBasicData : BaseData{
     
     override func mapping(map: Map) {
         super.mapping(map)
+        
+        // id <- map["id"]
+        // owner <- map["owner"]
+        if gender.characters.count > 1 {
+            gender = "\(gender[gender.startIndex])"
+        }
+        if marital_status.characters.count > 1 {
+            marital_status = "\(marital_status[marital_status.startIndex])"
+        }
+        
+        
+        if dob.containsString(",") {
+            dob = TimeDateUtils.getServerStyleDateInString(dob)
+        }
+        if occupation_time_from.containsString(",") {
+            occupation_time_from = TimeDateUtils.getServerStyleDateInString(occupation_time_from)
+        }
+        if occupation_time_to.containsString(",") {
+            occupation_time_to = TimeDateUtils.getServerStyleDateInString(occupation_time_to)
+        }
+        
         user_type  <- map["user_type"]
         password <- map["password"]
         initials <- map["initials"]
         first_name <- map["first_name"]
         //   last_name    <- map["last_name"]
-        dOB	         <- map["dOB"]
+        dob	         <- map["dob"]
         gender       <- map["gender"]
         political_party  <- map["political_party"]
-        maritial_status <- map["maritial_status"]
+        marital_status <- map["marital_status"]
         issue_care <- map["issue_care"]
         city_care <- map["city_care"]
-        address1 <- map["address1"]
+        address1 <- map["add1"]
         city	   <- map["city"]
         zip	  <- map["zip"]
         landline <- map["landline"]
@@ -174,7 +126,7 @@ class PersonBasicData : BaseData{
         occupation_time_from <- map["occupation_time_from"]
         occupation_time_to <- map["occupation_time_to"]
         
-        twitter <- map["twitter"]
+        twitter <- map["twiter"]
     }
     
     func getValueBy(section :PersonInfoType , row:Int) -> String? {
@@ -186,14 +138,22 @@ class PersonBasicData : BaseData{
             case 0:
                 return first_name
             case 1:
-                return maritial_status
+                if marital_status.characters.count == 1 {
+                    return marital_status.caseInsensitiveCompare("S") == .OrderedSame ? MyStrings.single:MyStrings.married
+                }
+                return marital_status
             case 2:
-                return dOB
+                if dob.containsString("-") {
+                    return TimeDateUtils.getClientStyleDateFromServerString(dob)
+                }
+                return dob
             case 3:
                 return city_care
             case 4:
+                if gender.characters.count == 1 {
+                    return gender.caseInsensitiveCompare("M") == .OrderedSame ? MyStrings.male:MyStrings.female
+                }
                 return gender
-                
             case 5:
                 return issue_care
             case 6:
@@ -208,7 +168,6 @@ class PersonBasicData : BaseData{
                 return address1
             case 1:
                 return facebook
-                
             case 2:
                 return city
             case 3:
@@ -263,24 +222,20 @@ class PersonBasicData : BaseData{
                 first_name = value
                 break
             case 1:
-                maritial_status = value
+                marital_status = value
                 break
-                
             case 2:
-                dOB = value
+                dob = value
                 break
-                
             case 3:
                 city_care = value
                 break
-                
             case 4:
                 gender = value
                 break
             case 5:
                 issue_care = value
                 break
-                
             case 6:
                 political_party = value
                 break
@@ -292,34 +247,25 @@ class PersonBasicData : BaseData{
             switch row {
             case 0:
                 address1 = value
-                
-                
                 break
             case 1:
                 facebook = value
-                
-                
                 break
             case 2:
                 city = value
                 break
-                
             case 3:
                 twitter = value
                 break
-                
             case 4:
                 zip = value
                 break
-                
             case 5:
                 linkedin = value
                 break
-                
             case 6:
                 mobile = value
                 break
-                
             case 7:
                 email = value
                 break
@@ -331,7 +277,6 @@ class PersonBasicData : BaseData{
             case 0:
                 last_degree = value
                 break
-                
             case 1:
                 degree_year = value
                 break
@@ -343,19 +288,15 @@ class PersonBasicData : BaseData{
             case 0:
                 company = value
                 break
-                
             case 1:
                 position = value
                 break
-                
             case 2:
                 occupation_time_from = value
                 break
-                
             case 3:
                 occupation_time_to = value
                 break
-                
             case 4:
                 break
             default:
@@ -370,7 +311,7 @@ class PersonBasicData : BaseData{
     
     
     enum PersonType:String{
-        case RESIDENT = "Resident";
-        case LEADER = "Leader"
+        case RESIDENT = "R";
+        case LEADER = "L"
     }
 }

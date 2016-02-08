@@ -69,10 +69,13 @@ class PopPickerViewController: UIViewController {
     @IBAction func onOkButtonClick(sender: UIButton) {
         self.dismissViewControllerAnimated(true) {
             var rows = [String]()
-            for i in 0..<(self.info?.items!.count)!  {
-             rows.append((self.info?.items![i][self.pickerView.selectedRowInComponent(i)])!)
+            for (i,item) in (self.info?.items?.enumerate())!  {
+                let j = self.pickerView.selectedRowInComponent(i)
+                if (item.count > j){
+                 rows.append(item[j])
+                }
             }
-            self.delegate?.popPickerVCDismissed(rows)
+            self.delegate?.popPickerVCDismissed(rows.count > 0 ? rows : nil)
         }
     }
     

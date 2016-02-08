@@ -25,11 +25,9 @@ class MyViewsViewController: BaseNestedTabViewController {
         reuseIdentifier = "MyViewsCell"
         
         let data = CurrentSession.i.personController.person.views
+        entries = data
         
-        for entry in data {
-            entries.append(entry)
-        }
-        
+        self.tablView = tableView
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -48,11 +46,7 @@ class MyViewsViewController: BaseNestedTabViewController {
     
     
     // MARK: - Table view data source
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
+   
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -71,11 +65,11 @@ class MyViewsViewController: BaseNestedTabViewController {
             cell.isExpanded = false
         }
         
-        if let entry = entries[indexPath.row] as? MyViewData{
+        if let entry = entries[entries.count - indexPath.row - 1] as? MyViewData{
             cell.heading.text = entry.title
             cell.detailLabel.text = entry.description
             cell.detailLabel.sizeToFit()
-            cell.dateField.text = entry.date
+            cell.dateField.text = entry.disPlayDate
         }
         return cell
     }

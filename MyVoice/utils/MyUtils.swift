@@ -11,7 +11,8 @@ import UIKit
 
 class MyUtils{
     
-    
+   
+   
     static func getDatePicker(target: AnyObject?, selector:Selector) -> UIDatePicker{
         let datePickerView:UIDatePicker = UIDatePicker()
         datePickerView.datePickerMode = UIDatePickerMode.Date
@@ -37,43 +38,18 @@ class MyUtils{
         return nil
     }
     
-    static func getShortDateInString(date : NSDate) -> String{
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .MediumStyle
-        return formatter.stringFromDate(date)
-    }
-    
-    static func getStringFrom(date : NSDate, mode:UIDatePickerMode) -> String{
-        let formatter = NSDateFormatter()
+    static func getViewControllerFromStoryBoard(storyBoadName : String, controllerName : String) -> UIViewController? {
+        let aStoryboard =  UIStoryboard(name: storyBoadName, bundle: NSBundle.mainBundle())
         
-        switch (mode) {
-        case .Date:
-            formatter.dateStyle = .MediumStyle
-            formatter.timeStyle = .NoStyle
-            break
-        case .Time:
-            formatter.dateStyle = .NoStyle
-            formatter.timeStyle = .ShortStyle
-            break
-        case .DateAndTime:
-            formatter.dateStyle = .MediumStyle
-            formatter.timeStyle = .ShortStyle
-            break
-        case .CountDownTimer:
-            formatter.dateStyle = .NoStyle
-            formatter.timeStyle = .MediumStyle
-            break
+        if controllerName.isEmpty {
+           return aStoryboard.instantiateInitialViewController()
         }
-        
-        
-        
-        return formatter.stringFromDate(date)
+        else{
+           return aStoryboard.instantiateViewControllerWithIdentifier(controllerName)
+        }
     }
     
-    static func getCurrentDateInlong() -> Double{
-        return NSDate().timeIntervalSince1970
-    }
-    
+       
     static func imageResize (image:UIImage, sizeChange:CGSize)-> UIImage{
         
         UIGraphicsBeginImageContext(sizeChange)
@@ -112,6 +88,16 @@ class MyUtils{
                 Int64(time * Double(NSEC_PER_SEC))),
             dispatch_get_main_queue(),
             work)
+    }
+    
+    static func appendKayToJSONString(string:String) -> String{
+        return "{\"data\":\(string)}"
+
+    }
+    
+    
+    static func makeStringTrimmed(inputString :String) -> String{
+        return inputString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
     }
     
 }

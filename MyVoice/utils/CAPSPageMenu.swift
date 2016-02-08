@@ -123,6 +123,8 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
     public var menuItemSeparatorColor : UIColor = UIColor.lightGrayColor()
     
     public var menuItemFont : UIFont = UIFont.systemFontOfSize(17.0)
+    public var menuItemBoldFont : UIFont = UIFont.boldSystemFontOfSize(17.0)
+
     public var menuItemSeparatorPercentageHeight : CGFloat = 0.2
     public var menuItemSeparatorWidth : CGFloat = 0.5
     public var menuItemSeparatorRoundEdges : Bool = false
@@ -427,7 +429,7 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
         // Set selected color for title label of selected menu item
         if menuItems.count > 0 {
             if menuItems[currentPageIndex].titleLabel != nil {
-                menuItems[currentPageIndex].titleLabel!.textColor = selectedMenuItemLabelColor
+                self.changeApperaanceOfMenuItemTitle(menuItems[currentPageIndex].titleLabel, isSelected: true)
             }
         }
         
@@ -716,11 +718,25 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
                 // Switch newly selected menu item title label to selected color and old one to unselected color
                 if self.menuItems.count > 0 {
                     if self.menuItems[self.lastPageIndex].titleLabel != nil && self.menuItems[self.currentPageIndex].titleLabel != nil {
-                        self.menuItems[self.lastPageIndex].titleLabel!.textColor = self.unselectedMenuItemLabelColor
-                        self.menuItems[self.currentPageIndex].titleLabel!.textColor = self.selectedMenuItemLabelColor
+                        self.changeApperaanceOfMenuItemTitle(self.menuItems[self.lastPageIndex].titleLabel, isSelected: false)
+                        self.changeApperaanceOfMenuItemTitle(self.menuItems[self.currentPageIndex].titleLabel, isSelected: true)
                     }
                 }
             })
+        }
+    }
+    
+    // MARK: - Menu item selection 
+    
+    func changeApperaanceOfMenuItemTitle(lable: UILabel? , isSelected:Bool){
+        if isSelected {
+        lable!.textColor = self.selectedMenuItemLabelColor
+            lable!.font = self.menuItemBoldFont
+
+        }
+        else{
+            lable!.textColor = self.unselectedMenuItemLabelColor
+            lable!.font = self.menuItemFont
         }
     }
     

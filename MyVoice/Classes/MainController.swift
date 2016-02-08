@@ -45,10 +45,60 @@ class MainController: UITabBarController {
             
         }
         
+        let newUser = PersonBasicData()
+        newUser.first_name = " First User"
+        newUser.email = "firstUser@gmail.com"
+        newUser.initials = "Mr"
+        newUser.facebook = "facebook..com/first_user"
+        newUser.gender = "m"
+        newUser.id = -1
+        newUser.dob = TimeDateUtils.getServerStyleDateInString(NSDate())
+        newUser.mobile = "1323123123"
+        newUser.zip = "12323"
+        newUser.password = "asdfasdfasdf"
+        
+        let jString = MyUtils.appendKayToJSONString(newUser.toJSONString()!)
+        print("josn of new user  \(jString)")
+
+     //   ServerRequestInitiater.i.addUser(["json": jString])
+        ServerRequestInitiater.i.postMessageToServer(ServerUrls.getIssueByIdUrl, postData: ["issueid": "1"]) { (r) -> Void in
+            switch r {
+            case .Success(let data):
+                
+                if let d = data {
+                    print(d)
+                }
+                break
+            case .Failure(let error):
+                print(error)
+                
+            }
+
+        }
+        
+        
+        
+        var parameter:[String:String] = [String:String]()
+        
+        parameter["apikey"] = ServerUrls.watsonApiKey
+        parameter["text"] = "Here is a piece of C++ code that seems very peculiar. For some strange reason, sorting the data miraculously makes the code almost six times faster.Without std::sort(data, data + arraySize) obama always thought Java was pass-by-reference; however I've seen a couple of blog posts (for example, this blog) that claim it's not. I do not think I understand the distinction they are making.What is the explanation?"
+        parameter["maxRetrieve"] = "10"
+         parameter["keywordExtractMode"] = "strict"
+        parameter["outputMode"] = "json"
+        
+//        ServerRequestInitiater.i.postMessageToServer(ServerUrls.getEntityUrl, postData: parameter) { (result) -> Void in
+//            print(result)
+//        }
+//
+        
+        
         
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: UIFont(name: "Helvetica", size: CGFloat(15))!], forState:.Normal)
         UITabBar.appearance().tintColor = UIColor.whiteColor()
         UITabBar.appearance().itemWidth = 100
+        
+        
+        // print(MyUtils.getServerStyleDateInString("Feb 4, 2016"))
         
         //UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState:.Normal)
         

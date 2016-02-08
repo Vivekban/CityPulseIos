@@ -23,8 +23,7 @@ class PersonUI {
     
     var nHomeTabs = 1
     var briefViewXibName = "BriefProfileBar"
-    var breifViewCollectionRect = CGRectMake(0, 0, 220, 80)
-    var briefViewItems = [BriefItemUI]()
+    var briefType:BriefProfilePersonType = BriefProfilePersonType.Resident
     
     
     init(){

@@ -18,6 +18,17 @@ class BaseNestedTabViewController :UIViewController{
     var editControlllerIdentifier = ""
     var detailControllerIdentifier = ""
     
+    // collections table 
+    var collecView:UICollectionView?
+    var tablView:UITableView?
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        collecView?.reloadData()
+        tablView?.reloadData()
+    }
+    
     func reloadData(index:Int){
         preconditionFailure("This method must be overridern")
     }
@@ -42,12 +53,35 @@ class BaseNestedTabViewController :UIViewController{
         if let con = MyUtils.presentViewController(self, identifier: editControlllerIdentifier) as? BaseEditViewController {
             let data = getDataForEditing(index)
             con.delegate = self
-            con.setDataSourceWith(.EDIT, and: entries, index: index)
+            
+            con.setDataSourceWith(.EDIT, data: &entries, index: index)
         }
     
     }
     
 }
+
+// MARK: - Scrollview delegate
+
+extension BaseNestedTabViewController : UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        // log.info("scroll view is getting event  \(scrollView.panGestureRecognizer.velocityInView(scrollView.superview))")
+        NSNotificationCenter.defaultCenter().postNotificationName(Constants.notification_center_scroll_key, object: scrollView)
+    }
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        NSNotificationCenter.defaultCenter().postNotificationName(Constants.notification_center_scroll_event_key, object: 1)
+
+    }
+    
+    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        NSNotificationCenter.defaultCenter().postNotificationName(Constants.notification_center_scroll_event_key, object: 2)
+
+    }
+    
+}
+
 
 extension BaseNestedTabViewController : BaseDetaiViewControllerDelegate {
     func onEditButtonClick(index: Int) {
@@ -62,8 +96,14 @@ extension BaseNestedTabViewController : BaseDetaiViewControllerDelegate {
 }
 
 extension BaseNestedTabViewController : BaseEditViewControllerDelegate {
-    func afterSaveDetail(index: Int) {
-        
+    func afterSaveDetail(type: EditControllerType, modifiedData: [BaseData], index: Int) {
+        switch (type) {
+        case .NEW:
+            entries = modifiedData
+            break;
+        default:
+            break;
+        }
     }
 }
 
@@ -72,7 +112,8 @@ extension BaseNestedTabViewController : BaseNestedTabProtocoal{
      func onActionButtonClick(sender: AnyObject) {
         let controller = MyUtils.presentViewController(self, identifier: editControlllerIdentifier)
         if let editController = controller as? BaseEditViewController {
-            editController.setDataSourceWith(.NEW, and: [getDataForNewItem()],index:0)
+            editController.setDataSourceWith(.NEW, data: &entries,index:-1)
+            editController.delegate = self
         }
     }
 }
@@ -107,6 +148,11 @@ extension BaseNestedTabViewController :UICollectionViewDelegate{
 }
 
 extension BaseNestedTabViewController :UITableViewDataSource{
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return numberOfSections
+    }
+
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return entries.count
     }

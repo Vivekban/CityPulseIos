@@ -13,17 +13,29 @@ import ObjectMapper
 class Constants {
     
     static let isDebug = true
-    static let tempUserId:Double = 1
+    static let tempUserId:Int = 1
+    
+    static let accentColor = UIColor(red: CGFloat(5.0/255), green: CGFloat(146.0/255), blue: CGFloat(1), alpha: 1)
+
+    static let notification_center_scroll_key = "scroll_key"
+    static let notification_center_scroll_event_key = "scroll_event_key"
+
     
     static let personInfoHeader = ["BASIC_INFO".localized,"CONTACT_INFO".localized,"EDUCATION_INFO".localized,"OCCUPATION_INFO".localized]
-    static let accentColor = UIColor(red: CGFloat(5.0/255), green: CGFloat(146.0/255), blue: CGFloat(1), alpha: 1)
     
-    static let BriefItemUI_Follower = BriefItemUI(heading: "Follower".localized, index: 0, isClickable: false)
-    static let BriefItemUI_Issue_Resolved = BriefItemUI(heading: "Issue_resolved".localized, index: 1, isClickable: false)
-    static let BriefItemUI_Badges = BriefItemUI(heading: "Badges".localized, index: 2, isClickable: false)
-    static let BriefItemUI_Total_donations = BriefItemUI(heading: "Total_donations".localized, index: 3, isClickable: false)
-    static let BriefItemUI_Credits = BriefItemUI(heading: "Credits".localized, index: 4, isClickable: false)
-    static let BriefItemUI_Reviews = BriefItemUI(heading: "Reviews".localized, index: 5, isClickable: true)
+    static let BriefItemUI_Follower = BriefItemUI(heading: "Follower".localized, index: "Followers", isClickable: false)
+   
+    static let BriefItemUI_Issue_Resolved = BriefItemUI(heading: "Issue_resolved".localized, index: "Issue", isClickable: false)
+    static let BriefItemUI_Issue_Raised = BriefItemUI(heading: MyStrings.issueRaised, index: "Issue", isClickable: false)
+    
+    static let BriefItemUI_Badges = BriefItemUI(heading: "Badges".localized, index: "Badges", isClickable: false)
+    
+    static let BriefItemUI_Total_donations = BriefItemUI(heading: "Total_donations".localized, index: "Donation", isClickable: false)
+    static let BriefItemUI_Amount_donated = BriefItemUI(heading: MyStrings.amountDonated, index: "Donation", isClickable: false)
+
+    static let BriefItemUI_Credits = BriefItemUI(heading: "Credits".localized, index: "Credit", isClickable: false)
+   
+    static let BriefItemUI_Reviews = BriefItemUI(heading: "Reviews".localized, index: "Review", isClickable: true)
   
 }
 
@@ -50,12 +62,12 @@ class MyColor {
 
 struct BriefItemUI {
     var heading = ""
-    var index = 0
     var isClickable = false
+    var iconName = "Badges"
     
-    init (heading: String , index:Int, isClickable: Bool){
+    init (heading: String , index:String, isClickable: Bool){
         self.heading = heading
-        self.index = index
+        self.iconName = index
         self.isClickable = isClickable
     }
 }
@@ -107,6 +119,10 @@ struct TwoString {
     }
 }
 
+struct UIScrollViewWithEvent {
+    var scrollView:UIScrollView!
+     
+}
 
 
 

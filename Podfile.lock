@@ -12,22 +12,26 @@ PODS:
     - CocoaLumberjack/Default
   - CocoaLumberjack/Swift (2.2.0):
     - CocoaLumberjack/Extensions
+  - HTTPStatusCodes (2.0.1)
   - Kingfisher (1.8.5)
   - MBProgressHUD (0.9.1)
   - ObjectMapper (1.1.1)
   - SwiftyJSON (2.3.2)
   - TZStackView (1.1.2)
+  - XCGLogger (3.2)
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
   - AlamofireImage (~> 2.0)
   - AlamofireObjectMapper (~> 2.1)
   - CocoaLumberjack/Swift
+  - HTTPStatusCodes (~> 2.0.0)
   - Kingfisher (~> 1.8)
   - MBProgressHUD (~> 0.9.1)
   - ObjectMapper (~> 1.1)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
   - TZStackView (~> 1.1.2)
+  - XCGLogger (~> 3.2)
 
 EXTERNAL SOURCES:
   SwiftyJSON:
@@ -43,10 +47,12 @@ SPEC CHECKSUMS:
   AlamofireImage: bedb8a4bdfb98eda81ba12952fba6e9e90420922
   AlamofireObjectMapper: 24097576202064f8b0a583452dd934064f78dc0e
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
+  HTTPStatusCodes: 26d1e05a27eae13e672b4d374ce682ef7008970a
   Kingfisher: 780fed0fa82692a3bd59d53329ae2b85cdd354a5
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   ObjectMapper: 4143abed1dbd49b73d75092fe8fa1c88ed6434b7
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TZStackView: 19aeaa414fb653f4be9b80a73f4f0c66e33bf033
+  XCGLogger: da1f341f4bb8979db6e1df64232f04d9698402d4
 
 COCOAPODS: 0.39.0

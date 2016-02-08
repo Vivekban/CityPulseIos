@@ -23,6 +23,7 @@ class UIAlertUtils {
     
     static func createOkAlertFor(controller : UIViewController, with message : String){
         createAlertFor(controller, with: message, and: [UIAlertAction(title: MyStrings.ok, style: .Default, handler: nil)])
+
     }
     
     static func createTryAgainWithCancelAlertFor(controller : UIViewController, with message : String, tryAgainHandler:AlertActionHandler){

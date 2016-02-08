@@ -30,20 +30,29 @@ class EditBasicInfoViewController: BaseEditViewController {
         updateItemUrl = ServerUrls.updateUserDetailsUrl
         collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismissKeyboard"))
     }
-   
     
-//    override func saveDetails() {
-//        
-//    }
+    
+    //    override func saveDetails() {
+    //
+    //    }
     
     override func fetchDataFromUIElements() {
-        let data = CurrentSession.i.personController.person.basicInfo
-        
-        for i in 0..<allTextFields.count {
-            data.setValueBy(infoType, row: i, value: allTextFields[i].text ?? "")
+        if let d = data as? PersonBasicData {
+            for i in 0..<allTextFields.count {
+                d.setValueBy(infoType, row: i, value: allTextFields[i].text ?? "")
+            }
         }
     }
-
+    
+    override func isDataReadyToSave() -> String? {
+        switch (infoType) {
+        case .Basic:
+            return super.isDataReadyToSave()
+        default:
+            return ""
+        }
+    }
+    
 }
 
 
@@ -84,9 +93,9 @@ extension EditBasicInfoViewController : UICollectionViewDataSource {
             }
             
         }
-        if let infoType = PersonInfoType(rawValue: indexPath.section) {
-            cell.textField.text = CurrentSession.i.personController.person.basicInfo.getValueBy(infoType, row: indexPath.row) ?? ""
-        }
+        
+        cell.textField.text = CurrentSession.i.personController.person.basicInfo.getValueBy(infoType, row: indexPath.row) ?? ""
+        
         allTextFields.append(cell.textField)
         // indexPath.section
         // indexPath.row

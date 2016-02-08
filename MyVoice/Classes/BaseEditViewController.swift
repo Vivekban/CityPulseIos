@@ -11,21 +11,21 @@ import UIKit
 
 protocol BaseEditViewControllerDelegate : class{
     
-    func afterSaveDetail(index:Int)
+    func afterSaveDetail(type:EditControllerType, modifiedData :[BaseData], index:Int)
     
+}
+enum EditControllerType : Int {
+    case NEW = 1,EDIT
 }
 
 class BaseEditViewController: UIViewController {
     
-    enum Type : Int {
-        case NEW = 1,EDIT
-    }
     
     //MARK: data source fields
     var data:BaseData?
-    var dataArray:[BaseData]?
+    var dataArray:[BaseData]!
     var dataIndex = 0
-    var type:Type = .EDIT
+    var type:EditControllerType = .EDIT
     
     //MARK: Bar Title fields
     var mainTitle:String = ""
@@ -92,7 +92,6 @@ class BaseEditViewController: UIViewController {
             MyUtils.createShadowOnView(vw)
         }
         
-        progressHUD.text = MyStrings.saving + mainTitle
     }
     
     func initialiseViews(){
@@ -139,14 +138,24 @@ class BaseEditViewController: UIViewController {
     }
     
     
-    func setDataSourceWith(type:Type, and data :[BaseData]?, index:Int){
+    func setDataSourceWith(type:EditControllerType, inout data :[BaseData], index:Int){
         self.type = type
-        self.data = data![index]
+        
+        switch (type) {
+        case .NEW:
+            self.data = getDataForNewItem()
+            break;
+        default:
+            self.data = data[index]
+            break;
+        }
         self.dataArray = data
         self.dataIndex = index
     }
     
-    
+    func getDataForNewItem() -> BaseData {
+        return BaseData()
+    }
     
     
     func addTargetsTo(saveButton: AnyObject?, and cancelButton: AnyObject?){
@@ -175,6 +184,8 @@ class BaseEditViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    //MARK: Saving Data
+    
     func onSaveButtonClick() {
         fetchDataFromUIElements()
         checkIsReadyToSave()
@@ -184,9 +195,13 @@ class BaseEditViewController: UIViewController {
         assertionFailure()
     }
     
+    func isDataReadyToSave() -> String?{
+        return data?.isReadyToSave()
+    }
+    
     
     func checkIsReadyToSave() {
-        let message = data?.isReadyToSave()
+        let message = isDataReadyToSave()
         if (message!.isEmpty) {
             saveDetails()
         }
@@ -205,25 +220,47 @@ class BaseEditViewController: UIViewController {
     func saveDetails(){
         
         let url = type == .EDIT ? updateItemUrl : addItemUrl
+        
         if !url.isEmpty {
             
             if var info = data?.toJSONString() {
+                progressHUD.text = MyStrings.saving + mainTitle
                 progressHUD.show()
                 info = "{\"data\":\(info)}"
-                ServerRequestInitiater.i.postMessageToServer(url, postData: ["json" : info], completionHandler: { (result) -> Void in
-                    self.serverRequestResult(result)
-                })
+                
+                print("data sending for savingh \(info)")
+//                ServerRequestInitiater.i.postMessageToServer(url, postData: ["json" : info], completionHandler: { (result) -> Void in
+//                    self.serverRequestResult(result)
+//                })
+                
+                let uInfoRequest = ServerRequest(url: url, postData: ["json" : info]) { [weak self](result) -> Void in
+                    self!.serverRequestResult(result)
+                 }
+                uInfoRequest.responseType = .Normal
+                ServerRequestInitiater.i.initiateServerRequest(uInfoRequest)
+                
             }
         }
         
     }
     
     func serverRequestResult(result:ServerResult){
+       
+        
+        if type == .NEW {
+            dataArray.append(data!)
+           // CurrentSession.i.recentrlyEditedData = dataArray
+
+        }
+        //TODO: remove this line and uncomment line below
+        delegate?.afterSaveDetail(type, modifiedData: dataArray, index: dataIndex)
+        
+
         switch result {
         case .Success(let value):
             if let uv = value {
                 print(uv)
-                delegate?.afterSaveDetail(self.dataIndex)
+               // delegate?.afterSaveDetail(self.dataIndex)
                 onCancelButtonClick()
             }
             break
@@ -234,6 +271,9 @@ class BaseEditViewController: UIViewController {
             })
             break
         }
+        
+        
+        
         progressHUD.hide()
 
     }
@@ -269,7 +309,7 @@ extension BaseEditViewController : UITextFieldDelegate {
             let dataChangedCallback : PopDatePicker.PopDatePickerCallback = { (newDate : NSDate, forTextField : UITextField) -> () in
                 
                 // here we don't use self (no retain cycle)
-                forTextField.text = (MyUtils.getStringFrom(newDate, mode: mode) ?? "?") as String
+                forTextField.text = (TimeDateUtils.getStringFrom(newDate, mode: mode) ?? "?") as String
                 
             }
             

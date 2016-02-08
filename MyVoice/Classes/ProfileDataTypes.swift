@@ -16,7 +16,14 @@ import ObjectMapper
 // MARK: Info
 
 class InfoData : BaseData{
-    var content: String = ""
+    var content: String = "" {
+        didSet{
+            let trimString =  MyUtils.makeStringTrimmed(content)
+            if trimString != content {
+                content = trimString
+            }
+        }
+    }
     override func mapping(map: Map) {
         super.mapping(map)
         content <- map["content"]
@@ -34,10 +41,14 @@ class MyViewData :TitleDesDateData{
 // MARK: Work
 
 class MyWorkData:ImageUrlData {
-    var date:String = ""
-    override func mapping(map: Map) {
+    var likes = 0
+    var comments = 0
+    var category = "Category"
+     override func mapping(map: Map) {
         super.mapping(map)
-        date <- map["datetime"]
+        likes <- map["likes"]
+        comments <- map["comments"]
+        category <- map["category"]
     }
 }
 

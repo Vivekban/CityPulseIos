@@ -19,7 +19,7 @@ class BaseCollectionViewCell: UICollectionViewCell , DataBinding{
     */
     override func awakeFromNib() {
         super.awakeFromNib()
-        MyUtils.createShadowOnView(self)
+        // MyUtils.createShadowOnView(self)
     }
     
     func bindValues(model : AnyObject){

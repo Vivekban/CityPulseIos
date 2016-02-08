@@ -24,8 +24,11 @@ class BasicInfoViewController: BaseHeaderCollectionView {
         for _ in 0...3{
             entries.append(CurrentSession.i.personController.person.basicInfo)
         }
+        
+        collecView = collectionView
     }
     
+   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -66,11 +69,15 @@ class BasicInfoViewController: BaseHeaderCollectionView {
     
     override func onEditButtonclick(index: Int) {
         if let con = MyUtils.presentViewController(self, identifier: editControlllerIdentifier) as? EditBasicInfoViewController {
-            let data = CurrentSession.i.personController.person.basicInfo
-            con.setDataSourceWith(.EDIT, and: [data], index: 0)
+            var data = CurrentSession.i.personController.person.basicInfo
+            var en = [BaseData]()
+            en.append(data)
+            con.setDataSourceWith(.EDIT, data: &en, index: 0)
             con.infoType = PersonInfoType(rawValue: index)!
         }
     }
+    
+ 
     
 }
 

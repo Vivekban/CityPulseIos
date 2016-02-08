@@ -42,5 +42,10 @@ class ServerImageFetcher {
         }
     }
     
+    func loadProfileImageWithDefaultsIn(iv :UIImageView, url :String){
+        if let nSUrl = NSURL(string: url){
+            iv.af_setImageWithURL(nSUrl, placeholderImage: UIImage(named: "Issue"),filter:AspectScaledToFillSizeFilter(size: iv.frame.size),imageTransition: .CrossDissolve(0.2))
+        }
+    }
     
 }

@@ -8,22 +8,29 @@
 
 import UIKit
 
+
+
 class CurrentSession {
     
    static let i = CurrentSession()
+    
+    var userId:Int = 0
     
     private init(){
         personUI = LeaderUI()
         mainPersonUI = personUI
         secondaryPersonUI = ResidentUI()
-        var id = NSUserDefaults.standardUserDefaults().doubleForKey(PermanentDataKey.userId)
+        userId = NSUserDefaults.standardUserDefaults().integerForKey(PermanentDataKey.userId)
         
         if Constants.isDebug {
-            id = Constants.tempUserId
+            userId = Constants.tempUserId
         }
+    
         
-         personController = PersonController(userID: id)
+        personController = PersonController(userID: userId)
         mainPersonController = personController
+        
+        issueController = IssueController()
     }
     
     var personUI:PersonUI? // current person
@@ -34,5 +41,11 @@ class CurrentSession {
     
     var personController:PersonController!
     var mainPersonController:PersonController!
+    
+    // MARK: - issues
+
+    var issueController:IssueController!
+    
+    var recentrlyEditedData:[BaseData]?
     
 }

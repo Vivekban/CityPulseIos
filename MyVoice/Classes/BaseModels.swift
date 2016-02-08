@@ -14,9 +14,12 @@ import ObjectMapper
 // Data types....
 
 class BaseData:Mappable{
-    var owner:Double = 0
+    var userid:Int = 0
+    var id:Int = 0
+    var owner = ""
     init(){
-        owner = 1
+        userid = 1//CurrentSession.i.userId
+        owner = "\(userid)"
     }
     
     required init?(_ map: Map) {
@@ -24,6 +27,8 @@ class BaseData:Mappable{
     }
     
     func mapping(map: Map) {
+        userid <- map["userid"]
+        id <- map["id"]
         owner <- map["owner"]
     }
     
@@ -35,8 +40,24 @@ class BaseData:Mappable{
 }
 
 class TitleDescriptionData: BaseData {
-    var title:String = ""
-    var description:String = ""
+    var title:String = "" {
+        didSet{
+            let trimString =  MyUtils.makeStringTrimmed(title)
+            if trimString != title {
+                 title = trimString
+            }
+        }
+    }
+
+    var description:String = ""{
+        didSet{
+            let trimString =  MyUtils.makeStringTrimmed(description)
+            if trimString !=  description{
+            description = trimString
+            }
+        }
+    }
+
     
     override func mapping(map: Map) {
         super.mapping(map)
@@ -56,8 +77,28 @@ class TitleDescriptionData: BaseData {
 }
 
 class TitleDesDateData :TitleDescriptionData{
-    var date:String = ""
-    
+    private var date:String = ""
+    var disPlayDate:String {
+        get {
+            if !date.isEmpty {
+                if date.containsString("-"){
+                    return TimeDateUtils.getClientStyleDateFromServerString(date)
+                }
+            }
+            return TimeDateUtils.getShortDateInString(NSDate())
+
+        }
+        
+        set (newValue) {
+            if !newValue.isEmpty {
+                if newValue.containsString(","){
+                    date = TimeDateUtils.getServerStyleDateInString(newValue)
+                    return
+                }
+            }
+            date = newValue
+        }
+    }
     override func mapping(map: Map) {
         super.mapping(map)
         date <- map["datetime"]
@@ -66,7 +107,7 @@ class TitleDesDateData :TitleDescriptionData{
 }
 
 
-class ImageUrlData : TitleDescriptionData{
+class ImageUrlData : TitleDesDateData{
     var imagesUrls = [String]()
     override func mapping(map: Map) {
         super.mapping(map)

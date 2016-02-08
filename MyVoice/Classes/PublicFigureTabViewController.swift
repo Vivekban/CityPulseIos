@@ -12,7 +12,9 @@ class PublicFigureTabViewController: BaseTabViewController {
 
     override func viewDidLoad() {
         isBriefBar = false
+        menuItemWidth = 150
         super.viewDidLoad()
+        actionButton.hidden = true
 
         // Do any additional setup after loading the view.
     }

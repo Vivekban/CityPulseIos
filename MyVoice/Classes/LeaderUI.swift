@@ -14,14 +14,12 @@ class LeaderUI: ResidentUI {
         super.init()
         basicInfoItems += ["PoliticalParty"]
         nHomeTabs = 5
-        breifViewCollectionRect = CGRectMake(420, 10, 584, 80)
-        briefViewItems = [Constants.BriefItemUI_Follower,Constants.BriefItemUI_Issue_Resolved,Constants.BriefItemUI_Badges,Constants.BriefItemUI_Total_donations,Constants.BriefItemUI_Credits,Constants.BriefItemUI_Reviews]
-        profileTabs += [TwoString(str1: "MyWorkViewController", str2: "My Work"),TwoString(str1: "MyViews", str2: "My Views"),TwoString(str1: "MyWorkViewController", str2: "Videos")]
-        
+        profileTabs += [TwoString(str1: "MyWorkViewController", str2: "My Work"),TwoString(str1: "MyViews", str2: "My Views")]
+        //TwoString(str1: "MyWorkViewController", str2: "Videos")
     }
     
     override func personSpecificParmeter() {
-        
+        briefType = BriefProfilePersonType.Leadear
     }
     
     override func basicTextFieldInfo()->[TextFieldInputData]{

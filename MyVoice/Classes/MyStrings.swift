@@ -11,11 +11,24 @@ import Foundation
 
 class MyStrings {
     
-    static let messageTitleEmpty = "Title is Empty"
-    static let messageDescriptionIsEmpty = "Description is Empty"
-    static let messageNameEmpty = "Name is Empty"
-    static let messageStartDateEmpty = "Start Date is Empty"
-    static let messageEndDateEmpty = "End Date is Empty"
+    static let messageTitleEmpty = "Title is empty"
+    static let messageDescriptionIsEmpty = "Description is empty"
+    static let messageNameEmpty = "Name is empty"
+    static let messageStartDateEmpty = "Start Date is empty"
+    static let messageEndDateEmpty = "End Date is empty"
+    static let messageDobEmpty = "Date of birth is empty"
+
+
+    static let single = "Single"
+    static let married = "Married"
+    static let male = "Male"
+    static let female = "Female"
+
+    
+    //
+    static let event = "Event"
+    static let work = "Work".localized
+    static let issue = "Issue"
 
 
     static let saving = "Saving"
@@ -30,6 +43,17 @@ class MyStrings {
     static let top_public_figure = "Top Public Figure"
     static let my_public_figure = "My Public Figure"
 
+    // Brielf Bar
+    static let issueRaised = "Issue Raised"
+    static let amountDonated = "Amount Donated"
+
+    // community tabs
+    static let myCommunity = "My Community"
+    static let communities = "Communities"
+    static let topResident = "Top Resident"
+    static let topCommunity = "Top Communities"
+    
+    static let fetchingTag = "Getting Tags"
 
 
 }

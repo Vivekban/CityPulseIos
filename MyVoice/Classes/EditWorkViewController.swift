@@ -18,11 +18,20 @@ class EditWorkViewController: BaseImageEditViewController {
     
     override func viewDidLoad() {
         mainTitle = "Work".localized
+        
         super.viewDidLoad()
+        
         popDatePickerTextFields.append(PopDatePickerParam(field: dateField, mode: UIDatePickerMode.DateAndTime))
         collection = imagesCollection
         // Do any additional setup after loading the view.
-        shadowObject.append(descriptionField)
+        //shadowObject.append(descriptionField)
+        
+        addItemUrl = ServerUrls.addWorkUrl
+        updateItemUrl = ServerUrls.updateWorkUrl
+    }
+    
+    override func getDataForNewItem() -> BaseData {
+        return MyWorkData()
     }
     
     override func initialiseViews() {
@@ -30,7 +39,7 @@ class EditWorkViewController: BaseImageEditViewController {
         if let d = data as? MyWorkData {
             titleField.text = d.title
             descriptionField.text = d.description
-            dateField.text =  d.date.isEmpty ? MyUtils.getShortDateInString(NSDate()): d.date
+            dateField.text =  d.disPlayDate
         }
     }
     
@@ -38,7 +47,7 @@ class EditWorkViewController: BaseImageEditViewController {
         if let d = data as? MyWorkData {
             d.title = titleField.text ?? ""
             d.description = descriptionField.text ?? ""
-            d.date = dateField.text ?? ""
+            d.disPlayDate = dateField.text ?? ""
         }
     }
     

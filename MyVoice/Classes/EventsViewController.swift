@@ -20,9 +20,13 @@ class EventsViewController: BaseHeaderCollectionView {
         reuseIdentifier = "EventCell"
         editControlllerIdentifier = "EditEventViewController"
         
-        for _ in 0...3{
-            entries.append(EventData())
-        }
+        entries = CurrentSession.i.personController.person.event
+        
+//        for _ in 0...3{
+//            entries.append(EventData())
+//        }
+        
+        collecView = collectionView
         // Do any additional setup after loading the view.
     }
 

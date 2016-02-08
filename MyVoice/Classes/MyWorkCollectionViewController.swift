@@ -11,6 +11,7 @@ import UIKit
 
 class MyWorkCollectionViewController: BaseNestedTabViewController {
     
+    @IBOutlet weak var collecitonView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,14 +21,15 @@ class MyWorkCollectionViewController: BaseNestedTabViewController {
         editControlllerIdentifier = "EditWorkViewController"
         detailControllerIdentifier = "MyWorkDetailController"
         // add dummy data
-        for i in 1...4 {
-            let dummyWork = MyWorkData()
-            dummyWork.description = "Description of work \(i)"
-            dummyWork.title = "Title of work \(i)"
-            dummyWork.date = ""
-            entries.append(dummyWork)
-        }
-        
+//        for i in 1...2 {
+//            let dummyWork = MyWorkData()
+//            dummyWork.description = "Description of work \(i)"
+//            dummyWork.title = "Title of work \(i)"
+//            dummyWork.date = "20/12/2009"
+//            entries.append(dummyWork)
+//        }
+        collecView = collecitonView
+        entries = CurrentSession.i.personController.person.work
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,11 +100,19 @@ class MyWorkCollectionViewController: BaseNestedTabViewController {
 //    }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MyWorkCollectionViewCell
         
         // indexPath.section
         // indexPath.row
         // Configure the cell
+        if let info = entries[indexPath.row] as? MyWorkData{
+            cell.details.text = info.description
+            cell.date.text = info.disPlayDate
+            cell.title.text = info.title
+            cell.likes.text = "\(info.likes)"
+            cell.comments.text = "\(info.comments)"
+            cell.category.text = info.category
+        }
         
         return cell
     }
