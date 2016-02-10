@@ -17,6 +17,7 @@ class Person{
     var work:[MyWorkData] = [MyWorkData]()
     var event:[EventData] = [EventData]()
     var video:[MyVideo] = [MyVideo]()
+    var reviews:[ReviewData] = [ReviewData]()
     
     init(){
         for i in 1...2 {
@@ -129,7 +130,7 @@ class PersonBasicData : BaseData{
         twitter <- map["twiter"]
     }
     
-    func getValueBy(section :PersonInfoType , row:Int) -> String? {
+    func getValueBy(section :PersonBasicInfoType , row:Int) -> String? {
         
         switch (section){
         case .Basic:
@@ -212,7 +213,7 @@ class PersonBasicData : BaseData{
         return ""
     }
     
-    func setValueBy(section :PersonInfoType , row:Int , value: String) {
+    func setValueBy(section :PersonBasicInfoType , row:Int , value: String) {
         
         switch (section){
         case .Basic:

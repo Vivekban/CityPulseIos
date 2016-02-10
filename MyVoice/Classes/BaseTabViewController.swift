@@ -27,6 +27,7 @@ class BaseTabViewController: UIViewController {
     var tabsViewStartPoint :CGFloat = 0
     
     var menuItemWidth:CGFloat = 100
+    var menuItemWithAccordingToText = false
     // action button particular to tab
     var actionButton : UIButton = UIButton(type: .System)
     
@@ -43,15 +44,19 @@ class BaseTabViewController: UIViewController {
     // additional view
     var additionalController:UIViewController?
     
+    var currentActiveView:UIView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         createActionButton()
         
-        
         topBar = UINib(nibName: "TopBar", bundle: nil).instantiateWithOwner(self, options: nil)[0] as? TopBarView
+        topBar?.delegate = self
         topBar?.frame = CGRectMake(0, 20, view.frame.width, 45)
         view.addSubview(topBar!)
+        
+        topBar?.cityField.text = CurrentSession.i.userPlacemark?.locality
         tabsViewStartPoint = ((topBar?.frame.origin.y)!) + (topBar!.frame.height)
         
         if isBriefBar {
@@ -63,19 +68,36 @@ class BaseTabViewController: UIViewController {
         loadTabs()
         
         tabsMenu?.view.addSubview(actionButton)
+        currentActiveView = tabsMenu?.view
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if let i = tabsMenu?.currentPageIndex {
+            didMoveToPage((tabsMenu?.controllerArray[i])!, index: i)
+        }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onViewScroll:", name: Constants.notification_center_scroll_key, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onViewScrollEvent:", name: Constants.notification_center_scroll_event_key, object: nil)
         
+        EventUtils.addObserver(self, selector: Selector("onLocationUpdate"), key: EventUtils.locationUpdateKey)
+        log.info("adding observer...............\(tabTitles[0]).")
+        
+        
     }
+    
+    func onLocationUpdate(){
+        topBar?.cityField.text = CurrentSession.i.userPlacemark?.locality
+    }
+
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        
+        log.info("removing observer..............\(tabTitles[0])..")
+
     }
     
     func onViewScrollEvent(sender:NSNotification){
@@ -130,7 +152,6 @@ class BaseTabViewController: UIViewController {
         
         if newTabsPos != tabsViewStartPoint {
             
-            
             let change = newTabsPos - tabsViewStartPoint
             
             var frame =  CGRectMake((briefProfileView?.frame.origin.x)!, (briefProfileView?.frame.origin.y)!, (briefProfileView?.frame.size.width)!, newTabsPos - minTabsYpos)
@@ -140,19 +161,15 @@ class BaseTabViewController: UIViewController {
             
             briefProfileView?.setNeedsDisplayInRect(frame)
             
-            print("after \(briefProfileView?.frame)")
             
             tabsViewStartPoint = newTabsPos
             
-            
-            var tabsFrame = tabsMenu?.view.frame
+            var tabsFrame = currentActiveView?.frame
             
             tabsFrame?.size.height -= change
             tabsFrame?.origin.y += change
             
-            tabsMenu?.view.frame = tabsFrame!
-            
-            
+            currentActiveView?.frame = tabsFrame!
             
             view.setNeedsLayout()
         }
@@ -201,12 +218,6 @@ class BaseTabViewController: UIViewController {
         
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        if let i = tabsMenu?.currentPageIndex {
-            didMoveToPage((tabsMenu?.controllerArray[i])!, index: i)
-        }
-    }
     
     func changeVisibilityOfActionButton(visible : Bool){
         actionButton.hidden = !visible
@@ -226,20 +237,26 @@ class BaseTabViewController: UIViewController {
             removeAdditionView()
         }
         
+        additionalController = controller
         controller.willMoveToParentViewController(self)
         
         controller.view.frame = (tabsMenu?.view.frame)!
         self.addChildViewController(controller)
         self.view.addSubview(controller.view)
+        currentActiveView = controller.view
         controller.didMoveToParentViewController(self)
+        topBar?.changeVisibiltOfBackButton(false)
     }
     
     func removeAdditionView() {
         if let oldVC = additionalController {
-            oldVC.willMoveToParentViewController(nil)            
+            oldVC.willMoveToParentViewController(nil)
             oldVC.view.removeFromSuperview()
             oldVC.removeFromParentViewController()
         }
+        currentActiveView = tabsMenu?.view
+        topBar?.changeVisibiltOfBackButton(true)
+
     }
     
     
@@ -288,9 +305,9 @@ extension BaseTabViewController : TabsInitialisation{
         let parameters: [CAPSPageMenuOption] = [
             .MenuItemSeparatorWidth(0),
             .SelectionIndicatorColor(Constants.accentColor),
-            //.MenuItemWidthBasedOnTitleTextWidth(true),
+            .MenuItemWidthBasedOnTitleTextWidth(menuItemWithAccordingToText),
             .MenuHeight(50),
-            //.MenuMargin(25),
+            //.MenuItemSeparatorWidth(15),
             .SelectionIndicatorHeight(7),
             .MenuItemWidth(menuItemWidth)
         ]
@@ -323,6 +340,20 @@ extension BaseTabViewController: BriefProfileBarDelegate {
         if let controller = MyUtils.getViewControllerFromStoryBoard("AdditionalUI", controllerName: "ReviewViewController") {
             addAdditionView(controller)
         }
+    }
+}
+
+// MARK: - Top bar delegate
+
+extension BaseTabViewController : TopBarViewDelegate {
+    func onBackButtonClick() {
+        if additionalController != nil {
+            removeAdditionView()
+        }
+    }
+    
+    func onHelpButtonClick() {
+        
     }
 }
 

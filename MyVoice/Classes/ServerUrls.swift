@@ -44,9 +44,9 @@ class ServerUrls {
     
     // MARK: - event
     
-       static let addEventUrl = baseUrl + "/AddEvent/"
-       static let updateEventUrl = baseUrl + "/UpdateEvet"
-       static let getEventByIdUrl = baseUrl + "/GetEventById"
+    static let addEventUrl = baseUrl + "/AddEvent/"
+    static let updateEventUrl = baseUrl + "/UpdateEvet"
+    static let getEventByIdUrl = baseUrl + "/GetEventById"
 
     // MARK: - work
     

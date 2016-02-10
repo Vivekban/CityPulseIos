@@ -23,6 +23,9 @@ class ResponseView: CommentView {
         votedown = self.viewWithTag(11) as! UIButton
         votedown.addTarget(self, action: "onVoteDown", forControlEvents: UIControlEvents.TouchUpInside)
 
+        MyUtils.createGreyBorder(voteUp)
+        MyUtils.createGreyBorder(votedown)
+        
         totalVotes = self.viewWithTag(12) as! UILabel
 
     }

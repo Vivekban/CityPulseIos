@@ -10,8 +10,32 @@ import UIKit
 
 class ReviewsViewController: BaseNestedTabViewController {
 
+    @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.estimatedRowHeight = 70
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        
+        expandedRows.insert(0)
+        // detailControllerIdentifier = "MyViewDetailController"
+        reuseIdentifier = "reviewCell"
+        
+        let data = CurrentSession.i.personController.person.reviews
+        entries = data
+        
+        let r = ReviewData()
+        r.reviewerName = "vivek"
+        r.title = "Fisrt review"
+        r.description = "This is desc"
+        entries.append(r)
+        
+        personRequestInfoType = PersonInfoRequestType.Reviews
+        if entries.count == 0 {
+            fetchPersonInfoFromServer()
+        }
+        
+        self.tablView = tableView
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -25,7 +49,21 @@ class ReviewsViewController: BaseNestedTabViewController {
         // Dispose of any resources that can be recreated.
     }
 
-   
+    override func getDataForNewItem() ->BaseData {
+        return ReviewData()
+    }
+    
+    
+    override func configureTableCell(cell: UITableViewCell, indexPath: NSIndexPath) {
+        if let d = entries[indexPath.row] as? ReviewData {
+            if let c = cell as? ReviewCell {
+                c.delegate = self
+                c.updateViewsWithData(d)
+            }
+        }
+    }
+    
+    
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
@@ -81,4 +119,12 @@ class ReviewsViewController: BaseNestedTabViewController {
     }
     */
 
+}
+
+
+extension ReviewsViewController : ReviewCellDelegate {
+    func onReportButtonClick(cell: ReviewCell) {
+        let index = tableView.indexPathForCell(cell)
+        //TODO: take report action
+    }
 }

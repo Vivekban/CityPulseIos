@@ -16,7 +16,7 @@ class EditIssueViewController: BaseImageEditViewController {
     @IBOutlet weak var tags: FloatLabelTextField!
     @IBOutlet weak var markTo: FloatLabelTextField!
     @IBOutlet weak var criticalSwitch: UISwitch!
-    @IBOutlet weak var descriptionField: FloatLabelTextView!
+    @IBOutlet weak var descriptionField: DescriptionView!
     @IBOutlet weak var collectionView: UICollectionView!
     
     var isTagsFetched = false
@@ -45,6 +45,8 @@ class EditIssueViewController: BaseImageEditViewController {
         addItemUrl = ServerUrls.addIssueUrl
         updateItemUrl = ServerUrls.updateIssueUrl
         // Do any additional setup after loading the view.
+        
+        fieldHideByKeyboard.append(tags)
         
         tags.delegate = self
     }

@@ -75,7 +75,7 @@ class ServerRequestInitiater {
         //  print(postData["json"]!)
         
         Alamofire.request(.POST,url, parameters: postData, encoding: ParameterEncoding.URLEncodedInURL, headers: nil).responseJSON { (response) -> Void in
-            print(response.response!)
+            print(response.response)
             
             if response.result.isSuccess {
                 completionHandler(.Success(response.result.value))
@@ -114,8 +114,8 @@ class ServerRequestInitiater {
         switch req.responseType {
         case .Json:
             Alamofire.request(req.postType, req.url, parameters: req.postData, encoding: ParameterEncoding.URLEncodedInURL, headers: nil).responseJSON { (response) -> Void in
-                 print(response.response!)
-                //   print(response.data)
+                 print(response.response)
+                   print(response.data)
                 if response.result.isSuccess {
                     if let cH = req.completionHandler {
                         cH(.Success(response.result.value))

@@ -21,6 +21,7 @@ class EditViewsViewController: BaseEditViewController {
         popDatePickerTextFields.append(PopDatePickerParam(field: dateField, mode: .Date))
         addItemUrl = ServerUrls.addViewUrl
         updateItemUrl = ServerUrls.updateViewUrl
+        dateField.hidden = true
         // shadowObject.append(descriptionField)
         // Do any additional setup after loading the view.
     }

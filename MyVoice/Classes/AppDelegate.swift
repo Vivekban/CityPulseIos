@@ -32,6 +32,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         log.setup(.Debug, showThreadName: true, showLogLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: logPath, fileLogLevel: .Debug)
         
         log.xcodeColorsEnabled = true
+        
+        
+        
+        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName:UIFont.boldSystemFontOfSize(20),NSForegroundColorAttributeName:UIColor.darkGrayColor()]
+        
+        
         return true
     }
     

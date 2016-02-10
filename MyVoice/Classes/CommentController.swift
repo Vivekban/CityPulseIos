@@ -8,18 +8,17 @@
 
 import UIKit
 
-class CommentController : UIView {
+class CommentController : UITableViewCell {
     var tableView: UITableView!
     var expandedRows = Set<Int>()
-    var comments: [CommentData]!
+    var comments: [CommentData] = [CommentData]()
     var level = 0
     
-     init(frame: CGRect, data:[CommentData]) {
-      super.init(frame: frame)
-        self.comments = data
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         initViews()
-    }
 
+    }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -29,7 +28,7 @@ class CommentController : UIView {
     }
     
     func initViews(){
-        tableView = UITableView(frame: CGRectMake(0, 0, self.frame.width, self.frame.height))
+        tableView = UITableView(frame: CGRectMake(105, 0, self.frame.width-210, self.frame.height))
         // tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorColor = UIColor.clearColor()
         tableView.rowHeight = 200
@@ -38,6 +37,7 @@ class CommentController : UIView {
         tableView.scrollEnabled = false
         tableView.canCancelContentTouches = false
         tableView.delaysContentTouches = false
+        tableView.allowsSelection = false
         //table.registerClass(CommentController.self, forHeaderFooterViewReuseIdentifier: "footer")
         registerClassForTableView()
         addSubview(tableView)
@@ -47,6 +47,9 @@ class CommentController : UIView {
     func updateComments(data : [CommentData]){
         comments = data
         tableView.reloadData()
+        tableView.frame.size.height = tableView.contentSize.height
+        tableView.frame.size.width = self.frame.width-210
+
     }
     
     func registerClassForTableView(){

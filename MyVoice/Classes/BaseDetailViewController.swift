@@ -21,40 +21,31 @@ class BaseDetailViewController: UIViewController {
     var dataIndex = 0
     
     //MARK: UI parameters
-    var titleLabel: UILabel!
-    var editButton: UIButton!
-    var dateLabel: UILabel!
-    var descriptionLabel: UILabel!
-    var scrollView:UIScrollView!
+    var tableView:UITableView!
+
+    var baseDetailHeight:CGFloat = 300
+    var descptionHeight:CGFloat = 21
     
     weak var delegate:BaseDetaiViewControllerDelegate?
     
-    var heightContraint:NSLayoutConstraint!
+    var numberOfSection = 1
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleLabel =  view.viewWithTag(1) as! UILabel
-        editButton =  view.viewWithTag(2) as! UIButton
         
-        scrollView = view.viewWithTag(99) as! UIScrollView
-        let container = view.viewWithTag(100)
-        //container?.translatesAutoresizingMaskIntoConstraints = false
-        for c in (container?.constraints)! {
-            
-            if c.identifier == "containerHeight" {
-                heightContraint = c
-            }
-        }
-
+        tableView = view.viewWithTag(99) as! UITableView
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorColor = UIColor.clearColor()
+        // tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = view.frame.size.height
+        //let container = view.viewWithTag(100)
         
-        scrollView.canCancelContentTouches = false
+        tableView.canCancelContentTouches = false
         //scrollView.delaysContentTouches
         
-        editButton.addTarget(self, action: "onEditButtonClick", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        dateLabel =  view.viewWithTag(3) as! UILabel
-        descriptionLabel =  view.viewWithTag(4) as! UILabel
         
         let myNavigationItem = (self.view.viewWithTag(10) as? UINavigationBar)?.items![0]
         let item = myNavigationItem?.leftBarButtonItems![0]
@@ -64,19 +55,10 @@ class BaseDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    
-    
     func setDataSourceWith(data :[BaseData]?, index:Int){
         self.data = data![index]
         self.dataArray = data
         self.dataIndex = index
-        
-        if let d = self.data as? TitleDesDateData {
-            titleLabel.text = d.title
-            descriptionLabel.text = d.description
-            dateLabel.text = d.disPlayDate
-        }
-        descriptionLabel.sizeToFit()
         fetchMoreDetailFromServer()
     }
     
@@ -86,14 +68,7 @@ class BaseDetailViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        let size = scrollView.contentSize
-        
-        //  MyUtils.createShadowOnView(descriptionLabel)
-        
-        scrollView.contentSize = CGSizeMake(size.width, size.height + max(0, descriptionLabel.frame.height - 100))
     }
-    
     
     
     override func didReceiveMemoryWarning() {
@@ -102,27 +77,83 @@ class BaseDetailViewController: UIViewController {
     }
     
     
-    func onEditButtonClick(){
-        delegate?.onEditButtonClick(dataIndex)
-        dismissViewControllerAnimated(true, completion: nil)
-        
-    }
-    
     func onBackButtonClick(){
         dismissViewControllerAnimated(true, completion: nil)
         
     }
     
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
+    func getCellIdentifier(indexPath:NSIndexPath) -> String {
+        return indexPath.row == 0 ? "baseDetailCell" : ""
     }
-    */
+
+}
+
+    //MARK: UITableViewDataSource
+extension BaseDetailViewController : UITableViewDataSource {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return numberOfSection
+    }
     
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(getCellIdentifier(indexPath), forIndexPath: indexPath) as UITableViewCell
+        configureCell(cell, forRowAtIndexPath: indexPath)
+        return cell
+    }
+    
+    func configureCell(cell: UITableViewCell, forRowAtIndexPath: NSIndexPath) {
+        if let c = cell as? BaseDetailCell {
+            c.updateViewsWith(data)
+            if (descptionHeight != c.descriptionLabel.frame.size.height) {
+            descptionHeight =  c.descriptionLabel.frame.size.height
+                tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
+            }
+        }
+    }
+    
+}
+
+extension BaseDetailViewController :UITableViewDelegate {
+        //MARK: UITableViewDelegate
+    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
+    
+//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        
+//    }
+//    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return baseDetailHeight + descptionHeight
+    }
+//
+//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        
+//    }
+//    
+//    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        
+//    }
+//    
+//    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        
+//    }
+//    
+//    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        
+//    }
+    
+}
+
+
+extension BaseDetailViewController : BaseDetailCellDelegate {
+    func onEditButtonClick() {
+            delegate?.onEditButtonClick(dataIndex)
+            dismissViewControllerAnimated(true, completion: nil)
+    }
 }
 
 class BaseCommentDetailViewController: BaseDetailViewController {
@@ -130,30 +161,63 @@ class BaseCommentDetailViewController: BaseDetailViewController {
     var commentView:UIView?
     var commentController:CommentController?
     
+    let commentIdentifier = "commentSection"
+    
+    var commentSectionHeight:CGFloat = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        baseDetailHeight = 560
+        numberOfSection = 2
         
-        commentView = view.viewWithTag(999)
-        if commentView != nil {
-            commentController = CommentController(frame: CGRectMake(0, 0, (commentView?.frame.width)!, 500), data: comments)
-            commentController?.tableView.canCancelContentTouches = false
-            commentView!.addSubview(commentController!)
-        }
+        tableView.registerClass(CommentController.self, forCellReuseIdentifier: commentIdentifier)
+        
+//        if commentView != nil {
+//            commentHeightContraint = LayoutConstraintUtils.getHeightContraint(commentView!, height: 40)
+//            commentView?.addConstraint(commentHeightContraint)
+//            commentController = CommentController(frame: CGRectMake(0, 0, (commentView?.frame.width)!, 500), data: comments)
+//            commentController?.tableView.canCancelContentTouches = false
+//            commentView!.addSubview(commentController!)
+//        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        log.info("bound before change\(view.viewWithTag(100)!.frame.size.height)")
-        commentView?.frame.size.height = (commentController?.getHeightOfView())!
-
-        commentController?.tableView.frame.size.height = (commentView?.frame.height)!
-        scrollView.contentSize.height += (commentView?.frame.size.height)!
-        heightContraint.constant = scrollView.contentSize.height
-        
-        //view.viewWithTag(100)!.frame.size.height = scrollView.contentSize.height;
-        log.info("bound after change\(view.viewWithTag(100)!.frame.size.height)")
-        view.layoutIfNeeded()
+//        // commentView?.frame.size.height = (commentController?.getHeightOfView())!
+//        commentController?.tableView.frame.size.height = (commentView?.frame.height)!
+//        tableView.contentSize.height += (commentView?.frame.size.height)!
+//        commentView?.layoutIfNeeded()
+//        //view.viewWithTag(100)!.frame.size.height = scrollView.contentSize.height;
+//        view.layoutIfNeeded()
+    }
+    
+    override func getCellIdentifier(indexPath: NSIndexPath) -> String {
+        switch (indexPath.section) {
+        case 1:
+            return commentIdentifier
+        default:
+            return super.getCellIdentifier(indexPath)
+        }
+    }
+    
+    override func configureCell(cell: UITableViewCell, forRowAtIndexPath: NSIndexPath) {
+        if let c = cell as? CommentController {
+            c.updateComments(comments)
+            if ( commentSectionHeight != c.tableView.contentSize.height ){
+                commentSectionHeight = c.tableView.contentSize.height
+                tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
+            }
+        }
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        switch (indexPath.section) {
+        case 0:
+            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+        default:
+            return commentSectionHeight
+        }
     }
     
 }
@@ -162,83 +226,18 @@ class BaseCommentDetailViewController: BaseDetailViewController {
 
 class BaseImageDetailViewController: BaseCommentDetailViewController {
     
-    var largeImageView:UIImageView!
-    var collectionView:UICollectionView!
-    
-    let cellResueIndentifier = "ImageCell"
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        largeImageView = view.viewWithTag(5) as! UIImageView
-        
-        collectionView = view.viewWithTag(6) as! UICollectionView
+        tableView.rowHeight = 560
     }
     
     override func setDataSourceWith(data: [BaseData]?, index: Int) {
         super.setDataSourceWith(data, index: index)
-        
-        //setInitialLargeImage
-        onItemClick(0)
     }
 }
 
-
-extension BaseImageDetailViewController : UICollectionViewDataSource {
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let d = data as? ImageUrlData {
-            return d.imagesUrls.count
-        }
-        return 0
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellResueIndentifier, forIndexPath: indexPath)
-        
-        let view = cell.viewWithTag(1)
-        if let iv = view as? UIImageView {
-            loadImageInImageView(iv, index: indexPath.row)
-        }
-        
-        //        view?.gestureRecognizers?.removeAll()
-        //        view?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onItemClick:"))
-        
-        return cell
-    }
-    
-    func  loadImageInImageView(view:UIImageView, index:Int) {
-        if let d = data as? ImageUrlData {
-            ServerImageFetcher.i.loadImageWithDefaultsIn(view, url: d.imagesUrls[0])
-        }
-    }
-    
-    func onItemClick(index:Int){
-        if let d = self.data as? ImageUrlData {
-            if index < d.imagesUrls.count {
-                ServerImageFetcher.i.loadImageWithDefaultsIn(largeImageView, url: d.imagesUrls[index])
-                
-            }
-            else{
-                //TODO: impelement default image
-            }
-        }
-    }
-}
-
-extension BaseImageDetailViewController: UICollectionViewDelegate{
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        onItemClick(indexPath.row)
-        
-    }
-    
-    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-}
 
 
 class TestingView : UIView {

@@ -100,4 +100,14 @@ class MyUtils{
         return inputString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
     }
     
+    // MARK: - border
+    static func createGreyBorder(view :UIView?, width:CGFloat = 1){
+        if view != nil {
+        view!.layer.borderWidth = width
+            view?.layer.borderColor = UIColor.lightGrayColor().CGColor
+        }
+    }
+
+    
+    
 }

@@ -115,7 +115,7 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
     var lastPageIndex : Int = 0
     
     public var selectionIndicatorColor : UIColor = UIColor.blackColor()
-    public var selectedMenuItemLabelColor : UIColor = UIColor.blackColor()
+    public var selectedMenuItemLabelColor : UIColor = Constants.grayColor_101
     public var unselectedMenuItemLabelColor : UIColor = UIColor.lightGrayColor()
     public var scrollMenuBackgroundColor : UIColor = UIColor.whiteColor()
     public var viewBackgroundColor : UIColor = UIColor.whiteColor()
@@ -281,6 +281,11 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
         
         menuScrollView.frame = CGRectMake(0.0, 0.0, self.view.frame.width, menuHeight)
         
+        let line = UIView(frame: CGRectMake(0.0, 50, self.view.frame.width, 1))
+        line.tag = 12312
+        line.backgroundColor = Constants.grayColor_217
+        
+        
         self.view.addSubview(menuScrollView)
         
         let menuScrollView_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:|[menuScrollView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
@@ -315,6 +320,9 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
         // Set background color behind scroll views and for menu scroll view
         self.view.backgroundColor = viewBackgroundColor
         menuScrollView.backgroundColor = scrollMenuBackgroundColor
+        
+        view.addSubview(line)
+
     }
     
     func configureUserInterface() {
@@ -365,7 +373,7 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
                 
                 let titleText : String = controllerTitle != nil ? controllerTitle! : "Menu \(Int(index) + 1)"
                 
-                let itemWidthRect : CGRect = (titleText as NSString).boundingRectWithSize(CGSizeMake(1000, 1000), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName:menuItemFont], context: nil)
+                let itemWidthRect : CGRect = (titleText as NSString).boundingRectWithSize(CGSizeMake(1000, 1000), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName:menuItemBoldFont], context: nil)
                 
                 menuItemWidth = itemWidthRect.width
                 
@@ -472,7 +480,7 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
             for (index, menuItem) in menuItems.enumerate() {
                 let controllerTitle = controllerArray[index].title!
                 
-                let itemWidthRect = controllerTitle.boundingRectWithSize(CGSizeMake(1000, 1000), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName:menuItemFont], context: nil)
+                let itemWidthRect = controllerTitle.boundingRectWithSize(CGSizeMake(1000, 1000), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName:menuItemBoldFont], context: nil)
                 
                 menuItemWidth = itemWidthRect.width
                 
@@ -876,6 +884,7 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
     // MARK: - Orientation Change
     
     override public func viewDidLayoutSubviews() {
+        self.view.viewWithTag(12312)?.frame.size.width = view.frame.width
         // Configure controller scroll view content size
         controllerScrollView.contentSize = CGSizeMake(self.view.frame.width * CGFloat(controllerArray.count), self.view.frame.height - menuHeight)
         

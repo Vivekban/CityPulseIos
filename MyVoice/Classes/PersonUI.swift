@@ -36,7 +36,7 @@ class PersonUI {
         assertionFailure("method must be overriden")
     }
     
-    func getInfoItemBy(index :PersonInfoType) -> [String]{
+    func getInfoItemBy(index :PersonBasicInfoType) -> [String]{
         switch (index){
         case .Basic:
             return basicInfoItems

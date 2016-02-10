@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import CoreLocation
 
 
 class CurrentSession {
@@ -15,6 +15,10 @@ class CurrentSession {
    static let i = CurrentSession()
     
     var userId:Int = 0
+    
+    var userLocation:CLLocation?
+    var userPlacemark:CLPlacemark?
+
     
     private init(){
         personUI = LeaderUI()
@@ -41,7 +45,8 @@ class CurrentSession {
     
     var personController:PersonController!
     var mainPersonController:PersonController!
-    
+    var secondaryPersonController:PersonController!
+
     // MARK: - issues
 
     var issueController:IssueController!

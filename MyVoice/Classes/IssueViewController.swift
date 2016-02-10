@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import CoreLocation
 
 class IssueViewController: BaseNestedTabViewController {
     
@@ -25,7 +25,8 @@ class IssueViewController: BaseNestedTabViewController {
         for i in 0...4 {
             let issue = IssueData()
             issue.title = "Title of issue\(i)"
-            issue.description = "Description of issue\(i)"
+            issue.description = "Description of issue\(i) \nDescription of issue\(i) \n and finally line of description of issue\(i) long line it has to be"
+            issue.category = "Park Recreation"
             issue.disPlayDate = TimeDateUtils.getShortDateInString(NSDate())
             entries.append(issue)
         }
@@ -67,6 +68,17 @@ class IssueViewController: BaseNestedTabViewController {
             cell.detail.text = d.description
             cell.category.text = d.category
             cell.date.text = d.disPlayDate
+            
+            if d.status.caseInsensitiveCompare("o") == NSComparisonResult.OrderedSame{
+              cell.status.textColor = UIColor.redColor()
+            }
+            else{
+                cell.status.textColor = Constants.closed_color
+            }
+            cell.status.text = d.displayStatus
+            
+           MapUtils.centerMapOnLocation(cell.locationView, location: CLLocation(latitude: 21.282778, longitude: -157.829444))
+
         }
         
         // indexPath.section

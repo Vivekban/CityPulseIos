@@ -4,39 +4,44 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="230" height="23"/>
+            <rect key="frame" x="0.0" y="0.0" width="243" height="42"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tx0-ys-mjT">
-                    <rect key="frame" x="0.0" y="0.0" width="23" height="23"/>
+                    <rect key="frame" x="0.0" y="0.0" width="42" height="42"/>
                     <animations/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Tx0-ys-mjT" secondAttribute="height" multiplier="1:1" id="Gll-TO-u4u"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="scs-ZC-n9f">
-                    <rect key="frame" x="158" y="2" width="72" height="20"/>
+                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Heading" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48l-Pp-srl">
+                    <rect key="frame" x="46" y="11" width="120" height="21"/>
                     <animations/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.39607843139999999" green="0.39607843139999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Heading" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48l-Pp-srl">
-                    <rect key="frame" x="27" y="2" width="121" height="20"/>
-                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="120" id="PHC-QQ-wJQ"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.39607843139999999" green="0.39607843139999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5V-9m-Adz">
-                    <rect key="frame" x="151" y="1" width="5" height="21"/>
+                    <rect key="frame" x="169" y="11" width="5" height="21"/>
                     <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.39607843139999999" green="0.39607843139999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="scs-ZC-n9f">
+                    <rect key="frame" x="149" y="11" width="89" height="21"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="Plc-Kh-bAl"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.39607843139999999" green="0.39607843139999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -47,19 +52,17 @@
             <constraints>
                 <constraint firstItem="f5V-9m-Adz" firstAttribute="leading" secondItem="48l-Pp-srl" secondAttribute="trailing" constant="3" id="2BZ-4J-5kZ"/>
                 <constraint firstItem="48l-Pp-srl" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="DLl-Vc-uRX"/>
-                <constraint firstAttribute="trailing" secondItem="scs-ZC-n9f" secondAttribute="trailing" id="HNV-9x-G2p"/>
                 <constraint firstItem="Tx0-ys-mjT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="I0Q-xw-85k"/>
                 <constraint firstItem="48l-Pp-srl" firstAttribute="leading" secondItem="Tx0-ys-mjT" secondAttribute="trailing" constant="4" id="Lfq-MI-HEC"/>
                 <constraint firstItem="f5V-9m-Adz" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="M8w-JD-S1W"/>
-                <constraint firstItem="scs-ZC-n9f" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="25:80" id="Ndk-SF-MjJ"/>
                 <constraint firstAttribute="bottom" secondItem="Tx0-ys-mjT" secondAttribute="bottom" id="YVn-gb-x1d"/>
-                <constraint firstItem="48l-Pp-srl" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="21:40" id="eS2-uE-eyJ"/>
+                <constraint firstItem="scs-ZC-n9f" firstAttribute="leading" secondItem="f5V-9m-Adz" secondAttribute="trailing" constant="5" id="cRf-Lc-IXd"/>
                 <constraint firstItem="scs-ZC-n9f" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="fNQ-6a-VLC"/>
                 <constraint firstItem="Tx0-ys-mjT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="l4a-Ng-JBq"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="454" y="350.5"/>
+            <point key="canvasLocation" x="460.5" y="349"/>
         </view>
     </objects>
 </document>

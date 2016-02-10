@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class IssueCollectionViewCell: BaseCollectionViewCell {
     // MARK: Properties
@@ -27,5 +28,6 @@ class IssueCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var votes: UILabel!
     
 
+    @IBOutlet weak var locationView: MKMapView!
     
 }

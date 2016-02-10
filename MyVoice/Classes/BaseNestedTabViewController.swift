@@ -22,6 +22,8 @@ class BaseNestedTabViewController :UIViewController{
     var collecView:UICollectionView?
     var tablView:UITableView?
     
+    var personRequestInfoType:PersonInfoRequestType?
+    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -58,6 +60,17 @@ class BaseNestedTabViewController :UIViewController{
         }
     
     }
+    
+    func fetchPersonInfoFromServer(){
+        if personRequestInfoType != nil {
+            CurrentSession.i.personController.fetchUserInfo(personRequestInfoType!, completionHandler: { [weak self](result) -> Void in
+               self?.tablView?.reloadData()
+                self?.collecView?.reloadData()
+            })
+        }
+    }
+    
+    
     
 }
 
@@ -160,9 +173,14 @@ extension BaseNestedTabViewController :UITableViewDataSource{
 
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCellWithIdentifier(reuseIdentifier)!
+        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier)!
+        configureTableCell(cell, indexPath: indexPath)
+        return cell
     }
     
+    func configureTableCell(cell:UITableViewCell, indexPath:NSIndexPath){
+        
+    }
 
 }
 

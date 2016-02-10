@@ -15,7 +15,41 @@ class IssueData: ImageUrlData {
     var markTo:String = "0"
     var isCritical = false
     var location:Location?
-    var status:String = ""
+    var status:String = "o"
+    
+    var displayStatus :String{
+        get {
+            if !status.isEmpty {
+                if status.caseInsensitiveCompare("o") == .OrderedSame{
+                    return MyStrings.open
+                }
+                else {
+                    MyStrings.closed
+                }
+            }
+            return MyStrings.open
+            
+        }
+        
+        set (newValue) {
+            if !newValue.isEmpty {
+                    status = "\(newValue.characters[newValue.startIndex])"
+                    return
+            }
+            status = "o"
+        }
+
+    }
+    
+    var votes:Int = 0
+    
+    var ownerName = ""
+    var ownerPic = ""
+    var ownerArea = ""
+    var ownerCredits = ""
+    
+    var comments:[CommentData]?
+    var response:[ResponseData]?
     
     override func mapping(map: Map) {
         super.mapping(map)
@@ -23,6 +57,8 @@ class IssueData: ImageUrlData {
         if markTo.isEmpty {
             markTo = "0"
         }
+        
+    
         
         category <- map["category"]
         tags <- map["tags"]

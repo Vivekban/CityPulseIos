@@ -159,8 +159,8 @@ import UIKit
 			nc.addObserver(self, selector:"layoutSubviews", name:UITextViewTextDidEndEditingNotification, object:self)
 		}
         
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.lightGrayColor().CGColor
+        //layer.borderWidth = 1
+        //layer.borderColor = UIColor.lightGrayColor().CGColor
         //clipsToBounds = true
 	}
 

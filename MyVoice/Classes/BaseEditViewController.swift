@@ -20,6 +20,7 @@ enum EditControllerType : Int {
 
 class BaseEditViewController: UIViewController {
     
+    var kbHeight: CGFloat!
     
     //MARK: data source fields
     var data:BaseData?
@@ -51,6 +52,12 @@ class BaseEditViewController: UIViewController {
     // delegate
     weak var delegate:BaseEditViewControllerDelegate?
     
+    var scrollView:UIScrollView?
+    
+    var activeTextField:UITextField?
+    
+    var fieldHideByKeyboard = [UITextField]()
+    
     
     deinit{
      print(" Edit controller is deallocated.............................")
@@ -62,6 +69,13 @@ class BaseEditViewController: UIViewController {
         addTargetsTo(myNavigationItem?.rightBarButtonItems![0], and:myNavigationItem?.leftBarButtonItems![0])
         self.view.addSubview(progressHUD)
         progressHUD.hide()
+        
+        
+        for v in view.subviews {
+            if v .isKindOfClass(UIScrollView.self) {
+                scrollView = v as? UIScrollView
+            }
+        }
         
         
         //        let btnName = UIButton()
@@ -84,6 +98,7 @@ class BaseEditViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         initialiseViews()
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -91,8 +106,64 @@ class BaseEditViewController: UIViewController {
         for vw in shadowObject {
             MyUtils.createShadowOnView(vw)
         }
-        
+        EventUtils.addObserForKeyBoardEvents(self)
+
     }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidAppear(animated)
+        EventUtils.removeObserver(self)
+
+    }
+    
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            if let keyboardSize =  (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+                kbHeight = keyboardSize.height
+                //self.animateTextField(true)
+                
+                if activeTextField != nil  && scrollView != nil{
+                    if fieldHideByKeyboard.contains(activeTextField!){
+                       
+                        let contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbHeight, 0.0);
+                        scrollView!.contentInset = contentInsets;
+                        scrollView!.scrollIndicatorInsets = contentInsets;
+                        
+                        // If active text field is hidden by keyboard, scroll it so it's visible
+                        // Your app might not need or want this behavior.
+                        var aRect = self.view.frame;
+                        aRect.size.height -= kbHeight;
+                        if (!CGRectContainsPoint(aRect, (activeTextField?.superview!.frame.origin)!) ) {
+                            var frame = activeTextField?.superview?.frame;
+                            frame?.origin.y = (frame?.origin.y)! + 10
+                            scrollView?.scrollRectToVisible((frame)!, animated: true)
+                        }
+                    }
+                }                
+            }
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        // self.animateTextField(false)
+        activeTextField = nil
+        let contentInsets = UIEdgeInsetsZero;
+        if scrollView != nil {
+        scrollView!.contentInset = contentInsets;
+        scrollView!.scrollIndicatorInsets = contentInsets;
+        }
+    }
+    
+    
+    func animateTextField(up: Bool) {
+        var movement = (up ? -kbHeight : kbHeight)
+        
+        UIView.animateWithDuration(0.3, animations: {
+            self.view.frame = CGRectOffset(self.view.frame, 0, movement)
+        })
+    }
+    
     
     func initialiseViews(){
         switch (type){
@@ -110,6 +181,10 @@ class BaseEditViewController: UIViewController {
             let popDatePicker = PopDatePicker(forTextField: param.textField, mode: param.mode)
             popDatePickers.append(popDatePicker)
             param.textField.delegate = self
+        }
+        
+        for f in fieldHideByKeyboard {
+            f.delegate = self
         }
         
     }
@@ -295,6 +370,9 @@ class BaseEditViewController: UIViewController {
 extension BaseEditViewController : UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        
+        activeTextField = textField
+        
         let param =  PopDatePickerParam(field: textField, mode: .Date)
         if let i = popDatePickerTextFields.indexOf(param) {
             resign()

@@ -9,14 +9,17 @@
 import UIKit
 import SwiftyJSON
 import ObjectMapper
+import CoreLocation
+
 
 class MainController: UITabBarController {
-    
+    let locationManager = CLLocationManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
         
-        
+        setupForLocation()
         //ServerRequestInitiater.i.getUserDetail(["userId": "1"])
         
         // ServerRequestInitiater.i.valideUser(["email": "testing1@gmil.com","password":"dummy"])
@@ -61,7 +64,22 @@ class MainController: UITabBarController {
         print("josn of new user  \(jString)")
 
      //   ServerRequestInitiater.i.addUser(["json": jString])
-        ServerRequestInitiater.i.postMessageToServer(ServerUrls.getIssueByIdUrl, postData: ["issueid": "1"]) { (r) -> Void in
+//        ServerRequestInitiater.i.postMessageToServer(ServerUrls.getIssueByIdUrl, postData: ["issueid": "1"]) { (r) -> Void in
+//            switch r {
+//            case .Success(let data):
+//                
+//                if let d = data {
+//                    print(d)
+//                }
+//                break
+//            case .Failure(let error):
+//                print(error)
+//                
+//            }
+//
+//        }
+        
+        ServerRequestInitiater.i.postMessageToServer(ServerUrls.getIssueByOwnerUrl, postData: ["owner": "1"]) { (r) -> Void in
             switch r {
             case .Success(let data):
                 
@@ -73,10 +91,9 @@ class MainController: UITabBarController {
                 print(error)
                 
             }
-
+            
         }
-        
-        
+
         
         var parameter:[String:String] = [String:String]()
         
@@ -98,8 +115,9 @@ class MainController: UITabBarController {
         UITabBar.appearance().itemWidth = 100
         
         
-        // print(MyUtils.getServerStyleDateInString("Feb 4, 2016"))
+        UISearchBar.appearance().setSearchFieldBackgroundImage(UIImage.imageWithColor(UIColor.whiteColor(), rect: CGRectMake(0, 0, 300, 30)), forState: UIControlState.Normal)        // print(MyUtils.getServerStyleDateInString("Feb 4, 2016"))
         
+        UISearchBar.appearance().setImage(UIImage(named: "search"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal)
         //UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState:.Normal)
         
         //  UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.redColor()], forState:.Selected)
@@ -108,12 +126,17 @@ class MainController: UITabBarController {
     
     override func viewWillAppear(animated: Bool) {
         // let tabItemWidth = self.tabBar.itemWidth
-        let image = UIImage(named: "tab_selected")
-        
-        UITabBar.appearance().selectionIndicatorImage = MyUtils.imageResize(image!, sizeChange: CGSize(width: 100, height: 47))
-        for item in self.tabBar.items! {
-            item.image?.imageWithRenderingMode(.AlwaysOriginal)
-        }
+        let image = UIImage.imageWithColor(Constants.tab_selection, rect: CGRectMake(0, 0, 110, 55))
+        UITabBar.appearance().selectionIndicatorImage = image
+//        
+//        for item in self.tabBar.items! {
+//            item.image?.imageWithRenderingMode(.AlwaysOriginal)
+//        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        setupForLocation()
     }
     
     override func didReceiveMemoryWarning() {
@@ -121,21 +144,58 @@ class MainController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillLayoutSubviews() {
+        var tabFrame = self.tabBar.frame
+        // - 40 is editable , I think the default value is around 50 px, below lowers the tabbar and above increases the tab bar size
+        tabFrame.size.height = 55
+        tabFrame.origin.y = self.view.frame.size.height - 55
+        self.tabBar.frame = tabFrame
+    }
     
-    /*
-    // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    func setupForLocation(){
+        locationManager.delegate = self;
+        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    }
+
     
-    */
-    
-    //    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    //        // Get the new view controller using segue.destinationViewController.
-    //        // Pass the selected object to the new view controller.
-    //    }
+}
+
+extension MainController : CLLocationManagerDelegate {
+   
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+         CurrentSession.i.userLocation = locations[0]
+        
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(locations[0]) { [weak self](placemarks, error) -> Void in
+            
+            if (error != nil || placemarks == nil||placemarks?.count == 0) {
+                log.error("reverse geodcode fail: \(error!.localizedDescription)")
+                return
+            }
+            for place in placemarks! {
+                if let p = place as? CLPlacemark {
+                    log.info(" \(p.locality!)  \( p.administrativeArea!)")
+
+                }
+            }
+            CurrentSession.i.userPlacemark = placemarks?[0]
+            EventUtils.postNotification(EventUtils.locationUpdateKey)
+            self?.locationManager.stopUpdatingLocation()
+            self?.locationManager.startMonitoringSignificantLocationChanges()
+        }
+        // let long = locations[0].coordinate.longitude;
+        // let lat = locations[0].coordinate.latitude;
+        
+        //Do What ever you want with it
+    }
     
     
 }
+
 
 extension MainController : UITabBarControllerDelegate{
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {

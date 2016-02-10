@@ -44,7 +44,7 @@ class BasicInfoViewController: BaseHeaderCollectionView {
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if super.collectionView(collectionView, numberOfItemsInSection: section) > 0{
-            return CurrentSession.i.personUI!.getInfoItemBy(PersonInfoType(rawValue: section)!).count
+            return CurrentSession.i.personUI!.getInfoItemBy(PersonBasicInfoType(rawValue: section)!).count
         }
         return 0
     }
@@ -53,7 +53,7 @@ class BasicInfoViewController: BaseHeaderCollectionView {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! BasicInfoCell
         
         // Configure the cell
-        if let infoType = PersonInfoType(rawValue: indexPath.section) {
+        if let infoType = PersonBasicInfoType(rawValue: indexPath.section) {
             let title = CurrentSession.i.personUI!.getInfoItemBy(infoType)[indexPath.row]
             cell.title.text = title
             cell.content.text = CurrentSession.i.personController.person.basicInfo.getValueBy(infoType, row: indexPath.row) ?? ""
@@ -73,7 +73,7 @@ class BasicInfoViewController: BaseHeaderCollectionView {
             var en = [BaseData]()
             en.append(data)
             con.setDataSourceWith(.EDIT, data: &en, index: 0)
-            con.infoType = PersonInfoType(rawValue: index)!
+            con.infoType = PersonBasicInfoType(rawValue: index)!
         }
     }
     

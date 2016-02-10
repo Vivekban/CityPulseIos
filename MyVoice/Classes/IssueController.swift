@@ -49,6 +49,7 @@ class IssueController {
     func fetchIssueInfo(infoRequest:IssueInfoRequestType , completionHandler:ServerRequestCallback?){
         let uInfoRequest = ServerRequest(url: getUrlBasedOnUserInfoRequest(infoRequest), postData: ["owner":"\(CurrentSession.i.userId)"]) { [weak self](result) -> Void in
             // process request
+            print(result)
             switch result {
             case .Success(let data):
                 if let d = data {

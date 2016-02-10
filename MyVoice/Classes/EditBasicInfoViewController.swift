@@ -18,7 +18,7 @@ class EditBasicInfoViewController: BaseEditViewController {
     var items:[String]?
     var allTextFields = [UITextField]()
     var textFieldsDatas:[TextFieldInputData]?
-    var infoType:PersonInfoType = .Basic {
+    var infoType:PersonBasicInfoType = .Basic {
         didSet{
             items = CurrentSession.i.personUI?.getInfoItemBy(infoType)
             textFieldsDatas  = CurrentSession.i.personUI?.getTextFieldDataBy(infoType.rawValue)

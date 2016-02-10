@@ -122,9 +122,13 @@ class BriefProfileBar: UIView {
         case .Resident:
             partyImage.hidden = true
             issueResolvedLabel.hidden = true
+            areaLabel.textColor = UIColor.grayColor()
+            areaLabel.font = UIFont.systemFontOfSize(15)
             break;
             
         case .Leadear:
+            areaLabel.textColor = UIColor(red: 251.0/255.0, green: 140.0/255.0, blue: 0, alpha: 1)
+            areaLabel.font = UIFont.boldSystemFontOfSize(14)
             residentCreditLine.hidden = true
             break;
         }
@@ -139,7 +143,7 @@ class BriefProfileBar: UIView {
         if (itemsCollectionView == nil) {
             let layout = UICollectionViewFlowLayout()
             layout.minimumLineSpacing = CGFloat(5)
-            layout.itemSize = CGSize(width: 230, height: 23)
+            layout.itemSize = CGSize(width: 240, height: 23)
             itemsCollectionView = UICollectionView(frame: info.infoItemsRect, collectionViewLayout: layout)
             itemsCollectionView!.dataSource = self
             itemsCollectionView!.delegate = self
@@ -192,6 +196,7 @@ extension BriefProfileBar : UICollectionViewDataSource{
             cell.detailLabel?.text = "300"
             cell.icon?.image = UIImage(named: (item.iconName))
             
+            
             if ((item.isClickable) == true){
                 cell.detailLabel?.textColor = Constants.accentColor
                 cell.headingLabel?.textColor = Constants.accentColor
@@ -202,6 +207,10 @@ extension BriefProfileBar : UICollectionViewDataSource{
                 cell.detailLabel?.textColor = MyColor.grey_131
                 cell.headingLabel?.textColor = MyColor.grey_131
                 
+            }
+            
+            if (indexPath.row % 2 == 0) {
+                cell.decreaseWidth()
             }
             
             return cell
@@ -262,6 +271,8 @@ class BriefCell: UICollectionViewCell {
     var headingLabel:UILabel?
     var detailLabel:UILabel?
     
+    var width :NSLayoutConstraint?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initCell()
@@ -278,9 +289,20 @@ class BriefCell: UICollectionViewCell {
         view.frame = self.bounds
         self.addSubview(view)
         
+        
+       
+
         icon = view.viewWithTag(1) as? UIImageView
         headingLabel = view.viewWithTag(2) as? UILabel
         detailLabel = view.viewWithTag(3) as? UILabel
-        
+        width = headingLabel?.constraints[0]
+
+    }
+    
+     func decreaseWidth() {
+        if width != nil {
+            width?.constant = 75
+            layoutSubviews()
+        }
     }
 }

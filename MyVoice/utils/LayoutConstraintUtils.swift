@@ -19,3 +19,15 @@ class LayoutConstraintUtils {
         return NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: height)
     }
 }
+
+
+extension UIView {
+    
+     func addWidthContraint(width:CGFloat) {
+        addConstraint(LayoutConstraintUtils.getWidthContraint(self, width: width))
+    }
+    
+     func getHeightContraint(view:UIView, height:CGFloat){
+        addConstraint(LayoutConstraintUtils.getHeightContraint(self, height:height))
+    }
+}

@@ -33,10 +33,12 @@ class TimeDateUtils {
     static func getClientStyleDateFromServerString(dateString : String) -> String{
         let f = NSDateFormatter()
         f.dateFormat = "yyyy-MM-dd"
-        if let date = f.dateFromString(dateString) {
+        if let date = f.dateFromString(dateString.componentsSeparatedByString(" ")[0]) {
             formatter.dateFormat = "MMM dd, yyyy"
             return formatter.stringFromDate(date)
         }
+        
+        
         log.error("error in parsing date \(dateString)")
         return ""
         

@@ -55,5 +55,19 @@ class MyStrings {
     
     static let fetchingTag = "Getting Tags"
 
+    
+    //
+    static let by = "By"
+    
+    // home
+    static let community_issue = "Community Issues"
+    static let active_community_issue = "Active Community Issues"
+    static let HOA_issue = "HOA Issues"
+    static let polls = "Polls"
+    
+    
+    //
+    static let open = "Open"
+    static let closed = "Closed"
 
 }

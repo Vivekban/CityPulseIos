@@ -81,11 +81,23 @@ class PersonController {
         case .Views:
             let viewArray = JSON(data)
             person.views.removeAll()
-            for (i,obj) in viewArray {
+            for (_,obj) in viewArray {
                 if let finalString = obj.rawString() {
                     // print(" value is \(i)...+....\(finalString)")
                     if let view = Mapper<MyViewData>().map(finalString) {
                         person.views.append(view)
+                    }
+                }
+            }
+            break
+        case .Reviews:
+            let reviewArray = JSON(data)
+            person.reviews.removeAll()
+            for (_,obj) in reviewArray {
+                if let finalString = obj.rawString() {
+                    // print(" value is \(i)...+....\(finalString)")
+                    if let view = Mapper<ReviewData>().map(finalString) {
+                        person.reviews.append(view)
                     }
                 }
             }

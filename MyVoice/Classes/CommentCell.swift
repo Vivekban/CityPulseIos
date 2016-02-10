@@ -92,6 +92,10 @@ class CommentCell: UITableViewCell {
     var commentView:CommentView!
     var level = 0 {
         didSet{
+            if level == 1 {
+                commentView.actionButtons[0].addWidthContraint(0)
+                commentView.actionButtons[0].hidden = true
+            }
             commentView.setSpacerWidth(level)
         }
     }

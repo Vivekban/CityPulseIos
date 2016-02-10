@@ -13,6 +13,7 @@ class HomeTabViewController: BaseTabViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         // Do any additional setup after loading the view.
     }
 
@@ -23,20 +24,20 @@ class HomeTabViewController: BaseTabViewController {
     
 
     override func setTabsParameter() {
-        
+        menuItemWithAccordingToText = true
         actionButton.setTitle("New Issue".localized, forState: .Normal)
         
         storyBoardName = "Home"
-        let tabs = CurrentSession.i.personUI?.nHomeTabs
-        addTab("IssueViewController", title: NSLocalizedString("Own", comment: "Own"))
-        addTab("IssueViewController", title: NSLocalizedString("Popular", comment: "Popular"))
-        addTab("IssueViewController", title: NSLocalizedString("Relevant", comment: "Relevant"))
+        // let tabs = CurrentSession.i.personUI?.nHomeTabs
+        addTab("IssueViewController", title: "  \(MyStrings.community_issue)   ")
+        addTab("IssueViewController", title: "  \(MyStrings.HOA_issue)     ")
+        addTab("IssueViewController", title: "   \(MyStrings.polls)         ")
 
-        if tabs>3 {
-            addTab("IssueViewController", title: NSLocalizedString("Subscribed", comment: "Subscribed"))
-            addTab("IssueViewController", title: NSLocalizedString("Resolved", comment: "Resolved"))
-            
-        }
+//        if tabs>3 {
+//            addTab("IssueViewController", title: NSLocalizedString("Subscribed", comment: "Subscribed"))
+//            addTab("IssueViewController", title: NSLocalizedString("Resolved", comment: "Resolved"))
+//            
+//        }
         
     }
     
@@ -55,5 +56,7 @@ class HomeTabViewController: BaseTabViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
 
 }
