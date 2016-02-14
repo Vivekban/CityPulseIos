@@ -9,33 +9,53 @@
 import UIKit
 import CoreLocation
 
-class IssueViewController: BaseNestedTabViewController {
+class IssueViewController: HomeBaseNestedTabController {
     
-    var type = IssuesConrollerType.Own
+    var issueType = IssueType.Community
     
     var newIssueButton = UIButton(type:.System)
     
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var dic = [String: AnyObject]()
+        dic["tab"] = issueType.rawValue
+        dic["index"] = currentFilter?.index ?? 0
+        dic["start"] = 0
+        dic["range"] = 20
+
+        serverRequestType = currentFilter?.dataRequestType ?? 0
+        fetchListFromServer(dic)
+        
+        collecView = collectionView
         
         editControlllerIdentifier = "EditIssueControlller"
         detailControllerIdentifier = "IssueDetailController"
         reuseIdentifier = "IssueCell"
         
-        for i in 0...4 {
-            let issue = IssueData()
-            issue.title = "Title of issue\(i)"
-            issue.description = "Description of issue\(i) \nDescription of issue\(i) \n and finally line of description of issue\(i) long line it has to be"
-            issue.category = "Park Recreation"
-            issue.disPlayDate = TimeDateUtils.getShortDateInString(NSDate())
-            entries.append(issue)
-        }
+        entries = CurrentSession.i.issueController.issuesData.issueListsManager[currentFilter?.index ?? 0].entries
+        
+//        for i in 0...4 {
+//            let issue = IssueData()
+//            issue.title = "Title of issue\(i)"
+//            issue.description = "Description of issue\(i) \nDescription of issue\(i) \n and finally line of description of issue\(i) long line it has to be"
+//            issue.category = "Park Recreation"
+//            issue.disPlayDate = TimeDateUtils.getShortDateInString(NSDate())
+//            entries.append(issue)
+//        }
         
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         print(view.superview?.frame)
+        entries = CurrentSession.i.issueController.issuesData.issueListsManager[currentFilter?.index ?? 0].entries
+        super.viewWillAppear(animated)
+
+        // collecView?.reloadData()
+        
         if newIssueButton.superview == nil {
             if let parentView = view.superview {
                 print(newIssueButton.frame)
@@ -46,6 +66,35 @@ class IssueViewController: BaseNestedTabViewController {
             }
             
         }
+    }
+    
+    override func updateListEntries(parameter: [String : AnyObject]) {
+        let c = currentFilter?.index ?? 0
+        
+        if let index = parameter["index"] as?Int {
+            if index == c {
+                entries = CurrentSession.i.issueController.issuesData.issueListsManager[c].entries
+                updateEntries()
+            }
+        }
+    }
+    
+    
+    override func showDetailViewController(index:Int) -> UIViewController?{
+        let controller = super.showDetailViewController(index)
+        if let editController = controller as? EditIssueViewController {
+           editController.issueType = self.issueType
+        }
+        return controller
+    }
+    
+    
+    override func showEditViewController(type: EditControllerType, index: Int) -> UIViewController? {
+        let controller = super.showEditViewController(type, index: index)
+        if let editController = controller as? EditIssueViewController {
+            editController.issueType = self.issueType
+        }
+        return controller
     }
     
     
@@ -68,8 +117,10 @@ class IssueViewController: BaseNestedTabViewController {
             cell.detail.text = d.description
             cell.category.text = d.category
             cell.date.text = d.disPlayDate
+            cell.response.text = d.responseCount.toString()
+            cell.votes.text = d.votes.toString()
             
-            if d.status.caseInsensitiveCompare("o") == NSComparisonResult.OrderedSame{
+            if d.status.caseInsensitiveCompare("y") == NSComparisonResult.OrderedSame{
               cell.status.textColor = UIColor.redColor()
             }
             else{
@@ -77,7 +128,13 @@ class IssueViewController: BaseNestedTabViewController {
             }
             cell.status.text = d.displayStatus
             
-           MapUtils.centerMapOnLocation(cell.locationView, location: CLLocation(latitude: 21.282778, longitude: -157.829444))
+            if d.imagesUrls.count < 1 {
+             MapUtils.centerMapOnLocation(cell.locationView, location: CLLocation(latitude: 21.282778, longitude: -157.829444),regionRadius: 2000)
+            }
+            else{
+                cell.locationView.hidden = true
+                ServerImageFetcher.i.loadImageIn(cell.imageView, url: d.imagesUrls[0])
+            }
 
         }
         

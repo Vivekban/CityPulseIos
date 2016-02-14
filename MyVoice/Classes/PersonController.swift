@@ -13,51 +13,32 @@ import SwiftyJSON
 
 enum PersonInfoRequestType:Int{
     
-    case BasicInfo = 1, Views, Reviews
+    case BasicInfo = 1, Views, Reviews, Profile
 }
 
-class PersonController {
-    var person:Person!
+class PersonController : ServerDataManager {
+    var person:PersonData = PersonData()
     var userId:Int!
     
     init(userID:Int){
+        super.init()
         self.userId = userID
         // CurrentSession.i.userId = userID
-        person = Person()
        // getUserViews(nil)
        // getUserInfo(nil)
-        fetchUserInfo(.BasicInfo, completionHandler: nil)
-        fetchUserInfo(.Views, completionHandler: nil)
+        
+        fetchData(PersonInfoRequestType.BasicInfo.rawValue, completionHandler: nil)
+
+        fetchData(PersonInfoRequestType.Views.rawValue, completionHandler: nil)
 
     }
     
     
-    func fetchUserInfo(infoRequest:PersonInfoRequestType , completionHandler:ServerRequestCallback?){
-        let uInfoRequest = ServerRequest(url: getUrlBasedOnUserInfoRequest(infoRequest), postData: ["userid":"\(userId)"]) { [weak self](result) -> Void in
-            // process request
-            switch result {
-            case .Success(let data):
-        
-                if let d = data {
-                    if let dis = self {
-                        dis.onSuccesfulRequset(infoRequest, data: d)
-                    }
-                }
-                break
-            case .Failure(let error):
-                print(error)
-                
-            }
-            
-            // tell request originator
-            if let cH = completionHandler {
-                cH(result)
-            }
-        }
-        ServerRequestInitiater.i.initiateServerRequest(uInfoRequest)
-    }
     
-    func getUrlBasedOnUserInfoRequest(infoRequest:PersonInfoRequestType) -> String{
+    
+    override func getUrlBasedOnRequest(dataRequest: Int) -> String {
+        let infoRequest = PersonInfoRequestType(rawValue: dataRequest)!
+
         switch (infoRequest) {
         case .BasicInfo:
             return ServerUrls.getUserDetailsUrl
@@ -65,18 +46,30 @@ class PersonController {
             return ServerUrls.getReviewByOwnerUrl
         case .Views:
             return ServerUrls.getViewByUserIdUrl
+        case .Profile:
+            return ServerUrls.getUserProfileDetailsUrl
         default:
             break;
         }
+
     }
     
-    func onSuccesfulRequset(infoRequest:PersonInfoRequestType , data:AnyObject){
-        
+    override func getParamterBasedOnRequest(dataRequest: Int, parameter:[String : AnyObject]? = nil) -> [String : AnyObject] {
+       return ["userid":"\(userId)"]
+    }
+    
+    override func onSuccesfulRequset(dataRequest:Int , parameter:[String : AnyObject]? = nil, data:AnyObject){
+        let infoRequest = PersonInfoRequestType(rawValue: dataRequest)!
+
         switch (infoRequest) {
         case .BasicInfo:
             //print(data)
-            person.basicInfo  = Mapper<PersonBasicData>().map(data)!
+            if let d = Mapper<PersonBasicData>().map(data){
+            person.basicInfo  = d
             person.basicInfo.userid = userId
+            }
+            fetchData(PersonInfoRequestType.Profile.rawValue, completionHandler: nil)
+
             break;
         case .Views:
             let viewArray = JSON(data)
@@ -101,72 +94,20 @@ class PersonController {
                     }
                 }
             }
+            break
+        case .Profile:
+            print(data)
+            if let d = Mapper<ProfileData>().map(data) {
+                person.profileData  = d
+                person.profileData.takeDataFromBasicInfo(person.basicInfo)
+                EventUtils.postNotification(EventUtils.basicInfoUpdateKey)
+
+            }
+
         default:
             break;
         }
         
-       
-        // person.basicInfo  = Mapper<PersonBasicData>().map(data)
-        
     }
-    
-    
-//    func getUserInfo(completionHandler:ServerRequestCallback?){
-//        let uInfoRequest = ServerRequest(url: ServerUrls.getUserDetailsUrl, postData: ["userid":"\(userId)"]) { [weak self](result) -> Void in
-//            
-//            if let cH = completionHandler {
-//                cH(result)
-//            }
-//            
-//            switch result {
-//            case .Success(let data):
-//                if let d = data {
-//                    
-//                }
-//                break
-//            case .Failure(let error):
-//                print(error)
-//                
-//            }
-//        }
-//        ServerRequestInitiater.i.initiateServerRequest(uInfoRequest)
-//        
-//        
-//    }
-    
-//    func getUserViews(completionHandler:ServerRequestCallback?){
-//        let uInfoRequest = ServerRequest(url: , postData: ["userid":"\(userId)"]) { [weak self](result) -> Void in
-//            
-//            if let cH = completionHandler {
-//                cH(result)
-//            }
-//            
-//            switch result {
-//            case .Success(let data):
-//                if let d = data {
-//                    // print(d)
-//                    
-//                    let viewArray = JSON(d)
-//                    self.person.views.removeAll()
-//                    for (i,obj) in viewArray {
-//                        if let finalString = obj.rawString() {
-//                            // print(" value is \(i)...+....\(finalString)")
-//                            if let view = Mapper<MyViewData>().map(finalString) {
-//                                self.person.views.append(view)
-//                            }
-//                        }
-//                    }
-//                    // person.basicInfo  = Mapper<PersonBasicData>().map(data)
-//                    
-//                    
-//                }
-//                break
-//            case .Failure(let error):
-//                print(error)
-//                
-//            }
-//        }
-//        ServerRequestInitiater.i.initiateServerRequest(uInfoRequest)
-//    }
     
 }

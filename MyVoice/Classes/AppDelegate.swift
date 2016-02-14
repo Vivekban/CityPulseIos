@@ -7,8 +7,9 @@
 //
 
 import UIKit
-import CocoaLumberjack
 import XCGLogger
+import Fabric
+import Crashlytics
 
 
 let log = XCGLogger.defaultInstance()
@@ -33,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         log.xcodeColorsEnabled = true
         
+        Fabric.with([Crashlytics.self])
+        //Fabric.sharedSDK().debug = true
         
         
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName:UIFont.boldSystemFontOfSize(20),NSForegroundColorAttributeName:UIColor.darkGrayColor()]

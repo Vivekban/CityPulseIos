@@ -18,18 +18,22 @@ class BaseNestedTabViewController :UIViewController{
     var editControlllerIdentifier = ""
     var detailControllerIdentifier = ""
     
-    // collections table 
+    // collections table
     var collecView:UICollectionView?
     var tablView:UITableView?
     
-    var personRequestInfoType:PersonInfoRequestType?
-    
+    // data fetching..
+    var serverRequestType:Int?
+    var serverDataManager: ServerDataManager?
+    var isMoreEntriesAvailable = true
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         collecView?.reloadData()
         tablView?.reloadData()
     }
+    
+    
     
     func reloadData(index:Int){
         preconditionFailure("This method must be overridern")
@@ -42,37 +46,82 @@ class BaseNestedTabViewController :UIViewController{
         assertionFailure("must be overide")
         return ImageUrlData()
     }
-
-    func showDetailViewController(index:Int){
+    
+    func showDetailViewController(index:Int) -> UIViewController?{
         let controller = MyUtils.presentViewController(self, identifier: detailControllerIdentifier)
         if let editController = controller as? BaseDetailViewController {
             editController.setDataSourceWith(entries, index: index)
             editController.delegate = self
         }
+        return controller
     }
     
-    func showEditViewController(index:Int){
-        if let con = MyUtils.presentViewController(self, identifier: editControlllerIdentifier) as? BaseEditViewController {
-            let data = getDataForEditing(index)
+    func showEditViewController(type: EditControllerType,index:Int) -> UIViewController?{
+        var controller = MyUtils.presentViewController(self, identifier: editControlllerIdentifier)
+        if let con = controller as? BaseEditViewController {
+            con.setDataSourceWith(type, data: &entries, index: index)
             con.delegate = self
             
-            con.setDataSourceWith(.EDIT, data: &entries, index: index)
         }
-    
-    }
-    
-    func fetchPersonInfoFromServer(){
-        if personRequestInfoType != nil {
-            CurrentSession.i.personController.fetchUserInfo(personRequestInfoType!, completionHandler: { [weak self](result) -> Void in
-               self?.tablView?.reloadData()
-                self?.collecView?.reloadData()
-            })
-        }
+        return controller
     }
     
     
+    // MARK: - Data fetching from server
     
+    func fetchInfoFromServer(){
+        
+        if let manager = serverDataManager {
+            
+            if let d = serverRequestType {
+                manager.fetchData(d, completionHandler: { [weak self](result) -> Void in
+                    
+                    switch (result)  {
+                    case ServerResult.EveryThingUpdated :
+                        self?.isMoreEntriesAvailable = false
+                        return
+                    default:
+                        break
+                    }
+                    self?.updateEntries()
+                })
+            }
+        }
+    }
+    
+    func fetchListFromServer(parameter:[String:AnyObject]){
+        if let manager = serverDataManager {
+            
+            if let d = serverRequestType {
+                manager.fetchData(d,parameter: parameter,completionHandler: { [weak self](result) -> Void in
+                    switch (result)  {
+                    case ServerResult.EveryThingUpdated :
+                        self?.isMoreEntriesAvailable = false
+                        return
+                    default:
+                        break
+                    }
+                    self?.updateListEntries(parameter)
+                })
+            }
+        }
+    }
+    
+    
+    func updateEntries(){
+        tablView?.reloadData()
+        collecView?.reloadData()
+    }
+    
+    func updateListEntries(parameter:[String:AnyObject]){
+        
+    }
+
 }
+
+
+
+
 
 // MARK: - Scrollview delegate
 
@@ -85,12 +134,12 @@ extension BaseNestedTabViewController : UIScrollViewDelegate {
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         NSNotificationCenter.defaultCenter().postNotificationName(Constants.notification_center_scroll_event_key, object: 1)
-
+        
     }
     
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         NSNotificationCenter.defaultCenter().postNotificationName(Constants.notification_center_scroll_event_key, object: 2)
-
+        
     }
     
 }
@@ -100,11 +149,11 @@ extension BaseNestedTabViewController : BaseDetaiViewControllerDelegate {
     func onEditButtonClick(index: Int) {
         
         MyUtils.delay(0.05) {[weak self] () -> () in
-            self?.showEditViewController(index)
+            self?.showEditViewController(EditControllerType.EDIT,index: index)
         }
         
-      //  performSelector("showEditViewController:", withObject: index, afterDelay: 0.1)
-             //
+        //  performSelector("showEditViewController:", withObject: index, afterDelay: 0.1)
+        //
     }
 }
 
@@ -121,13 +170,9 @@ extension BaseNestedTabViewController : BaseEditViewControllerDelegate {
 }
 
 extension BaseNestedTabViewController : BaseNestedTabProtocoal{
-   
-     func onActionButtonClick(sender: AnyObject) {
-        let controller = MyUtils.presentViewController(self, identifier: editControlllerIdentifier)
-        if let editController = controller as? BaseEditViewController {
-            editController.setDataSourceWith(.NEW, data: &entries,index:-1)
-            editController.delegate = self
-        }
+    
+    func onActionButtonClick(sender: AnyObject) {
+        showEditViewController(EditControllerType.NEW, index: -1)
     }
 }
 
@@ -137,7 +182,7 @@ extension BaseNestedTabViewController : UICollectionViewDataSource {
         return numberOfSections
     }
     
-
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if !expandedRows.contains(section){
             return 0
@@ -164,13 +209,13 @@ extension BaseNestedTabViewController :UITableViewDataSource{
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return numberOfSections
     }
-
+    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return entries.count
     }
     
-
+    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier)!
@@ -181,7 +226,7 @@ extension BaseNestedTabViewController :UITableViewDataSource{
     func configureTableCell(cell:UITableViewCell, indexPath:NSIndexPath){
         
     }
-
+    
 }
 
 extension BaseNestedTabViewController :UITableViewDelegate{
@@ -193,7 +238,7 @@ extension BaseNestedTabViewController :UITableViewDelegate{
 extension BaseNestedTabViewController : ListHeaderDelegate {
     
     func onEditButtonclick(index: Int) {
-       showEditViewController(index)
+        showEditViewController(EditControllerType.EDIT,index: index)
     }
     
     func onHeaderClick(index: Int) {
@@ -214,20 +259,20 @@ extension BaseNestedTabViewController : ListHeaderDelegate {
 
 
 //class BaseNestedTabCollectionViewController : UICollectionViewController{
-//    
+//
 //}
 //
 //
 //
 //class BaseNestedTabTableViewController : UITableViewController{
-//    
+//
 //}
 //
 //extension BaseNestedTabTableViewController : BaseNestedTabProtocoal{
-//    
-//    
+//
+//
 //    func onActionButtonClick(sender: AnyObject) {
-//        
+//
 //    }
 //}
 
@@ -264,13 +309,13 @@ class BaseHeaderCollectionView: BaseNestedTabViewController {
             assert(false, "Unexpected element kind")
         }
         return UICollectionReusableView()
-
+        
     }
     
     func getTitleForHeader(index :Int) -> String {
         preconditionFailure("ethod must be ovveriidern ")
     }
-
+    
 }
 
 

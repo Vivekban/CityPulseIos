@@ -24,7 +24,7 @@ class DetailIssueController: BaseImageDetailViewController {
         baseDetailHeight = 600
         numberOfSection = 3
         
-        tableView.registerClass(ResponseConroller.self, forCellReuseIdentifier: responseIdentifier)
+        containerTableView.registerClass(ResponseConroller.self, forCellReuseIdentifier: responseIdentifier)
         
         
         for i in 1...2 {
@@ -88,7 +88,9 @@ class DetailIssueController: BaseImageDetailViewController {
                 break
             case .Failure(let error):
                 print(error)
-                
+                break
+            default :
+                break
             }
             
         }
@@ -111,7 +113,7 @@ class DetailIssueController: BaseImageDetailViewController {
                 c.updateComments(responses)
                 if ( responseSectionHeight != c.tableView.contentSize.height ){
                     responseSectionHeight = c.tableView.contentSize.height
-                    tableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: UITableViewRowAnimation.Automatic)
+                    containerTableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: UITableViewRowAnimation.Automatic)
                 }
             }
         }

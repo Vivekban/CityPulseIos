@@ -21,7 +21,8 @@ class BaseDetailViewController: UIViewController {
     var dataIndex = 0
     
     //MARK: UI parameters
-    var tableView:UITableView!
+    // container
+    var containerTableView:UITableView!
 
     var baseDetailHeight:CGFloat = 300
     var descptionHeight:CGFloat = 21
@@ -31,19 +32,22 @@ class BaseDetailViewController: UIViewController {
     var numberOfSection = 1
     
     
+    deinit {
+        log.debug(" base detail controller  .......... is deallocated ..:)")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        tableView = view.viewWithTag(99) as! UITableView
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.separatorColor = UIColor.clearColor()
-        // tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.rowHeight = view.frame.size.height
+        containerTableView = view.viewWithTag(99) as! UITableView
+        containerTableView.dataSource = self
+        containerTableView.delegate = self
+        containerTableView.separatorColor = UIColor.clearColor()
+        containerTableView.rowHeight = view.frame.size.height
         //let container = view.viewWithTag(100)
         
-        tableView.canCancelContentTouches = false
+        containerTableView.canCancelContentTouches = false
         //scrollView.delaysContentTouches
         
         
@@ -109,7 +113,7 @@ extension BaseDetailViewController : UITableViewDataSource {
             c.updateViewsWith(data)
             if (descptionHeight != c.descriptionLabel.frame.size.height) {
             descptionHeight =  c.descriptionLabel.frame.size.height
-                tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
+                containerTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
             }
         }
     }
@@ -170,26 +174,12 @@ class BaseCommentDetailViewController: BaseDetailViewController {
         baseDetailHeight = 560
         numberOfSection = 2
         
-        tableView.registerClass(CommentController.self, forCellReuseIdentifier: commentIdentifier)
+        containerTableView.registerClass(CommentController.self, forCellReuseIdentifier: commentIdentifier)
         
-//        if commentView != nil {
-//            commentHeightContraint = LayoutConstraintUtils.getHeightContraint(commentView!, height: 40)
-//            commentView?.addConstraint(commentHeightContraint)
-//            commentController = CommentController(frame: CGRectMake(0, 0, (commentView?.frame.width)!, 500), data: comments)
-//            commentController?.tableView.canCancelContentTouches = false
-//            commentView!.addSubview(commentController!)
-//        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-//        // commentView?.frame.size.height = (commentController?.getHeightOfView())!
-//        commentController?.tableView.frame.size.height = (commentView?.frame.height)!
-//        tableView.contentSize.height += (commentView?.frame.size.height)!
-//        commentView?.layoutIfNeeded()
-//        //view.viewWithTag(100)!.frame.size.height = scrollView.contentSize.height;
-//        view.layoutIfNeeded()
     }
     
     override func getCellIdentifier(indexPath: NSIndexPath) -> String {
@@ -206,8 +196,11 @@ class BaseCommentDetailViewController: BaseDetailViewController {
             c.updateComments(comments)
             if ( commentSectionHeight != c.tableView.contentSize.height ){
                 commentSectionHeight = c.tableView.contentSize.height
-                tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
+                containerTableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
             }
+        }
+        else{
+            super.configureCell(cell, forRowAtIndexPath: forRowAtIndexPath)
         }
     }
     
@@ -230,7 +223,7 @@ class BaseImageDetailViewController: BaseCommentDetailViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = 560
+        containerTableView.rowHeight = 560
     }
     
     override func setDataSourceWith(data: [BaseData]?, index: Int) {

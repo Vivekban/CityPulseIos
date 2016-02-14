@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 protocol BaseDetailCellDelegate: class {
     func onEditButtonClick()
@@ -65,14 +66,19 @@ class BaseCommentDetailCell: BaseDetailCell {
 
 class BaseImageDetailCell: BaseCommentDetailCell {
     var largeImageView:UIImageView!
+    var largeMapView:MKMapView!
+
     var collectionView:UICollectionView!
     let cellResueIndentifier = "ImageCell"
-    
+    let cellResueIndentifierMap = "MapCell"
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
         largeImageView = viewWithTag(5) as! UIImageView
         collectionView = viewWithTag(6) as! UICollectionView
+        largeMapView = viewWithTag(7) as! MKMapView
+
         collectionView.dataSource = self
         // collectionView.delegate = self
     }
@@ -94,17 +100,20 @@ extension BaseImageDetailCell : UICollectionViewDataSource {
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let d = data as? ImageUrlData {
-            return d.imagesUrls.count
+            return d.imagesUrls.count + 1
         }
-        return 0
+        return 1
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellResueIndentifier, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(indexPath.row == 0 ? cellResueIndentifierMap : cellResueIndentifier, forIndexPath: indexPath)
         
         let view = cell.viewWithTag(1)
         if let iv = view as? UIImageView {
-            loadImageInImageView(iv, index: indexPath.row)
+            loadImageInImageView(iv, index: indexPath.row - 1)
+        }
+        else if let iv = view as? MKMapView{
+            MapUtils.centerMapOnLocation(iv, location: CLLocation(latitude: 1, longitude: 1), regionRadius: 8000)
         }
         
         //        view?.gestureRecognizers?.removeAll()
@@ -115,7 +124,7 @@ extension BaseImageDetailCell : UICollectionViewDataSource {
     
     func  loadImageInImageView(view:UIImageView, index:Int) {
         if let d = data as? ImageUrlData {
-            ServerImageFetcher.i.loadImageWithDefaultsIn(view, url: d.imagesUrls[0])
+            ServerImageFetcher.i.loadImageWithDefaultsIn(view, url: d.imagesUrls[index])
         }
     }
     

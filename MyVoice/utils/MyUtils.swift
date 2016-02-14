@@ -108,6 +108,10 @@ class MyUtils{
         }
     }
 
-    
-    
+
+    static func addDictionary <U,T>(inout lhs :[U:T], rhs:[U:T]) {
+        for (key,value) in rhs {
+            lhs[key] = value
+        }
+    }
 }

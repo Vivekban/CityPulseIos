@@ -29,7 +29,11 @@ class BaseEditViewController: UIViewController {
     var type:EditControllerType = .EDIT
     
     //MARK: Bar Title fields
-    var mainTitle:String = ""
+    var mainTitle:String = "" {
+        didSet{
+                setMainTitle()
+        }
+    }
     var myNavigationItem: UINavigationItem?
     
     // pickers for date
@@ -59,6 +63,10 @@ class BaseEditViewController: UIViewController {
     var fieldHideByKeyboard = [UITextField]()
     
     
+    var fieldWithCharaterLimit = [TextFieldWithCharacterLimit]()
+    
+    
+    
     deinit{
      print(" Edit controller is deallocated.............................")
     }
@@ -66,7 +74,12 @@ class BaseEditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         myNavigationItem = (self.view.viewWithTag(1) as? UINavigationBar)?.items![0]
-        addTargetsTo(myNavigationItem?.rightBarButtonItems![0], and:myNavigationItem?.leftBarButtonItems![0])
+        
+        let item = myNavigationItem?.leftBarButtonItems![0]
+        item?.action = "onBackButtonClick"
+        item?.target = self
+        
+        addTargetsTo(view.viewWithTag(3), and:view.viewWithTag(2))
         self.view.addSubview(progressHUD)
         progressHUD.hide()
         
@@ -93,6 +106,17 @@ class BaseEditViewController: UIViewController {
         //        self.navigationItem.rightBarButtonItem = camera
         
         
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    
+        // scrollView?.contentSize.height = max ((scrollView?.frame.height)!, (scrollView?.contentSize.height)!)
+
+    }
+    
+    func onBackButtonClick(){
+        onCancelButtonClick()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -166,16 +190,7 @@ class BaseEditViewController: UIViewController {
     
     
     func initialiseViews(){
-        switch (type){
-            
-        case .NEW:
-            self.navigationItem.title = "Add " + mainTitle
-            break
-        case .EDIT:
-            self.navigationItem.title = "Edit " + mainTitle
-            break
-        }
-        
+        setMainTitle()
         for param in popDatePickerTextFields {
             popDatePickerTextFields.append(param)
             let popDatePicker = PopDatePicker(forTextField: param.textField, mode: param.mode)
@@ -187,6 +202,22 @@ class BaseEditViewController: UIViewController {
             f.delegate = self
         }
         
+    }
+    
+    
+    func setMainTitle(){
+        if  let item = myNavigationItem {
+
+        switch (type){
+        case .NEW:
+            item.title = "Add " + mainTitle
+            break
+        case .EDIT:
+            item.title = "Edit " + mainTitle
+            break
+        }
+        }
+
     }
     
     func dismissKeyboard() {
@@ -234,13 +265,11 @@ class BaseEditViewController: UIViewController {
     
     
     func addTargetsTo(saveButton: AnyObject?, and cancelButton: AnyObject?){
-        if let barSave = saveButton as?  UIBarButtonItem {
-            barSave.target = self
-            barSave.action = Selector("onSaveButtonClick")
+        if let barSave = saveButton as?  UIButton {
+            barSave.addTarget(self, action: Selector("onSaveButtonClick"), forControlEvents: UIControlEvents.TouchUpInside)
         }
-        if let barCancel = cancelButton as?  UIBarButtonItem {
-            barCancel.target = self
-            barCancel.action = Selector("onCancelButtonClick")
+        if let barCancel = cancelButton as?  UIButton {
+            barCancel.addTarget(self, action: Selector("onCancelButtonClick"), forControlEvents: UIControlEvents.TouchUpInside)
         }
         
     }
@@ -345,6 +374,8 @@ class BaseEditViewController: UIViewController {
                 self.saveDetails()
             })
             break
+        default :
+            break
         }
         
         
@@ -366,6 +397,7 @@ class BaseEditViewController: UIViewController {
     
 }
 
+// MARK: - UItextfield delegate
 
 extension BaseEditViewController : UITextFieldDelegate {
     
@@ -402,6 +434,25 @@ extension BaseEditViewController : UITextFieldDelegate {
             return false
         }
         return true
+    }
+    
+    
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        if !TextFieldWithCharacterLimit.isFieldInArray(textField, list: fieldWithCharaterLimit) {
+            return true
+        }
+        
+        guard let text = textField.text else
+        {
+            return true
+        }
+        
+        let newLength = text.characters.count + string.characters.count - range.length
+        return newLength <= 10 // Bool
+
+        
     }
 }
 

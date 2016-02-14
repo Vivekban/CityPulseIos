@@ -20,6 +20,8 @@ class ServerUrls {
     static let validateUserUrl = baseUrl + "/ValidateUser"
     static let addUserUrl = baseUrl + "/AddUser"
     static let getUserDetailsUrl = baseUrl + "/UserDetail"
+    static let getUserProfileDetailsUrl = baseUrl + "/GetUserCBDDetails"
+
     static let updateUserDetailsUrl = baseUrl + "/EditUser"
 
     // MARK: REVIEW
@@ -41,7 +43,8 @@ class ServerUrls {
     static let getIssueByIdUrl = baseUrl + "/GetIssueById"
     static let getIssueByMarkToUrl = baseUrl + "/GetIssueByMarkTo"
     static let getIssueByOwnerUrl = baseUrl + "/GetIssueByOwner"
-    
+    static let getIssueListByStatus = baseUrl + "/GetIssueByStatus"
+
     // MARK: - event
     
     static let addEventUrl = baseUrl + "/AddEvent/"

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TZStackView
 
 
 enum BriefProfilePersonType:Int {
@@ -47,6 +46,7 @@ class BriefProfileBar: UIView {
     @IBOutlet weak var partyImage: UIImageView!
     
     @IBOutlet weak var residentCreditLine: UIView!
+    @IBOutlet weak var residentCreditInfo: UILabel!
     
     weak var delegate:BriefProfileBarDelegate?
     
@@ -113,10 +113,10 @@ class BriefProfileBar: UIView {
         
         self.type = dataType
         self.data = data
-        intialiseViews()
+        setupViews()
     }
     
-    func intialiseViews(){
+    func setupViews(){
         
         switch (ptype) {
         case .Resident:
@@ -133,11 +133,37 @@ class BriefProfileBar: UIView {
             break;
         }
         
+        
+        
+        
         addCollectionViewBasedOnProfile()        
         addOptionsCollectionView()
         
     }
     
+    
+    func initView(){
+        if let d = data {
+            
+            
+            ServerImageFetcher.i.loadProfileImageWithDefaultsIn(profileImage, url: d.profileImageUrl)
+            nameLabel.text = d.name
+            
+            switch (ptype) {
+            case .Resident:
+                areaLabel.text = d.area
+                residentCreditInfo.text = "\(d.credits)"
+                break;
+            case .Leadear:
+                areaLabel.text = d.position
+                ServerImageFetcher.i.loadImageWithDefaultsIn(partyImage, url: d.politicalPartyImage)
+                issueResolvedLabel.text = d.politicalPary
+                issueResolvedLabel.sizeToFit()
+                break;
+            }
+            
+        }
+    }
     
     func addCollectionViewBasedOnProfile(){
         if (itemsCollectionView == nil) {
@@ -160,6 +186,15 @@ class BriefProfileBar: UIView {
     
     func onReviewClick(sender:UIGestureRecognizer){
         delegate?.onReviewClick()
+    }
+    
+    func updateData(data : ProfileData? = nil){
+        // fetch data
+        if (data != nil){
+            self.data = data
+            initView()
+        }
+        itemsCollectionView?.reloadData()
     }
     
 }
@@ -193,7 +228,7 @@ extension BriefProfileBar : UICollectionViewDataSource{
             
             // cell.backgroundColor = UIColor.orangeColor()
             cell.headingLabel?.text = item.heading
-            cell.detailLabel?.text = "300"
+            cell.detailLabel?.text = "\(getValueForCell(indexPath.row))"
             cell.icon?.image = UIImage(named: (item.iconName))
             
             
@@ -212,6 +247,10 @@ extension BriefProfileBar : UICollectionViewDataSource{
             if (indexPath.row % 2 == 0) {
                 cell.decreaseWidth()
             }
+            else{
+                cell.normalWidth()
+
+            }
             
             return cell
             
@@ -224,6 +263,47 @@ extension BriefProfileBar : UICollectionViewDataSource{
         // indexPath.row
         // Configure the cell
         return collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
+    }
+    
+    
+    
+    func getValueForCell(row : Int) ->Int {
+        if let data = self.data {
+        switch (ptype) {
+        case .Resident:
+            
+            switch (row) {
+            case 0:
+                 return data.issueRaised
+            case 1:
+                return data.donated
+            case 2:
+                return data.badges
+            default:
+                break;
+            }
+            
+                break;
+        case .Leadear:
+            switch (row) {
+            case 0:
+                return data.followers
+            case 1:
+                return data.issueResolved
+            case 2:
+                return data.badges
+            case 3:
+                return data.donations
+            case 4:
+                return data.credits
+            case 5:
+                return data.reviews
+            default:
+                break;
+            }
+        }
+        }
+        return 0
     }
     
     func patani(){
@@ -300,8 +380,17 @@ class BriefCell: UICollectionViewCell {
     }
     
      func decreaseWidth() {
+        print(headingLabel?.text)
         if width != nil {
             width?.constant = 75
+            layoutSubviews()
+        }
+    }
+    func normalWidth() {
+        print(headingLabel?.text)
+
+        if width != nil {
+            width?.constant = 120
             layoutSubviews()
         }
     }

@@ -273,6 +273,7 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
         let controllerScrollView_constraint_H:Array = NSLayoutConstraint.constraintsWithVisualFormat("H:|[controllerScrollView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
         let controllerScrollView_constraint_V:Array = NSLayoutConstraint.constraintsWithVisualFormat("V:|[controllerScrollView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
         
+        
         self.view.addConstraints(controllerScrollView_constraint_H)
         self.view.addConstraints(controllerScrollView_constraint_V)
         
@@ -281,7 +282,7 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
         
         menuScrollView.frame = CGRectMake(0.0, 0.0, self.view.frame.width, menuHeight)
         
-        let line = UIView(frame: CGRectMake(0.0, 50, self.view.frame.width, 1))
+        let line = UIView(frame: CGRectMake(0.0, menuHeight, self.view.frame.width, 1))
         line.tag = 12312
         line.backgroundColor = Constants.grayColor_217
         
@@ -293,6 +294,11 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
         
         self.view.addConstraints(menuScrollView_constraint_H)
         self.view.addConstraints(menuScrollView_constraint_V)
+        
+        
+        // let topGapContraint = NSLayoutConstraint(item: controllerScrollView, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: menuScrollView, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 3)
+        
+        // self.view.addConstraint(topGapContraint)
         
         // Add hairline to menu scroll view
         if addBottomMenuHairline {

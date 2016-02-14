@@ -25,55 +25,56 @@ import SwiftyJSON
 
 enum IssueInfoRequestType:Int{
     
-    case Normal = 0, Popular, Relevant, Subscribed, Resolved
+    case Normal = 0, Popular, Relevant, Subscribed,Resolved,Own
 }
 
-class IssueController {
-    var issueLists: [[IssueData]] = [[IssueData]]()
-    
-    init(){
+
+
+
+class IssueController: ServerDataManager{
+   
+    var issuesData = IssuesList()
+    var issueCategorises:[String] = [String]()
+    override init(){
+        super.init()
+ //        MyUtils.delay(0.01) { () -> () in
+ //            self.fetchIssueInfo(.Normal, completionHandler: nil)
+ //        }
+        // fetchData(IssueInfoRequestType.Normal.rawValue, completionHandler: nil)
         
-        for _ in 0...4{
-            issueLists.append([IssueData]())
-        }
-        
-        MyUtils.delay(0.01) { () -> () in
-            self.fetchIssueInfo(.Normal, completionHandler: nil)
-        }
-        
-        // fetchIssueInfo(.Views, completionHandler: nil)
         
     }
     
     
-    func fetchIssueInfo(infoRequest:IssueInfoRequestType , completionHandler:ServerRequestCallback?){
-        let uInfoRequest = ServerRequest(url: getUrlBasedOnUserInfoRequest(infoRequest), postData: ["owner":"\(CurrentSession.i.userId)"]) { [weak self](result) -> Void in
-            // process request
-            print(result)
-            switch result {
-            case .Success(let data):
-                if let d = data {
-                    if let dis = self {
-                        dis.onSuccesfulRequset(infoRequest, data: d)
-                    }
-                }
-                break
-            case .Failure(let error):
-                print(error)
-                
-            }
-            // tell request originator
-            if let cH = completionHandler {
-                cH(result)
-            }
-        }
-        ServerRequestInitiater.i.initiateServerRequest(uInfoRequest)
-    }
+//    func fetchIssueInfo(infoRequest:IssueInfoRequestType , completionHandler:ServerRequestCallback?){
+//        let uInfoRequest = ServerRequest(url: getUrlBasedOnRequest(infoRequest), postData: getParamterBasedOnRequest(infoRequest)) { [weak self](result) -> Void in
+//            // process request
+//            print(result)
+//            switch result {
+//            case .Success(let data):
+//                if let d = data {
+//                    if let dis = self {
+//                        dis.onSuccesfulRequset(infoRequest, data: d)
+//                    }
+//                }
+//                break
+//            case .Failure(let error):
+//                print(error)
+//                
+//            }
+//            // tell request originator
+//            if let cH = completionHandler {
+//                cH(result)
+//            }
+//        }
+//        ServerRequestInitiater.i.initiateServerRequest(uInfoRequest)
+//    }
     
-    func getUrlBasedOnUserInfoRequest(infoRequest:IssueInfoRequestType) -> String{
+    override func getUrlBasedOnRequest(dataRequest:Int) -> String{
+        let infoRequest = IssueInfoRequestType(rawValue: dataRequest)!
         switch (infoRequest) {
         case .Normal:
-            return ServerUrls.getIssueByOwnerUrl
+            return ServerUrls.getIssueListByStatus
         case .Popular:
             return ServerUrls.getIssueByOwnerUrl
         case .Relevant:
@@ -84,30 +85,116 @@ class IssueController {
         return ""
     }
     
-    func onSuccesfulRequset(infoRequest:IssueInfoRequestType , data:AnyObject){
-        
+    override func getParamterBasedOnRequest(dataRequest:Int, parameter:[String : AnyObject]? = nil) -> [String : AnyObject]{
+
+        let infoRequest = IssueInfoRequestType(rawValue: dataRequest)!
+
         switch (infoRequest) {
-        case .Normal,.Popular:
+        case .Normal:
+            return ["status":"n"]//["status":"O"]
+        case .Popular:
+            return ["status":"o"]
+        case .Relevant:
+            return ["status":"o"]
+        default:
+            break;
+        }
+        return ["owner":"O"]
+    }
+
+    
+    override func onSuccesfulRequset(dataRequest:Int , parameter:[String : AnyObject]? = nil, data:AnyObject){
+        
+        
+        if let param = parameter{
+            let infoRequest = IssueInfoRequestType(rawValue: dataRequest)!
+            let tab = param["tab"] as! Int
+            let index = param["index"] as! Int
+
+            var entities : [BaseData]!
+
+        
+        switch (tab) {
+        case 0,1:
             print(data)
             let viewArray = JSON(data)
-            var issues = issueLists[infoRequest.rawValue]
-            issues.removeAll()
+            entities = [IssueData]()
             for (_,obj) in viewArray {
                 if let finalString = obj.rawString() {
                     // print(" value is \(i)...+....\(finalString)")
                     if let view = Mapper<IssueData>().map(finalString) {
-                        issues.append(view)
+                        entities.append(view)
                     }
                 }
             }
+            
+            if tab == 0 {
+                issuesData.issueListsManager[index].updateEntries(entities)
+            }
+            else{
+                issuesData.hoaIssueListsManager[index].updateEntries(entities)
+            }
+            
             break
+        case 2:
+            print(data)
+            let viewArray = JSON(data)
+            for (_,obj) in viewArray {
+                entities = [PollData]()
+                if let finalString = obj.rawString() {
+                    // print(" value is \(i)...+....\(finalString)")
+                    if let view = Mapper<PollData>().map(finalString) {
+                        entities.append(view)
+                    }
+                }
+            }
+            issuesData.pollsListsManager[index].updateEntries(entities)
+           break
+
         default:
             break;
         }
-        
+            
+         }
         
         // person.basicInfo  = Mapper<PersonBasicData>().map(data)
         
     }
+    
+    
+    override func fetchListData(dataRequest: Int, parameter: [String : AnyObject], completionHandler: ServerRequestCallback?) {
+        
+        // let infoRequest = IssueInfoRequestType(rawValue: dataRequest)!
+            let tab = parameter["tab"] as! Int
+            let index = parameter["index"] as! Int
+        
+        
+        
+        let lists =  issuesData.getList(tab)
+        
+        if lists[index].hasAllEntries {
+            if let handler = completionHandler {
+                handler(ServerResult.EveryThingUpdated)
+                return
+            }
+        }
+        
+        if lists[index].isFetching {
+            if let handler = completionHandler {
+                handler(ServerResult.UnderProgress)
+                return
+            }
+        }
+        
+        //TODO: parameter
+        var para = [String:AnyObject]()
+
+        MyUtils.addDictionary(&para, rhs: parameter)
+        MyUtils.addDictionary(&para, rhs: getParamterBasedOnRequest(dataRequest))
+        
+        super.fetchListData(dataRequest, parameter: para, completionHandler: completionHandler)
+        
+    }
+        
     
 }

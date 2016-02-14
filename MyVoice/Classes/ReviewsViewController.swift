@@ -30,9 +30,9 @@ class ReviewsViewController: BaseNestedTabViewController {
         r.description = "This is desc"
         entries.append(r)
         
-        personRequestInfoType = PersonInfoRequestType.Reviews
+        serverRequestType = PersonInfoRequestType.Reviews.rawValue
         if entries.count == 0 {
-            fetchPersonInfoFromServer()
+            fetchInfoFromServer()
         }
         
         self.tablView = tableView

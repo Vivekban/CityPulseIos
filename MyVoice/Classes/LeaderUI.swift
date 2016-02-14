@@ -20,6 +20,8 @@ class LeaderUI: ResidentUI {
     
     override func personSpecificParmeter() {
         briefType = BriefProfilePersonType.Leadear
+         homeFilters = Constants.leaderHomeIssueFilter
+
     }
     
     override func basicTextFieldInfo()->[TextFieldInputData]{

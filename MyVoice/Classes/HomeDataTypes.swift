@@ -15,12 +15,12 @@ class IssueData: ImageUrlData {
     var markTo:String = "0"
     var isCritical = false
     var location:Location?
-    var status:String = "o"
+    var status:String = "y"
     
     var displayStatus :String{
         get {
             if !status.isEmpty {
-                if status.caseInsensitiveCompare("o") == .OrderedSame{
+                if status.caseInsensitiveCompare("y") == .OrderedSame{
                     return MyStrings.open
                 }
                 else {
@@ -42,6 +42,7 @@ class IssueData: ImageUrlData {
     }
     
     var votes:Int = 0
+    var responseCount:Int = 0
     
     var ownerName = ""
     var ownerPic = ""
@@ -66,6 +67,7 @@ class IssueData: ImageUrlData {
         isCritical <- map["critical"]
         category <- map["category"]
         status <- map["status"]
+        responseCount <- map["response_count"]
     }
     
 }
@@ -93,4 +95,15 @@ class CommentData:TitleDesDateData {
 class ResponseData:CommentData {
     var votes = 0
     
+}
+
+
+class PollData:ImageUrlData {
+    
+}
+
+
+
+enum IssueType : Int{
+    case Community = 0, HOA
 }

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CocoaLumberjack
 
 
 class BasicInfoViewController: BaseHeaderCollectionView {

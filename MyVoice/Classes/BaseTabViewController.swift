@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CocoaLumberjack
 
 class BaseTabViewController: UIViewController {
     
@@ -46,6 +45,15 @@ class BaseTabViewController: UIViewController {
     
     var currentActiveView:UIView?
     
+    
+    //
+    
+    
+    deinit{
+        log.debug("de int of base tab controller..............")
+    }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,9 +90,16 @@ class BaseTabViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onViewScrollEvent:", name: Constants.notification_center_scroll_event_key, object: nil)
         
         EventUtils.addObserver(self, selector: Selector("onLocationUpdate"), key: EventUtils.locationUpdateKey)
+        EventUtils.addObserver(self, selector: Selector("onBasicInfoUpdate"), key: EventUtils.basicInfoUpdateKey)
+
+        
         log.info("adding observer...............\(tabTitles[0]).")
         
         
+    }
+    
+    func onBasicInfoUpdate(){
+        briefProfileView?.updateData(CurrentSession.i.personController.person.profileData)
     }
     
     func onLocationUpdate(){
@@ -339,6 +354,7 @@ extension BaseTabViewController: BriefProfileBarDelegate {
     func onReviewClick() {
         if let controller = MyUtils.getViewControllerFromStoryBoard("AdditionalUI", controllerName: "ReviewViewController") {
             addAdditionView(controller)
+            topBar?.titleLabel.text = MyStrings.reviews
         }
     }
 }
@@ -353,6 +369,10 @@ extension BaseTabViewController : TopBarViewDelegate {
     }
     
     func onHelpButtonClick() {
+        
+    }
+    
+    func onCategoryChanged(text: String) {
         
     }
 }

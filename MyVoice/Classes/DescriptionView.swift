@@ -10,20 +10,24 @@ import UIKit
 
 class DescriptionView: UIView {
     
-   
-
+    
+    
     @IBOutlet weak var textView: FloatLabelTextView!
     
     
     var text :String {
-        didSet{
-            textView.text = text
+        set(newText){
+            textView.text = newText
+        }
+        
+        get {
+            return textView.text
         }
     }
-
     
-     required init?(coder aDecoder: NSCoder) {
-        text = ""
+    
+    required init?(coder aDecoder: NSCoder) {
+        // text = ""
         super.init(coder: aDecoder)
         initView()
     }
@@ -41,8 +45,8 @@ class DescriptionView: UIView {
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
-        // Drawing code
+    // Drawing code
     }
     */
-
+    
 }

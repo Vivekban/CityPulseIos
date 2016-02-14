@@ -15,6 +15,8 @@ typealias ServerRequestCallback = (ServerResult) -> Void
 enum ServerResult{
     case Success(AnyObject?);
     case Failure(NSError?)
+    case EveryThingUpdated
+    case UnderProgress
 }
 
 
@@ -31,14 +33,14 @@ class ServerRequestInitiater {
     typealias ServerRequestInitiaterCallback = (status : Int, forTextField : UITextField)->()
     
     
-    func valideUser(parameters:[String:String]){
+    func valideUser(parameters:[String:AnyObject]){
         Alamofire.request(.POST,ServerUrls.validateUserUrl, parameters: parameters, encoding: ParameterEncoding.URL, headers: nil).responseString { (response) -> Void in
             print(response)
             print(response.result.isSuccess)
         }
     }
     
-    func addUser(parameters:[String:String]){
+    func addUser(parameters:[String:AnyObject]){
         //print(parameters["json"])
         
         Alamofire.request(.POST,ServerUrls.addUserUrl, parameters: parameters, encoding: ParameterEncoding.URL, headers: nil).responseString { (response) -> Void in
@@ -47,7 +49,7 @@ class ServerRequestInitiater {
             print(response.result.isSuccess)
         }
     }
-    func getUserDetail(parameters:[String:String]){
+    func getUserDetail(parameters:[String:AnyObject]){
         
         Alamofire.request(.POST,ServerUrls.getUserDetailsUrl, parameters: parameters, encoding: ParameterEncoding.URLEncodedInURL, headers: nil).responseJSON { (response) -> Void in
             // print(response.request!)
@@ -70,12 +72,12 @@ class ServerRequestInitiater {
         //        }
     }
     
-    func postMessageToServer(url:String, postData:[String:String], completionHandler: ServerRequestCallback) {
+    func postMessageToServer(url:String, postData:[String:AnyObject], completionHandler: ServerRequestCallback) {
         
         //  print(postData["json"]!)
         
         Alamofire.request(.POST,url, parameters: postData, encoding: ParameterEncoding.URLEncodedInURL, headers: nil).responseJSON { (response) -> Void in
-            print(response.response)
+            // print(response.response)
             
             if response.result.isSuccess {
                 completionHandler(.Success(response.result.value))
@@ -115,7 +117,7 @@ class ServerRequestInitiater {
         case .Json:
             Alamofire.request(req.postType, req.url, parameters: req.postData, encoding: ParameterEncoding.URLEncodedInURL, headers: nil).responseJSON { (response) -> Void in
                  print(response.response)
-                   print(response.data)
+                // print(response.data)
                 if response.result.isSuccess {
                     if let cH = req.completionHandler {
                         cH(.Success(response.result.value))
@@ -184,14 +186,14 @@ class ServerRequestInitiater {
 
 class ServerRequest{
     var url:String!
-    var postData:[String:String]!
+    var postData:[String:AnyObject]!
     var completionHandler:ServerRequestCallback?
     var postType:Alamofire.Method = .POST
     var responseType:ServerResponseType = .Json
     var retryCount = 1
     var intervalBetweenRetry = 1.0
     
-    init(url:String, postData:[String:String], completionHandler: ServerRequestCallback){
+    init(url:String, postData:[String:AnyObject], completionHandler: ServerRequestCallback){
         self.url = url
         self.postData = postData
         self.completionHandler = completionHandler

@@ -39,7 +39,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Party" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMI-bb-y9A">
-                            <rect key="frame" x="111" y="64" width="195" height="20"/>
+                            <rect key="frame" x="111" y="64" width="39" height="20"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" red="0.51372549019607838" green="0.51372549019607838" blue="0.51372549019607838" alpha="1" colorSpace="calibratedRGB"/>
@@ -53,7 +53,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WcH-QB-PCv">
-                            <rect key="frame" x="314" y="59" width="30" height="30"/>
+                            <rect key="frame" x="158" y="59" width="30" height="30"/>
                             <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="ls7-dd-l1a"/>
@@ -79,7 +79,7 @@
                                     <color key="textColor" red="0.39607843139999999" green="0.39607843139999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Heading" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NtP-MB-XCx">
+                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credits" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NtP-MB-XCx">
                                     <rect key="frame" x="27" y="3" width="105" height="18"/>
                                     <animations/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -121,7 +121,6 @@
                         <constraint firstAttribute="bottom" secondItem="Ll0-o5-dIy" secondAttribute="bottom" constant="14" id="5cd-dw-CoQ"/>
                         <constraint firstItem="WcH-QB-PCv" firstAttribute="centerY" secondItem="wMI-bb-y9A" secondAttribute="centerY" id="5fF-5b-kCk"/>
                         <constraint firstItem="JhS-hG-F6C" firstAttribute="width" secondItem="GDh-Vl-PGo" secondAttribute="width" multiplier="3:12" id="5ix-Qj-ExW"/>
-                        <constraint firstItem="wMI-bb-y9A" firstAttribute="width" secondItem="GDh-Vl-PGo" secondAttribute="width" multiplier="2:9" id="FzF-WE-MHy"/>
                         <constraint firstItem="JhS-hG-F6C" firstAttribute="leading" secondItem="JdK-DB-9tU" secondAttribute="trailing" constant="8" id="ILR-DJ-gNh"/>
                         <constraint firstItem="JhS-hG-F6C" firstAttribute="top" secondItem="8C4-4n-85X" secondAttribute="bottom" constant="4" id="JUx-Zc-cUL"/>
                         <constraint firstAttribute="height" constant="99" id="KU2-ri-L59"/>
@@ -162,9 +161,10 @@
                 <outlet property="nameLabel" destination="8C4-4n-85X" id="V0g-Np-RyZ"/>
                 <outlet property="partyImage" destination="WcH-QB-PCv" id="tdJ-bC-0pc"/>
                 <outlet property="profileImage" destination="JdK-DB-9tU" id="tEu-Gr-81p"/>
+                <outlet property="residentCreditInfo" destination="BVY-jW-BYZ" id="FCi-Fe-1Ej"/>
                 <outlet property="residentCreditLine" destination="Ll0-o5-dIy" id="73D-Xh-jA0"/>
             </connections>
-            <point key="canvasLocation" x="163.5" y="463"/>
+            <point key="canvasLocation" x="-169.5" y="316"/>
         </view>
     </objects>
     <resources>

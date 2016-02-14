@@ -60,14 +60,31 @@ class MyStrings {
     static let by = "By"
     
     // home
-    static let community_issue = "Community Issues"
+    static let community_issue = "Community Issue"
+    static let community_issues = "Community Issues"
     static let active_community_issue = "Active Community Issues"
-    static let HOA_issue = "HOA Issues"
+    static let HOA_issues = "HOA Issues"
+    static let HOA_issue = "HOA Issue"
     static let polls = "Polls"
     
     
     //
     static let open = "Open"
     static let closed = "Closed"
+    
+    //
+    static let active = "Active"
+    static let relevant = "Relevent"
+    static let subscribed = "Subscribed"
+    static let resolved = "Resolved"
+    static let popular = "Popular"
+    static let own = "Own"
+    
+    
+    static let reviews = "Reviews"
+
+    //
+    static let filters = "Filters"
+
 
 }

@@ -9,17 +9,18 @@
 import UIKit
 import SwiftyJSON
 import ObjectMapper
-import CoreLocation
+import Crashlytics
 
 
 class MainController: UITabBarController {
-    let locationManager = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
         
-        setupForLocation()
+        
+        
+    
         //ServerRequestInitiater.i.getUserDetail(["userId": "1"])
         
         // ServerRequestInitiater.i.valideUser(["email": "testing1@gmil.com","password":"dummy"])
@@ -89,7 +90,8 @@ class MainController: UITabBarController {
                 break
             case .Failure(let error):
                 print(error)
-                
+            default :
+                break
             }
             
         }
@@ -118,9 +120,11 @@ class MainController: UITabBarController {
         UISearchBar.appearance().setSearchFieldBackgroundImage(UIImage.imageWithColor(UIColor.whiteColor(), rect: CGRectMake(0, 0, 300, 30)), forState: UIControlState.Normal)        // print(MyUtils.getServerStyleDateInString("Feb 4, 2016"))
         
         UISearchBar.appearance().setImage(UIImage(named: "search"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal)
-        //UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState:.Normal)
         
-        //  UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.redColor()], forState:.Selected)
+        
+        //let error = [Int]()
+        
+        //print(error[3])
         
     }
     
@@ -128,15 +132,10 @@ class MainController: UITabBarController {
         // let tabItemWidth = self.tabBar.itemWidth
         let image = UIImage.imageWithColor(Constants.tab_selection, rect: CGRectMake(0, 0, 110, 55))
         UITabBar.appearance().selectionIndicatorImage = image
-//        
-//        for item in self.tabBar.items! {
-//            item.image?.imageWithRenderingMode(.AlwaysOriginal)
-//        }
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        setupForLocation()
     }
     
     override func didReceiveMemoryWarning() {
@@ -152,49 +151,10 @@ class MainController: UITabBarController {
         self.tabBar.frame = tabFrame
     }
     
-    
-    func setupForLocation(){
-        locationManager.delegate = self;
-        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-    }
-
-    
+       
 }
 
-extension MainController : CLLocationManagerDelegate {
-   
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-         CurrentSession.i.userLocation = locations[0]
-        
-        let geocoder = CLGeocoder()
-        geocoder.reverseGeocodeLocation(locations[0]) { [weak self](placemarks, error) -> Void in
-            
-            if (error != nil || placemarks == nil||placemarks?.count == 0) {
-                log.error("reverse geodcode fail: \(error!.localizedDescription)")
-                return
-            }
-            for place in placemarks! {
-                if let p = place as? CLPlacemark {
-                    log.info(" \(p.locality!)  \( p.administrativeArea!)")
 
-                }
-            }
-            CurrentSession.i.userPlacemark = placemarks?[0]
-            EventUtils.postNotification(EventUtils.locationUpdateKey)
-            self?.locationManager.stopUpdatingLocation()
-            self?.locationManager.startMonitoringSignificantLocationChanges()
-        }
-        // let long = locations[0].coordinate.longitude;
-        // let lat = locations[0].coordinate.latitude;
-        
-        //Do What ever you want with it
-    }
-    
-    
-}
 
 
 extension MainController : UITabBarControllerDelegate{

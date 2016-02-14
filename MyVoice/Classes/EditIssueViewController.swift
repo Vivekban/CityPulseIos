@@ -9,6 +9,9 @@
 import UIKit
 import SwiftyJSON
 
+
+
+
 class EditIssueViewController: BaseImageEditViewController {
     
     @IBOutlet weak var titleField: FloatLabelTextField!
@@ -21,8 +24,13 @@ class EditIssueViewController: BaseImageEditViewController {
     
     var isTagsFetched = false
     
+    var issueType = IssueType.Community {
+        didSet{
+            onIssueTypeSet()
+        }
+    }
+    
     override func viewDidLoad() {
-        mainTitle = MyStrings.issue
         super.viewDidLoad()
         
         // category
@@ -49,7 +57,13 @@ class EditIssueViewController: BaseImageEditViewController {
         fieldHideByKeyboard.append(tags)
         
         tags.delegate = self
-    }
+        
+        // hide cancel button
+        
+        if let v = view.viewWithTag(2) {
+            v.hidden = true
+        }
+     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -77,6 +91,9 @@ class EditIssueViewController: BaseImageEditViewController {
     
     override func fetchDataFromUIElements() {
         if let d = data as? IssueData {
+            
+            log.info(titleField.text)
+            
             d.title = titleField.text ?? ""
             d.description = descriptionField.text
             d.category = category.text ?? ""
@@ -88,6 +105,20 @@ class EditIssueViewController: BaseImageEditViewController {
         
     }
     
+    func onIssueTypeSet(){
+        
+        switch (issueType) {
+        case .Community:
+            mainTitle =  MyStrings.community_issue
+            break;
+        case .HOA:
+            mainTitle =  MyStrings.HOA_issue
+            break
+        default:
+            break;
+        }
+
+    }
     
     func fetchTagsFromServer(){
         

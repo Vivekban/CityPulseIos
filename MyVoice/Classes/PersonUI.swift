@@ -25,6 +25,7 @@ class PersonUI {
     var briefViewXibName = "BriefProfileBar"
     var briefType:BriefProfilePersonType = BriefProfilePersonType.Resident
     
+    var homeFilters = Constants.residentHomeIssueFilter
     
     init(){
         educationInfoItems = ["LAST_DEGREE_HELD".localized,"YEAR".localized]
