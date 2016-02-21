@@ -72,7 +72,7 @@ class ServerRequestInitiater {
         //        }
     }
     
-    func postMessageToServer(url:String, postData:[String:AnyObject], completionHandler: ServerRequestCallback) {
+    func postMessageToServerForJsonResponse(url:String, postData:[String:AnyObject]?, completionHandler: ServerRequestCallback) {
         
         //  print(postData["json"]!)
         
@@ -91,7 +91,7 @@ class ServerRequestInitiater {
             }
             
             
-            if let json = response.result.value {
+            if let _ = response.result.value {
                 //   print("data is \(json)")
             }
         }
@@ -111,12 +111,34 @@ class ServerRequestInitiater {
     }
     
     
+    func postMessageToServerForStringResponse(url:String, postData:[String:AnyObject]?, completionHandler: ServerRequestCallback) {
+        
+        //  print(postData["json"]!)
+        
+        Alamofire.request(.POST,url, parameters: postData, encoding: ParameterEncoding.URLEncodedInURL, headers: nil).responseString(completionHandler: { (response) -> Void in
+            // print(response.response)
+            
+            if response.result.isSuccess {
+                completionHandler(.Success(response.result.value))
+                
+            }
+            else if response.result.isFailure  {
+                print(response.request!)
+                completionHandler(.Failure(response.result.error))
+                
+            }
+        })
+
+    }
+    
+    
+    
     func initiateServerRequest(req:ServerRequest){
         
         switch req.responseType {
         case .Json:
             Alamofire.request(req.postType, req.url, parameters: req.postData, encoding: ParameterEncoding.URLEncodedInURL, headers: nil).responseJSON { (response) -> Void in
-                 print(response.response)
+                // print(response.response)
                 // print(response.data)
                 if response.result.isSuccess {
                     if let cH = req.completionHandler {
@@ -191,7 +213,7 @@ class ServerRequest{
     var postType:Alamofire.Method = .POST
     var responseType:ServerResponseType = .Json
     var retryCount = 1
-    var intervalBetweenRetry = 1.0
+    var intervalBetweenRetry = 2.0
     
     init(url:String, postData:[String:AnyObject], completionHandler: ServerRequestCallback){
         self.url = url

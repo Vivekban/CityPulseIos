@@ -9,6 +9,8 @@
 import UIKit
 
 class HomeBaseNestedTabController: BaseNestedTabViewController {
+    
+    var currentCategory:String = "-1"
 
     var currentFilter : HomeFilter? {
         didSet{
@@ -25,6 +27,10 @@ class HomeBaseNestedTabController: BaseNestedTabViewController {
 
 
     func onFilterChange(){
+        
+    }
+    
+    func onCatergoryChange(text:String, item index:Int){
         
     }
     

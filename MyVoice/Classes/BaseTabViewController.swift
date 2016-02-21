@@ -352,9 +352,19 @@ extension BaseTabViewController : TabsInitialisation{
 
 extension BaseTabViewController: BriefProfileBarDelegate {
     func onReviewClick() {
-        if let controller = MyUtils.getViewControllerFromStoryBoard("AdditionalUI", controllerName: "ReviewViewController") {
-            addAdditionView(controller)
-            topBar?.titleLabel.text = MyStrings.reviews
+        
+        if CurrentSession.i.isVisitingSomeone() {
+            if let controller = MyUtils.getViewControllerFromStoryBoard("AdditionalUI", controllerName: "EditReviewController") {
+                addAdditionView(controller)
+                topBar?.titleLabel.text = MyStrings.write_review
+            }
+        }
+        else{
+            
+            if let controller = MyUtils.getViewControllerFromStoryBoard("AdditionalUI", controllerName: "ReviewViewController") {
+                addAdditionView(controller)
+                topBar?.titleLabel.text = MyStrings.reviews
+            }
         }
     }
 }
@@ -372,8 +382,8 @@ extension BaseTabViewController : TopBarViewDelegate {
         
     }
     
-    func onCategoryChanged(text: String) {
-        
+    func onCategoryChanged(text:String, item index:Int) {
+    
     }
 }
 

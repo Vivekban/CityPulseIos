@@ -37,7 +37,31 @@ class BaseData:Mappable{
         return ""
     }
     
+    func getCombineString() -> String {
+        return userid.toString() + id.toString() + owner
+    }
 }
+
+extension BaseData : Hashable {
+    
+    var hashValue: Int {
+        return getCombineString().hashValue
+    }
+    
+    
+}
+
+extension BaseData : Equatable {}
+
+func ==(lhs: BaseData, rhs: BaseData) -> Bool {
+    
+    return lhs.userid == rhs.userid &&
+        lhs.id != rhs.id &&
+        lhs.owner != rhs.owner
+}
+
+
+
 
 class TitleDescriptionData: BaseData {
     var title:String = "" {
@@ -73,6 +97,10 @@ class TitleDescriptionData: BaseData {
             return MyStrings.messageDescriptionIsEmpty
         }
         return ""
+    }
+    
+    override func getCombineString() -> String {
+        return (super.getCombineString() + title + description)
     }
 }
 

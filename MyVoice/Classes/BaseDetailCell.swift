@@ -24,6 +24,8 @@ class BaseDetailCell: UITableViewCell {
     weak var delegate:BaseDetailCellDelegate?
     var data:BaseData!
     
+    weak var actionDelgate : ActionsDelegate?
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -57,10 +59,33 @@ class BaseDetailCell: UITableViewCell {
     func onEditButtonClick(){
         delegate?.onEditButtonClick()
     }
+    
+    func onActionButtonClick(sender: UIButton){
+        guard let a = Actions(rawValue: sender.tag)  else{
+        log.error("Unknow action")
+            return
+        }
+        
+        actionDelgate?.onActionButtonClick(a)
+
+    }
 
 }
 
+
 class BaseCommentDetailCell: BaseDetailCell {
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+       
+        for i in 48...52 {
+            if let button = self.viewWithTag(i) as? UIButton {
+            button.addTarget(self, action: "onActionButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
+            }
+            // actionButtons.append(button)
+        }
+
+    }
     
 }
 
@@ -80,13 +105,25 @@ class BaseImageDetailCell: BaseCommentDetailCell {
         largeMapView = viewWithTag(7) as! MKMapView
 
         collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.allowsSelection = true
         // collectionView.delegate = self
     }
     
     override func updateViewsWith(data: BaseData?) {
         super.updateViewsWith(data)
         //setInitialLargeImage
-        onItemClick(0)
+        if let d = data as? ImageUrlData {
+            if ( d.imagesUrls.count > 0) {
+                // collectionView.selectItemAtIndexPath(NSIndexPath(forRow: 1, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.None)
+                  onItemClick(1)
+            }
+            else{
+                //collectionView.selectItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.None)
+
+                onItemClick(0)
+            }
+        }
     }
     
 }
@@ -99,6 +136,9 @@ extension BaseImageDetailCell : UICollectionViewDataSource {
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        // print(data)
+        
         if let d = data as? ImageUrlData {
             return d.imagesUrls.count + 1
         }
@@ -130,12 +170,15 @@ extension BaseImageDetailCell : UICollectionViewDataSource {
     
     func onItemClick(index:Int){
         if let d = self.data as? ImageUrlData {
-            if index < d.imagesUrls.count {
-                ServerImageFetcher.i.loadImageWithDefaultsIn(largeImageView, url: d.imagesUrls[index])
-                
+            if index == 0 {
+                largeMapView.hidden = false
+                largeImageView.hidden = true
+
             }
-            else{
-                //TODO: impelement default image
+            else if index - 1 < d.imagesUrls.count {
+                ServerImageFetcher.i.loadImageWithDefaultsIn(largeImageView, url: d.imagesUrls[index - 1])
+                largeMapView.hidden = true
+                largeImageView.hidden = false
             }
         }
     }
@@ -164,6 +207,10 @@ class IssueDetailCell: BaseImageDetailCell {
     var ownerAreaLabel: UILabel!
     var ownerCreditsLabel: UILabel!
 
+    var category:UILabel!
+    var title2:UILabel!
+    
+    var isVoting = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -182,26 +229,93 @@ class IssueDetailCell: BaseImageDetailCell {
         ownerNameLabel =  viewWithTag(31) as! UILabel
         ownerAreaLabel =  viewWithTag(32) as! UILabel
         ownerCreditsLabel =  viewWithTag(33) as! UILabel
+        
+        category =  viewWithTag(8) as! UILabel
+        title2 =  viewWithTag(9) as! UILabel
+
 
         
     }
     
     @IBAction func onVoteUpIssueClick(sender: UIButton) {
-        if let d = data as? IssueData {
-            d.votes++
-        votesLabel.text = "\(d.votes)"
+        if isVoting {
+            return
+        }
+        
+        if let d = data as? IssueData  {
+            if d.isVoted < 1 {
+               onVoteRequest(1)
+            }
+        
         }
     }
     @IBAction func onVoteDownClick(sender: UIButton) {
-        if let d = data as? IssueData {
-            d.votes--
-            votesLabel.text = "\(d.votes)"
+        if let d = data as? IssueData where !isVoting{
+            if d.isVoted > -1 {
+                onVoteRequest(-1)
+            }
+
         }
     }
+    
+    
+    func onVoteRequest (change : Int){
+        isVoting = true
+        
+        guard let d = data as? IssueData else {
+            return
+        }
+        
+      let param = MyUtils.appendKayToJSONString("{\"vote\":\(change),\"issueid\":\(d.id),\"userid\":\(CurrentSession.i.userId)} ")
+
+        print(param)
+        ServerRequestInitiater.i.postMessageToServerForStringResponse(ServerUrls.voteIssueUrl, postData: ["json": param]) { [weak self] (r) -> Void in
+            
+            self?.isVoting = false
+            switch r {
+            case .Success(let data):
+                 self?.changeVote(change)
+                if let d = data {
+                    print(d)
+                    
+                }
+                break
+            case .Failure(let error):
+                print(error)
+                ToastUtils.displayToastWith(change > 0 ? MyStrings.unableToVoteUp : MyStrings.unableToVoteDown)
+                break
+            default :
+                break
+            }
+            
+        }
+        
+    }
+    
+    
+    func changeVote(change : Int){
+        guard let d = data as? IssueData else {
+            return
+        }
+        
+
+        let fi = d.isVoted + change
+        
+        if fi > -2 && fi < 2 {
+            d.isVoted = fi
+            d.votes += change
+            votesLabel.text = "\(d.votes)"
+        }
+
+    }
+    
     
     override func updateViewsWith(data: BaseData?) {
         super.updateViewsWith(data)
         if let d = data as? IssueData {
+            title2.text = d.title
+            log.info(d.title)
+            category.text = d.category
             votesLabel.text = "\(d.votes)"
             ownerAreaLabel.text = d.ownerArea
             ownerNameLabel.text = d.ownerName

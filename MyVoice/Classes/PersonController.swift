@@ -13,7 +13,7 @@ import SwiftyJSON
 
 enum PersonInfoRequestType:Int{
     
-    case BasicInfo = 1, Views, Reviews, Profile
+    case BasicInfo = 1, Views, Reviews, Profile, Work, Video, Event
 }
 
 class PersonController : ServerDataManager {
@@ -49,12 +49,20 @@ class PersonController : ServerDataManager {
         case .Profile:
             return ServerUrls.getUserProfileDetailsUrl
         default:
-            break;
+            return "";
         }
 
     }
     
     override func getParamterBasedOnRequest(dataRequest: Int, parameter:[String : AnyObject]? = nil) -> [String : AnyObject] {
+        let infoRequest = PersonInfoRequestType(rawValue: dataRequest)!
+
+        switch (infoRequest) {
+        case .Reviews:
+            return ["userid":"\(userId)"]
+        default:
+            break;
+        }
        return ["userid":"\(userId)"]
     }
     
@@ -73,27 +81,31 @@ class PersonController : ServerDataManager {
             break;
         case .Views:
             let viewArray = JSON(data)
-            person.views.removeAll()
+            var list = [MyViewData]()
             for (_,obj) in viewArray {
                 if let finalString = obj.rawString() {
                     // print(" value is \(i)...+....\(finalString)")
                     if let view = Mapper<MyViewData>().map(finalString) {
-                        person.views.append(view)
+                        list.append(view)
                     }
                 }
             }
+            person.viewsListManager.updateEntries(list)
+
             break
         case .Reviews:
             let reviewArray = JSON(data)
-            person.reviews.removeAll()
+            var list = [ReviewData]()
             for (_,obj) in reviewArray {
                 if let finalString = obj.rawString() {
                     // print(" value is \(i)...+....\(finalString)")
                     if let view = Mapper<ReviewData>().map(finalString) {
-                        person.reviews.append(view)
+                        list.append(view)
                     }
                 }
             }
+            person.reviewssListManager.updateEntries(list)
+
             break
         case .Profile:
             print(data)
@@ -109,5 +121,41 @@ class PersonController : ServerDataManager {
         }
         
     }
+    
+    override func fetchListData(dataRequest: Int, parameter: [String : AnyObject], completionHandler: ServerRequestCallback?) {
+        
+        // let infoRequest = IssueInfoRequestType(rawValue: dataRequest)!
+        // let tab = parameter["tab"] as! Int
+        // let index = parameter["index"] as! Int
+        
+        
+        
+        let lists =  person.getList(dataRequest)
+        
+        if lists.hasAllEntries {
+            if let handler = completionHandler {
+                handler(ServerResult.EveryThingUpdated)
+                return
+            }
+        }
+        
+        if lists.isFetching {
+            if let handler = completionHandler {
+                handler(ServerResult.UnderProgress)
+                return
+            }
+        }
+        
+        //TODO: parameter
+        var para = [String:AnyObject]()
+        
+        MyUtils.addDictionary(&para, rhs: parameter)
+        MyUtils.addDictionary(&para, rhs: getParamterBasedOnRequest(dataRequest))
+        
+        super.fetchListData(dataRequest, parameter: para, completionHandler: completionHandler)
+        
+    }
+
+    
     
 }

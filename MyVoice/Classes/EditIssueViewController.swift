@@ -34,17 +34,25 @@ class EditIssueViewController: BaseImageEditViewController {
         super.viewDidLoad()
         
         // category
-        var info = PickerInfo()
+        var info = PopInfo()
         info.items = [[String]]()
         info.items?.append([String]())
+        
+        // removing all option
+        var enty = CurrentSession.i.appDataController.appData.categories
+        if enty.count > 0 {
+            enty.removeFirst()
+        }
+        info.items![0].appendContentsOf(enty)
         
         addTextFieldForPickerPopOver(category, info: info)
         
         //
-        var info2 = PickerInfo()
+        var info2 = PopInfo()
         info2.items = [[String]]()
         info2.items?.append([String]())
-        
+        info2.items![0].appendContentsOf(BaseFilter.getFilterValues(CurrentSession.i.appDataController.appData.markTo))
+
         addTextFieldForPickerPopOver(markTo, info: info2)
         
         
@@ -78,7 +86,10 @@ class EditIssueViewController: BaseImageEditViewController {
             category.text = d.category
             tags.text = d.tags
             //   d.location = location.text
-            markTo.text = d.markTo
+            markTo.text =  ""
+            if d.markTo > -1 {
+                //TODO: fetch name from server
+            }
             criticalSwitch.setOn(d.isCritical, animated: false)
         }
         
@@ -99,7 +110,7 @@ class EditIssueViewController: BaseImageEditViewController {
             d.category = category.text ?? ""
             d.tags = tags.text ?? ""
             //   d.location = location.text
-            d.markTo = markTo.text ?? ""
+            d.markTo = BaseFilter.getFilterOfString(markTo.text ?? "", filters: CurrentSession.i.appDataController.appData.markTo)?.index ?? 0
             d.isCritical = criticalSwitch.on
         }
         
@@ -133,7 +144,7 @@ class EditIssueViewController: BaseImageEditViewController {
             parameter["keywordExtractMode"] = "normal"
             parameter["outputMode"] = "json"
             
-            ServerRequestInitiater.i.postMessageToServer(ServerUrls.getKeywordsUrl, postData: parameter) { [weak self] (result) -> Void in
+            ServerRequestInitiater.i.postMessageToServerForJsonResponse(ServerUrls.getKeywordsUrl, postData: parameter) { [weak self] (result) -> Void in
                 //  print(result)
                 if self == nil {
                     return
@@ -184,6 +195,9 @@ class EditIssueViewController: BaseImageEditViewController {
     override func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         if textField == tags && !isTagsFetched{
             fetchTagsFromServer()
+        }
+        else if (textField == markTo ){
+            
         }
         
         return super.textFieldShouldBeginEditing(textField)

@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        print("start")
         // Override point for customization after application launch.
         setStatusBarBackgroundColor(UIColor.whiteColor())
         

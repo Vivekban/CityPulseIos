@@ -14,7 +14,7 @@ class ServerUrls {
 
     
     
-    static let baseUrl = "http://www.myvoice.elasticbeanstalk.com"
+    static let baseUrl = "http://ec2-54-80-186-180.compute-1.amazonaws.com/MyVoice"
     
     // MARK: User
     static let validateUserUrl = baseUrl + "/ValidateUser"
@@ -44,6 +44,26 @@ class ServerUrls {
     static let getIssueByMarkToUrl = baseUrl + "/GetIssueByMarkTo"
     static let getIssueByOwnerUrl = baseUrl + "/GetIssueByOwner"
     static let getIssueListByStatus = baseUrl + "/GetIssueByStatus"
+    static let getSubscribedIssueUrl = baseUrl + "/GetSubscribedIssue"
+
+    // MARK: - Issue Detail
+    //static let Url = baseUrl + "/ADS"
+    static let resposeIssueUrl = baseUrl + "/ResponseIssue"
+   
+    static let subscribeIssueUrl = baseUrl + "/SubscribeIssue"
+    static let flagIssueUrl = baseUrl + "/"
+
+    static let voteIssueUrl = baseUrl + "/VoteIssue"
+
+    
+    static let voteIssueResponsUrl = baseUrl + "/VoteIssueResponse"
+
+    static let GetIssueResponsesUrl = baseUrl + "/GetIssueResponses"
+   
+    static let GetIssueVotesUrl = baseUrl + "/GetIssueVotes"
+    static let GetResponseVotesUrl = baseUrl + "/GetResponseVotes"
+
+
 
     // MARK: - event
     
@@ -57,9 +77,10 @@ class ServerUrls {
     static let updateWorkUrl = baseUrl + "/UpdateWork"
     static let getWorkByIdUrl = baseUrl + "/GetWorkById"
     
-    
-    //    static let Url = baseUrl + "/ADS"
-    //    static let Url = baseUrl + "/ADS"
+    // MARK: - App related
+    static let appDataUrl = baseUrl + "/GetConsData"
+    static let getMarkToList = baseUrl + "/GetMarkToList"
+
     
     //    static let Url = baseUrl + "/ADS"
     //    static let Url = baseUrl + "/ADS"

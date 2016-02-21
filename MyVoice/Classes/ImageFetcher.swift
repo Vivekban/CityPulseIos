@@ -42,7 +42,7 @@ class ServerImageFetcher {
     
     func loadImageWithDefaultsIn(iv :UIImageView, url :String){
         if let nSUrl = NSURL(string: validateUrl(url)){
-                iv.af_setImageWithURL(nSUrl, placeholderImage: UIImage(named: "Issue"),filter:AspectScaledToFillSizeFilter(size: iv.frame.size),imageTransition: .CrossDissolve(0.2))
+                iv.af_setImageWithURL(nSUrl, placeholderImage: UIImage(),filter:AspectScaledToFillSizeFilter(size: iv.frame.size),imageTransition: .CrossDissolve(0.2))
         }
         else {
             log.error("unable to convert proper url  \(url)")
@@ -52,7 +52,7 @@ class ServerImageFetcher {
     
     func loadProfileImageWithDefaultsIn(iv :UIImageView, url :String){
         if let nSUrl = NSURL(string: validateUrl(url)){
-            iv.af_setImageWithURL(nSUrl, placeholderImage: UIImage(named: "Issue"),filter:AspectScaledToFillSizeFilter(size: iv.frame.size),imageTransition: .CrossDissolve(0.2))
+            iv.af_setImageWithURL(nSUrl, placeholderImage: UIImage(),filter:AspectScaledToFillSizeFilter(size: iv.frame.size),imageTransition: .CrossDissolve(0.2))
         }
         else{
             log.error("unable to convert proper url  \(url)")

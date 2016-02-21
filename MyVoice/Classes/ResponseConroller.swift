@@ -13,11 +13,16 @@ class ResponseConroller: CommentController {
     
     
     override func registerClassForTableView() {
+        super.registerClassForTableView()
         tableView.registerClass(ResponseCell.self, forCellReuseIdentifier: "rCell")
     }
     
     override func getCellIdentifier(indexPath: NSIndexPath) -> String{
-        return "rCell"
+        if indexPath.row == 0 {
+            return "rCell"
+        }
+        else {
+            return super.getCellIdentifier(indexPath)
+        }
     }
-    
 }

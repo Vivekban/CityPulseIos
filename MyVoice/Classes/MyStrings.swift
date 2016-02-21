@@ -82,9 +82,34 @@ class MyStrings {
     
     
     static let reviews = "Reviews"
+    static let write_review = "Write review"
 
     //
     static let filters = "Filters"
+    static let categories = "Categories"
+    
+    
+    static let postComment = "Post Comment"
+    static let postResponse = "Post Response"
+    
+    
+    static let unableToSubscribe = "Unable to subscribe"
+    static let unableToUnsubscribe = "Unable to unsubcribe"
+
+    static let unableToFlag = "Unable to flag"
+    static let unableToUnFlag = "Unable to un flag"
+    
+    static let unableToPostResponse = "Unable to post reponse"
+    static let unableToPostComment = "Unable to post comment"
+
+    
+    static let unableToVoteUp = "Unable to vote up"
+    static let unableToVoteDown = "Unable to vote down"
+    
+    static let lastMonth = "Last Month"
+    static let last3Month = "Last 3 Months"
+    static let lastYear = "Last Year"
+
 
 
 }

@@ -14,13 +14,13 @@ class LeaderUI: ResidentUI {
         super.init()
         basicInfoItems += ["PoliticalParty"]
         nHomeTabs = 5
-        profileTabs += [TwoString(str1: "MyWorkViewController", str2: "My Work"),TwoString(str1: "MyViews", str2: "My Views")]
         //TwoString(str1: "MyWorkViewController", str2: "Videos")
     }
     
     override func personSpecificParmeter() {
         briefType = BriefProfilePersonType.Leadear
          homeFilters = Constants.leaderHomeIssueFilter
+        profileTabs.appendContentsOf([TwoString(str1: "MyWorkViewController", str2: "Work"),TwoString(str1: "MyViews", str2: "Views"),TwoString(str1: "EventViewController", str2: "Events"),TwoString(str1: "AnalyticsViewController", str2: "Analytics"),TwoString(str1: "BasicInfo", str2: "Info")])
 
     }
     

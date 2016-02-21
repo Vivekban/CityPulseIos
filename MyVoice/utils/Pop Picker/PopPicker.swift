@@ -8,19 +8,20 @@
 
 import UIKit
 
+public typealias PopCallback = (newSelection : [String], forTextField : UITextField)->()
+
 
 public class PopPicker : NSObject, UIPopoverPresentationControllerDelegate {
     
-    public typealias PopPickerCallback = (newSelection : [String], forTextField : UITextField)->()
     
     var popPickerVC : PopPickerViewController
     var popover : UIPopoverPresentationController?
     var textField : UITextField!
-    var dataChanged : PopPickerCallback?
+    var dataChanged : PopCallback?
     var presented = false
     var offset : CGFloat = 8.0
     
-    public init(forTextField: UITextField, data: PickerInfo) {
+    public init(forTextField: UITextField, data: PopInfo) {
         
         popPickerVC = PopPickerViewController()
         popPickerVC.info = data
@@ -28,7 +29,16 @@ public class PopPicker : NSObject, UIPopoverPresentationControllerDelegate {
         super.init()
     }
     
-    public func pick(inViewController : UIViewController, initData : [String]?, dataChanged : PopPickerCallback) {
+    func updateData(index: Int , newData:[String]){
+        var items = popPickerVC.info?.items
+        if index < items?.count {
+            items![index].removeAll()
+            items?[index].appendContentsOf(newData)
+        }
+        popPickerVC.info?.items = items
+    }
+    
+    public func pick(inViewController : UIViewController, initData : [String]?, dataChanged : PopCallback) {
         
         if presented {
             return  // we are busy
@@ -36,14 +46,14 @@ public class PopPicker : NSObject, UIPopoverPresentationControllerDelegate {
         
         popPickerVC.delegate = self
         popPickerVC.modalPresentationStyle = UIModalPresentationStyle.Popover
-        popPickerVC.preferredContentSize = CGSizeMake(350,208)
+        popPickerVC.preferredContentSize = CGSizeMake(260,208)
         popPickerVC.selectRow = initData
         
         popover = popPickerVC.popoverPresentationController
         if let _popover = popover {
             
             _popover.sourceView = textField
-            _popover.sourceRect = CGRectMake(self.offset,textField.bounds.size.height,0,0)
+            _popover.sourceRect = textField.bounds
             _popover.delegate = self
             self.dataChanged = dataChanged
             inViewController.presentViewController(popPickerVC, animated: true, completion: nil)
@@ -58,8 +68,8 @@ public class PopPicker : NSObject, UIPopoverPresentationControllerDelegate {
     
 }
 
-extension PopPicker : PopPickerViewControllerDelegate {
-    func popPickerVCDismissed(rows: [String]?) {
+extension PopPicker : PopViewControllerDelegate {
+    func popVCDismissed(rows: [String]?) {
         if let _dataChanged = dataChanged {
             if let _data = rows {
                 _dataChanged(newSelection: _data, forTextField: textField)

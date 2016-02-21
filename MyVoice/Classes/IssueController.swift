@@ -79,6 +79,12 @@ class IssueController: ServerDataManager{
             return ServerUrls.getIssueByOwnerUrl
         case .Relevant:
             return ServerUrls.getIssueByOwnerUrl
+        case .Subscribed:
+            return ServerUrls.getSubscribedIssueUrl
+        case .Resolved:
+            return ServerUrls.getIssueByOwnerUrl
+        case .Own:
+            return ServerUrls.getIssueByOwnerUrl
         default:
             break;
         }
@@ -96,6 +102,12 @@ class IssueController: ServerDataManager{
             return ["status":"o"]
         case .Relevant:
             return ["status":"o"]
+        case .Subscribed:
+            return ["status":"o"]
+        case .Resolved:
+            return ["status":"o"]
+        case .Own:
+            return ["owner":CurrentSession.i.userId]
         default:
             break;
         }
@@ -195,6 +207,8 @@ class IssueController: ServerDataManager{
         super.fetchListData(dataRequest, parameter: para, completionHandler: completionHandler)
         
     }
-        
+    
+    
+
     
 }

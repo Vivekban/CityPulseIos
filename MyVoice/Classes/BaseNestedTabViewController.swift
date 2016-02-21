@@ -26,7 +26,8 @@ class BaseNestedTabViewController :UIViewController{
     var serverRequestType:Int?
     var serverDataManager: ServerDataManager?
     var isMoreEntriesAvailable = true
-    
+    var isReloadEntries = true
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         collecView?.reloadData()
@@ -162,6 +163,7 @@ extension BaseNestedTabViewController : BaseEditViewControllerDelegate {
         switch (type) {
         case .NEW:
             entries = modifiedData
+            isReloadEntries = true
             break;
         default:
             break;
@@ -315,6 +317,20 @@ class BaseHeaderCollectionView: BaseNestedTabViewController {
     func getTitleForHeader(index :Int) -> String {
         preconditionFailure("ethod must be ovveriidern ")
     }
+    
+    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return entries.count
+    }
+    
+    override func reloadData(index: Int) {
+        if let c = collecView {
+        c.reloadSections(NSIndexSet(index: index))
+        }
+        else {
+            log.error("Error : -    collecview is not set")
+        }
+    }
+
     
 }
 

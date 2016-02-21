@@ -13,13 +13,10 @@ protocol CommentViewDelegate:class{
 }
 
 protocol CommentCellDelegate:class{
-    func onCommentActionClick( action: CommentActions, cell : CommentCell);
+    func onCommentActionClick( action: Actions, cell : CommentCell);
 }
 
 
-enum CommentActions :Int {
-    case Comment = 50, Flag = 51, Message = 52, VoteUp = 10, VoteDown = 11
-}
 
 
 class CommentView: UIView {
@@ -71,10 +68,6 @@ class CommentView: UIView {
     }
     
     
-    @IBAction func jhjkhjklhj(sender: UIButton) {
-    
-    
-    }
     
     
     func setSpacerWidth(level :Int){
@@ -143,7 +136,7 @@ extension CommentCell : CommentViewDelegate {
   
     func onCommentActionClick(tag: Int) {
         
-        delegate?.onCommentActionClick(CommentActions(rawValue: tag)!, cell: self)
+        delegate?.onCommentActionClick(Actions(rawValue: tag)!, cell: self)
         
 //        switch (tag) {
 //        case 50:

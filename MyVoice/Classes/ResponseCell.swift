@@ -58,6 +58,7 @@ class ResponseCell: CommentCell {
     override func prepareView(){
         commentView = NSBundle.mainBundle().loadNibNamed("Response", owner: self, options: nil)[0] as! ResponseView
         commentView.frame = self.bounds
+        commentView.delegate = self
         self.addSubview(commentView)
     }
     

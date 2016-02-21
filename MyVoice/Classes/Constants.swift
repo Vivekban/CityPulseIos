@@ -24,7 +24,8 @@ class Constants {
     static let grayColor_131 = UIColor(red: CGFloat(131.0/255), green: CGFloat(131.0/255), blue: CGFloat(131.0/255), alpha: 1)
     static let grayColor_217 = UIColor(red: CGFloat(217.0/255), green: CGFloat(217.0/255), blue: CGFloat(217.0/255), alpha: 1)
     
-    
+    static let addCommentViewHeight:CGFloat = 200
+
     
     
     static let notification_center_scroll_key = "scroll_key"
@@ -84,6 +85,32 @@ class Constants {
             HomeFilter(index: 1,value: MyStrings.popular,dataRequest: 1),
             HomeFilter(index: 2,value: MyStrings.relevant,dataRequest: 1),
             HomeFilter(index: 3,value: MyStrings.own,dataRequest: 1)]]
+    
+    
+    static func getChartColor(val : Double) -> UIColor {
+        switch (val) {
+        case let x where x > 80.0:
+           return UIColor(colorLiteralRed: (37/255.0), green: (187/255.0), blue: (28/255.0), alpha: 1)
+        case let x where x > 60.0:
+            return UIColor(colorLiteralRed: (40/255.0), green: (213/255.0), blue: (9/255.0), alpha: 1)
+        case let x where x > 40.0:
+            return UIColor(colorLiteralRed: (97/255.0), green: (240/255.0), blue: (9/255.0), alpha: 1)
+        case let x where x > 20.0:
+            return UIColor(colorLiteralRed: (147/255.0), green: (246/255.0), blue: (9/255.0), alpha: 1)
+        case let x where x > 0.0:
+            return UIColor(colorLiteralRed: (243/255.0), green: (239/255.0), blue: (11/255.0), alpha: 1)
+        case let x where x > -20.0:
+            return UIColor(colorLiteralRed: (243/255.0), green: (239/255.0), blue: (11/255.0), alpha: 1)
+        case let x where x > -40.0:
+            return UIColor(colorLiteralRed: (226/255.0), green: (104/255.0), blue: (6/255.0), alpha: 1)
+        case let x where x > -60.0:
+            return UIColor(colorLiteralRed: (234/255.0), green: (60/255.0), blue: (8/255.0), alpha: 1)
+        case let x where x > -80.0:
+            return UIColor(colorLiteralRed: (237/255.0), green: (0/255.0), blue: (7/255.0), alpha: 1)
+        default:
+            return UIColor(colorLiteralRed: (228/255.0), green: (0/255.0), blue: (8/255.0), alpha: 1)
+        }
+    }
     
 }
 
@@ -167,6 +194,17 @@ struct TwoString {
     }
 }
 
+struct IntString {
+    var int :Int!
+    var string :String!
+    
+    init(int:Int, str2:String){
+        self.int = int
+        string = str2
+    }
+}
+
+
 struct UIScrollViewWithEvent {
     var scrollView:UIScrollView!
     
@@ -195,4 +233,10 @@ class TextFieldWithCharacterLimit {
     }
 }
 
+enum Actions :Int {
+    case  Subscribe = 48, Share = 49, Comment = 50, Flag = 51, Message = 52, VoteUp = 10, VoteDown = 11
+}
 
+protocol ActionsDelegate : class { 
+    func onActionButtonClick( action: Actions);
+}

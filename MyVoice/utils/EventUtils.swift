@@ -14,6 +14,9 @@ class EventUtils :NSObject
     static var locationUpdateKey = "1"
     static var basicInfoUpdateKey = "2"
     static var categoryUpdateKey = "3"
+    static var changeInTableViewElement = "4"
+    static var commentFieldBeginEditing = "5"
+
 
     static func postNotification(key :String,  object :AnyObject? = nil){
         NSNotificationCenter.defaultCenter().postNotificationName(key, object: object)

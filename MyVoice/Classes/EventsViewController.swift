@@ -20,7 +20,7 @@ class EventsViewController: BaseHeaderCollectionView {
         reuseIdentifier = "EventCell"
         editControlllerIdentifier = "EditEventViewController"
         
-        entries = CurrentSession.i.personController.person.event
+        entries = CurrentSession.i.personController.person.eventsListManager.entries
         
 //        for _ in 0...3{
 //            entries.append(EventData())
@@ -43,9 +43,7 @@ class EventsViewController: BaseHeaderCollectionView {
         return 0
     }
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return entries.count
-    }
+    
     
     override func reloadData(index:Int) {
         collectionView.reloadData()
@@ -76,13 +74,14 @@ class EventsViewController: BaseHeaderCollectionView {
         return (entries[index] as! EventData).title
     }
     
+        
 }
 
 extension EventsViewController : UICollectionViewDelegateFlowLayout{
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
-        return CGSize(width: Int(collectionView.frame.size.width)/columns - 25, height: 170)
+        return CGSize(width: Int(collectionView.frame.size.width)/columns, height: 140)
     }
     
     

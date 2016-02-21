@@ -8,22 +8,31 @@
 
 import UIKit
 
-protocol PopPickerViewControllerDelegate : class {
+protocol PopViewControllerDelegate : class {
     
-    func popPickerVCDismissed(rows : [String]?)
+    func popVCDismissed(rows : [String]?)
 }
 
-public struct PickerInfo {
+public struct PopInfo {
     var items:[[String]]?
+    var heading = ""
+    init(){
+        
+    }
+    
+    init(items : [[String]], heading :String){
+        self.items = items
+        self.heading = heading
+    }
 }
 
 class PopPickerViewController: UIViewController {
 
     @IBOutlet weak var pickerView: UIPickerView!
    
-    weak var delegate : PopPickerViewControllerDelegate?
+    weak var delegate : PopViewControllerDelegate?
     
-    var info:PickerInfo?
+    var info:PopInfo?
     
     var selectRow : [String]? {
         didSet {
@@ -42,7 +51,7 @@ class PopPickerViewController: UIViewController {
     }
     override func viewDidDisappear(animated: Bool) {
         
-        self.delegate?.popPickerVCDismissed(nil)
+        self.delegate?.popVCDismissed(nil)
     }
     
     private func updatePickerCurrentValue() {
@@ -75,7 +84,7 @@ class PopPickerViewController: UIViewController {
                  rows.append(item[j])
                 }
             }
-            self.delegate?.popPickerVCDismissed(rows.count > 0 ? rows : nil)
+            self.delegate?.popVCDismissed(rows.count > 0 ? rows : nil)
         }
     }
     

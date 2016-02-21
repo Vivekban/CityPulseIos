@@ -15,13 +15,13 @@ class ResidentUI: PersonUI {
         basicInfoItems += ["Full Name","Martial Status", "Date of Birth", "City you care for","Gender", "Issues you care for"]
         contactInfoItems += ["Address","Facebook","City","Twitter Handle", "Zip", "LinkedIn","Phone","Email"]
         
-        
-        profileTabs = [TwoString(str1: "BasicInfo", str2: "Info"),TwoString(str1: "BasicInfo", str2: "Activity"),TwoString(str1: "EventViewController", str2: "Events")]
     }
     
     override func personSpecificParmeter() {
         nHomeTabs = 3
         briefType = .Resident
+        profileTabs = [TwoString(str1: "BasicInfo", str2: "Info"),TwoString(str1: "BasicInfo", str2: "Activity"),TwoString(str1: "EventViewController", str2: "Events")]
+
     }
     
     override func getTextFieldDataBy(index: Int)->[TextFieldInputData]?{

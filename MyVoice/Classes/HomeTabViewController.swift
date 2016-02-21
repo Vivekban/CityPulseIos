@@ -14,7 +14,7 @@ class HomeTabViewController: BaseTabViewController {
     let locationManager = CLLocationManager()
 
     
-    var filterPopOver:PopPicker!
+    var filterPopOver:PopTable!
     var filterItems = [String]()
     var filterTextView : UITextField!
     var currentTab : Int {
@@ -26,6 +26,38 @@ class HomeTabViewController: BaseTabViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        
+        filterTextView = UITextField(frame: CGRect(x: (actionButton.frame.origin.x) - 120 - 20, y: 14, width: 120, height:30))
+        filterTextView.delegate = self
+        filterTextView.text = "\(MyStrings.filters)"
+        filterTextView.textAlignment = NSTextAlignment.Right
+        filterTextView.textColor = Constants.accentColor
+        
+        
+        filterTextView.rightViewMode = UITextFieldViewMode.Always
+        let image = UIImageView(image: UIImage(named: "downarrow"))
+        // image.contentMode = UIViewContentMode.Right
+        image.image = image.image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        image.frame = CGRect(x: 8, y: 0, width: 20, height: 20)
+        image.tintColor = Constants.accentColor
+        filterTextView.rightView = image
+        
+        filterTextView.sizeToFit()
+        
+        
+        tabsMenu?.view.addSubview(filterTextView)
+        
+        
+        
+        var info = [[String]]()
+        info.append(filterItems)
+        filterPopOver = PopTable(forTextField: filterTextView, data: PopInfo(items: info,heading: MyStrings.filters))
+        
+        
+
         
         // Do any additional setup after loading the view.
     }
@@ -59,37 +91,13 @@ class HomeTabViewController: BaseTabViewController {
         super.viewWillAppear(animated)
         topBar?.controller = self
         
-        //actionButton.frame
-        
-        filterTextView = UITextField(frame: CGRect(x: (actionButton.frame.origin.x) - 120 - 20, y: 14, width: 120, height:30))
-        filterTextView.delegate = self
-        filterTextView.text = "\(MyStrings.filters)"
-        filterTextView.textAlignment = NSTextAlignment.Right
-        filterTextView.textColor = Constants.accentColor
-        
-        
-        filterTextView.rightViewMode = UITextFieldViewMode.Always
-        let image = UIImageView(image: UIImage(named: "downarrow"))
-        // image.contentMode = UIViewContentMode.Right
-        image.image = image.image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        image.frame = CGRect(x: 8, y: 0, width: 20, height: 20)
-        image.tintColor = Constants.accentColor
-        filterTextView.rightView = image
-        
-        filterTextView.sizeToFit()
-
-        
-        tabsMenu?.view.addSubview(filterTextView)
-        
-        
-        
-        var info = [[String]]()
-        info.append(filterItems)
-        filterPopOver = PopPicker(forTextField: filterTextView, data: PickerInfo(items: info))
+      
         
         (tabsMenu?.controllerArray[1] as? IssueViewController)?.issueType = IssueType.HOA
+
         
-        for (i,controller) in (tabsMenu?.controllerArray.enumerate())! {
+        //actionButton.frame
+              for (i,controller) in (tabsMenu?.controllerArray.enumerate())! {
             if let con = controller as? HomeBaseNestedTabController {
                 con.currentFilter = CurrentSession.i.personUI?.homeFilters[i][0]
             }
@@ -105,8 +113,8 @@ class HomeTabViewController: BaseTabViewController {
 
     }
     
-    override func onCategoryChanged(text: String) {
-        
+    override  func onCategoryChanged(text:String, item index:Int) {
+        (tabsMenu?.controllerArray[(tabsMenu?.currentPageIndex) ?? 0] as? HomeBaseNestedTabController)?.onCatergoryChange(text,item: index)
     }
     
     func onCategoryUpdated(){
@@ -115,14 +123,14 @@ class HomeTabViewController: BaseTabViewController {
     
     
     override func onActionButtonClick(sender: UIButton) {
-        (tabsMenu?.controllerArray[(tabsMenu?.currentPageIndex)!] as? BaseNestedTabViewController)?.onActionButtonClick(sender)
+        (tabsMenu?.controllerArray[(tabsMenu?.currentPageIndex) ?? 0] as? BaseNestedTabViewController)?.onActionButtonClick(sender)
         
     }
     
     override func didMoveToPage(controller: UIViewController, index: Int) {
        
-        // self.filterTextView.text = (tabsMenu?.controllerArray[index] as? HomeBaseNestedTabController)?.currentFilter?.value
-        //filterTextView.sizeToFit()
+         self.filterTextView.text = (tabsMenu?.controllerArray[index] as? HomeBaseNestedTabController)?.currentFilter?.value
+        filterTextView.sizeToFit()
         // currentTab = index
         
         
@@ -174,10 +182,11 @@ extension HomeTabViewController : UITextFieldDelegate {
             
             
             
-            filterPopOver.updateData(0, newData: BaseFilter.getFilterValues(filters!))
         
             if let controller = (tabsMenu?.controllerArray[(tabsMenu?.currentPageIndex)!] as? HomeBaseNestedTabController) {
-            
+                filterPopOver.updateHeading(controller.title!)
+                filterPopOver.updateData(0, newData: BaseFilter.getFilterValues(filters!))
+
                 
                 
             filterPopOver.pick(self, initData: [controller.currentFilter!.value], dataChanged: { [weak self] (newSelection, forTextField) -> () in
@@ -187,8 +196,8 @@ extension HomeTabViewController : UITextFieldDelegate {
                 
                 if newSelection.count > 0 {
                     let value = newSelection[0]
-                    // self?.filterTextView.text = value
-                    // self?.filterTextView.sizeToFit()
+                     self?.filterTextView.text = value
+                     self?.filterTextView.sizeToFit()
 
                     controller.currentFilter = BaseFilter.getFilterOfString(value, filters:filters!) as? HomeFilter
                     

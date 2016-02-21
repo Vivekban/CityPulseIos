@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Alamofire
 
 protocol BaseEditViewControllerDelegate : class{
     
@@ -87,6 +87,8 @@ class BaseEditViewController: UIViewController {
         for v in view.subviews {
             if v .isKindOfClass(UIScrollView.self) {
                 scrollView = v as? UIScrollView
+                
+                scrollView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismissKeyboard"))
             }
         }
         
@@ -180,13 +182,6 @@ class BaseEditViewController: UIViewController {
     }
     
     
-    func animateTextField(up: Bool) {
-        var movement = (up ? -kbHeight : kbHeight)
-        
-        UIView.animateWithDuration(0.3, animations: {
-            self.view.frame = CGRectOffset(self.view.frame, 0, movement)
-        })
-    }
     
     
     func initialiseViews(){
@@ -234,7 +229,7 @@ class BaseEditViewController: UIViewController {
         }
     }
     
-    func addTextFieldForPickerPopOver(field :UITextField, info: PickerInfo){
+    func addTextFieldForPickerPopOver(field :UITextField, info: PopInfo){
         if !popPickerTextFields.contains(field){
             popPickerTextFields.append(field)
             let popPicker = PopPicker(forTextField: field, data: info)
@@ -328,12 +323,12 @@ class BaseEditViewController: UIViewController {
         if !url.isEmpty {
             
             if var info = data?.toJSONString() {
-                progressHUD.text = MyStrings.saving + mainTitle
+                progressHUD.text = MyStrings.saving + " " + mainTitle
                 progressHUD.show()
                 info = "{\"data\":\(info)}"
                 
                 print("data sending for savingh \(info)")
-//                ServerRequestInitiater.i.postMessageToServer(url, postData: ["json" : info], completionHandler: { (result) -> Void in
+//                ServerRequestInitiater.i.postMessageToServerForJsonResponse(url, postData: ["json" : info], completionHandler: { (result) -> Void in
 //                    self.serverRequestResult(result)
 //                })
                 
@@ -463,6 +458,10 @@ class BaseImageEditViewController: BaseEditViewController {
     var resuseIdentifierAddCell = "addCell"
     var images = [Int:UIImage]()
     weak var collection: UICollectionView!
+    var uploadTimer: NSTimer?
+    
+    var fileUploader = FileUploader()
+    var req:Request!
     
     
     func getCellForRow(row : Int) -> String{
@@ -484,6 +483,8 @@ class BaseImageEditViewController: BaseEditViewController {
 
     
     func openImagePicker(){
+        fetchDataFromUIElements()
+
         let imagePicker : UIImagePickerController = OneOrientaionImagePickerController()
         imagePicker.modalPresentationStyle = .CurrentContext
         imagePicker.delegate = self
@@ -502,6 +503,7 @@ class BaseImageEditViewController: BaseEditViewController {
     }
     
     func openImageView(tag:Int){
+
         if let d =  (data as? ImageUrlData) {
             let imageViewController = ImagePageViewController.newInstance(d.imagesUrls, images: images, initialPosition: tag)
             imageViewController.delegate = self
@@ -517,6 +519,75 @@ class BaseImageEditViewController: BaseEditViewController {
         }
         collection.reloadData()
     }
+    
+    override func saveDetails(){
+        
+        let url = type == .EDIT ? updateItemUrl : addItemUrl
+        
+        if !url.isEmpty {
+            
+            if var info = data?.toJSONString() {
+                progressHUD.text = MyStrings.saving + " " + mainTitle
+                progressHUD.show()
+                info = "{\"data\":\(info)}"
+                
+                print("data sending for savingh \(info)")
+                //                ServerRequestInitiater.i.postMessageToServerForJsonResponse(url, postData: ["json" : info], completionHandler: { (result) -> Void in
+                //                    self.serverRequestResult(result)
+                //                })
+                
+                fileUploader.setValue(info, forParameter: "json")
+                
+                for (_,image) in images {
+                    fileUploader.addFileData(UIImageJPEGRepresentation(image, 0.05)!, withName: "image", withMimeType: "image/jpeg")
+                }
+//                
+//                let uInfoRequest = ServerRequest(url: url, postData: ["json" : info]) { [weak self](result) -> Void in
+//                    self!.serverRequestResult(result)
+//                }
+                
+//                uInfoRequest.responseType = .Normal
+//                ServerRequestInitiater.i.initiateServerRequest(uInfoRequest)
+                
+                let request = NSMutableURLRequest( URL: NSURL(string: url )! )
+                request.HTTPMethod = "POST"
+                
+                 req = fileUploader.uploadFile(request: request)
+                 req.progress { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
+                    // print(totalBytesWritten)
+                        
+                        // This closure is NOT called on the main queue for performance
+                        // reasons. To update your ui, dispatch to the main queue.
+                        dispatch_async(dispatch_get_main_queue()) {
+                            print("Total bytes written on main queue: \(totalBytesWritten)....\(totalBytesExpectedToWrite)")
+                        }
+                    }
+                    .responseJSON { response in
+                        debugPrint(response)
+                        
+                        if response.result.isSuccess {
+                        
+                        self.serverRequestResult(ServerResult.Success(response.data))
+                        }
+                        else{
+                            self.serverRequestResult(ServerResult.Failure(response.result.error))
+
+                        }
+
+                }
+               
+                //uploadTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
+                
+                
+            }
+        }
+        
+    }
+    
+    func updateProgress(){
+        //  print(req.progress())
+    }
+
     
 }
 

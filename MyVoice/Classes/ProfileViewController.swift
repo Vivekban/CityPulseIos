@@ -53,15 +53,15 @@ class ProfileViewController: BaseTabViewController {
         print(index)
         switch index {
             
-        case 0,1: // info
+        case 4,3: // info
             changeVisibilityOfActionButton(false)
             break
-        case 4:
+        case 1:
             changeVisibilityOfActionButton(true)
             setTitleOfActionButton("Add_Views".localized)
             break
             
-        case 3:
+        case 0:
             changeVisibilityOfActionButton(true)
             setTitleOfActionButton("Add_Work".localized)
             break

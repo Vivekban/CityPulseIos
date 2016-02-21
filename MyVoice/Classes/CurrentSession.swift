@@ -34,6 +34,7 @@ class CurrentSession {
         personController = PersonController(userID: userId)
         mainPersonController = personController
         
+        appDataController = AppDataController()
         issueController = IssueController()
     }
     
@@ -51,6 +52,12 @@ class CurrentSession {
 
     var issueController:IssueController!
     
+    var appDataController:AppDataController!
+    
     var recentrlyEditedData:[BaseData]?
+    
+    func isVisitingSomeone() -> Bool {
+        return mainPersonController != personController
+    }
     
 }

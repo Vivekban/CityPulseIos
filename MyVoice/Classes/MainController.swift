@@ -65,7 +65,7 @@ class MainController: UITabBarController {
         print("josn of new user  \(jString)")
 
      //   ServerRequestInitiater.i.addUser(["json": jString])
-//        ServerRequestInitiater.i.postMessageToServer(ServerUrls.getIssueByIdUrl, postData: ["issueid": "1"]) { (r) -> Void in
+//        ServerRequestInitiater.i.postMessageToServerForJsonResponse(ServerUrls.getIssueByIdUrl, postData: ["issueid": "1"]) { (r) -> Void in
 //            switch r {
 //            case .Success(let data):
 //                
@@ -80,7 +80,7 @@ class MainController: UITabBarController {
 //
 //        }
         
-        ServerRequestInitiater.i.postMessageToServer(ServerUrls.getIssueByOwnerUrl, postData: ["owner": "1"]) { (r) -> Void in
+        ServerRequestInitiater.i.postMessageToServerForJsonResponse(ServerUrls.getIssueByOwnerUrl, postData: ["owner": "1"]) { (r) -> Void in
             switch r {
             case .Success(let data):
                 
@@ -105,7 +105,7 @@ class MainController: UITabBarController {
          parameter["keywordExtractMode"] = "strict"
         parameter["outputMode"] = "json"
         
-//        ServerRequestInitiater.i.postMessageToServer(ServerUrls.getEntityUrl, postData: parameter) { (result) -> Void in
+//        ServerRequestInitiater.i.postMessageToServerForJsonResponse(ServerUrls.getEntityUrl, postData: parameter) { (result) -> Void in
 //            print(result)
 //        }
 //

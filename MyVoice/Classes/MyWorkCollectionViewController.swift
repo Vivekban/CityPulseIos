@@ -29,7 +29,7 @@ class MyWorkCollectionViewController: BaseNestedTabViewController {
 //            entries.append(dummyWork)
 //        }
         collecView = collecitonView
-        entries = CurrentSession.i.personController.person.work
+        entries = CurrentSession.i.personController.person.worksListManager.entries
     }
 
     override func didReceiveMemoryWarning() {

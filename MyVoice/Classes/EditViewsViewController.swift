@@ -12,7 +12,7 @@ class EditViewsViewController: BaseEditViewController {
     
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var dateField: UITextField!
-    @IBOutlet weak var descriptionField: UITextView!
+    @IBOutlet weak var descriptionField: DescriptionView!
     
       
     override func viewDidLoad() {
@@ -73,6 +73,9 @@ class EditViewsViewController: BaseEditViewController {
 //    }
     
     
+    @IBAction func onAnalyzeToneClick(sender: UIButton) {
+        
+    }
     
     
     /*

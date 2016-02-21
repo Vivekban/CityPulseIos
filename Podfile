@@ -10,5 +10,7 @@ pod 'AlamofireObjectMapper', '~> 2.1'
 pod 'AlamofireImage', '~> 2.0'
 pod 'Fabric'
 pod 'Crashlytics'
+pod 'XCGLogger', '~> 3.2'
+pod 'Charts'
 end
 

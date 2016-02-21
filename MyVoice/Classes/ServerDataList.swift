@@ -28,7 +28,7 @@ class ServerDataList {
         self.entries = entries
     }
     
-   
+    
     
     
     func fetchMoreEntriesIfPossible(count : Int = 10) -> Bool {
@@ -49,13 +49,27 @@ class ServerDataList {
         if isClear {
             self.entries.removeAll()
         }
-        
-        self.entries.appendContentsOf(entries)
+        for e in entries {
+            if !isContainEntry(e) {
+                self.entries.appendContentsOf(entries)
+            }
+        }
         
         lastUpdated = NSDate()
         
         isFetching = false
         
     }
+    
+    
+    func isContainEntry(e : BaseData) -> Bool {
+        for i in entries {
+            if ( i.hashValue == e.hashValue ){
+                return true
+            }
+        }
+        return false
+    }
+    
     
 }

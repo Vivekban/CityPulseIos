@@ -14,6 +14,8 @@ class CommentController : UITableViewCell {
     var comments: [CommentData] = [CommentData]()
     var level = 0
     
+    var isShowFooter = -1
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         initViews()
@@ -31,7 +33,7 @@ class CommentController : UITableViewCell {
         tableView = UITableView(frame: CGRectMake(105, 0, self.frame.width-210, self.frame.height))
         // tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorColor = UIColor.clearColor()
-        tableView.rowHeight = 200
+        tableView.rowHeight = 220
         tableView.delegate = self
         tableView.dataSource = self
         tableView.scrollEnabled = false
@@ -49,6 +51,13 @@ class CommentController : UITableViewCell {
         tableView.reloadData()
         tableView.frame.size.height = tableView.contentSize.height
         tableView.frame.size.width = self.frame.width-210
+
+    }
+    
+    func addComment(data : CommentData){
+        comments.append(data)
+        tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: comments.count - 1, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
+        EventUtils.postNotification(EventUtils.changeInTableViewElement, object: self)
 
     }
     
@@ -129,17 +138,26 @@ extension CommentController :UITableViewDelegate {
 //        
 //    }
     
-//    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        
-//    }
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if isShowFooter == section{
+            return Constants.addCommentViewHeight
+        }
+        else{
+            return 0
+        }
+    }
     
 //    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        
+//       
 //    }
     
-//    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        
-//    }
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let container = UIView()
+        let view = PostCommentView(frame: CGRect(x: BaseDetailViewController.leftSideOffset / 2, y: 0, width: tableView.frame.width - BaseDetailViewController.leftSideOffset/2, height: Constants.addCommentViewHeight))
+        view.delegate = self
+        container.addSubview(view)
+        return container
+    }
 
 }
 
@@ -147,7 +165,7 @@ extension CommentController :UITableViewDelegate {
 // MARK: - Actions
 
 extension CommentController : CommentCellDelegate {
-    func onCommentActionClick(action: CommentActions, cell: CommentCell) {
+    func onCommentActionClick(action: Actions, cell: CommentCell) {
         switch (action) {
         case .Comment:
             onCommentButtonClick(cell)
@@ -160,10 +178,28 @@ extension CommentController : CommentCellDelegate {
     }
 }
 
+
+extension CommentController : PostCommentDelegate {
+    func onPostCommentClic(data : String , view :PostCommentView) {
+    
+    }
+}
+
+
 extension CommentController {
     
     func onCommentButtonClick(cell:CommentCell){
-        
+        if let index = tableView.indexPathForCell(cell) {
+            if ( isShowFooter != index.section) {
+                isShowFooter = index.section
+            }
+            else {
+                isShowFooter = -1
+            }
+            tableView.reloadData()//reloadRowsAtIndexPaths([index], withRowAnimation: UITableViewRowAnimation.Automatic)
+            EventUtils.postNotification(EventUtils.changeInTableViewElement, object: self)
+
+        }
     }
     
     func onFlagButtonClick(cell:CommentCell){

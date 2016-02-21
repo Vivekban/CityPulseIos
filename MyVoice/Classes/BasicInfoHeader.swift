@@ -14,7 +14,7 @@ class BasicInfoHeader: UICollectionReusableView {
     
     @IBOutlet weak var editButton: UIButton!
     
-    @IBOutlet weak var arrow: UILabel!
+    @IBOutlet weak var arrow: UIImageView!
     
     weak var delegate:ListHeaderDelegate?
     
@@ -23,6 +23,7 @@ class BasicInfoHeader: UICollectionReusableView {
     override func awakeFromNib() {
         super.awakeFromNib()
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onViewClick"))
+        updateArrowLabel(false)
     }
     
     func onViewClick(){
@@ -35,15 +36,15 @@ class BasicInfoHeader: UICollectionReusableView {
     }
     
     func updateArrowLabel(isExpanded: Bool){
-            if let a = arrow {
-                a.layer.removeAllAnimations()
+            if arrow != nil {
+                arrow.layer.removeAllAnimations()
                 if isExpanded && currentAngle != 0{
-                        a.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+                        arrow.transform = CGAffineTransformMakeRotation(CGFloat(0))
             
                     currentAngle = 0
                 }
                 else if !isExpanded && currentAngle != 1{
-                        a.transform = CGAffineTransformMakeRotation(CGFloat(0))
+                        arrow.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
                     currentAngle = 1
                 }
             }

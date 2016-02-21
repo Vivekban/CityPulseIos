@@ -9,6 +9,7 @@
 import UIKit
 
 
+
 class BaseFilter {
     var index:Int = 0
     var value:String!

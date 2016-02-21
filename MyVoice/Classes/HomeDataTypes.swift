@@ -12,15 +12,19 @@ import ObjectMapper
 class IssueData: ImageUrlData {
     var category:String = ""
     var tags:String = ""
-    var markTo:String = "0"
+    var markTo:Int = -1
     var isCritical = false
     var location:Location?
-    var status:String = "y"
+    var status:String = "n"
+    
+    var isSubscribed = 0
+    var isFlaged = 0
+    var isVoted = 0
     
     var displayStatus :String{
         get {
             if !status.isEmpty {
-                if status.caseInsensitiveCompare("y") == .OrderedSame{
+                if status.caseInsensitiveCompare("n") == .OrderedSame{
                     return MyStrings.open
                 }
                 else {
@@ -28,7 +32,6 @@ class IssueData: ImageUrlData {
                 }
             }
             return MyStrings.open
-            
         }
         
         set (newValue) {
@@ -36,7 +39,7 @@ class IssueData: ImageUrlData {
                     status = "\(newValue.characters[newValue.startIndex])"
                     return
             }
-            status = "o"
+            status = "n"
         }
 
     }
@@ -54,13 +57,6 @@ class IssueData: ImageUrlData {
     
     override func mapping(map: Map) {
         super.mapping(map)
-        
-        if markTo.isEmpty {
-            markTo = "0"
-        }
-        
-    
-        
         category <- map["category"]
         tags <- map["tags"]
         markTo <- map["mark_to"]
@@ -68,6 +64,8 @@ class IssueData: ImageUrlData {
         category <- map["category"]
         status <- map["status"]
         responseCount <- map["response_count"]
+        
+        id <- map ["issueid"]
     }
     
 }
@@ -90,11 +88,34 @@ class CommentData:TitleDesDateData {
         
         return sum
     }
+    
+    override func mapping(map: Map) {
+        super.mapping(map)
+        ownerName <- map["ownername"]
+    }
+    
+    func initWithOwner(info : PersonBasicData ){
+        disPlayDate = TimeDateUtils.getShortDateInString(NSDate())
+        ownerName = info.first_name
+        ownerArea = info.address1
+        ownerPic = info.profilePic
+    }
 }
 
 class ResponseData:CommentData {
     var votes = 0
     
+}
+
+class PostCommentData : BaseData {
+    var issueid : Int = 0
+    var comment = ""
+    override func mapping(map: Map) {
+        super.mapping(map)
+        issueid <- map["issueid"]
+        comment <- map["comment"]
+
+    }
 }
 
 
@@ -103,7 +124,9 @@ class PollData:ImageUrlData {
 }
 
 
-
 enum IssueType : Int{
     case Community = 0, HOA
 }
+
+
+

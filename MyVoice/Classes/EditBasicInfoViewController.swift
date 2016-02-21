@@ -82,7 +82,7 @@ extension EditBasicInfoViewController : UICollectionViewDataSource {
                 addTextFieldForDatePopOver(PopDatePickerParam(field: cell.textField, mode: .Date))
                 break
             case .PICKER:
-                var info = PickerInfo()
+                var info = PopInfo()
                 info.items = [[String]]()
                 info.items?.append(tFData.pickerData)
                 addTextFieldForPickerPopOver(cell.textField, info: info)

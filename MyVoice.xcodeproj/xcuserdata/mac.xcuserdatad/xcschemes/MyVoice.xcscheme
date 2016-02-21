@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04B5926A1C282EAE00B6807E"
-               BuildableName = "MyVoice.app"
+               BuildableName = "CityPulse.app"
                BlueprintName = "MyVoice"
                ReferencedContainer = "container:MyVoice.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04B5926A1C282EAE00B6807E"
-            BuildableName = "MyVoice.app"
+            BuildableName = "CityPulse.app"
             BlueprintName = "MyVoice"
             ReferencedContainer = "container:MyVoice.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04B5926A1C282EAE00B6807E"
-            BuildableName = "MyVoice.app"
+            BuildableName = "CityPulse.app"
             BlueprintName = "MyVoice"
             ReferencedContainer = "container:MyVoice.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04B5926A1C282EAE00B6807E"
-            BuildableName = "MyVoice.app"
+            BuildableName = "CityPulse.app"
             BlueprintName = "MyVoice"
             ReferencedContainer = "container:MyVoice.xcodeproj">
          </BuildableReference>

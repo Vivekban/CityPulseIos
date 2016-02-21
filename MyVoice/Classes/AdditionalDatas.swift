@@ -15,6 +15,7 @@ class ReviewData : TitleDesDateData {
     var reviewerName = ""
     
     override func mapping(map: Map) {
+        super.mapping(map)
         reviewerName <- map["name"]
     }
 }

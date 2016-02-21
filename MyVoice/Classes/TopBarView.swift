@@ -11,7 +11,7 @@ import UIKit
 protocol TopBarViewDelegate : class{
     func onBackButtonClick()
     func onHelpButtonClick()
-    func onCategoryChanged(text:String)
+    func onCategoryChanged(text:String, item index:Int)
 }
 
 class TopBarView: UIView {
@@ -27,7 +27,7 @@ class TopBarView: UIView {
     weak var delegate : TopBarViewDelegate?
     weak var controller :UIViewController?
     
-    var categoryPopPicker:PopPicker!
+    var categoryPopPicker:PopTable!
     
 
     /*
@@ -59,10 +59,10 @@ class TopBarView: UIView {
             }
         }
         
-        var info = PickerInfo(items: [[String]]())
+        var info = PopInfo(items: [[String]](),heading: MyStrings.categories)
         info.items?.append(CurrentSession.i.issueController.issueCategorises)
         
-        categoryPopPicker = PopPicker(forTextField: categoryField, data: info)
+        categoryPopPicker = PopTable(forTextField: categoryField, data: info)
         categoryField.delegate = self
         
         // The icon is accessible through the 'leftView' property of the UITextField.
@@ -102,9 +102,12 @@ extension TopBarView :UITextFieldDelegate{
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         controller?.view.endEditing(true)
+        categoryPopPicker.updateData(0, newData: CurrentSession.i.appDataController.appData.categories)
         categoryPopPicker.pick(controller!, initData: [categoryField.text!]) { (newSelection, forTextField) -> () in
             if newSelection.count > 0 {
-            forTextField.text = newSelection[0]
+                let val = newSelection[0]
+                forTextField.text = val
+                self.delegate?.onCategoryChanged(newSelection[0], item: self.categoryPopPicker.popVC.info?.items?[0].indexOf(val) ?? 0)
             }
         }
         return false
