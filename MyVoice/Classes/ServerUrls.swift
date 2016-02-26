@@ -25,14 +25,14 @@ class ServerUrls {
     static let updateUserDetailsUrl = baseUrl + "/EditUser"
 
     // MARK: REVIEW
-    static let addReviewUrl = baseUrl + "/AddReview"
+    static let addReviewUrl = baseUrl + "/WriteReview"
     static let getReviewByIdUrl = baseUrl + "/GetReviewById"
     static let getReviewByOwnerUrl = baseUrl + "/GetReviewByOwner"
     
     
     // MARK: VIEW
     static let addViewUrl = baseUrl + "/AddView"
-    static let updateViewUrl = baseUrl + "/UpdateView"
+    static let updateViewUrl = baseUrl + "/EditView"
     static let getViewByIdUrl = baseUrl + "/GetViewById"
     static let getViewByUserIdUrl = baseUrl + "/GetViewByUser"
     
@@ -82,7 +82,9 @@ class ServerUrls {
     static let getMarkToList = baseUrl + "/GetMarkToList"
 
     
-    //    static let Url = baseUrl + "/ADS"
+    static let getSentimentTimelineUrl = baseUrl + "/GetSentimentData"
+    static let getReviewAnalyticsUrl = baseUrl + "/GetAnalyticData"
+
     //    static let Url = baseUrl + "/ADS"
     //    static let Url = baseUrl + "/ADS"
     //    static let Url = baseUrl + "/ADS"
@@ -92,6 +94,9 @@ class ServerUrls {
     static let watsonBaseUrl = "http://gateway-a.watsonplatform.net/"
     
     static let getKeywordsUrl = watsonBaseUrl + "calls/text/TextGetRankedKeywords"
+    
+    static let getToneAnalysisUrl = watsonBaseUrl + "calls/text/TextGetEmotions"
+
     
     static let getEntityUrl = "http://access.alchemyapi.com/calls/text/TextGetRankedNamedEntities"
     //    static let Url = baseUrl + "/ADS"

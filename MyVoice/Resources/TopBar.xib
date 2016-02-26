@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TopBarView" customModule="MyVoice" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TopBarView" customModule="CityPulse" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TopBarView" customModule="MyVoice" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TopBarView" customModule="CityPulse" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="724" height="79"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -18,14 +18,12 @@
                     <subviews>
                         <searchBar contentMode="redraw" searchBarStyle="minimal" text="" translatesAutoresizingMaskIntoConstraints="NO" id="c4l-LX-knh">
                             <rect key="frame" x="455" y="0.0" width="217" height="44"/>
-                            <animations/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QtS-e3-ro8">
                             <rect key="frame" x="682" y="-1" width="22" height="45"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="22" id="rRF-j3-Ch4"/>
                             </constraints>
@@ -37,7 +35,6 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yZZ-hd-OBt">
                             <rect key="frame" x="8" y="0.0" width="61" height="44"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="61" id="2rS-jK-LZj"/>
                             </constraints>
@@ -46,9 +43,8 @@
                                 <action selector="onBackButtonClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="pUA-QK-Y2A"/>
                             </connections>
                         </button>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UPF-jM-voY" customClass="FloatLabelTextField" customModule="MyVoice" customModuleProvider="target">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UPF-jM-voY" customClass="FloatLabelTextField" customModule="CityPulse" customModuleProvider="target">
                             <rect key="frame" x="287" y="0.0" width="150" height="36"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="1o6-di-yKp"/>
                                 <constraint firstAttribute="width" constant="150" id="T4d-qK-sYU"/>
@@ -67,7 +63,6 @@
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZA5-Dx-AFN">
                             <rect key="frame" x="287" y="33" width="150" height="1"/>
-                            <animations/>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="9ry-uU-3FN"/>
@@ -75,7 +70,6 @@
                         </view>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Categories" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qYZ-jZ-qOD">
                             <rect key="frame" x="8" y="12" width="153" height="20"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="153" id="pOj-VF-7RT"/>
                             </constraints>
@@ -85,13 +79,11 @@
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dnY-rG-Y3O">
                             <rect key="frame" x="336" y="10" width="53" height="24"/>
-                            <animations/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="c4l-LX-knh" firstAttribute="centerY" secondItem="yZZ-hd-OBt" secondAttribute="centerY" id="0M6-f9-DXw"/>
@@ -118,14 +110,12 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JWa-K8-lfo">
                     <rect key="frame" x="0.0" y="44" width="724" height="1"/>
-                    <animations/>
                     <color key="backgroundColor" red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="iGI-8P-IdL"/>
                     </constraints>
                 </view>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="Hbu-zs-YSh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="J6y-Zq-hmy"/>
@@ -149,6 +139,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Back Arrow" width="43" height="43"/>
+        <image name="Back Arrow" width="25" height="25"/>
     </resources>
 </document>

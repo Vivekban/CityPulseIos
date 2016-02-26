@@ -11,8 +11,8 @@ import UIKit
 class ProfileBaseNestedViewController: BaseNestedTabViewController {
 
     override func viewDidLoad() {
-        super.viewDidLoad()
         serverDataManager = CurrentSession.i.personController
+        super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
@@ -33,4 +33,15 @@ class ProfileBaseNestedViewController: BaseNestedTabViewController {
     }
     */
 
+}
+
+
+class ProfileBaseHeaderCollectionView :BaseHeaderCollectionView {
+    
+    override func viewDidLoad() {
+        serverDataManager = CurrentSession.i.personController
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+    }
 }

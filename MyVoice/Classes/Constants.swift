@@ -112,6 +112,13 @@ class Constants {
         }
     }
     
+    
+    static var reviewFilters : [BaseFilter] = [BaseFilter(index: 0, value: MyStrings.extremelyPositive, dataRequest:0),
+        BaseFilter(index: 1, value: MyStrings.positive, dataRequest:1),
+        BaseFilter(index: 2, value: MyStrings.neutral, dataRequest:2),
+        BaseFilter(index: 3, value: MyStrings.negative, dataRequest:3),
+        BaseFilter(index: 4, value: MyStrings.extreamlyNegative, dataRequest:4)]
+    
 }
 
 class PermanentDataKey {

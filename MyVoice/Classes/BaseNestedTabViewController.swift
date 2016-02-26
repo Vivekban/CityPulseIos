@@ -24,12 +24,27 @@ class BaseNestedTabViewController :UIViewController{
     
     // data fetching..
     var serverRequestType:Int?
+    var serverListRequestType:Int?
+
     var serverDataManager: ServerDataManager?
     var isMoreEntriesAvailable = true
     var isReloadEntries = true
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        fetchListFromStart()
+        isReloadEntries = false
+    }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if isReloadEntries {
+            fetchListFromStart()
+        }
+
         collecView?.reloadData()
         tablView?.reloadData()
     }
@@ -90,11 +105,42 @@ class BaseNestedTabViewController :UIViewController{
         }
     }
     
+    // MARK: - list fetching from server
+
+    
+    func getParameterForListFetching(type : Int) -> [String :AnyObject]{
+        var dic = [String: AnyObject]()
+        if type == 0 {
+        dic["start"] = 0
+        dic["range"] = 20
+        }
+        else {
+            dic["start"] = entries.count
+            dic["range"] = 15
+        }
+        return dic
+
+    }
+    
+    func fetchListFromStart(){
+        let params = getParameterForListFetching(0)
+        fetchListFromServer(params)
+    }
+    
+    func fetchMoreItemsInList(){
+        let params = getParameterForListFetching(1)
+        fetchListFromServer(params)
+    }
+    
     func fetchListFromServer(parameter:[String:AnyObject]){
         if let manager = serverDataManager {
             
-            if let d = serverRequestType {
+            if let d = serverListRequestType {
+                
+                 LoaderUtils.i.showLoader(self.view)
+                
                 manager.fetchData(d,parameter: parameter,completionHandler: { [weak self](result) -> Void in
+                    LoaderUtils.i.hideLoader()
                     switch (result)  {
                     case ServerResult.EveryThingUpdated :
                         self?.isMoreEntriesAvailable = false
@@ -115,7 +161,7 @@ class BaseNestedTabViewController :UIViewController{
     }
     
     func updateListEntries(parameter:[String:AnyObject]){
-        
+        updateEntries()
     }
 
 }
@@ -294,6 +340,7 @@ protocol BaseNestedTabProtocoal{
 
 class BaseHeaderCollectionView: BaseNestedTabViewController {
     
+    var isEditButtonHidden = false
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         switch kind {
@@ -304,6 +351,7 @@ class BaseHeaderCollectionView: BaseNestedTabViewController {
             headerView.delegate = self
             headerView.headerLabel.text = getTitleForHeader(indexPath.section)
             headerView.tag =  indexPath.section
+            headerView.editButton.hidden = isEditButtonHidden
             headerView.updateArrowLabel(expandedRows.contains(indexPath.section))
             return headerView
         default:
@@ -331,8 +379,16 @@ class BaseHeaderCollectionView: BaseNestedTabViewController {
         }
     }
 
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        showDetailViewController(indexPath.row)
+    }
+    
+    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
     
 }
+
 
 
 

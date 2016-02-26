@@ -76,9 +76,9 @@ class HomeTabViewController: BaseTabViewController {
         
         storyBoardName = "Home"
         // let tabs = CurrentSession.i.personUI?.nHomeTabs
-        addTab("IssueViewController", title: "\(MyStrings.community_issues)   ")
-        addTab("IssueViewController", title: "  \(MyStrings.HOA_issues)     ")
-        addTab("IssueViewController", title: "   \(MyStrings.polls)          ")
+        addTab("IssueViewController", title: "\(MyStrings.community_issues)")
+        addTab("IssueViewController", title: "\(MyStrings.HOA_issues)")
+        addTab("IssueViewController", title: "\(MyStrings.polls)")
         
         //        if tabs>3 {
         //            addTab("IssueViewController", title: NSLocalizedString("Subscribed", comment: "Subscribed"))
@@ -89,9 +89,9 @@ class HomeTabViewController: BaseTabViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        topBar?.controller = self
-        
       
+        topBar?.isCatergoryActive = true
+        topBar?.changeVisibiltOfCity(false)
         
         (tabsMenu?.controllerArray[1] as? IssueViewController)?.issueType = IssueType.HOA
 
@@ -131,6 +131,9 @@ class HomeTabViewController: BaseTabViewController {
        
          self.filterTextView.text = (tabsMenu?.controllerArray[index] as? HomeBaseNestedTabController)?.currentFilter?.value
         filterTextView.sizeToFit()
+        
+        super.didMoveToPage(controller, index: index)
+
         // currentTab = index
         
         
@@ -222,9 +225,7 @@ extension HomeTabViewController : UITextFieldDelegate {
         //  Crashlytics.sharedInstance().crash()
         
     }
-    
 
-    
 }
 
 

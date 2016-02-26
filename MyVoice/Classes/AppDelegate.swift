@@ -23,6 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         print("start")
+        CurrentSession.i.initVariable()
+
+        self.window?.backgroundColor = UIColor.whiteColor()
+        
         // Override point for customization after application launch.
         setStatusBarBackgroundColor(UIColor.whiteColor())
         
@@ -40,6 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName:UIFont.boldSystemFontOfSize(20),NSForegroundColorAttributeName:UIColor.darkGrayColor()]
+        
+        
+        let view = UIView()
+        view.backgroundColor = Constants.accentColor
+        
+        //  UITableViewCell.appearance().selectedBackgroundView = view
         
         
         return true

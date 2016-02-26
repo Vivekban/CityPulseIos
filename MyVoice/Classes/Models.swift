@@ -17,21 +17,39 @@ class PersonData{
     var worksListManager:ServerDataList!
     var eventsListManager:ServerDataList!
     var videosListManager:ServerDataList!
-    var reviewssListManager:ServerDataList!
+    var reviewsListManager:ServerDataList!
     
+    // for 3 differnt tabs
+    var sentimentTimeLineListManager:[ServerDataList] = [ServerDataList]()
+    //  filter and 3 tabs and for 5 different
+    var reviewAnalysisListManager:[[ServerDataList]] = [[ServerDataList]]()
+
     init(){
         
         viewsListManager = ServerDataList(entries: [MyViewData]())
         worksListManager = ServerDataList(entries: [MyWorkData]())
         eventsListManager = ServerDataList(entries: [EventData]())
         videosListManager = ServerDataList(entries: [MyVideo]())
-        reviewssListManager = ServerDataList(entries: [ReviewData]())
+        reviewsListManager = ServerDataList(entries: [ReviewData]())
         
         for i in 1...2 {
             let dummyWork = MyWorkData()
             dummyWork.description = "Description of work \(i)"
             dummyWork.title = "Title of work \(i)"
             worksListManager.entries.append(dummyWork)
+        }
+        
+        for _ in 0...2 {
+            let list1 = ServerDataList(entries: [SentimentTimelineData]())
+           
+            var list2 = [ServerDataList]()
+            
+            for _ in 0...4 {
+             list2.append(ServerDataList(entries: [ReviewAnalyticsData]()))
+            }
+            
+            sentimentTimeLineListManager.append(list1)
+            reviewAnalysisListManager.append(list2)
         }
     }
     
@@ -46,7 +64,7 @@ class PersonData{
         case  PersonInfoRequestType.Video.rawValue:
             return videosListManager
         case  PersonInfoRequestType.Reviews.rawValue:
-            return reviewssListManager
+            return reviewsListManager
         default :
             return viewsListManager
         }

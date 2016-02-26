@@ -19,10 +19,12 @@ class IssueViewController: HomeBaseNestedTabController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
+        
+        serverListRequestType = currentFilter?.dataRequestType ?? 0
+        
         super.viewDidLoad()
         
         collecView = collectionView
-        
         editControlllerIdentifier = "EditIssueControlller"
         detailControllerIdentifier = "IssueDetailController"
         reuseIdentifier = "IssueCell"
@@ -38,16 +40,6 @@ class IssueViewController: HomeBaseNestedTabController {
         //            entries.append(issue)
         //        }
         
-        var dic = [String: AnyObject]()
-        dic["tab"] = issueType.rawValue
-        dic["index"] = currentFilter?.index ?? 0
-        dic["start"] = 0
-        dic["range"] = 20
-        
-        serverRequestType = currentFilter?.dataRequestType ?? 0
-        fetchListFromServer(dic)
-        
-        isReloadEntries = false
         // Do any additional setup after loading the view.
     }
     
@@ -67,18 +59,14 @@ class IssueViewController: HomeBaseNestedTabController {
                 
             }
         }
-        if isReloadEntries {
-            var dic = [String: AnyObject]()
-            dic["tab"] = issueType.rawValue
-            dic["index"] = currentFilter?.index ?? 0
-            dic["start"] = 0
-            dic["range"] = 20
-            
-            serverRequestType = currentFilter?.dataRequestType ?? 0
-            fetchListFromServer(dic)
-            
-            isReloadEntries = false
-        }
+    }
+    
+    
+    override func getParameterForListFetching(type: Int) -> [String : AnyObject] {
+        var params = super.getParameterForListFetching(type)
+        params["tab"] = issueType.rawValue
+        params["index"] = currentFilter?.index ?? 0
+        return params
     }
     
     func getAllEntries() -> [BaseData] {
@@ -92,32 +80,41 @@ class IssueViewController: HomeBaseNestedTabController {
     override func onCatergoryChange(text:String, item index:Int){
         if currentCategory != text {
             currentCategory = text
-            let allEntries = getAllEntries()
-            entries.removeAll()
-            
-            if index != 0 {
-                for i in allEntries {
-                    if let d = i as? IssueData {
-                        if d.category == text {
-                            entries.append(d)
-                        }
-                    }
-                }
-                
-            }
-            else{
-                entries.appendContentsOf(allEntries)
-            }
-            if collectionView != nil {
-                self.collectionView.reloadData()
-            }
+            currentCategoryIndex = index
+            filterEntriesByCategory()
         }
     }
     
+    func filterEntriesByCategory() {
+        let allEntries = getAllEntries()
+        entries.removeAll()
+        
+        if currentCategoryIndex != 0 {
+            for i in allEntries {
+                if let d = i as? IssueData {
+                    if d.category == currentCategory {
+                        entries.append(d)
+                    }
+                }
+            }
+            
+        }
+        else{
+            entries.appendContentsOf(allEntries)
+        }
+        if collectionView != nil {
+            self.collectionView.reloadData()
+        }
+
+    }
+    
     override func onFilterChange() {
-        let text = currentCategory
-        currentCategory = ""
-        onCatergoryChange(text, item: 0)
+        
+        
+        if serverListRequestType != currentFilter?.dataRequestType ?? 0 {
+            serverListRequestType = currentFilter?.dataRequestType ?? 0
+            fetchListFromStart()
+        }
     }
     
     override func updateListEntries(parameter: [String : AnyObject]) {
@@ -126,6 +123,7 @@ class IssueViewController: HomeBaseNestedTabController {
         if let index = parameter["index"] as?Int {
             if index == c {
                 entries = CurrentSession.i.issueController.issuesData.issueListsManager[c].entries
+                filterEntriesByCategory()
                 updateEntries()
             }
         }

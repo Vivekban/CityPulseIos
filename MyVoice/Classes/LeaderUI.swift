@@ -20,7 +20,13 @@ class LeaderUI: ResidentUI {
     override func personSpecificParmeter() {
         briefType = BriefProfilePersonType.Leadear
          homeFilters = Constants.leaderHomeIssueFilter
-        profileTabs.appendContentsOf([TwoString(str1: "MyWorkViewController", str2: "Work"),TwoString(str1: "MyViews", str2: "Views"),TwoString(str1: "EventViewController", str2: "Events"),TwoString(str1: "AnalyticsViewController", str2: "Analytics"),TwoString(str1: "BasicInfo", str2: "Info")])
+        profileTabs.appendContentsOf([TwoString(str1: "MyWorkViewController", str2: MyStrings.works),
+            TwoString(str1: "MyViews", str2: MyStrings.views),
+            TwoString(str1: "EventViewController", str2: MyStrings.events),
+            TwoString(str1: "EventViewController", str2: MyStrings.activity),
+            TwoString(str1: "AnalyticsViewController", str2: MyStrings.analytics),
+            TwoString(str1: "BasicInfo", str2: MyStrings.video),
+            TwoString(str1: "BasicInfo", str2: MyStrings.info)])
 
     }
     

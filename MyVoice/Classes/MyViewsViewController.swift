@@ -8,11 +8,12 @@
 
 import UIKit
 
-class MyViewsViewController: BaseHeaderCollectionView {
+class MyViewsViewController: ProfileBaseHeaderCollectionView {
     
     @IBOutlet var collectionView: UICollectionView!
     
     override func viewDidLoad() {
+        serverListRequestType = PersonInfoRequestType.Views.rawValue
         super.viewDidLoad()
         
         //  self.collectionView.estimatedRowHeight = 70
@@ -27,12 +28,12 @@ class MyViewsViewController: BaseHeaderCollectionView {
         let data = CurrentSession.i.personController.person.viewsListManager.entries
         entries = data
         
-        for i in 1...3 {
-            let e = MyViewData()
-            e.title = "Testing titel"
-            e.description = "This is tedtin g descrptio ifo event "
-            entries.append(e)
-        }
+//        for i in 1...3 {
+//            let e = MyViewData()
+//            e.title = "Testing titel"
+//            e.description = "This is tedtin g descrptio ifo event "
+//            entries.append(e)
+//        }
         
         self.collecView = collectionView
         // Uncomment the following line to preserve selection between presentations
@@ -51,7 +52,10 @@ class MyViewsViewController: BaseHeaderCollectionView {
         return MyViewData()
     }
     
-    
+    override func updateListEntries(parameter: [String : AnyObject]) {
+        entries = CurrentSession.i.personController.person.viewsListManager.entries
+         super.updateListEntries(parameter)
+    }
     // MARK: - Table view data source
    
     
@@ -59,9 +63,11 @@ class MyViewsViewController: BaseHeaderCollectionView {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MyViewTableCell
         
         // Configure the cell
-        if let entry = entries[entries.count - indexPath.row - 1] as? MyViewData{
+        if let entry = entries[indexPath.section] as? MyViewData{
+            print(entry.description)
             cell.detailLabel.text = entry.description
-            cell.detailLabel.sizeToFit()
+            // cell.detailLabel.sizeToFit()
+            // cell.layoutIfNeeded()
             cell.dateField.text = entry.disPlayDate
         }
         return cell

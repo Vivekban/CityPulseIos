@@ -35,6 +35,7 @@ class BaseTabViewController: UIViewController {
     weak var scrollView :UIScrollView?
     var scrollViewYOffset:CGFloat = -1
     var isScroll = false
+    var lastScrollDirection = 0
     //
     var minTabsYpos:CGFloat = 0
     var maxTabsYpos:CGFloat = 0
@@ -61,8 +62,8 @@ class BaseTabViewController: UIViewController {
         
         topBar = UINib(nibName: "TopBar", bundle: nil).instantiateWithOwner(self, options: nil)[0] as? TopBarView
         topBar?.delegate = self
+        topBar?.controller = self
         topBar?.frame = CGRectMake(0, 20, view.frame.width, 45)
-        view.addSubview(topBar!)
         
         topBar?.cityField.text = CurrentSession.i.userPlacemark?.locality
         tabsViewStartPoint = ((topBar?.frame.origin.y)!) + (topBar!.frame.height)
@@ -77,6 +78,14 @@ class BaseTabViewController: UIViewController {
         
         tabsMenu?.view.addSubview(actionButton)
         currentActiveView = tabsMenu?.view
+
+        let lineBelowTopBar = UIView(frame: CGRectMake(0, 65, view.frame.width, 2))
+        lineBelowTopBar.backgroundColor = view.backgroundColor
+        view.addSubview(lineBelowTopBar)
+        
+        // higest z order
+        view.addSubview(topBar!)
+        
         
     }
     
@@ -118,6 +127,11 @@ class BaseTabViewController: UIViewController {
     func onViewScrollEvent(sender:NSNotification){
         
         if let value = sender.object as? Int {
+            
+            if value == 2 {
+                onDraggingStop()
+            }
+            
             isScroll = value == 1 ? true : false
             
             if !isScroll {
@@ -157,24 +171,26 @@ class BaseTabViewController: UIViewController {
         // print("tranlation...is \(scrollView.panGestureRecognizer.translationInView(scrollView.superview).y) and previos is \(tranlation)")
         
         
-        let val = -scrollView.panGestureRecognizer.translationInView(scrollView.superview).y + tranlation
+        let val = scrollView.panGestureRecognizer.translationInView(scrollView.superview).y - tranlation
         // scrollViewYOffset += val
         tranlation = scrollView.panGestureRecognizer.translationInView(scrollView.superview).y
         
+        lastScrollDirection = Int(val)
         
         
-        let newTabsPos = max(minTabsYpos - spaceInViews, min(maxTabsYpos, tabsViewStartPoint - val))
+        
+        let newTabsPos = max(minTabsYpos - spaceInViews, min(maxTabsYpos, tabsViewStartPoint + val))
         
         if newTabsPos != tabsViewStartPoint {
             
             let change = newTabsPos - tabsViewStartPoint
             
-            var frame =  CGRectMake((briefProfileView?.frame.origin.x)!, (briefProfileView?.frame.origin.y)!, (briefProfileView?.frame.size.width)!, newTabsPos - minTabsYpos)
-            frame.size.height = max(0,min(100,(frame.size.height)))
+            // var frame =  CGRectMake((briefProfileView?.frame.origin.x)!, (briefProfileView?.frame.origin.y)!, (briefProfileView?.frame.size.width)!, newTabsPos - minTabsYpos)
+            // frame.size.height = max(0,min(100,(frame.size.height)))
             
-            briefProfileView?.frame = frame
+            briefProfileView?.frame.origin.y += change
             
-            briefProfileView?.setNeedsDisplayInRect(frame)
+            //   briefProfileView?.setNeedsDisplayInRect(frame)
             
             
             tabsViewStartPoint = newTabsPos
@@ -191,8 +207,85 @@ class BaseTabViewController: UIViewController {
         
     }
     
-    func onScrollDown(scrollView:UIScrollView){
+    
+    func onDraggingStop(){
+        if !isBriefBar {
+            return
+        }
+        view.layer.removeAllAnimations()
+        if lastScrollDirection < 0 {
+            
+            
+            let newTabsPos = minTabsYpos - spaceInViews
+            
+            if newTabsPos != tabsViewStartPoint {
+                
+                let change = newTabsPos - tabsViewStartPoint
+                let time = change/50
+                print(change)
+
+                UIView.animateWithDuration(NSTimeInterval(time), animations: { () -> Void in
+                   
+                    self.animateView(change)
+                })
+                
+                
+               
+            }
+            
+        }
+        else {
+            let newTabsPos = maxTabsYpos
+            
+            if newTabsPos != tabsViewStartPoint {
+                let change = newTabsPos - tabsViewStartPoint
+                let time = change/400
+                
+                print(change)
+                
+                
+                UIView.animateWithDuration(NSTimeInterval(time), animations: { () -> Void in
+                    
+                    //self.animateView(change)
+                    
+                    self.briefProfileView?.frame.origin.y += change
+                    
+                    var tabsFrame = self.currentActiveView?.frame
+                    tabsFrame?.size.height -= change
+                    tabsFrame?.origin.y += change
+                    self.tabsViewStartPoint = (tabsFrame?.origin.y)!
+                    
+                    self.currentActiveView?.frame = tabsFrame!
+                    self.view.setNeedsLayout()
+
+                })
+                
+
+//                let change = newTabsPos - tabsViewStartPoint
+//                briefProfileView?.frame.origin.y += change
+//                tabsViewStartPoint = newTabsPos
+//                
+//                var tabsFrame = currentActiveView?.frame
+//                tabsFrame?.size.height -= change
+//                tabsFrame?.origin.y += change
+//                currentActiveView?.frame = tabsFrame!
+//                view.setNeedsLayout()
+            }
+        }
+
+    }
+    
+    func animateView(change : CGFloat) {
+      
+        briefProfileView?.frame.origin.y += change
         
+        var tabsFrame = currentActiveView?.frame
+        tabsFrame?.size.height -= change
+        tabsFrame?.origin.y += change
+        tabsViewStartPoint = (tabsFrame?.origin.y)!
+
+        currentActiveView?.frame = tabsFrame!
+        view.setNeedsLayout()
     }
     
     
@@ -218,6 +311,10 @@ class BaseTabViewController: UIViewController {
         maxTabsYpos = minTabsYpos + 100
         
         briefProfileView?.frame = CGRectMake(0, minTabsYpos , view.frame.width, 100)
+        
+         briefProfileView?.updateData(CurrentSession.i.personController.person.profileData)
+
+        
         view.addSubview(briefProfileView!)
         
         tabsViewStartPoint = ((briefProfileView?.frame.origin.y)!) + (briefProfileView!.frame.height)
@@ -253,7 +350,7 @@ class BaseTabViewController: UIViewController {
         }
         
         additionalController = controller
-        controller.willMoveToParentViewController(self)
+        // controller.willMoveToParentViewController(self)
         
         controller.view.frame = (tabsMenu?.view.frame)!
         self.addChildViewController(controller)
@@ -296,6 +393,8 @@ extension BaseTabViewController : CAPSPageMenuDelegate{
     }
     
     func didMoveToPage(controller: UIViewController, index: Int) {
+        lastScrollDirection = 1
+        onDraggingStop()
     }
     
 }
@@ -318,13 +417,10 @@ extension BaseTabViewController : TabsInitialisation{
         }
         
         let parameters: [CAPSPageMenuOption] = [
-            .MenuItemSeparatorWidth(0),
             .SelectionIndicatorColor(Constants.accentColor),
-            .MenuItemWidthBasedOnTitleTextWidth(menuItemWithAccordingToText),
             .MenuHeight(50),
-            //.MenuItemSeparatorWidth(15),
+            .MenuItemSeparatorWidth(15),
             .SelectionIndicatorHeight(7),
-            .MenuItemWidth(menuItemWidth)
         ]
         
         let tabBarHeight = self.tabBarController?.tabBar.frame.height ?? 0
@@ -354,7 +450,9 @@ extension BaseTabViewController: BriefProfileBarDelegate {
     func onReviewClick() {
         
         if CurrentSession.i.isVisitingSomeone() {
-            if let controller = MyUtils.getViewControllerFromStoryBoard("AdditionalUI", controllerName: "EditReviewController") {
+            if let controller = MyUtils.getViewControllerFromStoryBoard("AdditionalUI", controllerName: "EditReviewController") as? BaseEditViewController {
+                var data : [BaseData] = [BaseData]()
+                controller.setDataSourceWith(.NEW, data: &data, index: -1)
                 addAdditionView(controller)
                 topBar?.titleLabel.text = MyStrings.write_review
             }

@@ -19,7 +19,6 @@ class MainController: UITabBarController {
         self.delegate = self
         
         
-        
     
         //ServerRequestInitiater.i.getUserDetail(["userId": "1"])
         
@@ -49,20 +48,20 @@ class MainController: UITabBarController {
             
         }
         
-        let newUser = PersonBasicData()
-        newUser.first_name = " First User"
-        newUser.email = "firstUser@gmail.com"
-        newUser.initials = "Mr"
-        newUser.facebook = "facebook..com/first_user"
-        newUser.gender = "m"
-        newUser.id = -1
-        newUser.dob = TimeDateUtils.getServerStyleDateInString(NSDate())
-        newUser.mobile = "1323123123"
-        newUser.zip = "12323"
-        newUser.password = "asdfasdfasdf"
-        
-        let jString = MyUtils.appendKayToJSONString(newUser.toJSONString()!)
-        print("josn of new user  \(jString)")
+//        let newUser = PersonBasicData()
+//        newUser.first_name = " First User"
+//        newUser.email = "firstUser@gmail.com"
+//        newUser.initials = "Mr"
+//        newUser.facebook = "facebook..com/first_user"
+//        newUser.gender = "m"
+//        newUser.id = -1
+//        newUser.dob = TimeDateUtils.getServerStyleDateInString(NSDate())
+//        newUser.mobile = "1323123123"
+//        newUser.zip = "12323"
+//        newUser.password = "asdfasdfasdf"
+//        
+//        let jString = MyUtils.appendKayToJSONString(newUser.toJSONString()!)
+//        print("josn of new user  \(jString)")
 
      //   ServerRequestInitiater.i.addUser(["json": jString])
 //        ServerRequestInitiater.i.postMessageToServerForJsonResponse(ServerUrls.getIssueByIdUrl, postData: ["issueid": "1"]) { (r) -> Void in
@@ -80,21 +79,21 @@ class MainController: UITabBarController {
 //
 //        }
         
-        ServerRequestInitiater.i.postMessageToServerForJsonResponse(ServerUrls.getIssueByOwnerUrl, postData: ["owner": "1"]) { (r) -> Void in
-            switch r {
-            case .Success(let data):
-                
-                if let d = data {
-                    print(d)
-                }
-                break
-            case .Failure(let error):
-                print(error)
-            default :
-                break
-            }
-            
-        }
+//        ServerRequestInitiater.i.postMessageToServerForJsonResponse(ServerUrls.getIssueByOwnerUrl, postData: ["owner": "1"]) { (r) -> Void in
+//            switch r {
+//            case .Success(let data):
+//                
+//                if let d = data {
+//                    print(d)
+//                }
+//                break
+//            case .Failure(let error):
+//                print(error)
+//            default :
+//                break
+//            }
+//            
+//        }
 
         
         var parameter:[String:String] = [String:String]()

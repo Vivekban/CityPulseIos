@@ -13,9 +13,10 @@ class EditViewsViewController: BaseEditViewController {
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var descriptionField: DescriptionView!
-    
+    @IBOutlet weak var gradientView: GradientView!
       
     override func viewDidLoad() {
+        super.viewDidLoad()
         mainTitle = "View".localized
         super.viewDidLoad()
         popDatePickerTextFields.append(PopDatePickerParam(field: dateField, mode: .Date))
@@ -24,6 +25,7 @@ class EditViewsViewController: BaseEditViewController {
         dateField.hidden = true
         // shadowObject.append(descriptionField)
         // Do any additional setup after loading the view.
+        gradientView.layerGradient()
     }
     
     override func getDataForNewItem() -> BaseData {
@@ -75,6 +77,25 @@ class EditViewsViewController: BaseEditViewController {
     
     @IBAction func onAnalyzeToneClick(sender: UIButton) {
         
+            if descriptionField.text.characters.count > 20 {
+                progressHUD.text = MyStrings.fetchingTag
+                progressHUD.show()
+                
+                WatsonApiHelper.i.doToneAnalysisOf(descriptionField.text, completion: {[weak self] (result) -> Void in
+                    self?.progressHUD.hide()
+                    
+                    switch (result) {
+                    case .Success(let data):
+                        if let d = data as? String {
+                            // self?.tags.text = (self?.tags.text!)! + d
+                        }
+                        break
+                    default:
+                        break;
+                    }
+                })
+            }
+
     }
     
     

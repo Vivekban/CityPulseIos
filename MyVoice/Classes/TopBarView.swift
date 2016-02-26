@@ -29,6 +29,7 @@ class TopBarView: UIView {
     
     var categoryPopPicker:PopTable!
     
+    var isCatergoryActive = false
 
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -48,6 +49,7 @@ class TopBarView: UIView {
    
     override func awakeFromNib() {
         super.awakeFromNib()
+        categoryField.hidden = true
         cityField.titleFont = UIFont.systemFontOfSize(13.0)
         changeVisibiltOfBackButton(true)
        
@@ -83,8 +85,12 @@ class TopBarView: UIView {
 
         cityLine.hidden = !visible
         cityField.hidden = !visible
+        
+        if isCatergoryActive {
         categoryField.hidden = !visible
-    }
+
+        }
+        }
     
     func changeVisibiltOfCity(visible:Bool){
         changeVisibiltOfBackButton(!visible)
@@ -103,7 +109,7 @@ extension TopBarView :UITextFieldDelegate{
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         controller?.view.endEditing(true)
         categoryPopPicker.updateData(0, newData: CurrentSession.i.appDataController.appData.categories)
-        categoryPopPicker.pick(controller!, initData: [categoryField.text!]) { (newSelection, forTextField) -> () in
+        categoryPopPicker.pick(controller!, initData: [categoryField.text ?? ""]) { (newSelection, forTextField) -> () in
             if newSelection.count > 0 {
                 let val = newSelection[0]
                 forTextField.text = val

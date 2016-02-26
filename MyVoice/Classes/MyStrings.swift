@@ -30,6 +30,11 @@ class MyStrings {
     static let work = "Work".localized
     static let issue = "Issue"
 
+    static let events = "Events"
+    static let works = "Works".localized
+    static let issues = "Issues"
+    static let views = "Views"
+
 
     static let saving = "Saving"
     static let errorWhileSaving = "Some error occur during saving"
@@ -108,7 +113,28 @@ class MyStrings {
     
     static let lastMonth = "Last Month"
     static let last3Month = "Last 3 Months"
+    static let last6Month = "Last 6 Months"
     static let lastYear = "Last Year"
+
+
+    static let sentimentTimeline = "Sentiment Timeline"
+    static let sentimentMap = "Sentiment Map"
+    static let reviewAnalysis = "Review Analysis"
+
+
+    static let info = "Info"
+    static let video = "Video"
+    static let activity = "Activity"
+    static let analytics = "Analytics"
+    
+    static let cityPusle = "City Pulse"
+    static let web = "Web"
+
+    static let extremelyPositive = "Extremely Positive"
+    static let positive = "Positive"
+    static let neutral = "Neutral"
+    static let negative = "Negative"
+    static let extreamlyNegative = "Extremely Negative"
 
 
 

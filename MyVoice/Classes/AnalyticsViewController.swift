@@ -23,13 +23,32 @@ class AnalyticsViewController: BaseHeaderCollectionView {
         
         entries = CurrentSession.i.personController.person.eventsListManager.entries
         
-                for _ in 0...3{
-                    entries.append(EventData())
+                for i in 0...2{
+                    let d = TitleDescriptionData()
+                    
+                    switch (i) {
+                    case 0:
+                        d.title = MyStrings.sentimentTimeline
+                        break;
+                    case 1:
+                        d.title = MyStrings.sentimentMap
+                        break
+                    case 2:
+                        d.title = MyStrings.reviewAnalysis
+                        break
+                    default:
+                        break;
+                    }
+                    
+                    entries.append(d)
                 }
         
         collecView = collectionView
         
         collectionView.registerClass(TimeLineView.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.registerClass(ReviewAnalysisView.self, forCellWithReuseIdentifier: "reviewCell")
+
+        isEditButtonHidden = true
         // isReloadEntries = false
     }
     
@@ -45,19 +64,25 @@ class AnalyticsViewController: BaseHeaderCollectionView {
         return entries.count
     }
     
-    override func reloadData(index:Int) {
-        collectionView.reloadData()
-    }
+    
     
     override func getDataForNewItem() ->BaseData {
-        return EventData()
+        return TitleDescriptionData()
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! BaseAnalyticsCell
+        
+        var identifier = reuseIdentifier
+        
+        if indexPath.section == 2 {
+            identifier = "reviewCell"
+        }
+        
+        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! BaseAnalyticsCell
         
         // Configure the cell
-        if let d = entries[indexPath.section] as? EventData{
+    //        if let d = entries[indexPath.section] as? TitleDescriptionData{
 //            cell.loaction.text = d.location?.city
 //            cell.descrption.text = d.description
 //            cell.website.text = d.website
@@ -65,14 +90,27 @@ class AnalyticsViewController: BaseHeaderCollectionView {
 //            
 //            ServerImageFetcher.i.loadImageWithDefaultsIn(cell.image, url: d.imagesUrls.count > 0 ? d.imagesUrls[0]: "" )
             
-        }
+        //       }
         
         return cell
     }
     
     override func getTitleForHeader(index: Int) -> String {
-        return (entries[index] as! EventData).title
+        return (entries[index] as! TitleDescriptionData).title
     }
+
+//    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+//        
+//        
+//        let view = super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
+//        
+//        if let header = view as? BasicInfoHeader {
+//            header.editButton.hidden = true
+//        }
+//        
+//        return view
+//        
+//    }
 
 }
 
@@ -81,7 +119,13 @@ extension AnalyticsViewController : UICollectionViewDelegateFlowLayout{
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
-        return CGSize(width: Int(collectionView.frame.size.width) - 25, height: 400)
+        print(collectionView.frame.height)
+        
+        if indexPath.section == 2 {
+            return CGSize(width: (collectionView.frame.size.width), height: 470 + collectionView.frame.height)
+        }
+        
+        return CGSize(width: (collectionView.frame.size.width), height: 400)
     }
     
     

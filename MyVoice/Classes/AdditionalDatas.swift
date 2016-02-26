@@ -13,9 +13,11 @@ import ObjectMapper
 
 class ReviewData : TitleDesDateData {
     var reviewerName = ""
-    
+    var sentiment = 0
     override func mapping(map: Map) {
         super.mapping(map)
         reviewerName <- map["name"]
+        sentiment <- map["sentiment"]
     }
 }
+

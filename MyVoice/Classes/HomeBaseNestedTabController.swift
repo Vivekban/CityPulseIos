@@ -11,6 +11,7 @@ import UIKit
 class HomeBaseNestedTabController: BaseNestedTabViewController {
     
     var currentCategory:String = "-1"
+    var currentCategoryIndex:Int = 0
 
     var currentFilter : HomeFilter? {
         didSet{
@@ -19,8 +20,8 @@ class HomeBaseNestedTabController: BaseNestedTabViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         serverDataManager = CurrentSession.i.issueController
+        super.viewDidLoad()
         // Do any additional setup after loading the view.
         
     }

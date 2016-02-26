@@ -8,6 +8,7 @@
 
 import UIKit
 import ObjectMapper
+import SwiftyJSON
 // MARK: Supporting
 
 
@@ -36,6 +37,11 @@ class InfoData : BaseData{
 
 class MyViewData :TitleDesDateData{
 
+    override func mapping(map: Map) {
+        super.mapping(map)
+        id <- map["viewId"]
+    }
+    
 }
 
 // MARK: Work
@@ -91,6 +97,40 @@ class MyVideo: BaseData {
     
 }
 
+
+
+class SentimentTimelineData: BaseData {
+    var label = ""
+    var value = 0
+    
+    override func mapping(map: Map) {
+        label <- map["label"]
+        value <- map["data"]
+    }
+}
+
+class ReviewAnalyticsData: SentimentTimelineData {
+    var reviews = [ReviewData]()
+    //var string = ""
+    
+    override func mapping(map: Map) {
+        super.mapping(map)
+        label <- map["label"]
+        value <- map["data"]
+        if let data = map["ar"].currentValue {
+        let array = JSON(data)
+        for (_,obj) in array {
+            if let finalString = obj.rawString() {
+                // print(" value is \(i)...+....\(finalString)")
+                if let view = Mapper<ReviewData>().map(finalString) {
+                    reviews.append(view)
+                }
+            }
+          }
+        }
+        
+    }
+}
 
 // MARK: - PersonBasicData
 
@@ -379,6 +419,7 @@ class PersonBasicData : BaseData{
         
         
     }
+    
     
     
     

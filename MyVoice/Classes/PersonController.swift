@@ -13,7 +13,7 @@ import SwiftyJSON
 
 enum PersonInfoRequestType:Int{
     
-    case BasicInfo = 1, Views, Reviews, Profile, Work, Video, Event
+    case BasicInfo = 1, Views, Reviews, Profile, Work, Video, Event , SentimentTimeLine, SentimentMap,ReviewAnalysis
 }
 
 class PersonController : ServerDataManager {
@@ -48,6 +48,10 @@ class PersonController : ServerDataManager {
             return ServerUrls.getViewByUserIdUrl
         case .Profile:
             return ServerUrls.getUserProfileDetailsUrl
+        case .SentimentTimeLine:
+            return ServerUrls.getSentimentTimelineUrl
+        case .ReviewAnalysis:
+            return ServerUrls.getReviewAnalyticsUrl
         default:
             return "";
         }
@@ -71,7 +75,6 @@ class PersonController : ServerDataManager {
 
         switch (infoRequest) {
         case .BasicInfo:
-            //print(data)
             if let d = Mapper<PersonBasicData>().map(data){
             person.basicInfo  = d
             person.basicInfo.userid = userId
@@ -80,6 +83,7 @@ class PersonController : ServerDataManager {
 
             break;
         case .Views:
+            print(data)
             let viewArray = JSON(data)
             var list = [MyViewData]()
             for (_,obj) in viewArray {
@@ -104,18 +108,58 @@ class PersonController : ServerDataManager {
                     }
                 }
             }
-            person.reviewssListManager.updateEntries(list)
+            person.reviewsListManager.updateEntries(list)
 
             break
         case .Profile:
-            print(data)
             if let d = Mapper<ProfileData>().map(data) {
                 person.profileData  = d
                 person.profileData.takeDataFromBasicInfo(person.basicInfo)
                 EventUtils.postNotification(EventUtils.basicInfoUpdateKey)
 
             }
+            break
+      
+        case .SentimentTimeLine:
+            let array = JSON(data)
+            var list = [SentimentTimelineData]()
+            for (_,obj) in array {
+                if let finalString = obj.rawString() {
+                    // print(" value is \(i)...+....\(finalString)")
+                    if let view = Mapper<SentimentTimelineData>().map(finalString) {
+                        list.append(view)
+                    }
+                }
+            }
+            
+            if let p = parameter {
+            let index = p["index"] as! Int
+            
+            person.sentimentTimeLineListManager[index].updateEntries(list)
+            }
+            break;
+      
+        case .ReviewAnalysis:
+            print(data)
+            let array = JSON(data)
+            var list = [ReviewAnalyticsData]()
+            for (_,obj) in array {
+                if let finalString = obj.rawString() {
+                    // print(" value is \(i)...+....\(finalString)")
+                    if let view = Mapper<ReviewAnalyticsData>().map(finalString) {
+                        
+                        list.append(view)
+                    }
+                }
+            }
+            
+            if let p = parameter {
+                let index = p["index"] as! Int
+                let filter = p["filter"] as!Int
+                person.reviewAnalysisListManager[index][filter].updateEntries(list)
+            }
 
+            break
         default:
             break;
         }

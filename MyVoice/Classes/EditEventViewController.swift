@@ -18,7 +18,7 @@ class EditEventViewController: BaseImageEditViewController {
     @IBOutlet weak var allDaySwitch: UISwitch!
     @IBOutlet weak var location: FloatLabelTextField!
     @IBOutlet weak var webSite: FloatLabelTextField!
-    @IBOutlet weak var descrip: FloatLabelTextView!
+    @IBOutlet weak var descrip: DescriptionView!
     
     override func viewDidLoad() {
         mainTitle = MyStrings.event

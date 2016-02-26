@@ -24,10 +24,14 @@
 		0411B7671C4E625900775172 /* ProfileUIDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0411B7661C4E625900775172 /* ProfileUIDataType.swift */; };
 		041B242A1C5285DF00DCD729 /* PublicFigureTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041B24291C5285DF00DCD729 /* PublicFigureTabViewController.swift */; };
 		0423E1CD1C79B35B002E3103 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423E1CC1C79B35B002E3103 /* GradientView.swift */; };
+		0423E1CF1C7A41F6002E3103 /* WatsonApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423E1CE1C7A41F6002E3103 /* WatsonApiHelper.swift */; };
+		043E7FC81C7AF2B400BB79BC /* DLRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E7FC71C7AF2B400BB79BC /* DLRadioButton.m */; };
+		043E7FCA1C7BAAE300BB79BC /* ReviewAnalysis.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043E7FC91C7BAAE300BB79BC /* ReviewAnalysis.xib */; };
 		045007431C56100500185B69 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045007421C56100500185B69 /* ReviewsViewController.swift */; };
 		045007461C56108900185B69 /* AdditionalDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045007451C56108900185B69 /* AdditionalDatas.swift */; };
 		045007481C5611B800185B69 /* AdditionalUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045007471C5611B800185B69 /* AdditionalUI.storyboard */; };
 		0450074B1C567B6600185B69 /* PersonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0450074A1C567B6600185B69 /* PersonController.swift */; };
+		0465DC771C80AD420041FBAC /* LoaderUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0465DC761C80AD420041FBAC /* LoaderUtils.swift */; };
 		046A677D1C626A430090646C /* CommentsTable.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046A677C1C626A430090646C /* CommentsTable.xib */; };
 		046A677F1C626BBE0090646C /* Comment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046A677E1C626BBE0090646C /* Comment.xib */; };
 		046A67811C6271630090646C /* Response.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046A67801C6271630090646C /* Response.xib */; };
@@ -56,6 +60,8 @@
 		048DDEC11C44ECA900616085 /* EditInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048DDEC01C44ECA900616085 /* EditInfoCell.swift */; };
 		048DDEC41C450F2600616085 /* PopPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048DDEC31C450F2600616085 /* PopPickerViewController.swift */; };
 		048DDEC81C451A5E00616085 /* PopPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048DDEC71C451A5E00616085 /* PopPicker.swift */; };
+		048FF4D01C7CA5F1009EB6BB /* SecondPersonProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048FF4CF1C7CA5F1009EB6BB /* SecondPersonProfileViewController.swift */; };
+		048FF4D21C7CDF24009EB6BB /* SplashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048FF4D11C7CDF24009EB6BB /* SplashView.xib */; };
 		0495763E1C6385A1000A6851 /* CommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495763D1C6385A1000A6851 /* CommentController.swift */; };
 		049886711C6CE307006C2820 /* HomeBaseNestedTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049886701C6CE307006C2820 /* HomeBaseNestedTabController.swift */; };
 		049886731C6CE390006C2820 /* BaseFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049886721C6CE390006C2820 /* BaseFilter.swift */; };
@@ -103,7 +109,7 @@
 		04B7D9681C442F000041B499 /* MyWorkCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B7D94B1C442F000041B499 /* MyWorkCollectionViewController.swift */; };
 		04B7D9691C442F000041B499 /* PersonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B7D94C1C442F000041B499 /* PersonUI.swift */; };
 		04B7D96A1C442F000041B499 /* ProfileDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B7D94D1C442F000041B499 /* ProfileDataTypes.swift */; };
-		04B7D96B1C442F000041B499 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B7D94E1C442F000041B499 /* ProfileViewController.swift */; };
+		04B7D96B1C442F000041B499 /* ProfileTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B7D94E1C442F000041B499 /* ProfileTabViewController.swift */; };
 		04B7D96C1C442F000041B499 /* ResidentUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B7D94F1C442F000041B499 /* ResidentUI.swift */; };
 		04B7D96D1C442F000041B499 /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B7D9501C442F000041B499 /* TopBarView.swift */; };
 		04B7D97A1C4439640041B499 /* UIAlertUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B7D9791C4439640041B499 /* UIAlertUtils.swift */; };
@@ -168,10 +174,16 @@
 		0417B4C31C576B9C007EF556 /* MyPlaygroundasd.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlaygroundasd.playground; sourceTree = "<group>"; };
 		041B24291C5285DF00DCD729 /* PublicFigureTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicFigureTabViewController.swift; sourceTree = "<group>"; };
 		0423E1CC1C79B35B002E3103 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		0423E1CE1C7A41F6002E3103 /* WatsonApiHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatsonApiHelper.swift; sourceTree = "<group>"; };
+		043E7FC51C7AF2B300BB79BC /* MyVoice-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyVoice-Bridging-Header.h"; sourceTree = "<group>"; };
+		043E7FC61C7AF2B400BB79BC /* DLRadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLRadioButton.h; sourceTree = "<group>"; };
+		043E7FC71C7AF2B400BB79BC /* DLRadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLRadioButton.m; sourceTree = "<group>"; };
+		043E7FC91C7BAAE300BB79BC /* ReviewAnalysis.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewAnalysis.xib; sourceTree = "<group>"; };
 		045007421C56100500185B69 /* ReviewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		045007451C56108900185B69 /* AdditionalDatas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalDatas.swift; sourceTree = "<group>"; };
 		045007471C5611B800185B69 /* AdditionalUI.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AdditionalUI.storyboard; sourceTree = "<group>"; };
 		0450074A1C567B6600185B69 /* PersonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonController.swift; sourceTree = "<group>"; };
+		0465DC761C80AD420041FBAC /* LoaderUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoaderUtils.swift; sourceTree = "<group>"; };
 		046A677C1C626A430090646C /* CommentsTable.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentsTable.xib; sourceTree = "<group>"; };
 		046A677E1C626BBE0090646C /* Comment.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Comment.xib; sourceTree = "<group>"; };
 		046A67801C6271630090646C /* Response.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Response.xib; sourceTree = "<group>"; };
@@ -200,6 +212,8 @@
 		048DDEC01C44ECA900616085 /* EditInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditInfoCell.swift; sourceTree = "<group>"; };
 		048DDEC31C450F2600616085 /* PopPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopPickerViewController.swift; path = "Pop Picker/PopPickerViewController.swift"; sourceTree = "<group>"; };
 		048DDEC71C451A5E00616085 /* PopPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopPicker.swift; path = "Pop Picker/PopPicker.swift"; sourceTree = "<group>"; };
+		048FF4CF1C7CA5F1009EB6BB /* SecondPersonProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondPersonProfileViewController.swift; sourceTree = "<group>"; };
+		048FF4D11C7CDF24009EB6BB /* SplashView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashView.xib; sourceTree = "<group>"; };
 		0495763D1C6385A1000A6851 /* CommentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentController.swift; sourceTree = "<group>"; };
 		049886701C6CE307006C2820 /* HomeBaseNestedTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBaseNestedTabController.swift; sourceTree = "<group>"; };
 		049886721C6CE390006C2820 /* BaseFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFilter.swift; sourceTree = "<group>"; };
@@ -249,7 +263,7 @@
 		04B7D94B1C442F000041B499 /* MyWorkCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWorkCollectionViewController.swift; sourceTree = "<group>"; };
 		04B7D94C1C442F000041B499 /* PersonUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonUI.swift; sourceTree = "<group>"; };
 		04B7D94D1C442F000041B499 /* ProfileDataTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDataTypes.swift; sourceTree = "<group>"; };
-		04B7D94E1C442F000041B499 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		04B7D94E1C442F000041B499 /* ProfileTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTabViewController.swift; sourceTree = "<group>"; };
 		04B7D94F1C442F000041B499 /* ResidentUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResidentUI.swift; sourceTree = "<group>"; };
 		04B7D9501C442F000041B499 /* TopBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
 		04B7D9791C4439640041B499 /* UIAlertUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertUtils.swift; sourceTree = "<group>"; };
@@ -325,6 +339,15 @@
 				041B24291C5285DF00DCD729 /* PublicFigureTabViewController.swift */,
 			);
 			name = "Public Figures";
+			sourceTree = "<group>";
+		};
+		043E7FC41C7AF28000BB79BC /* RadioButton */ = {
+			isa = PBXGroup;
+			children = (
+				043E7FC61C7AF2B400BB79BC /* DLRadioButton.h */,
+				043E7FC71C7AF2B400BB79BC /* DLRadioButton.m */,
+			);
+			name = RadioButton;
 			sourceTree = "<group>";
 		};
 		045007401C560F4F00185B69 /* AdditionalUIs */ = {
@@ -469,6 +492,8 @@
 				04CEBEBE1C6B4A8500A901B6 /* FloatingTextLabel.xib */,
 				04114F851C74CE4C0001C207 /* PostComment.xib */,
 				04DA46B41C78531F006E82A5 /* TimelineView.xib */,
+				043E7FC91C7BAAE300BB79BC /* ReviewAnalysis.xib */,
+				048FF4D11C7CDF24009EB6BB /* SplashView.xib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -476,6 +501,7 @@
 		04B7D9101C442EB80041B499 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				043E7FC41C7AF28000BB79BC /* RadioButton */,
 				048796961C70F0460095B341 /* Pop Table */,
 				0411B7611C4E12F800775172 /* ImagePageViewer */,
 				048DDEC21C450E7600616085 /* Pop picker */,
@@ -496,6 +522,8 @@
 				047B7C581C720F0000509806 /* SRWebClient.swift */,
 				04862B1C1C7643A4003F0210 /* ToastUtils.swift */,
 				0423E1CC1C79B35B002E3103 /* GradientView.swift */,
+				043E7FC51C7AF2B300BB79BC /* MyVoice-Bridging-Header.h */,
+				0465DC761C80AD420041FBAC /* LoaderUtils.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -552,7 +580,8 @@
 		04B7D96F1C442FFB0041B499 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				04B7D94E1C442F000041B499 /* ProfileViewController.swift */,
+				04B7D94E1C442F000041B499 /* ProfileTabViewController.swift */,
+				048FF4CF1C7CA5F1009EB6BB /* SecondPersonProfileViewController.swift */,
 				04B7D9731C4430960041B499 /* Controllers */,
 				047A971E1C52924000663278 /* Views */,
 				04B7D9741C4430A80041B499 /* Models */,
@@ -774,6 +803,7 @@
 				040EB00D1C48089F004A984F /* ImageFetcher.swift */,
 				040D9ABA1C6E4C600024C52B /* ServerDataList.swift */,
 				047B7C5A1C7217EC00509806 /* ImageUploader.swift */,
+				0423E1CE1C7A41F6002E3103 /* WatsonApiHelper.swift */,
 			);
 			name = Server;
 			sourceTree = "<group>";
@@ -828,7 +858,7 @@
 		04B592631C282EAE00B6807E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = Vivek;
 				TargetAttributes = {
@@ -871,8 +901,10 @@
 				04B7D9261C442EB80041B499 /* Me.storyboard in Resources */,
 				047A971B1C52910500663278 /* Public Figure.storyboard in Resources */,
 				04114F861C74CE4C0001C207 /* PostComment.xib in Resources */,
+				043E7FCA1C7BAAE300BB79BC /* ReviewAnalysis.xib in Resources */,
 				04B7D9221C442EB80041B499 /* Home.storyboard in Resources */,
 				04DA46B51C78531F006E82A5 /* TimelineView.xib in Resources */,
+				048FF4D21C7CDF24009EB6BB /* SplashView.xib in Resources */,
 				04B7D9241C442EB80041B499 /* Localizable.strings in Resources */,
 				04B7D9271C442EB80041B499 /* TopBar.xib in Resources */,
 				046A677D1C626A430090646C /* CommentsTable.xib in Resources */,
@@ -970,6 +1002,7 @@
 				04114F881C74D0D80001C207 /* PostCommentView.swift in Sources */,
 				048796A81C70F7200095B341 /* PopTable.swift in Sources */,
 				04B7D95D1C442F000041B499 /* EditViewsViewController.swift in Sources */,
+				043E7FC81C7AF2B400BB79BC /* DLRadioButton.m in Sources */,
 				047B7C591C720F0000509806 /* SRWebClient.swift in Sources */,
 				04B7D92F1C442EB80041B499 /* PopDatePicker.swift in Sources */,
 				04B7D9531C442F000041B499 /* BaseEditViewController.swift in Sources */,
@@ -980,6 +1013,7 @@
 				04B7D9301C442EB80041B499 /* PopDateViewController.swift in Sources */,
 				048DDEC11C44ECA900616085 /* EditInfoCell.swift in Sources */,
 				04B7D9651C442F000041B499 /* MyViewsViewController.swift in Sources */,
+				0465DC771C80AD420041FBAC /* LoaderUtils.swift in Sources */,
 				045007431C56100500185B69 /* ReviewsViewController.swift in Sources */,
 				04B7D96A1C442F000041B499 /* ProfileDataTypes.swift in Sources */,
 				0475848B1C67C4FE00439DA8 /* LayoutConstraintUtils.swift in Sources */,
@@ -996,6 +1030,7 @@
 				04B7D9581C442F000041B499 /* BasicInfoViewController.swift in Sources */,
 				04B7D9521C442F000041B499 /* BaseCell.swift in Sources */,
 				04B7D9691C442F000041B499 /* PersonUI.swift in Sources */,
+				048FF4D01C7CA5F1009EB6BB /* SecondPersonProfileViewController.swift in Sources */,
 				048DDEC81C451A5E00616085 /* PopPicker.swift in Sources */,
 				0450074B1C567B6600185B69 /* PersonController.swift in Sources */,
 				0405F8331C6502FB00ED2ABF /* ResponseConroller.swift in Sources */,
@@ -1032,6 +1067,7 @@
 				040B74461C48FB31008BFA1B /* MyStrings.swift in Sources */,
 				04B7D9671C442F000041B499 /* MyWorkCollectionViewCell.swift in Sources */,
 				04B7D92A1C442EB80041B499 /* FloatLabelTextView.swift in Sources */,
+				0423E1CF1C7A41F6002E3103 /* WatsonApiHelper.swift in Sources */,
 				0495763E1C6385A1000A6851 /* CommentController.swift in Sources */,
 				04B7D9621C442F000041B499 /* LeaderUI.swift in Sources */,
 				04B7D9561C442F000041B499 /* BasicInfoCell.swift in Sources */,
@@ -1051,7 +1087,7 @@
 				04B7D96D1C442F000041B499 /* TopBarView.swift in Sources */,
 				04B7D9281C442EB80041B499 /* CAPSPageMenu.swift in Sources */,
 				04B7D97A1C4439640041B499 /* UIAlertUtils.swift in Sources */,
-				04B7D96B1C442F000041B499 /* ProfileViewController.swift in Sources */,
+				04B7D96B1C442F000041B499 /* ProfileTabViewController.swift in Sources */,
 				04B7D9291C442EB80041B499 /* FloatLabelTextField.swift in Sources */,
 				0411B7671C4E625900775172 /* ProfileUIDataType.swift in Sources */,
 				048DDEC41C450F2600616085 /* PopPickerViewController.swift in Sources */,
@@ -1157,6 +1193,7 @@
 			baseConfigurationReference = DD7277A8EDA47F55ADA4F319 /* Pods-MyVoice.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Kiran Heer (2W7CCAK5LF)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kiran Heer (2W7CCAK5LF)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1170,6 +1207,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.citypulse;
 				PRODUCT_NAME = CityPulse;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyVoice/utils/MyVoice-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -1179,6 +1218,7 @@
 			baseConfigurationReference = C6114B8DDDBE3919C4DFEE11 /* Pods-MyVoice.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Kiran Heer (F7Y659BQQ6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kiran Heer (F7Y659BQQ6)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1192,6 +1232,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.citypulse;
 				PRODUCT_NAME = CityPulse;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyVoice/utils/MyVoice-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;

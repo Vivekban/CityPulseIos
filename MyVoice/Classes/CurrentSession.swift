@@ -12,30 +12,34 @@ import CoreLocation
 
 class CurrentSession {
     
-   static let i = CurrentSession()
+    static let i = CurrentSession()
     
     var userId:Int = 0
     
     var userLocation:CLLocation?
     var userPlacemark:CLPlacemark?
-
+    
     
     private init(){
+        userId = NSUserDefaults.standardUserDefaults().integerForKey(PermanentDataKey.userId)
+    }
+    
+    func initVariable(){
         personUI = LeaderUI()
         mainPersonUI = personUI
         secondaryPersonUI = ResidentUI()
-        userId = NSUserDefaults.standardUserDefaults().integerForKey(PermanentDataKey.userId)
         
         if Constants.isDebug {
             userId = Constants.tempUserId
         }
-    
+        
         
         personController = PersonController(userID: userId)
         mainPersonController = personController
         
         appDataController = AppDataController()
         issueController = IssueController()
+        
     }
     
     var personUI:PersonUI? // current person
@@ -47,9 +51,9 @@ class CurrentSession {
     var personController:PersonController!
     var mainPersonController:PersonController!
     var secondaryPersonController:PersonController!
-
+    
     // MARK: - issues
-
+    
     var issueController:IssueController!
     
     var appDataController:AppDataController!

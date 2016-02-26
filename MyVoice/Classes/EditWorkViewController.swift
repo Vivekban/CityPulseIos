@@ -12,8 +12,8 @@ class EditWorkViewController: BaseImageEditViewController {
     
     
     @IBOutlet weak var titleField: UITextField!
-    @IBOutlet weak var dateField: UITextField!
-    @IBOutlet weak var descriptionField: UITextView!
+    //  @IBOutlet weak var dateField: UITextField!
+    @IBOutlet weak var descriptionField: DescriptionView!
     @IBOutlet weak var imagesCollection: UICollectionView!
     
     override func viewDidLoad() {
@@ -21,7 +21,7 @@ class EditWorkViewController: BaseImageEditViewController {
         
         super.viewDidLoad()
         
-        popDatePickerTextFields.append(PopDatePickerParam(field: dateField, mode: UIDatePickerMode.DateAndTime))
+        // popDatePickerTextFields.append(PopDatePickerParam(field: dateField, mode: UIDatePickerMode.DateAndTime))
         collection = imagesCollection
         // Do any additional setup after loading the view.
         //shadowObject.append(descriptionField)
@@ -39,7 +39,7 @@ class EditWorkViewController: BaseImageEditViewController {
         if let d = data as? MyWorkData {
             titleField.text = d.title
             descriptionField.text = d.description
-            dateField.text =  d.disPlayDate
+            //dateField.text =  d.disPlayDate
         }
     }
     
@@ -47,7 +47,7 @@ class EditWorkViewController: BaseImageEditViewController {
         if let d = data as? MyWorkData {
             d.title = titleField.text ?? ""
             d.description = descriptionField.text ?? ""
-            d.disPlayDate = dateField.text ?? ""
+            //  d.disPlayDate = dateField.text ?? ""
         }
     }
     

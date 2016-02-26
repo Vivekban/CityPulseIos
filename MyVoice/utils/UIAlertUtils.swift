@@ -30,4 +30,5 @@ class UIAlertUtils {
         createAlertFor(controller, with: message, and: [UIAlertAction(title: MyStrings.cancel, style: .Default, handler: nil),
             UIAlertAction(title: MyStrings.tryAgain, style: .Default, handler: tryAgainHandler)])
     }
+    
 }

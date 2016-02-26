@@ -126,11 +126,11 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
     public var menuItemBoldFont : UIFont = UIFont.boldSystemFontOfSize(17.0)
 
     public var menuItemSeparatorPercentageHeight : CGFloat = 0.2
-    public var menuItemSeparatorWidth : CGFloat = 0.5
+    public var menuItemSeparatorWidth : CGFloat = 20
     public var menuItemSeparatorRoundEdges : Bool = false
     
     public var addBottomMenuHairline : Bool = true
-    public var menuItemWidthBasedOnTitleTextWidth : Bool = false
+    public var menuItemWidthBasedOnTitleTextWidth : Bool = true
     public var useMenuLikeSegmentedControl : Bool = false
     public var centerMenuItems : Bool = false
     public var enableHorizontalBounce : Bool = true
@@ -375,7 +375,7 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
             if useMenuLikeSegmentedControl {
                 menuItemFrame = CGRectMake(self.view.frame.width / CGFloat(controllerArray.count) * CGFloat(index), 0.0, CGFloat(self.view.frame.width) / CGFloat(controllerArray.count), menuHeight)
             } else if menuItemWidthBasedOnTitleTextWidth {
-                let controllerTitle : String? = controller.title
+                let controllerTitle : String? = getControllerTitle(controller)
                 
                 let titleText : String = controllerTitle != nil ? controllerTitle! : "Menu \(Int(index) + 1)"
                 
@@ -415,12 +415,9 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
             menuItemView.titleLabel!.textColor = unselectedMenuItemLabelColor
             
             // Set title depending on if controller has a title set
-            if controller.title != nil {
-                menuItemView.titleLabel!.text = controller.title!
-            } else {
-                menuItemView.titleLabel!.text = "Menu \(Int(index) + 1)"
-            }
-            
+           
+            menuItemView.titleLabel!.text = getControllerTitle(controller)
+
             // Add separator between menu items when using as segmented control
             if useMenuLikeSegmentedControl {
                 if Int(index) < controllerArray.count - 1 {
@@ -472,6 +469,13 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
             selectionIndicatorView.frame = CGRectMake(leadingAndTrailingMargin, menuHeight - selectionIndicatorHeight, menuItemWidths[0], selectionIndicatorHeight)
         }
     }
+    
+    
+    
+    private func getControllerTitle(controller : UIViewController) -> String{
+        return " \(controller.title != nil ? controller.title! : "Menu")      "
+    }
+    
     
     // Adjusts the menu item frames to size item width based on title text width and center all menu items in the center
     // if the menuItems all fit in the width of the view. Otherwise, it will adjust the frames so that the menu items

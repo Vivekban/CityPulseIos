@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SecondPersonProfileViewController: UIView {
+class SecondPersonProfileViewController: ProfileViewController {
 
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -17,5 +17,9 @@ class SecondPersonProfileViewController: UIView {
         // Drawing code
     }
     */
+    
+    override func didMoveToPage(controller: UIViewController, index: Int) {
+        changeVisibilityOfActionButton(false)
+    }
 
 }

@@ -64,9 +64,10 @@ import UIKit
         let color1 = topColor ?? self.tintColor as UIColor
         let color2 = middleColor ?? self.tintColor as UIColor
         let color3 = bottomColor ?? UIColor.blackColor() as UIColor
-        let colors: Array <AnyObject> = [ color1.CGColor, color2.CGColor, color3.CGColor ]
+        let colors: Array <AnyObject> = [ color1.CGColor, color2.CGColor,color2.CGColor, color3.CGColor ]
         let layer = self.layer as! CAGradientLayer
         layer.colors = colors
+        layer.locations = [0.0,0.45,0.55,1.0]
         layer.startPoint = CGPointMake(startX, startY)
         layer.endPoint = CGPointMake(endX, endY)
     }

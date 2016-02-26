@@ -15,9 +15,18 @@ class EditReviewController:BaseEditViewController{
     @IBOutlet weak var descptionField: DescriptionView!
     
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addItemUrl = ServerUrls.addReviewUrl
+        updateItemUrl = ServerUrls.addReviewUrl
         // Initialization code
+
+    }
+    
+    override func getDataForNewItem() -> BaseData {
+        return ReviewData()
     }
 
     override func fetchDataFromUIElements() {

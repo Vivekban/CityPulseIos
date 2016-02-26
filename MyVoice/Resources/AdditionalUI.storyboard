@@ -9,7 +9,7 @@
         <!--Reviews View Controller-->
         <scene sceneID="onY-Y1-JhQ">
             <objects>
-                <viewController storyboardIdentifier="ReviewViewController" id="nFa-h8-ZDc" customClass="ReviewsViewController" customModule="MyVoice" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReviewViewController" id="nFa-h8-ZDc" customClass="ReviewsViewController" customModule="CityPulse" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fjC-Hl-3Ed"/>
                         <viewControllerLayoutGuide type="bottom" id="OgE-xV-1ZC"/>
@@ -22,7 +22,7 @@
                                 <rect key="frame" x="20" y="0.0" width="560" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reviewCell" rowHeight="155" id="Bhe-nc-UPp" customClass="ReviewCell" customModule="MyVoice" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reviewCell" rowHeight="155" id="Bhe-nc-UPp" customClass="ReviewCell" customModule="CityPulse" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="560" height="155"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bhe-nc-UPp" id="whj-91-duG">
@@ -106,7 +106,7 @@
         <!--Edit Review Controller-->
         <scene sceneID="lZR-1D-zwb">
             <objects>
-                <viewController storyboardIdentifier="EditReviewController" id="jiA-vM-Cni" customClass="EditReviewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditReviewController" id="jiA-vM-Cni" customClass="EditReviewController" customModule="CityPulse" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uL2-Bp-MgT"/>
                         <viewControllerLayoutGuide type="bottom" id="8xH-Tp-OU6"/>
@@ -131,7 +131,7 @@
                                                             <constraint firstAttribute="height" constant="1" id="S1B-h9-BZg"/>
                                                         </constraints>
                                                     </view>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D52-up-wzX" customClass="FloatLabelTextField" customModule="MyVoice" customModuleProvider="target">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D52-up-wzX" customClass="FloatLabelTextField" customModule="CityPulse" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="49"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="49" id="si3-TO-s4A"/>
@@ -172,7 +172,7 @@
                                                             <constraint firstAttribute="height" constant="1" id="R7t-Ms-CAP"/>
                                                         </constraints>
                                                     </view>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D7u-Ko-SMP" customClass="FloatLabelTextField" customModule="MyVoice" customModuleProvider="target">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D7u-Ko-SMP" customClass="FloatLabelTextField" customModule="CityPulse" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="300" height="49"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="49" id="BNB-S1-RuG"/>
@@ -202,7 +202,7 @@
                                                     <constraint firstItem="V0R-Oo-Xno" firstAttribute="width" secondItem="wnz-yP-1Px" secondAttribute="width" id="e13-sT-BTM"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sr7-GU-2h5" customClass="DescriptionView" customModule="MyVoice" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sr7-GU-2h5" customClass="DescriptionView" customModule="CityPulse" customModuleProvider="target">
                                                 <rect key="frame" x="12" y="147" width="576" height="354"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -255,6 +255,11 @@
                             <constraint firstItem="UOg-xs-Ecb" firstAttribute="top" secondItem="uL2-Bp-MgT" secondAttribute="bottom" constant="3" id="Xjs-DK-GA2"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="descptionField" destination="sr7-GU-2h5" id="Jyx-LJ-hCX"/>
+                        <outlet property="name" destination="D52-up-wzX" id="WPO-Dk-VaH"/>
+                        <outlet property="titleField" destination="D7u-Ko-SMP" id="lbZ-5h-BBC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HiY-Xt-mjg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -8,13 +8,13 @@
 
 import UIKit
 
-class ProfileTabViewController: BaseTabViewController {
+class ProfileViewController: BaseTabViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-
+        menuItemWidth = 80
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -72,9 +72,14 @@ class ProfileTabViewController: BaseTabViewController {
         case 5:
             changeVisibilityOfActionButton(true)
             setTitleOfActionButton("ADD_VIDEO".localized)
+            break
+        case 6:
+            changeVisibilityOfActionButton(false)
         default:
             assertionFailure("pata ni")
         }
+        
+        super.didMoveToPage(controller, index: index)
     }
     
     override func onActionButtonClick(sender: UIButton) {

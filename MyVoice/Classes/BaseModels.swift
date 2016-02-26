@@ -16,10 +16,10 @@ import ObjectMapper
 class BaseData:Mappable{
     var userid:Int = 0
     var id:Int = 0
-    var owner = ""
+    var owner = 0
     init(){
-        userid = 1//CurrentSession.i.userId
-        owner = "\(userid)"
+        userid = CurrentSession.i.userId
+        owner = userid
     }
     
     required init?(_ map: Map) {
@@ -38,7 +38,7 @@ class BaseData:Mappable{
     }
     
     func getCombineString() -> String {
-        return userid.toString() + id.toString() + owner
+        return userid.toString() + id.toString() + owner.toString()
     }
 }
 

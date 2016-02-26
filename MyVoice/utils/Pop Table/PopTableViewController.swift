@@ -33,6 +33,8 @@ class PopTableViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        view.backgroundColor = UIColor.whiteColor()
+        tableView.backgroundColor = UIColor.whiteColor()
         updatePickerCurrentValue()
         // okButton.hidden = true
 
