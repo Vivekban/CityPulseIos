@@ -78,7 +78,7 @@ class ServerUrls {
     static let getWorkByIdUrl = baseUrl + "/GetWorkById"
     
     // MARK: - App related
-    static let appDataUrl = baseUrl + "/GetConsData"
+    static let appDataUrl = baseUrl + "/CategoryList"
     static let getMarkToList = baseUrl + "/GetMarkToList"
 
     
@@ -95,7 +95,7 @@ class ServerUrls {
     
     static let getKeywordsUrl = watsonBaseUrl + "calls/text/TextGetRankedKeywords"
     
-    static let getToneAnalysisUrl = watsonBaseUrl + "calls/text/TextGetEmotions"
+    static let getToneAnalysisUrl = "https://gateway.watsonplatform.net/tone-analyzer-beta/api/v3/tone"
 
     
     static let getEntityUrl = "http://access.alchemyapi.com/calls/text/TextGetRankedNamedEntities"
@@ -118,5 +118,15 @@ class ServerUrls {
 //            }
 //    }
 //    
+    
+    
+//    
+//    "credentials": {
+//    "url": "https://gateway.watsonplatform.net/tone-analyzer-beta/api",
+//    "username": "dcf7a887-ceba-4748-86eb-a63d15df3e68",
+//    "password": "Z5DFpbnruafn"
+//    }
+    
+    
 }
  

@@ -35,6 +35,12 @@ class BaseDetailViewController: UIViewController {
     
     var numberOfSection = 1
     
+    var mainTitle:String = ""{
+        didSet {
+            (self.view.viewWithTag(10) as? UINavigationBar)?.items![0].title = mainTitle + MyStrings.detail
+        }
+    }
+
     
     deinit {
         log.debug(" base detail controller  .......... is deallocated ..:)")

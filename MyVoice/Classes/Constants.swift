@@ -23,7 +23,8 @@ class Constants {
     static let grayColor_101 = UIColor(red: CGFloat(101.0/255), green: CGFloat(101.0/255), blue: CGFloat(101.0/255), alpha: 1)
     static let grayColor_131 = UIColor(red: CGFloat(131.0/255), green: CGFloat(131.0/255), blue: CGFloat(131.0/255), alpha: 1)
     static let grayColor_217 = UIColor(red: CGFloat(217.0/255), green: CGFloat(217.0/255), blue: CGFloat(217.0/255), alpha: 1)
-    
+    static let grayColor_239 = UIColor(red: CGFloat(239.0/255), green: CGFloat(239.0/255), blue: CGFloat(239.0/255), alpha: 1)
+
     static let addCommentViewHeight:CGFloat = 200
 
     

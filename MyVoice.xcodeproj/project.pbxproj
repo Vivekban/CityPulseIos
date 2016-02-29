@@ -26,7 +26,6 @@
 		0423E1CD1C79B35B002E3103 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423E1CC1C79B35B002E3103 /* GradientView.swift */; };
 		0423E1CF1C7A41F6002E3103 /* WatsonApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423E1CE1C7A41F6002E3103 /* WatsonApiHelper.swift */; };
 		043E7FC81C7AF2B400BB79BC /* DLRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E7FC71C7AF2B400BB79BC /* DLRadioButton.m */; };
-		043E7FCA1C7BAAE300BB79BC /* ReviewAnalysis.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043E7FC91C7BAAE300BB79BC /* ReviewAnalysis.xib */; };
 		045007431C56100500185B69 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045007421C56100500185B69 /* ReviewsViewController.swift */; };
 		045007461C56108900185B69 /* AdditionalDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045007451C56108900185B69 /* AdditionalDatas.swift */; };
 		045007481C5611B800185B69 /* AdditionalUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045007471C5611B800185B69 /* AdditionalUI.storyboard */; };
@@ -44,7 +43,6 @@
 		047A97201C5293B900663278 /* PublicFigureListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A971F1C5293B900663278 /* PublicFigureListController.swift */; };
 		047A97221C52B8F300663278 /* ResidentProfileBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A97211C52B8F300663278 /* ResidentProfileBar.swift */; };
 		047A97241C52B91500663278 /* LeaderProfileBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A97231C52B91500663278 /* LeaderProfileBar.swift */; };
-		047B7C591C720F0000509806 /* SRWebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047B7C581C720F0000509806 /* SRWebClient.swift */; };
 		047B7C5B1C7217EC00509806 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047B7C5A1C7217EC00509806 /* ImageUploader.swift */; };
 		047B7C5D1C72587E00509806 /* AppDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047B7C5C1C72587E00509806 /* AppDataController.swift */; };
 		04862B1D1C7643A4003F0210 /* ToastUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04862B1C1C7643A4003F0210 /* ToastUtils.swift */; };
@@ -121,6 +119,7 @@
 		04CEBEC31C6BA87700A901B6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04CEBEC21C6BA87700A901B6 /* CoreLocation.framework */; };
 		04CEBEC51C6BAD2D00A901B6 /* EventUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CEBEC41C6BAD2D00A901B6 /* EventUtils.swift */; };
 		04CEBEC71C6BB80000A901B6 /* MapUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CEBEC61C6BB80000A901B6 /* MapUtils.swift */; };
+		04D31E801C823F0A00DDE989 /* ReviewAnalysisView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D31E7F1C823F0A00DDE989 /* ReviewAnalysisView.xib */; };
 		04DA46B51C78531F006E82A5 /* TimelineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DA46B41C78531F006E82A5 /* TimelineView.xib */; };
 		04DCDA551C7739BA00328D01 /* AnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCDA541C7739BA00328D01 /* AnalyticsViewController.swift */; };
 		04DCDA571C77453A00328D01 /* AnalyticsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCDA561C77453A00328D01 /* AnalyticsCell.swift */; };
@@ -178,7 +177,6 @@
 		043E7FC51C7AF2B300BB79BC /* MyVoice-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyVoice-Bridging-Header.h"; sourceTree = "<group>"; };
 		043E7FC61C7AF2B400BB79BC /* DLRadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLRadioButton.h; sourceTree = "<group>"; };
 		043E7FC71C7AF2B400BB79BC /* DLRadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLRadioButton.m; sourceTree = "<group>"; };
-		043E7FC91C7BAAE300BB79BC /* ReviewAnalysis.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewAnalysis.xib; sourceTree = "<group>"; };
 		045007421C56100500185B69 /* ReviewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		045007451C56108900185B69 /* AdditionalDatas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalDatas.swift; sourceTree = "<group>"; };
 		045007471C5611B800185B69 /* AdditionalUI.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AdditionalUI.storyboard; sourceTree = "<group>"; };
@@ -196,7 +194,6 @@
 		047A971F1C5293B900663278 /* PublicFigureListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicFigureListController.swift; sourceTree = "<group>"; };
 		047A97211C52B8F300663278 /* ResidentProfileBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResidentProfileBar.swift; sourceTree = "<group>"; };
 		047A97231C52B91500663278 /* LeaderProfileBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderProfileBar.swift; sourceTree = "<group>"; };
-		047B7C581C720F0000509806 /* SRWebClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRWebClient.swift; sourceTree = "<group>"; };
 		047B7C5A1C7217EC00509806 /* ImageUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		047B7C5C1C72587E00509806 /* AppDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDataController.swift; sourceTree = "<group>"; };
 		04862B1C1C7643A4003F0210 /* ToastUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastUtils.swift; sourceTree = "<group>"; };
@@ -275,6 +272,7 @@
 		04CEBEC21C6BA87700A901B6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		04CEBEC41C6BAD2D00A901B6 /* EventUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventUtils.swift; sourceTree = "<group>"; };
 		04CEBEC61C6BB80000A901B6 /* MapUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapUtils.swift; sourceTree = "<group>"; };
+		04D31E7F1C823F0A00DDE989 /* ReviewAnalysisView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewAnalysisView.xib; sourceTree = "<group>"; };
 		04DA46B41C78531F006E82A5 /* TimelineView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineView.xib; sourceTree = "<group>"; };
 		04DCDA541C7739BA00328D01 /* AnalyticsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsViewController.swift; sourceTree = "<group>"; };
 		04DCDA561C77453A00328D01 /* AnalyticsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsCell.swift; sourceTree = "<group>"; };
@@ -492,7 +490,7 @@
 				04CEBEBE1C6B4A8500A901B6 /* FloatingTextLabel.xib */,
 				04114F851C74CE4C0001C207 /* PostComment.xib */,
 				04DA46B41C78531F006E82A5 /* TimelineView.xib */,
-				043E7FC91C7BAAE300BB79BC /* ReviewAnalysis.xib */,
+				04D31E7F1C823F0A00DDE989 /* ReviewAnalysisView.xib */,
 				048FF4D11C7CDF24009EB6BB /* SplashView.xib */,
 			);
 			path = Resources;
@@ -501,6 +499,7 @@
 		04B7D9101C442EB80041B499 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				043E7FC51C7AF2B300BB79BC /* MyVoice-Bridging-Header.h */,
 				043E7FC41C7AF28000BB79BC /* RadioButton */,
 				048796961C70F0460095B341 /* Pop Table */,
 				0411B7611C4E12F800775172 /* ImagePageViewer */,
@@ -519,10 +518,8 @@
 				04CEBEC01C6B5D1300A901B6 /* ImageUtils.swift */,
 				04CEBEC41C6BAD2D00A901B6 /* EventUtils.swift */,
 				04CEBEC61C6BB80000A901B6 /* MapUtils.swift */,
-				047B7C581C720F0000509806 /* SRWebClient.swift */,
 				04862B1C1C7643A4003F0210 /* ToastUtils.swift */,
 				0423E1CC1C79B35B002E3103 /* GradientView.swift */,
-				043E7FC51C7AF2B300BB79BC /* MyVoice-Bridging-Header.h */,
 				0465DC761C80AD420041FBAC /* LoaderUtils.swift */,
 			);
 			path = utils;
@@ -899,9 +896,9 @@
 				048796AA1C70F7200095B341 /* PopTableViewController.xib in Resources */,
 				04B7D9311C442EB80041B499 /* PopDateViewController.xib in Resources */,
 				04B7D9261C442EB80041B499 /* Me.storyboard in Resources */,
+				04D31E801C823F0A00DDE989 /* ReviewAnalysisView.xib in Resources */,
 				047A971B1C52910500663278 /* Public Figure.storyboard in Resources */,
 				04114F861C74CE4C0001C207 /* PostComment.xib in Resources */,
-				043E7FCA1C7BAAE300BB79BC /* ReviewAnalysis.xib in Resources */,
 				04B7D9221C442EB80041B499 /* Home.storyboard in Resources */,
 				04DA46B51C78531F006E82A5 /* TimelineView.xib in Resources */,
 				048FF4D21C7CDF24009EB6BB /* SplashView.xib in Resources */,
@@ -1003,7 +1000,6 @@
 				048796A81C70F7200095B341 /* PopTable.swift in Sources */,
 				04B7D95D1C442F000041B499 /* EditViewsViewController.swift in Sources */,
 				043E7FC81C7AF2B400BB79BC /* DLRadioButton.m in Sources */,
-				047B7C591C720F0000509806 /* SRWebClient.swift in Sources */,
 				04B7D92F1C442EB80041B499 /* PopDatePicker.swift in Sources */,
 				04B7D9531C442F000041B499 /* BaseEditViewController.swift in Sources */,
 				0405F8311C64D0E000ED2ABF /* IssueController.swift in Sources */,

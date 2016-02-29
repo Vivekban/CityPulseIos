@@ -23,9 +23,11 @@ class DetailIssueController: BaseImageDetailViewController {
     
     weak var postResponseField :UITextView!
     
-    
+       
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         baseDetailHeight = 600
         numberOfSection = 5
         

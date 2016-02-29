@@ -136,6 +136,10 @@ class MyStrings {
     static let negative = "Negative"
     static let extreamlyNegative = "Extremely Negative"
 
+    static let analysingTone = "Analyzing Tone"
+    
+    
+    static let detail = "Detail"
 
 
 }

@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -35,8 +34,8 @@
                     <color key="textColor" red="0.39607843139999999" green="0.39607843139999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view tag="5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YaA-Cb-cxl" userLabel="tableView">
-                    <rect key="frame" x="8" y="376" width="743" height="206"/>
+                <view tag="5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IY1-AO-X25" customClass="UITableView">
+                    <rect key="frame" x="8" y="380" width="743" height="202"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
@@ -44,20 +43,20 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Uqh-Z7-eWI" secondAttribute="trailing" constant="150" id="2ob-IQ-EsQ"/>
                 <constraint firstItem="CgW-L5-Qi8" firstAttribute="top" secondItem="5wh-1L-2CQ" secondAttribute="top" constant="340" id="5a9-I6-ZES"/>
-                <constraint firstItem="YaA-Cb-cxl" firstAttribute="centerX" secondItem="zSL-gd-61Z" secondAttribute="centerX" id="8aT-Xx-XuD"/>
-                <constraint firstItem="YaA-Cb-cxl" firstAttribute="bottom" secondItem="5wh-1L-2CQ" secondAttribute="bottomMargin" id="BUb-tJ-d4x"/>
+                <constraint firstItem="IY1-AO-X25" firstAttribute="top" secondItem="zSL-gd-61Z" secondAttribute="bottom" constant="12" id="IZa-e8-rQo"/>
+                <constraint firstItem="IY1-AO-X25" firstAttribute="leading" secondItem="5wh-1L-2CQ" secondAttribute="leading" constant="8" id="KuI-1h-WwB"/>
                 <constraint firstItem="Uqh-Z7-eWI" firstAttribute="top" secondItem="5wh-1L-2CQ" secondAttribute="top" constant="20" id="Qfl-jn-nAa"/>
                 <constraint firstItem="Uqh-Z7-eWI" firstAttribute="leading" secondItem="5wh-1L-2CQ" secondAttribute="leading" constant="150" id="S1d-u8-Jot"/>
                 <constraint firstAttribute="trailing" secondItem="zSL-gd-61Z" secondAttribute="trailing" id="TJo-Zw-ij5"/>
                 <constraint firstItem="zSL-gd-61Z" firstAttribute="leading" secondItem="5wh-1L-2CQ" secondAttribute="leading" id="Ts4-Ne-8oF"/>
-                <constraint firstItem="YaA-Cb-cxl" firstAttribute="top" secondItem="zSL-gd-61Z" secondAttribute="bottom" constant="8" symbolic="YES" id="dQO-eZ-AIJ"/>
+                <constraint firstAttribute="bottom" secondItem="IY1-AO-X25" secondAttribute="bottom" constant="8" id="bqw-Zv-mz7"/>
                 <constraint firstItem="CgW-L5-Qi8" firstAttribute="leading" secondItem="5wh-1L-2CQ" secondAttribute="leading" constant="8" id="gKo-vR-zzF"/>
+                <constraint firstAttribute="trailing" secondItem="IY1-AO-X25" secondAttribute="trailing" constant="8" id="pVM-BO-kjJ"/>
                 <constraint firstItem="zSL-gd-61Z" firstAttribute="top" secondItem="CgW-L5-Qi8" secondAttribute="bottom" constant="6" id="pr9-3e-odk"/>
-                <constraint firstItem="YaA-Cb-cxl" firstAttribute="leading" secondItem="CgW-L5-Qi8" secondAttribute="leading" id="qUl-oS-bLv"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="362.5" y="572"/>
+            <point key="canvasLocation" x="362.5" y="571"/>
         </view>
     </objects>
 </document>

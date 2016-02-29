@@ -139,7 +139,7 @@ class ReviewAnalysisView: BaseAnalyticsCell {
     override func addExtraViewOnTabBar(view: UIView) {
         filterItems = BaseFilter.getFilterValues(Constants.reviewFilters)
         
-        filterTextView = UITextField(frame: CGRect(x: (view.frame.width) - 180 - 20, y: 14, width: 200, height:30))
+        filterTextView = UITextField(frame: CGRect(x: (view.frame.width) - 200 - 20, y: 14, width: 200, height:30))
         filterTextView.delegate = self
         filterTextView.text = filterItems[0]
         filterTextView.textAlignment = NSTextAlignment.Right
@@ -154,7 +154,7 @@ class ReviewAnalysisView: BaseAnalyticsCell {
         image.tintColor = Constants.accentColor
         filterTextView.rightView = image
         
-        filterTextView.sizeToFit()
+        // filterTextView.sizeToFit()
         
         
         view.addSubview(filterTextView)
@@ -181,7 +181,7 @@ extension ReviewAnalysisView : UITextFieldDelegate {
             filterPopOver.pick(c, initData: [textField.text ?? ""]) {[weak self] (newSelection, forTextField) -> () in
                 if newSelection.count > 0 {
                     forTextField.text = newSelection[0]
-                    self?.filterTextView.sizeToFit()
+                    // self?.filterTextView.sizeToFit()
                     self?.onFilterSelected(self?.filterItems.indexOf(newSelection[0]) ?? 0)
                 }
             }
@@ -235,7 +235,9 @@ class BaseBarChartController : UIViewController {
         chartView.drawGridBackgroundEnabled = false
         
         chartView.leftAxis.labelFont = UIFont.systemFontOfSize(13)
+        chartView.leftAxis.labelTextColor = Constants.grayColor_101
         chartView.xAxis.labelFont = UIFont.systemFontOfSize(13)
+        chartView.xAxis.labelTextColor = Constants.grayColor_101
         chartView.xAxis.spaceBetweenLabels = 2
         //chartView.xAxis.
         chartView.xAxis.labelPosition = ChartXAxis.XAxisLabelPosition.Bottom
@@ -367,7 +369,7 @@ class TimeLineChartController :BaseBarChartController {
         
         let line = ChartLimitLine(limit: 0)
         line.lineWidth = 1
-        line.lineColor = UIColor.darkGrayColor()
+        line.lineColor = UIColor(red: CGFloat(190.0/255), green: CGFloat(190.0/255), blue: CGFloat(190.0/255), alpha: 1)
         chartView.leftAxis.addLimitLine(line)
     }
     
@@ -406,6 +408,8 @@ class TimeLineChartController :BaseBarChartController {
             chartDataSet.barSpace = 0.5
             chartDataSet.colors = colors
             chartDataSet.valueFont = UIFont.systemFontOfSize(11.0)
+            chartDataSet.valueFormatter = NSNumberFormatter()
+            chartDataSet.valueColors = [Constants.grayColor_101]
             let chartData = BarChartData(xVals: months, dataSet: chartDataSet)
             chartView.data = chartData
             chartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .Linear)
@@ -430,7 +434,7 @@ class ReviewAnalysisController : BaseBarChartController {
     var selectedMonth = -1
     
     override func viewDidLoad() {
-        xibName = "ReviewAnalysis"
+        xibName = "ReviewAnalysisView"
         serverListRequestType = PersonInfoRequestType.ReviewAnalysis.rawValue
         
         super.viewDidLoad()
@@ -455,9 +459,11 @@ class ReviewAnalysisController : BaseBarChartController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        let view = mainView.viewWithTag(5)
-        print(view?.frame)
-        reviewConroller.view.frame = (view?.frame)!
+        if let view = mainView.viewWithTag(5) {
+        print(view.frame)
+        reviewConroller.view.frame = (view.frame)
+        reviewConroller.view.layoutIfNeeded()
+        }
     }
     
     override func doSomeMoreSettingofChart() {
@@ -508,6 +514,7 @@ class ReviewAnalysisController : BaseBarChartController {
             chartDataSet.valueFont = UIFont.systemFontOfSize(11.0)
             chartDataSet.valueFormatter = NSNumberFormatter()
             let chartData = BarChartData(xVals: months, dataSet: chartDataSet)
+            chartDataSet.valueColors = [Constants.grayColor_101]
             chartView.data = chartData
             chartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .Linear)
             chartView.highlightValue(highlight: ChartHighlight(xIndex: max(selectedMonth,0), dataSetIndex: 0),callDelegate: true)

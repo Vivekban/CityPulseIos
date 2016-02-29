@@ -145,12 +145,15 @@ extension PopTableViewController : UITableViewDelegate {
 //    }
 //    
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let field = UITextField(frame: CGRectMake(0, 0, self.view.frame.size.width, 40))
+        let view = UIView(frame: CGRectMake(0, 0, self.view.frame.width, 40))
+        let field = UILabel(frame: CGRectMake(8, 0, self.view.frame.width - 8, 40))
         field.textAlignment = NSTextAlignment.Center
         field.font = UIFont.boldSystemFontOfSize(18)
         field.text = info?.heading
+        
         field.backgroundColor = UIColor.whiteColor()
-        return field
+        view.addSubview(field)
+        return view
     }
 //
 //    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

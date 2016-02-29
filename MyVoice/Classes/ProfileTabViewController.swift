@@ -15,6 +15,10 @@ class ProfileViewController: BaseTabViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         menuItemWidth = 80
+        
+        tabsMenu?.moveSelectionIndicator(4)
+        tabsMenu?.moveToPage(4)
+        
     }
     
     override func viewWillAppear(animated: Bool) {
