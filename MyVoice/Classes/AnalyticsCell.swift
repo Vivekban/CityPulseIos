@@ -58,139 +58,8 @@ class BaseAnalyticsCell: UICollectionViewCell {
 
 
 
-class TimeLineView: BaseAnalyticsCell {
-    var firstButton:DLRadioButton!
-    var secondButton:DLRadioButton!
-    
-    override func prepareForData() {
-        let controller = TimeLineChartController()
-        controller.title = MyStrings.last3Month
-        controllers.append(controller)
-        
-        let controller2 = TimeLineChartController()
-        controller2.title = MyStrings.last6Month
-        controller2.type = .Last6Month
-        controllers.append(controller2)
-        
-        let controller3 = TimeLineChartController()
-        controller3.title = MyStrings.lastYear
-        controller3.type = .LastYear
-        controllers.append(controller3)
-    }
-    
-    override func addExtraViewOnTabBar(view: UIView) {
-        firstButton = DLRadioButton(frame: CGRect(x: view.frame.width - 250, y: 10, width: 220, height: 30))
-        firstButton.setTitle(MyStrings.cityPusle, forState: UIControlState.Normal)
-        firstButton.setTitleColor(Constants.grayColor_101, forState: UIControlState.Normal)
-        firstButton.iconColor = Constants.accentColor
-        firstButton.indicatorColor = Constants.accentColor
-        firstButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        
-        firstButton.addTarget(self, action: "onCityPulseClick", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        firstButton.selected = true
-        
-        secondButton = DLRadioButton(frame: CGRect(x: view.frame.width - 110, y: 10, width: 80, height: 30))
-        secondButton.setTitle(MyStrings.web, forState: UIControlState.Normal)
-        secondButton.setTitleColor(Constants.grayColor_101, forState: UIControlState.Normal)
-        secondButton.iconColor = Constants.accentColor
-        secondButton.indicatorColor = Constants.accentColor
-        secondButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        
-        secondButton.addTarget(self, action: "onWebClick", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        
-        view.addSubview(firstButton)
-        view.addSubview(secondButton)
-        
-    }
-    
-    func onCityPulseClick() {
-        
-    }
-    
-    func onWebClick(){
-        secondButton.selected = false
-    }
-    
-    
-}
 
 
-
-class ReviewAnalysisView: BaseAnalyticsCell {
-    var filterTextView : UITextField!
-    var filterPopOver : PopTable!
-    var filterItems : [String]!
-    override func prepareForData() {
-        let controller = ReviewAnalysisController()
-        controller.title = MyStrings.last3Month
-        controllers.append(controller)
-        let controller2 = ReviewAnalysisController()
-        controller2.title = MyStrings.last6Month
-        controller2.type = .Last6Month
-        controllers.append(controller2)
-        let controller3 = ReviewAnalysisController()
-        controller3.title = MyStrings.lastYear
-        controller3.type = .LastYear
-        controllers.append(controller3)
-    }
-    
-    override func addExtraViewOnTabBar(view: UIView) {
-        filterItems = BaseFilter.getFilterValues(Constants.reviewFilters)
-        
-        filterTextView = UITextField(frame: CGRect(x: (view.frame.width) - 200 - 20, y: 14, width: 200, height:30))
-        filterTextView.delegate = self
-        filterTextView.text = filterItems[0]
-        filterTextView.textAlignment = NSTextAlignment.Right
-        filterTextView.textColor = Constants.accentColor
-        
-        
-        filterTextView.rightViewMode = UITextFieldViewMode.Always
-        let image = UIImageView(image: UIImage(named: "downarrow"))
-        // image.contentMode = UIViewContentMode.Right
-        image.image = image.image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        image.frame = CGRect(x: 8, y: 0, width: 20, height: 20)
-        image.tintColor = Constants.accentColor
-        filterTextView.rightView = image
-        
-        // filterTextView.sizeToFit()
-        
-        
-        view.addSubview(filterTextView)
-        
-        
-        
-        var info = [[String]]()
-        info.append(filterItems)
-        
-        filterPopOver = PopTable(forTextField: filterTextView, data: PopInfo(items: info,heading: MyStrings.filters))
-        
-    }
-    
-    func onFilterSelected(index: Int){
-        ((tabsView.controllerArray[tabsView.currentPageIndex]) as! ReviewAnalysisController).onSomeActionTaken(index)
-    }
-}
-
-extension ReviewAnalysisView : UITextFieldDelegate {
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        
-        if let c = UIApplication.topViewController() {
-            
-            filterPopOver.pick(c, initData: [textField.text ?? ""]) {[weak self] (newSelection, forTextField) -> () in
-                if newSelection.count > 0 {
-                    forTextField.text = newSelection[0]
-                    // self?.filterTextView.sizeToFit()
-                    self?.onFilterSelected(self?.filterItems.indexOf(newSelection[0]) ?? 0)
-                }
-            }
-            
-            return false
-        }
-        return true
-    }
-}
 
 
 
@@ -227,12 +96,14 @@ class BaseBarChartController : UIViewController {
         
         mainView = NSBundle.mainBundle().loadNibNamed(xibName, owner: self, options: nil)[0] as! UIView
         chartView = mainView.viewWithTag(1) as! BarChartView
-        
+        chartView.noDataText = ""
         // basic settings
         chartView.descriptionText = ""
         chartView.legend.enabled = false
         chartView.doubleTapToZoomEnabled = false
         chartView.drawGridBackgroundEnabled = false
+        chartView.dragEnabled = false
+        chartView.pinchZoomEnabled = false
         
         chartView.leftAxis.labelFont = UIFont.systemFontOfSize(13)
         chartView.leftAxis.labelTextColor = Constants.grayColor_101
@@ -339,7 +210,9 @@ class BaseBarChartController : UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        if chartView != nil {
         chartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .EaseInCubic)
+    }
     }
     
 }

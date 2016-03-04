@@ -8,10 +8,6 @@ PODS:
   - Charts (2.2.2):
     - Charts/Core (= 2.2.2)
   - Charts/Core (2.2.2)
-  - Crashlytics (3.6.0):
-    - Fabric (~> 1.6.3)
-  - Fabric (1.6.5)
-  - MBProgressHUD (0.9.1)
   - ObjectMapper (1.1.2)
   - SwiftyJSON (2.3.2)
   - XCGLogger (3.2)
@@ -21,9 +17,6 @@ DEPENDENCIES:
   - AlamofireImage (~> 2.0)
   - AlamofireObjectMapper (~> 2.1)
   - Charts
-  - Crashlytics
-  - Fabric
-  - MBProgressHUD (~> 0.9.1)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
   - XCGLogger (~> 3.2)
 
@@ -41,9 +34,6 @@ SPEC CHECKSUMS:
   AlamofireImage: bedb8a4bdfb98eda81ba12952fba6e9e90420922
   AlamofireObjectMapper: 24097576202064f8b0a583452dd934064f78dc0e
   Charts: e32b718fa716bdb7693b9e419d6d4a39a3f7992e
-  Crashlytics: e4e8d02914f2608fbc7bf42b1a7af838b0db67a2
-  Fabric: 338ffd3c2afcab120638907b4251189de9ad17b3
-  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   ObjectMapper: 148765647481443b1a18983b4ac8ec3189cbce35
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   XCGLogger: da1f341f4bb8979db6e1df64232f04d9698402d4

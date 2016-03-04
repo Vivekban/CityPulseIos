@@ -78,6 +78,14 @@ class TopBarView: UIView {
         }
     }
     
+    
+    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+        print(bounds)
+        print(frame)
+        return super.hitTest(point, withEvent: event)
+        
+    }
+    
     func changeVisibiltOfBackButton(visible:Bool){
 
         backButton.hidden = visible

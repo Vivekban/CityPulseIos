@@ -141,5 +141,9 @@ class MyStrings {
     
     static let detail = "Detail"
 
+    static let clearDescrption = "This will clear the description"
+
+    static let neighbourhood = "Neighborhood"
+    static let state = "State"
 
 }

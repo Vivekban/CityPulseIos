@@ -28,43 +28,43 @@ class DetailIssueController: BaseImageDetailViewController {
         super.viewDidLoad()
         
         
-        baseDetailHeight = 600
+        baseDetailHeight = 620
         numberOfSection = 5
         
         containerTableView.registerClass(ResponseConroller.self, forCellReuseIdentifier: responseIdentifier)
 
         
-        for i in 1...1 {
-            let comnt = CommentData()
-            comnt.description = "This is descption of comment number \(i)"
-            comnt.disPlayDate = TimeDateUtils.getShortDateInString(NSDate())
-            comnt.ownerName = "Name \(i)"
-            comnt.ownerArea = "Sirsa \(i)"
-            
-            comnt.reply = [CommentData]()
-            
-            for j in 1..<2 {
-                let scomnt = CommentData()
-                scomnt.description = "This is descption of sub comment number \(j)"
-                scomnt.disPlayDate = TimeDateUtils.getShortDateInString(NSDate())
-                scomnt.ownerName = "Sub Name \(j)"
-                scomnt.ownerArea = "Sub Sirsa \(j)"
-                comnt.reply?.append(scomnt)
-            }
-            comments.append(comnt)
-        }
-        
+//        for i in 1...1 {
+//            let comnt = CommentData()
+//            comnt.description = "This is descption of comment number \(i)"
+//            comnt.disPlayDate = TimeDateUtils.getShortDateInString(NSDate())
+//            comnt.ownerName = "Name \(i)"
+//            comnt.ownerArea = "Sirsa \(i)"
+//            
+//            comnt.reply = [CommentData]()
+//            
+//            for j in 1..<2 {
+//                let scomnt = CommentData()
+//                scomnt.description = "This is descption of sub comment number \(j)"
+//                scomnt.disPlayDate = TimeDateUtils.getShortDateInString(NSDate())
+//                scomnt.ownerName = "Sub Name \(j)"
+//                scomnt.ownerArea = "Sub Sirsa \(j)"
+//                comnt.reply?.append(scomnt)
+//            }
+//            comments.append(comnt)
+//        }
+//        
         responseSectionHeight = -1
 //
-        for i in 0...1 {
+        for i in 0..<1 {
             let comnt = ResponseData()
-            comnt.description = "This is descption of reponse number \(i)"
+            comnt.description = "I feel sorry to hear the inconvenience you have been facing. The park fall under our jurisdiction and I will make sure to send somebody from our department to inspect it at he earliest. We are here for you and incase you want to report something directly, please email us at parkdeptt@ca.gov "
             comnt.disPlayDate = TimeDateUtils.getShortDateInString(NSDate())
-            comnt.ownerName = "Response \(i)"
-            comnt.ownerArea = "Sirsa \(i)"
+            comnt.ownerName = "Margaret"
+            comnt.ownerArea = "California"
             
              comnt.reply = [CommentData]()
-                        for j in 1...1 {
+                        for j in 1..<1 {
                             let scomnt = CommentData()
                             scomnt.description = "This is descption of sub comment number \(j)"
                             scomnt.disPlayDate = TimeDateUtils.getShortDateInString(NSDate())
@@ -203,7 +203,7 @@ class DetailIssueController: BaseImageDetailViewController {
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         // for partion between comments and response
         if section == reponseSectionIndex {
-        return 45
+        return 0
         }
         return 0
     }

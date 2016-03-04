@@ -51,9 +51,14 @@ class BaseDetailCell: UITableViewCell {
         if let d = data as? TitleDesDateData {
             titleLabel.text = d.title
             descriptionLabel.text = d.description
+            descriptionLabel.numberOfLines = 0
             dateLabel.text = d.disPlayDate
         }
+        
+        
         descriptionLabel.sizeToFit()
+
+        //layoutIfNeeded()
     }
 
     func onEditButtonClick(){

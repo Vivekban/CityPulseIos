@@ -22,6 +22,8 @@
 		0411B7631C4E136400775172 /* ImagePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0411B7621C4E136400775172 /* ImagePageViewController.swift */; };
 		0411B7651C4E138B00775172 /* PagerContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0411B7641C4E138B00775172 /* PagerContentViewController.swift */; };
 		0411B7671C4E625900775172 /* ProfileUIDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0411B7661C4E625900775172 /* ProfileUIDataType.swift */; };
+		0418BE611C8616A70010327F /* Splash_Background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0418BE601C8616A70010327F /* Splash_Background.jpg */; };
+		0418BE631C8616B00010327F /* Icon for splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 0418BE621C8616B00010327F /* Icon for splash.png */; };
 		041B242A1C5285DF00DCD729 /* PublicFigureTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041B24291C5285DF00DCD729 /* PublicFigureTabViewController.swift */; };
 		0423E1CD1C79B35B002E3103 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423E1CC1C79B35B002E3103 /* GradientView.swift */; };
 		0423E1CF1C7A41F6002E3103 /* WatsonApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423E1CE1C7A41F6002E3103 /* WatsonApiHelper.swift */; };
@@ -129,6 +131,12 @@
 		04E141C61C53E80400035998 /* SearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E141C51C53E80400035998 /* SearchListViewController.swift */; };
 		04E141C81C53E81500035998 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E141C71C53E81500035998 /* ListViewController.swift */; };
 		04E1749B1C6F3C5A00C5B93C /* ServerDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E1749A1C6F3C5A00C5B93C /* ServerDataManager.swift */; };
+		04EAD9AD1C88CA14005CB7E4 /* map image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04EAD9AC1C88CA14005CB7E4 /* map image.jpg */; };
+		04EAD9AF1C88CA5B005CB7E4 /* SentimentMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EAD9AE1C88CA5B005CB7E4 /* SentimentMapView.xib */; };
+		04EAD9B11C88CC75005CB7E4 /* TimeLineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAD9B01C88CC75005CB7E4 /* TimeLineCell.swift */; };
+		04EAD9B31C88CC93005CB7E4 /* ReviewAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAD9B21C88CC93005CB7E4 /* ReviewAnalysisCell.swift */; };
+		04EAD9B51C88CCAA005CB7E4 /* SentimentMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAD9B41C88CCAA005CB7E4 /* SentimentMapCell.swift */; };
+		04EAD9B71C88CDA1005CB7E4 /* SentimentMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAD9B61C88CDA1005CB7E4 /* SentimentMapController.swift */; };
 		04F6CE671C501DF80082C625 /* EditIssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F6CE661C501DF80082C625 /* EditIssueViewController.swift */; };
 		04F6CE691C5024C30082C625 /* BaseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F6CE681C5024C30082C625 /* BaseModels.swift */; };
 		04F6CE6B1C50285B0082C625 /* HomeDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F6CE6A1C50285B0082C625 /* HomeDataTypes.swift */; };
@@ -171,6 +179,8 @@
 		0411B7641C4E138B00775172 /* PagerContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagerContentViewController.swift; path = ImagePageViewer/PagerContentViewController.swift; sourceTree = "<group>"; };
 		0411B7661C4E625900775172 /* ProfileUIDataType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileUIDataType.swift; sourceTree = "<group>"; };
 		0417B4C31C576B9C007EF556 /* MyPlaygroundasd.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlaygroundasd.playground; sourceTree = "<group>"; };
+		0418BE601C8616A70010327F /* Splash_Background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Splash_Background.jpg; sourceTree = "<group>"; };
+		0418BE621C8616B00010327F /* Icon for splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon for splash.png"; sourceTree = "<group>"; };
 		041B24291C5285DF00DCD729 /* PublicFigureTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicFigureTabViewController.swift; sourceTree = "<group>"; };
 		0423E1CC1C79B35B002E3103 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		0423E1CE1C7A41F6002E3103 /* WatsonApiHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatsonApiHelper.swift; sourceTree = "<group>"; };
@@ -283,6 +293,12 @@
 		04E141C51C53E80400035998 /* SearchListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchListViewController.swift; sourceTree = "<group>"; };
 		04E141C71C53E81500035998 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		04E1749A1C6F3C5A00C5B93C /* ServerDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerDataManager.swift; sourceTree = "<group>"; };
+		04EAD9AC1C88CA14005CB7E4 /* map image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "map image.jpg"; sourceTree = "<group>"; };
+		04EAD9AE1C88CA5B005CB7E4 /* SentimentMapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SentimentMapView.xib; sourceTree = "<group>"; };
+		04EAD9B01C88CC75005CB7E4 /* TimeLineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineCell.swift; sourceTree = "<group>"; };
+		04EAD9B21C88CC93005CB7E4 /* ReviewAnalysisCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewAnalysisCell.swift; sourceTree = "<group>"; };
+		04EAD9B41C88CCAA005CB7E4 /* SentimentMapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentimentMapCell.swift; sourceTree = "<group>"; };
+		04EAD9B61C88CDA1005CB7E4 /* SentimentMapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentimentMapController.swift; sourceTree = "<group>"; };
 		04F6CE661C501DF80082C625 /* EditIssueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditIssueViewController.swift; sourceTree = "<group>"; };
 		04F6CE681C5024C30082C625 /* BaseModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseModels.swift; sourceTree = "<group>"; };
 		04F6CE6A1C50285B0082C625 /* HomeDataTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDataTypes.swift; sourceTree = "<group>"; };
@@ -415,6 +431,9 @@
 				048DDEC01C44ECA900616085 /* EditInfoCell.swift */,
 				04773A8B1C469351009E7D6D /* EventCollectionViewCell.swift */,
 				04DCDA561C77453A00328D01 /* AnalyticsCell.swift */,
+				04EAD9B01C88CC75005CB7E4 /* TimeLineCell.swift */,
+				04EAD9B21C88CC93005CB7E4 /* ReviewAnalysisCell.swift */,
+				04EAD9B41C88CCAA005CB7E4 /* SentimentMapCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -473,6 +492,9 @@
 		04B7D9051C442EB80041B499 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				04EAD9AC1C88CA14005CB7E4 /* map image.jpg */,
+				0418BE621C8616B00010327F /* Icon for splash.png */,
+				0418BE601C8616A70010327F /* Splash_Background.jpg */,
 				04B7D9081C442EB80041B499 /* BriefCollectionCell.xib */,
 				04B7D9091C442EB80041B499 /* BriefProfileBar.xib */,
 				04B7D90A1C442EB80041B499 /* Home.storyboard */,
@@ -492,6 +514,7 @@
 				04DA46B41C78531F006E82A5 /* TimelineView.xib */,
 				04D31E7F1C823F0A00DDE989 /* ReviewAnalysisView.xib */,
 				048FF4D11C7CDF24009EB6BB /* SplashView.xib */,
+				04EAD9AE1C88CA5B005CB7E4 /* SentimentMapView.xib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -735,6 +758,7 @@
 			isa = PBXGroup;
 			children = (
 				04DCDA541C7739BA00328D01 /* AnalyticsViewController.swift */,
+				04EAD9B61C88CDA1005CB7E4 /* SentimentMapController.swift */,
 			);
 			name = Analytics;
 			sourceTree = "<group>";
@@ -893,6 +917,8 @@
 				04CEBEBF1C6B4A8500A901B6 /* FloatingTextLabel.xib in Resources */,
 				04B7D9231C442EB80041B499 /* Issues.storyboard in Resources */,
 				048796A41C70F0E30095B341 /* PopPickerViewController.xib in Resources */,
+				0418BE631C8616B00010327F /* Icon for splash.png in Resources */,
+				0418BE611C8616A70010327F /* Splash_Background.jpg in Resources */,
 				048796AA1C70F7200095B341 /* PopTableViewController.xib in Resources */,
 				04B7D9311C442EB80041B499 /* PopDateViewController.xib in Resources */,
 				04B7D9261C442EB80041B499 /* Me.storyboard in Resources */,
@@ -911,7 +937,9 @@
 				045007481C5611B800185B69 /* AdditionalUI.storyboard in Resources */,
 				04B592761C282EAF00B6807E /* Assets.xcassets in Resources */,
 				04B7D9211C442EB80041B499 /* BriefProfileBar.xib in Resources */,
+				04EAD9AF1C88CA5B005CB7E4 /* SentimentMapView.xib in Resources */,
 				046A677F1C626BBE0090646C /* Comment.xib in Resources */,
+				04EAD9AD1C88CA14005CB7E4 /* map image.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -929,7 +957,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" a91d5c1d56ba36123e061f94de0281608c6e5c4d f5d1482fb9e40aea55acbfbcec0c2f02b084418186ee59cf867675039bdad807";
+			shellScript = "";
+			showEnvVarsInLog = 0;
 		};
 		1E5A651CF0EE68C1405BBE3A /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1003,6 +1032,7 @@
 				04B7D92F1C442EB80041B499 /* PopDatePicker.swift in Sources */,
 				04B7D9531C442F000041B499 /* BaseEditViewController.swift in Sources */,
 				0405F8311C64D0E000ED2ABF /* IssueController.swift in Sources */,
+				04EAD9B31C88CC93005CB7E4 /* ReviewAnalysisCell.swift in Sources */,
 				040F483F1C69EFB800EFD0E8 /* DescriptionView.swift in Sources */,
 				04CEBEC71C6BB80000A901B6 /* MapUtils.swift in Sources */,
 				04B7D9541C442F000041B499 /* BaseNestedTabViewController.swift in Sources */,
@@ -1022,11 +1052,13 @@
 				0411B7631C4E136400775172 /* ImagePageViewController.swift in Sources */,
 				04BB58231C46869C009904F9 /* EditEventViewController.swift in Sources */,
 				0405F8351C651A7A00ED2ABF /* TimeDateUtils.swift in Sources */,
+				04EAD9B11C88CC75005CB7E4 /* TimeLineCell.swift in Sources */,
 				046A67831C627AFD0090646C /* DetailIssueController.swift in Sources */,
 				04B7D9581C442F000041B499 /* BasicInfoViewController.swift in Sources */,
 				04B7D9521C442F000041B499 /* BaseCell.swift in Sources */,
 				04B7D9691C442F000041B499 /* PersonUI.swift in Sources */,
 				048FF4D01C7CA5F1009EB6BB /* SecondPersonProfileViewController.swift in Sources */,
+				04EAD9B71C88CDA1005CB7E4 /* SentimentMapController.swift in Sources */,
 				048DDEC81C451A5E00616085 /* PopPicker.swift in Sources */,
 				0450074B1C567B6600185B69 /* PersonController.swift in Sources */,
 				0405F8331C6502FB00ED2ABF /* ResponseConroller.swift in Sources */,
@@ -1043,6 +1075,7 @@
 				04B7D95B1C442F000041B499 /* CurrentSession.swift in Sources */,
 				04B7D9681C442F000041B499 /* MyWorkCollectionViewController.swift in Sources */,
 				04B7D9321C442EB80041B499 /* UsefulExtension.swift in Sources */,
+				04EAD9B51C88CCAA005CB7E4 /* SentimentMapCell.swift in Sources */,
 				048796AC1C710B7A0095B341 /* ProfileBaseNestedViewController.swift in Sources */,
 				04CEBEC11C6B5D1300A901B6 /* ImageUtils.swift in Sources */,
 				047A97241C52B91500663278 /* LeaderProfileBar.swift in Sources */,

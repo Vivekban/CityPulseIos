@@ -10,7 +10,31 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash_Background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="9MQ-z7-ofV">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon for splash.png" translatesAutoresizingMaskIntoConstraints="NO" id="Zav-3G-J4M">
+                    <rect key="frame" x="200" y="198" width="200" height="205"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="205" id="MCB-KZ-lqC"/>
+                        <constraint firstAttribute="width" constant="200" id="XgM-27-yvy"/>
+                    </constraints>
+                </imageView>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="9MQ-z7-ofV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3sI-uf-mi4"/>
+                <constraint firstItem="Zav-3G-J4M" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Lht-Uw-pWE"/>
+                <constraint firstItem="9MQ-z7-ofV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ucp-rJ-7hK"/>
+                <constraint firstAttribute="trailing" secondItem="9MQ-z7-ofV" secondAttribute="trailing" id="Wch-KF-p52"/>
+                <constraint firstItem="Zav-3G-J4M" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="oDD-O3-gZq"/>
+                <constraint firstAttribute="bottom" secondItem="9MQ-z7-ofV" secondAttribute="bottom" id="tGF-PQ-D4P"/>
+            </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="Icon for splash.png" width="418" height="429"/>
+        <image name="Splash_Background.jpg" width="1024" height="768"/>
+    </resources>
 </document>

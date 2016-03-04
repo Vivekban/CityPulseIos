@@ -146,7 +146,7 @@ extension PopTableViewController : UITableViewDelegate {
 //    
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRectMake(0, 0, self.view.frame.width, 40))
-        let field = UILabel(frame: CGRectMake(8, 0, self.view.frame.width - 8, 40))
+        let field = UILabel(frame: CGRectMake(18, 0, self.view.frame.width - 8, 40))
         field.textAlignment = NSTextAlignment.Center
         field.font = UIFont.boldSystemFontOfSize(18)
         field.text = info?.heading

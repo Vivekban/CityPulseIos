@@ -9,7 +9,6 @@
 import UIKit
 import SwiftyJSON
 import ObjectMapper
-import Crashlytics
 
 
 class MainController: UITabBarController {
@@ -18,7 +17,7 @@ class MainController: UITabBarController {
         super.viewDidLoad()
         self.delegate = self
         
-        
+        NSLog("start in main controllelr")
     
         //ServerRequestInitiater.i.getUserDetail(["userId": "1"])
         

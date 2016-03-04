@@ -64,7 +64,6 @@ class BaseTabViewController: UIViewController {
         topBar?.delegate = self
         topBar?.controller = self
         topBar?.frame = CGRectMake(0, 20, view.frame.width, 45)
-        
         topBar?.cityField.text = CurrentSession.i.userPlacemark?.locality
         tabsViewStartPoint = ((topBar?.frame.origin.y)!) + (topBar!.frame.height)
         
@@ -83,14 +82,24 @@ class BaseTabViewController: UIViewController {
         lineBelowTopBar.backgroundColor = view.backgroundColor
         view.addSubview(lineBelowTopBar)
         
+        
         // higest z order
         view.addSubview(topBar!)
         
-        
+        view.autoresizingMask = UIViewAutoresizing.None
     }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesBegan(touches, withEvent: event)
+    }
+
     
     
     override func viewDidAppear(animated: Bool) {
+        log.debug("Start.............First view appear...\(topBar?.frame)...")
+        topBar?.frame = CGRectMake(0, 20, view.frame.width, 45)
+        briefProfileView?.frame = CGRectMake(0, minTabsYpos , view.frame.width, 100)
+
         super.viewDidAppear(animated)
         if let i = tabsMenu?.currentPageIndex {
             didMoveToPage((tabsMenu?.controllerArray[i])!, index: i)
@@ -175,7 +184,7 @@ class BaseTabViewController: UIViewController {
         // scrollViewYOffset += val
         tranlation = scrollView.panGestureRecognizer.translationInView(scrollView.superview).y
         
-        lastScrollDirection = Int(val)
+        lastScrollDirection = Int(scrollView.panGestureRecognizer.translationInView(scrollView.superview).y)
         
         
         
@@ -406,6 +415,8 @@ extension BaseTabViewController : TabsInitialisation{
     }
     
     func loadTabs(){
+        
+        
         // Do any additional setup after loading the view.
         let firstStoryboard:UIStoryboard = UIStoryboard(name: storyBoardName, bundle: nil)
         
@@ -426,7 +437,9 @@ extension BaseTabViewController : TabsInitialisation{
         let tabBarHeight = self.tabBarController?.tabBar.frame.height ?? 0
         
         
-        tabsMenu = CAPSPageMenu(viewControllers: controllers, frame: CGRect(x: 0, y: Int(tabsViewStartPoint + spaceInViews), width: Int(self.view.frame.width), height: Int(self.view.frame.height - tabsViewStartPoint - tabBarHeight - spaceInViews)), pageMenuOptions: parameters)
+        tabsMenu = CAPSPageMenu(viewControllers: controllers, frame: CGRect(x: 0, y: Int(tabsViewStartPoint + spaceInViews), width: Int(self.view.frame.width), height: Int(self.view.frame.height - tabsViewStartPoint - spaceInViews)), pageMenuOptions: parameters)
+        
+        
         
         tabsMenu?.delegate = self
         

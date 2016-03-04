@@ -95,6 +95,9 @@ class BriefProfileBar: UIView {
     //        }
     
     
+    
+   
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         

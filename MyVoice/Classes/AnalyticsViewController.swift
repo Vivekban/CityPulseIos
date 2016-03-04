@@ -45,8 +45,9 @@ class AnalyticsViewController: BaseHeaderCollectionView {
         
         collecView = collectionView
         
-        collectionView.registerClass(TimeLineView.self, forCellWithReuseIdentifier: reuseIdentifier)
-        collectionView.registerClass(ReviewAnalysisView.self, forCellWithReuseIdentifier: "reviewCell")
+        collectionView.registerClass(TimeLineCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.registerClass(ReviewAnalysisCell.self, forCellWithReuseIdentifier: "reviewCell")
+        collectionView.registerClass(SentimentMapCell.self, forCellWithReuseIdentifier: "sentimentMapCell")
 
         isEditButtonHidden = true
         // isReloadEntries = false
@@ -76,6 +77,10 @@ class AnalyticsViewController: BaseHeaderCollectionView {
         
         if indexPath.section == 2 {
             identifier = "reviewCell"
+        }
+        else if (indexPath.section == 1){
+            identifier = "sentimentMapCell"
+
         }
         
         
@@ -122,7 +127,7 @@ extension AnalyticsViewController : UICollectionViewDelegateFlowLayout{
         print(collectionView.frame.height)
         
         if indexPath.section == 2 {
-            return CGSize(width: (collectionView.frame.size.width), height: 470 + collectionView.frame.height)
+            return CGSize(width: (collectionView.frame.size.width), height: 450 + collectionView.frame.height)
         }
         
         return CGSize(width: (collectionView.frame.size.width), height: 400)

@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="636" height="458"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="fsadfasdfasd" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="boh-Y3-Wlt" customClass="FloatLabelTextView" customModule="CityPulse" customModuleProvider="target">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="boh-Y3-Wlt" customClass="FloatLabelTextView" customModule="CityPulse" customModuleProvider="target">
                     <rect key="frame" x="8" y="8" width="620" height="442"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="textColor" red="0.39607843139999999" green="0.39607843139999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>

@@ -8,8 +8,8 @@
 
 import UIKit
 import XCGLogger
-import Fabric
-import Crashlytics
+//import Fabric
+//import Crashlytics
 
 
 let log = XCGLogger.defaultInstance()
@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        print("start")
         CurrentSession.i.initVariable()
 
         self.window?.backgroundColor = UIColor.whiteColor()
@@ -39,9 +38,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         log.xcodeColorsEnabled = true
         
-        Fabric.with([Crashlytics.self])
+        // Fabric.with([Crashlytics.self])
         //Fabric.sharedSDK().debug = true
-        
+      log.debug("Start...................")
+
         
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName:UIFont.boldSystemFontOfSize(20),NSForegroundColorAttributeName:UIColor.darkGrayColor()]
         

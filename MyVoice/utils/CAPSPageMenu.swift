@@ -116,7 +116,7 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
     
     public var selectionIndicatorColor : UIColor = UIColor.blackColor()
     public var selectedMenuItemLabelColor : UIColor = Constants.grayColor_101
-    public var unselectedMenuItemLabelColor : UIColor = UIColor.lightGrayColor()
+    public var unselectedMenuItemLabelColor : UIColor = Constants.grayColor_131
     public var scrollMenuBackgroundColor : UIColor = UIColor.whiteColor()
     public var viewBackgroundColor : UIColor = UIColor.whiteColor()
     public var bottomMenuHairlineColor : UIColor = UIColor.whiteColor()
@@ -240,6 +240,8 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
         if menuScrollView.subviews.count == 0 {
             configureUserInterface()
         }
+        
+    
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -332,6 +334,10 @@ public class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureReco
     }
     
     func configureUserInterface() {
+        
+        
+        controllerScrollView.scrollEnabled = false
+        
         // Add tap gesture recognizer to controller scroll view to recognize menu item selection
         let menuItemTapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleMenuItemTap:"))
         menuItemTapGestureRecognizer.numberOfTapsRequired = 1

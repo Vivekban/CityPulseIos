@@ -38,12 +38,15 @@ class EditViewsViewController: BaseEditViewController {
         configureEmotionChart()
         configureSocialChart()
         configureLanguageChart()
+        resetDataInTables()
     }
     
     func doBasicSettingOnCharts(chartView:BarChartView){
         chartView.descriptionText = ""
         chartView.legend.enabled = false
         chartView.doubleTapToZoomEnabled = false
+        chartView.dragEnabled = false
+        chartView.pinchZoomEnabled = false
         
         // chartView.drawGridBackgroundEnabled = false
         chartView.xAxis.drawAxisLineEnabled = false
@@ -73,6 +76,7 @@ class EditViewsViewController: BaseEditViewController {
         chartView.drawBarShadowEnabled = true
         chartView.drawValueAboveBarEnabled = false
         
+        
     }
     
     func configureEmotionChart(){
@@ -100,11 +104,7 @@ class EditViewsViewController: BaseEditViewController {
         axis.valueFormatter?.maximumFractionDigits = 4
         
         
-        let months = ["Saddness","Joy","Fear","Disgust","Anger"]
-        var dataEntries: [Double] = []
-        for _ in 0..<months.count {
-            dataEntries.append(0)
-        }
+      
         
         
         let line = ChartLimitLine(limit: 0.45)
@@ -121,7 +121,9 @@ class EditViewsViewController: BaseEditViewController {
         line2.lineColor = Constants.grayColor_217
         emotionBarChart.rightAxis.addLimitLine(line2)
         
-        setChartDataForEmotional(months, scores: dataEntries)
+        
+        
+       
     }
     
     func configureLanguageChart(){
@@ -139,16 +141,7 @@ class EditViewsViewController: BaseEditViewController {
         // chartView.leftAxis.startAtZeroEnabled = false
         axis.labelCount = 2
         
-       
-        
-        
-        
-        let months = ["Analytical","Confident","Tentative"]
-        var dataEntries: [Double] = []
-        for _ in 0..<months.count {
-            dataEntries.append(0)
-        }
-        setChartDataForLanguage(months, scores: dataEntries)
+    
     }
     
     func configureSocialChart(){
@@ -173,17 +166,42 @@ class EditViewsViewController: BaseEditViewController {
         
         
         
-        let months = ["Emotional","Agreeableness","Extraversion","Conscientiousness","Openness"]
+        
+        
+        
+    }
+    
+    
+    
+    private func resetDataInTables(){
+        var months = ["Saddness","Joy","Fear","Disgust","Anger"]
         var dataEntries: [Double] = []
+        for _ in 0..<months.count {
+            dataEntries.append(0)
+        }
+        setChartDataForEmotional(months, scores: dataEntries)
+        
+        months = ["Analytical","Confident","Tentative"]
+        dataEntries.removeAll()
+        for _ in 0..<months.count {
+            dataEntries.append(0)
+        }
+        setChartDataForLanguage(months, scores: dataEntries)
+        
+        
+        
+        months = ["Emotional","Agreeableness","Extraversion","Conscientiousness","Openness"]
+        dataEntries.removeAll()
+
         for _ in 0..<months.count {
             dataEntries.append(0)
         }
         
         setChartDataForSocial(months, scores: dataEntries)
-        
-        
+
         
     }
+    
     
     override func getDataForNewItem() -> BaseData {
         return MyViewData()
@@ -234,7 +252,8 @@ class EditViewsViewController: BaseEditViewController {
         chartDataSet.barShadowColor = Constants.grayColor_239
         chartDataSet.valueFormatter = NSNumberFormatter()
         chartDataSet.valueFormatter?.maximumFractionDigits = 0
-        chartDataSet.valueColors = [UIColor.whiteColor()]
+        
+        chartDataSet.drawValuesEnabled = false
         
         let chartData = BarChartData(xVals: labels, dataSet: chartDataSet)
         emotionBarChart.data = chartData
@@ -259,7 +278,7 @@ class EditViewsViewController: BaseEditViewController {
         
         chartDataSet.valueFormatter = NSNumberFormatter()
         chartDataSet.valueFormatter?.maximumFractionDigits = 0
-        chartDataSet.valueColors = [UIColor.whiteColor()]
+        chartDataSet.drawValuesEnabled = false
         chartDataSet.barShadowColor = Constants.grayColor_239
 
         let chartData = BarChartData(xVals: labels, dataSet: chartDataSet)
@@ -283,8 +302,9 @@ class EditViewsViewController: BaseEditViewController {
         
         chartDataSet.valueFormatter = NSNumberFormatter()
         chartDataSet.valueFormatter?.maximumFractionDigits = 0
-        chartDataSet.valueColors = [UIColor.whiteColor()]
+        chartDataSet.drawValuesEnabled = false
         chartDataSet.barShadowColor = Constants.grayColor_239
+        
 
         let chartData = BarChartData(xVals: labels, dataSet: chartDataSet)
         socailHorBarChart.data = chartData
@@ -385,6 +405,16 @@ class EditViewsViewController: BaseEditViewController {
     }
     */
     
+    
+    @IBAction func onRewriteClick(sender: AnyObject) {
+    
+        UIAlertUtils.createOkWithCancelAlertFor(self, with: MyStrings.clearDescrption) {[weak self] (action) -> Void in
+            self?.descriptionField.text = ""
+            self?.resetDataInTables()
+        }
+    }
+    
+    
 }
 
 
@@ -395,7 +425,7 @@ class EmotionChartNumberFormatter : NSNumberFormatter {
         let n = number.doubleValue * 100
         switch (n) {
         case 75...200:
-            return "High                      \n"
+            return "High                      \n "
         case 25...74:
             return "Medium        "
         default:
