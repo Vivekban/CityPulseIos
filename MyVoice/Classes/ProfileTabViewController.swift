@@ -18,7 +18,7 @@ class ProfileViewController: BaseTabViewController {
         
         tabsMenu?.moveToPage(4)
         tabsMenu?.moveSelectionIndicator(4)
-
+        ((tabsMenu?.controllerArray[4]) as? BaseNestedTabViewController)?.isVisible = true
     }
     
     override func viewWillAppear(animated: Bool) {

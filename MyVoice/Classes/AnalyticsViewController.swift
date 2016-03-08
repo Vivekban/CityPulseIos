@@ -50,6 +50,10 @@ class AnalyticsViewController: BaseHeaderCollectionView {
         collectionView.registerClass(SentimentMapCell.self, forCellWithReuseIdentifier: "sentimentMapCell")
 
         isEditButtonHidden = true
+        
+        
+        //panGestures.append(collectionView.panGestureRecognizer)
+        
         // isReloadEntries = false
     }
     
@@ -124,7 +128,6 @@ extension AnalyticsViewController : UICollectionViewDelegateFlowLayout{
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
-        print(collectionView.frame.height)
         
         if indexPath.section == 2 {
             return CGSize(width: (collectionView.frame.size.width), height: 450 + collectionView.frame.height)

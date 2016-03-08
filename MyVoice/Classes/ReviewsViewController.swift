@@ -20,7 +20,7 @@ class ReviewsViewController: ProfileBaseNestedViewController {
         
         super.viewDidLoad()
         
-        self.tableView.estimatedRowHeight = 70
+        self.tableView.estimatedRowHeight = 150
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
         expandedRows.insert(0)
@@ -54,12 +54,14 @@ class ReviewsViewController: ProfileBaseNestedViewController {
     override func updateListEntries(parameter: [String : AnyObject]) {
         entries = CurrentSession.i.personController.person.reviewsListManager.entries
         updateEntries()
+        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
     }
     
     func updateEntries(entries:[BaseData]){
         self.entries = entries
         updateEntries()
-        
+        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
+
     }
     
     
@@ -99,6 +101,8 @@ class ReviewsViewController: ProfileBaseNestedViewController {
             }
         }
     }
+    
+    
     
     
     /*

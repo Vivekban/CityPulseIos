@@ -45,7 +45,7 @@ class BaseAnalyticsCell: UICollectionViewCell {
         tabsView = CAPSPageMenu(viewControllers: controllers, frame: CGRect(x: 0, y: 0, width: Int(frame.width), height: Int(frame.height)), pageMenuOptions: parameters)
         
         addExtraViewOnTabBar(tabsView.view)
-        //tabsView?.delegate = self
+        tabsView?.delegate = self
         addSubview((tabsView?.view)!)
         
     }
@@ -56,13 +56,11 @@ class BaseAnalyticsCell: UICollectionViewCell {
     
 }
 
-
-
-
-
-
-
-
+extension BaseAnalyticsCell : CAPSPageMenuDelegate {
+    func willMoveToPage(controller: UIViewController, index: Int) {
+        
+    }
+}
 
 
 enum TimeLineChartControllerType : Int{
@@ -177,9 +175,9 @@ class BaseBarChartController : UIViewController {
                 break
             }
             self?.updateListEntries(parameter)
-         
+            
             LoaderUtils.i.hideLoader()
-
+            
             })
         
     }
@@ -211,8 +209,8 @@ class BaseBarChartController : UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         if chartView != nil {
-        chartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .EaseInCubic)
-    }
+            chartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .EaseInCubic)
+        }
     }
     
 }
@@ -303,8 +301,9 @@ class TimeLineChartController :BaseBarChartController {
 class ReviewAnalysisController : BaseBarChartController {
     var currentFilter: BaseFilter = Constants.reviewFilters[0]
     var reviewConroller: ReviewsViewController!
-    
     var selectedMonth = -1
+    
+    var showingFilter = -1
     
     override func viewDidLoad() {
         xibName = "ReviewAnalysisView"
@@ -312,8 +311,12 @@ class ReviewAnalysisController : BaseBarChartController {
         
         super.viewDidLoad()
         
-        let view = mainView.viewWithTag(5)
         
+        let view = mainView.viewWithTag(5)
+        if let sc = mainView as? UIScrollView {
+            sc.contentSize = self.view.frame.size
+            
+        }
         
         reviewConroller = MyUtils.getViewControllerFromStoryBoard("AdditionalUI", controllerName: "ReviewViewController") as? ReviewsViewController
         
@@ -321,22 +324,20 @@ class ReviewAnalysisController : BaseBarChartController {
             reviewConroller.isAnalyticsView = true
             addChildViewController(reviewConroller)
             reviewConroller.view.frame = (view?.frame)!
+            reviewConroller.view.frame.size.height = 0
             self.view.addSubview(reviewConroller.view)
             reviewConroller.didMoveToParentViewController(self)
-            
+            reviewConroller.tableView.scrollEnabled = false
+            reviewConroller.tableView.alwaysBounceVertical = false
         }
         
-
-        onSomeActionTaken(0)
+        
+        onSomeActionTaken(currentFilter.index)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if let view = mainView.viewWithTag(5) {
-        print(view.frame)
-        reviewConroller.view.frame = (view.frame)
-        reviewConroller.view.layoutIfNeeded()
-        }
+        
     }
     
     override func doSomeMoreSettingofChart() {
@@ -347,14 +348,17 @@ class ReviewAnalysisController : BaseBarChartController {
     
     override func onSomeActionTaken(index: Int) {
         let newFilter =  Constants.reviewFilters[index]
-        
-        if newFilter.index != currentFilter.index {
-            
-            currentFilter = newFilter
-            fetchListFromStart()
-            
+        currentFilter = newFilter
+        if chartView != nil {
+            if newFilter.index != showingFilter {
+                showingFilter = newFilter.index
+                if let d = chartView.data {
+                    d.clearValues()
+                }
+                fetchListFromStart()
+            }
         }
-        
+        updateReview()
     }
     
     
@@ -365,15 +369,27 @@ class ReviewAnalysisController : BaseBarChartController {
             var dataEntries: [BarChartDataEntry] = []
             var colors = [UIColor]()
             
-            chartView.leftAxis.labelCount = min(6, dataEntries.count)
-
+            var diffValue = [0]
+            var maxValue = 0
+            
+            
+            
             for i in 0..<data.count {
                 if let val = data[i] as? SentimentTimelineData {
-                    let dataEntry = BarChartDataEntry(value: Double(val.value), xIndex: i)
+                    let value = val.value
+                    if !diffValue.contains(value){
+                        diffValue.append(value)
+                        maxValue = max(maxValue,value)
+                    }
+                    let dataEntry = BarChartDataEntry(value: Double(value), xIndex: i)
                     dataEntries.append(dataEntry)
                     months.append(val.label)
                 }
             }
+            
+            
+            chartView.leftAxis.labelCount = min(5, min (diffValue.count,maxValue - 1))
+            
             
             for _ in data.count..<(12) {
                 months.append("")
@@ -395,22 +411,36 @@ class ReviewAnalysisController : BaseBarChartController {
     }
     
     func updateReview(){
+        
         if entries?.count > selectedMonth {
             if let val = entries![selectedMonth] as? ReviewAnalyticsData {
                 reviewConroller.updateEntries(val.reviews)
             }
         }
         else{
-            assertionFailure()
+            return
         }
+        
+        if let view = mainView.viewWithTag(5) {
+            reviewConroller.view.frame = (view.frame)
+            reviewConroller.view.layoutIfNeeded()
+            //reviewConroller.view.layoutIfNeeded()
+        }
+        
+        reviewConroller.view.frame.size.height = reviewConroller.tableView.contentSize.height + 100
+        if let sc = mainView as? UIScrollView {
+            sc.contentSize.height = reviewConroller.view.frame.height + 470
+            print(sc.contentSize)
+        }
+        
     }
     
     
     override func updateListEntries(parameter: [String : AnyObject]) {
         
         entries = CurrentSession.i.personController.person.reviewAnalysisListManager[type.rawValue][currentFilter.index].entries
-        
         super.updateListEntries(parameter)
+        
     }
     
     
@@ -418,8 +448,7 @@ class ReviewAnalysisController : BaseBarChartController {
         
         var dic = super.getParameterForListFetching(t)
         
-        var min = 60 - 40 * currentFilter.index
-        //  min = 20
+        let min = 60 - 40 * currentFilter.index
         dic["min"] = min
         dic["max"] = min + 40
         dic["filter"] = currentFilter.index
@@ -431,13 +460,12 @@ class ReviewAnalysisController : BaseBarChartController {
 extension ReviewAnalysisController : ChartViewDelegate {
     
     func chartValueSelected(chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight){
-        if selectedMonth != highlight.xIndex {
-            selectedMonth = dataSetIndex
-            updateReview()
-        }
+        //if selectedMonth != highlight.xIndex {
+        selectedMonth = highlight.xIndex
+        updateReview()
+        //}
         
     }
-    
     
 }
 

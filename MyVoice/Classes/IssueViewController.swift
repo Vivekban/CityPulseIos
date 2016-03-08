@@ -44,7 +44,6 @@ class IssueViewController: HomeBaseNestedTabController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        print(view.superview?.frame)
         entries = getAllEntries()
         super.viewWillAppear(animated)
         

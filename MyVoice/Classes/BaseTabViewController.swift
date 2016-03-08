@@ -53,7 +53,7 @@ class BaseTabViewController: UIViewController {
     deinit{
         log.debug("de int of base tab controller..............")
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +77,7 @@ class BaseTabViewController: UIViewController {
         
         tabsMenu?.view.addSubview(actionButton)
         currentActiveView = tabsMenu?.view
-
+        
         let lineBelowTopBar = UIView(frame: CGRectMake(0, 65, view.frame.width, 2))
         lineBelowTopBar.backgroundColor = view.backgroundColor
         view.addSubview(lineBelowTopBar)
@@ -92,14 +92,14 @@ class BaseTabViewController: UIViewController {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
     }
-
+    
     
     
     override func viewDidAppear(animated: Bool) {
         log.debug("Start.............First view appear...\(topBar?.frame)...")
         topBar?.frame = CGRectMake(0, 20, view.frame.width, 45)
         briefProfileView?.frame = CGRectMake(0, minTabsYpos , view.frame.width, 100)
-
+        
         super.viewDidAppear(animated)
         if let i = tabsMenu?.currentPageIndex {
             didMoveToPage((tabsMenu?.controllerArray[i])!, index: i)
@@ -109,7 +109,7 @@ class BaseTabViewController: UIViewController {
         
         EventUtils.addObserver(self, selector: Selector("onLocationUpdate"), key: EventUtils.locationUpdateKey)
         EventUtils.addObserver(self, selector: Selector("onBasicInfoUpdate"), key: EventUtils.basicInfoUpdateKey)
-
+        
         
         log.info("adding observer...............\(tabTitles[0]).")
         
@@ -123,14 +123,14 @@ class BaseTabViewController: UIViewController {
     func onLocationUpdate(){
         topBar?.cityField.text = CurrentSession.i.userPlacemark?.locality
     }
-
+    
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
         
         log.info("removing observer..............\(tabTitles[0])..")
-
+        
     }
     
     func onViewScrollEvent(sender:NSNotification){
@@ -174,18 +174,16 @@ class BaseTabViewController: UIViewController {
         if self.scrollView == nil || self.scrollView != scrollView || (scrollView.panGestureRecognizer.state == .Began) {
             scrollViewYOffset = scrollView.panGestureRecognizer.translationInView(scrollView.superview).y
             self.scrollView = scrollView
-            tranlation = 0
+            tranlation = 0//scrollView.panGestureRecognizer.translationInView(scrollView.superview).y
             return
         }
         // print("tranlation...is \(scrollView.panGestureRecognizer.translationInView(scrollView.superview).y) and previos is \(tranlation)")
-        
         
         let val = scrollView.panGestureRecognizer.translationInView(scrollView.superview).y - tranlation
         // scrollViewYOffset += val
         tranlation = scrollView.panGestureRecognizer.translationInView(scrollView.superview).y
         
-        lastScrollDirection = Int(scrollView.panGestureRecognizer.translationInView(scrollView.superview).y)
-        
+        lastScrollDirection = Int(tranlation)
         
         
         let newTabsPos = max(minTabsYpos - spaceInViews, min(maxTabsYpos, tabsViewStartPoint + val))
@@ -193,6 +191,8 @@ class BaseTabViewController: UIViewController {
         if newTabsPos != tabsViewStartPoint {
             
             let change = newTabsPos - tabsViewStartPoint
+            
+            scrollView.contentOffset.y += change
             
             // var frame =  CGRectMake((briefProfileView?.frame.origin.x)!, (briefProfileView?.frame.origin.y)!, (briefProfileView?.frame.size.width)!, newTabsPos - minTabsYpos)
             // frame.size.height = max(0,min(100,(frame.size.height)))
@@ -231,15 +231,12 @@ class BaseTabViewController: UIViewController {
                 
                 let change = newTabsPos - tabsViewStartPoint
                 let time = change/50
-                print(change)
-
+                // print(change)
+                
                 UIView.animateWithDuration(NSTimeInterval(time), animations: { () -> Void in
-                   
+                    
                     self.animateView(change)
                 })
-                
-                
-               
             }
             
         }
@@ -249,50 +246,38 @@ class BaseTabViewController: UIViewController {
             if newTabsPos != tabsViewStartPoint {
                 let change = newTabsPos - tabsViewStartPoint
                 let time = change/400
-                
-                print(change)
-                
+                 
+                tabsViewStartPoint = maxTabsYpos
+
                 
                 UIView.animateWithDuration(NSTimeInterval(time), animations: { () -> Void in
                     
                     //self.animateView(change)
                     
-                    self.briefProfileView?.frame.origin.y += change
+                    self.briefProfileView?.frame.origin.y =  self.minTabsYpos - self.spaceInViews
                     
                     var tabsFrame = self.currentActiveView?.frame
-                    tabsFrame?.size.height -= change
-                    tabsFrame?.origin.y += change
-                    self.tabsViewStartPoint = (tabsFrame?.origin.y)!
-                    
+                    tabsFrame?.origin.y = self.maxTabsYpos
+                    tabsFrame?.size.height = self.view.frame.height - self.maxTabsYpos
+
                     self.currentActiveView?.frame = tabsFrame!
                     self.view.setNeedsLayout()
-
+                  
                 })
-                
-
-//                let change = newTabsPos - tabsViewStartPoint
-//                briefProfileView?.frame.origin.y += change
-//                tabsViewStartPoint = newTabsPos
-//                
-//                var tabsFrame = currentActiveView?.frame
-//                tabsFrame?.size.height -= change
-//                tabsFrame?.origin.y += change
-//                currentActiveView?.frame = tabsFrame!
-//                view.setNeedsLayout()
             }
         }
-
+        
     }
     
     func animateView(change : CGFloat) {
-      
+        
         briefProfileView?.frame.origin.y += change
         
         var tabsFrame = currentActiveView?.frame
         tabsFrame?.size.height -= change
         tabsFrame?.origin.y += change
         tabsViewStartPoint = (tabsFrame?.origin.y)!
-
+        
         currentActiveView?.frame = tabsFrame!
         view.setNeedsLayout()
     }
@@ -321,8 +306,8 @@ class BaseTabViewController: UIViewController {
         
         briefProfileView?.frame = CGRectMake(0, minTabsYpos , view.frame.width, 100)
         
-         briefProfileView?.updateData(CurrentSession.i.personController.person.profileData)
-
+        briefProfileView?.updateData(CurrentSession.i.personController.person.profileData)
+        
         
         view.addSubview(briefProfileView!)
         
@@ -377,7 +362,7 @@ class BaseTabViewController: UIViewController {
         }
         currentActiveView = tabsMenu?.view
         topBar?.changeVisibiltOfBackButton(true)
-
+        
     }
     
     
@@ -487,6 +472,7 @@ extension BaseTabViewController : TopBarViewDelegate {
         if additionalController != nil {
             removeAdditionView()
         }
+        // onDraggingStop()
     }
     
     func onHelpButtonClick() {
@@ -494,7 +480,7 @@ extension BaseTabViewController : TopBarViewDelegate {
     }
     
     func onCategoryChanged(text:String, item index:Int) {
-    
+        
     }
 }
 

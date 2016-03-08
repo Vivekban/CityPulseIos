@@ -447,7 +447,7 @@ class BaseCommentDetailViewController: BaseDetailViewController {
                 containerTableView.scrollRectToVisible(visibleFrame, animated: true)
                 return
             }
-            print(visibleFrame)
+            //  print(visibleFrame)
             visibleFrame.origin.y += (sv?.frame.origin.y) ?? 0
             sv = sv?.superview
         }

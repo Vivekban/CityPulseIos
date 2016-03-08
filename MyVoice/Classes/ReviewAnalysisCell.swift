@@ -14,6 +14,7 @@ class ReviewAnalysisCell: BaseAnalyticsCell {
     var filterTextView : UITextField!
     var filterPopOver : PopTable!
     var filterItems : [String]!
+    var currentFilter :Int = 0
     override func prepareForData() {
         let controller = ReviewAnalysisController()
         controller.title = MyStrings.last3Month
@@ -61,8 +62,14 @@ class ReviewAnalysisCell: BaseAnalyticsCell {
     }
     
     func onFilterSelected(index: Int){
+        currentFilter = index
         ((tabsView.controllerArray[tabsView.currentPageIndex]) as! ReviewAnalysisController).onSomeActionTaken(index)
     }
+    
+    override func willMoveToPage(controller: UIViewController, index: Int) {
+        ((controller) as! ReviewAnalysisController).onSomeActionTaken(currentFilter)
+    }
+
 }
 
 extension ReviewAnalysisCell : UITextFieldDelegate {
