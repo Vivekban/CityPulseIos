@@ -12,7 +12,7 @@ import UIKit
  
  This is abstract class handle the request to fetch data form server and save it too . It is middle man between view controller and server
  
- check IssueController / PersonController
+ check HomeDataManager / PersonController
  
  */
 

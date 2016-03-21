@@ -79,7 +79,7 @@ extension ReviewAnalysisCell : UITextFieldDelegate {
             
             filterPopOver.pick(c, initData: [textField.text ?? ""]) {[weak self] (newSelection, forTextField) -> () in
                 if newSelection.count > 0 {
-                    forTextField.text = newSelection[0]
+                    (forTextField as! UITextField).text = newSelection[0]
                     // self?.filterTextView.sizeToFit()
                     self?.onFilterSelected(self?.filterItems.indexOf(newSelection[0]) ?? 0)
                 }

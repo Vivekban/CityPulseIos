@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReviewsViewController: ProfileBaseNestedViewController {
+class ReviewsViewController: BaseProfileNestedViewController {
     
     var isAnalyticsView = false
     
@@ -64,24 +64,6 @@ class ReviewsViewController: ProfileBaseNestedViewController {
 
     }
     
-    
-    
-    
-    
-    override func viewWillAppear(animated: Bool) {
-        
-        
-        if isReloadEntries {
-            var dic = [String: AnyObject]()
-            dic["start"] = 0
-            dic["range"] = 20
-            fetchListFromServer(dic)
-            
-            isReloadEntries = false
-        }
-        
-        super.viewWillAppear(animated)
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

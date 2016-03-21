@@ -13,7 +13,7 @@ enum BriefProfilePersonType:Int {
     case Resident = 1, Leadear
 }
 enum BriefProfileType:Int {
-    case TopBar = 1,TableRow
+    case TopBar = 1,TableRow, TopBarSecondPerson
 }
 
 
@@ -65,9 +65,20 @@ class BriefProfileBar: UIView {
     
     
     
-    static func newInstance(owner:UIViewController,type:BriefProfilePersonType, dataType:BriefProfileType , data : ProfileData) -> BriefProfileBar{
-        let briefProfileView = UINib(nibName: "BriefProfileBar", bundle: nil).instantiateWithOwner(owner, options: nil)[0] as! BriefProfileBar
-        briefProfileView.initialCollectionViews(type, dataType: dataType, data: data)
+    static func newInstance(owner:UIViewController,type:BriefProfilePersonType, barType:BriefProfileType , data : ProfileData) -> BriefProfileBar{
+        let briefProfileView : BriefProfileBar!
+        switch (barType) {
+        case .TopBar,.TableRow:
+            briefProfileView = UINib(nibName: "BriefProfileBar", bundle: nil).instantiateWithOwner(owner, options: nil)[0] as! BriefProfileBar
+            break;
+        case .TopBarSecondPerson:
+            briefProfileView = UINib(nibName: "LeaderVisiterBriefBarView", bundle: nil).instantiateWithOwner(owner, options: nil)[0] as! BriefProfileBar
+            break
+        default:
+            break;
+        }
+        
+        briefProfileView.initialCollectionViews(type, dataType: barType, data: data)
         
         return briefProfileView
     }
@@ -96,7 +107,7 @@ class BriefProfileBar: UIView {
     
     
     
-   
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -106,17 +117,20 @@ class BriefProfileBar: UIView {
     func initialCollectionViews(type:BriefProfilePersonType, dataType:BriefProfileType , data : ProfileData){
         self.ptype = type
         
-        switch (type) {
+        setInfo()
+        self.type = dataType
+        self.data = data
+        setupViews()
+    }
+    
+    func setInfo(){
+        switch (ptype) {
         case .Resident:
             info = residentInfo
             break;
         case .Leadear:
             info = leaderInfo
         }
-        
-        self.type = dataType
-        self.data = data
-        setupViews()
     }
     
     func setupViews(){
@@ -139,7 +153,7 @@ class BriefProfileBar: UIView {
         
         
         
-        addCollectionViewBasedOnProfile()        
+        addCollectionViewBasedOnProfile()
         addOptionsCollectionView()
         
     }
@@ -220,7 +234,7 @@ extension BriefProfileBar : UICollectionViewDataSource{
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let gesture = UITapGestureRecognizer(target: self, action: "patani");
-
+        
         switch (collectionView) {
             
         case itemsCollectionView!:
@@ -247,14 +261,16 @@ extension BriefProfileBar : UICollectionViewDataSource{
                 
             }
             
-            if (indexPath.row % 2 == 0) {
-                cell.decreaseWidth()
+            if info.items.count > 3 {
+                
+                if (indexPath.row % 2 == 0) {
+                    cell.decreaseWidth()
+                }
+                else{
+                    cell.normalWidth()
+                    
+                }
             }
-            else{
-                cell.normalWidth()
-
-            }
-            
             return cell
             
             
@@ -272,39 +288,39 @@ extension BriefProfileBar : UICollectionViewDataSource{
     
     func getValueForCell(row : Int) ->Int {
         if let data = self.data {
-        switch (ptype) {
-        case .Resident:
-            
-            switch (row) {
-            case 0:
-                 return data.issueRaised
-            case 1:
-                return data.donated
-            case 2:
-                return data.badges
-            default:
+            switch (ptype) {
+            case .Resident:
+                
+                switch (row) {
+                case 0:
+                    return data.issueRaised
+                case 1:
+                    return data.donated
+                case 2:
+                    return data.badges
+                default:
+                    break;
+                }
+                
                 break;
+            case .Leadear:
+                switch (row) {
+                case 0:
+                    return data.followers
+                case 1:
+                    return data.issueResolved
+                case 2:
+                    return data.badges
+                case 3:
+                    return data.donations
+                case 4:
+                    return data.credits
+                case 5:
+                    return data.reviews
+                default:
+                    break;
+                }
             }
-            
-                break;
-        case .Leadear:
-            switch (row) {
-            case 0:
-                return data.followers
-            case 1:
-                return data.issueResolved
-            case 2:
-                return data.badges
-            case 3:
-                return data.donations
-            case 4:
-                return data.credits
-            case 5:
-                return data.reviews
-            default:
-                break;
-            }
-        }
         }
         return 0
     }
@@ -373,16 +389,16 @@ class BriefCell: UICollectionViewCell {
         self.addSubview(view)
         
         
-       
-
+        
+        
         icon = view.viewWithTag(1) as? UIImageView
         headingLabel = view.viewWithTag(2) as? UILabel
         detailLabel = view.viewWithTag(3) as? UILabel
         width = headingLabel?.constraints[0]
-
+        
     }
     
-     func decreaseWidth() {
+    func decreaseWidth() {
         print(headingLabel?.text)
         if width != nil {
             width?.constant = 75
@@ -391,7 +407,7 @@ class BriefCell: UICollectionViewCell {
     }
     func normalWidth() {
         print(headingLabel?.text)
-
+        
         if width != nil {
             width?.constant = 120
             layoutSubviews()

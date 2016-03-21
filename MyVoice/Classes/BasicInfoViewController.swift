@@ -33,6 +33,32 @@ class BasicInfoViewController: BaseHeaderCollectionView {
         // Dispose of any resources that can be recreated.
     }
     
+    override func showEditViewController(type: EditControllerType,index:Int) -> UIViewController?{
+//        if let con = MyUtils.presentViewController(self, identifier: editControlllerIdentifier) as? EditBasicInfoViewController {
+//            var data = CurrentSession.i.personController.person.basicInfo
+//            var en = [BaseData]()
+//            en.append(data)
+//            con.setDataSourceWith(.EDIT, data: &en, index: 0)
+//        }
+        
+        var controller : UIViewController?
+        if index == 1 {
+            controller = MyUtils.presentViewController(self, identifier: "EditOccupationInfoController")
+        }
+        else {
+            controller = super.showEditViewController(type, index: index)
+        }
+        
+        if let con = controller as? EditBasicInfoViewController {
+            con.setDataSourceWith(type, data: &entries, index: index)
+            con.delegate = self
+            con.infoType = PersonBasicInfoType(rawValue: index)!
+        }
+        
+        return controller
+    }
+
+    
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return entries.count
     }
@@ -66,25 +92,11 @@ class BasicInfoViewController: BaseHeaderCollectionView {
         return Constants.personInfoHeader[index]
     }
     
-    override func onEditButtonclick(index: Int) {
-        if let con = MyUtils.presentViewController(self, identifier: editControlllerIdentifier) as? EditBasicInfoViewController {
-            var data = CurrentSession.i.personController.person.basicInfo
-            var en = [BaseData]()
-            en.append(data)
-            con.setDataSourceWith(.EDIT, data: &en, index: 0)
-            con.infoType = PersonBasicInfoType(rawValue: index)!
-        }
-    }
     
- 
     
-}
-
-extension BasicInfoViewController : UICollectionViewDelegateFlowLayout{
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
-        return CGSize(width: Int(collectionView.frame.size.width)/columns - 25, height: Int(collectionView.frame.size.height)/10)
+        return CGSize(width: Int(collectionView.frame.size.width)/columns - 25, height: 45)
     }
     
     

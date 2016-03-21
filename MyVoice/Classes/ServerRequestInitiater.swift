@@ -45,7 +45,7 @@ class ServerRequestInitiater {
         
         Alamofire.request(.POST,ServerUrls.addUserUrl, parameters: parameters, encoding: ParameterEncoding.URL, headers: nil).responseString { (response) -> Void in
             print(response)
-            print(response.request)
+            // print(response.request)
             print(response.result.isSuccess)
         }
     }
@@ -54,22 +54,11 @@ class ServerRequestInitiater {
         Alamofire.request(.POST,ServerUrls.getUserDetailsUrl, parameters: parameters, encoding: ParameterEncoding.URLEncodedInURL, headers: nil).responseJSON { (response) -> Void in
             // print(response.request!)
             // print(response.response!)
-            if let json = response.result.value {
+            if let _ = response.result.value {
                 // print("json data here")
                 // print(json)
             }
         }
-        
-        
-        //        Alamofire.request(.POST,ServerUrls.userDetailsUrl, parameters: ["userid":"1"], encoding: ParameterEncoding.URLEncodedInURL, headers: nil).response { (response) -> Void in
-        //           // print(response.2)
-        //            if let statusesArray = try? NSJSONSerialization.JSONObjectWithData(response.2!, options: .AllowFragments) as? [String: AnyObject]{
-        //                print("json data here")
-        //
-        //                print(statusesArray)                    // Finally we got the username
-        //            }
-        //
-        //        }
     }
     
     func postMessageToServerForJsonResponse(url:String, postData:[String:AnyObject]?, completionHandler: ServerRequestCallback) {
@@ -138,7 +127,7 @@ class ServerRequestInitiater {
         switch req.responseType {
         case .Json:
             Alamofire.request(req.postType, req.url, parameters: req.postData, encoding: ParameterEncoding.URLEncodedInURL, headers: nil).responseJSON { (response) -> Void in
-                 print(response.response)
+                // print(response.response)
                 // print(response.data)
                 if response.result.isSuccess {
                     if let cH = req.completionHandler {
@@ -172,7 +161,7 @@ class ServerRequestInitiater {
             break;
         case .Normal:
             Alamofire.request(req.postType, req.url, parameters: req.postData, encoding: ParameterEncoding.URLEncodedInURL, headers: nil).responseString(completionHandler: { (response) -> Void in
-                print(response.result)
+                //print(response.result)
                 
                 if response.result.isSuccess {
                     if let cH = req.completionHandler {

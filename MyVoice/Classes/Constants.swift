@@ -33,7 +33,7 @@ class Constants {
     static let notification_center_scroll_event_key = "scroll_event_key"
     
     
-    static let personInfoHeader = ["BASIC_INFO".localized,"CONTACT_INFO".localized,"EDUCATION_INFO".localized,"OCCUPATION_INFO".localized]
+    static let personInfoHeader = ["BASIC_INFO".localized,"OCCUPATION_INFO".localized,"CONTACT_INFO".localized,"EDUCATION_INFO".localized]
     
     static let BriefItemUI_Follower = BriefItemUI(heading: "Followers".localized, index: "Followers", isClickable: false)
     
@@ -49,6 +49,13 @@ class Constants {
     
     static let BriefItemUI_Reviews = BriefItemUI(heading: "Reviews".localized, index: "Review", isClickable: true)
     
+    
+    static let BriefButtonUI_Review = BriefItemUI(heading: "Reviews".localized, index: "Review", isClickable: true)
+    static let BriefButtonUI_Message = BriefItemUI(heading: "Reviews".localized, index: "Review", isClickable: true)
+    static let BriefButtonUI_Donation = BriefItemUI(heading: "Reviews".localized, index: "Review", isClickable: true)
+    static let BriefButtonUI_Follow = BriefItemUI(heading: "Reviews".localized, index: "Review", isClickable: true)
+
+
     
     static let residentHomeIssueFilter = [[HomeFilter(index: 0,value: MyStrings.active,dataRequest: 0),
         HomeFilter(index: 0,value: MyStrings.popular,dataRequest: 1),
@@ -130,7 +137,7 @@ class PermanentDataKey {
 
 
 enum PersonBasicInfoType:Int{
-    case Basic = 0, Contact, Education, Occupation
+    case Basic = 0, Occupation, Contact, Education
 }
 
 
@@ -151,8 +158,6 @@ struct BriefItemUI {
         self.isClickable = isClickable
     }
 }
-
-
 
 
 
@@ -221,23 +226,24 @@ struct UIScrollViewWithEvent {
 
 class TextFieldWithCharacterLimit {
     var field : UITextField!
-    var limit = Int.max
-    
-    init (field : UITextField , limit : Int){
-        self.limit = limit
+    var minLimit = 10
+    var maxLimit = 5000
+    init (field : UITextField , minLimit : Int = 10, maxLimit:Int = 5000){
+        self.minLimit = minLimit
+        self.maxLimit = maxLimit
         self.field = field
     }
     
     
-    static func isFieldInArray (field : UITextField , list : [TextFieldWithCharacterLimit]) -> Bool{
+    static func isFieldInArray (field : UITextField , list : [TextFieldWithCharacterLimit]) -> TextFieldWithCharacterLimit?{
         
         for f in list {
             if f.field == field {
-                return true
+                return f
             }
         }
         
-        return false
+        return nil
     }
 }
 

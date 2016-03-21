@@ -10,11 +10,25 @@ import UIKit
 
 /// Base model class for PersonUI cantain blueprint of PersonUI
 
+enum DonationType : Int {
+    case donated = 0,received
+    
+    func  toString() -> String {
+        switch self {
+        case .donated:
+            return MyStrings.donationMade
+        case .received:
+            return MyStrings.donationReceived
+        }
+    }
+}
 
 class PersonUI {
     
     // profile tabs
     var profileTabs = [TwoString]()
+    var secondPersonProfileTabs:[(identifier:String,title:String,storyBoard:String)] = [(identifier:String,title:String,storyBoard:String)]()
+
     // Person info items
     var basicInfoItems = [String]()
     var contactInfoItems = [String]()
@@ -27,9 +41,12 @@ class PersonUI {
     
     var homeFilters = Constants.residentHomeIssueFilter
     
+    
+    var donationType : DonationType!
+    
     init(){
         educationInfoItems = ["LAST_DEGREE_HELD".localized,"YEAR".localized]
-        occupationInfoItems = ["COMPANY".localized,"TITLE".localized,"FROM".localized, "TO".localized]
+        occupationInfoItems = [MyStrings.designation,MyStrings.workPlace,MyStrings.from, MyStrings.to]
         personSpecificParmeter()
     }
     

@@ -54,12 +54,11 @@ class AppDataController : ServerDataManager{
         case AppDataRequest.MarkTo.rawValue:
             for (_,j) in json {
                 print(j)
-                if  let cat = j.stringValue as?String {
-                   let values = cat.componentsSeparatedByString("~")
+                   let values = j.stringValue.componentsSeparatedByString("~")
                     let id = values[values.count - 1]
                     print(id)
                     appData.markTo.append(BaseFilter(index: Int(id) ?? 0, value: values[0], dataRequest: 0))
-                }
+                
             }
         default:
             break;

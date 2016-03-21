@@ -7,7 +7,7 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TopBarView" customModule="CityPulse" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view multipleTouchEnabled="YES" contentMode="scaleToFill" id="iN0-l3-epB" customClass="TopBarView" customModule="CityPulse" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="724" height="79"/>
@@ -30,7 +30,7 @@
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                             <state key="normal" title="?"/>
                             <connections>
-                                <action selector="onHelpButtonClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="4mc-fn-GVK"/>
+                                <action selector="onHelpButtonClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="pto-tD-BaJ"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yZZ-hd-OBt">
@@ -40,7 +40,7 @@
                             </constraints>
                             <state key="normal" title="Button" image="Back Arrow"/>
                             <connections>
-                                <action selector="onBackButtonClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="pUA-QK-Y2A"/>
+                                <action selector="onBackButtonClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="WYj-60-2ID"/>
                             </connections>
                         </button>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UPF-jM-voY" customClass="FloatLabelTextField" customModule="CityPulse" customModuleProvider="target">
@@ -68,32 +68,34 @@
                                 <constraint firstAttribute="height" constant="1" id="9ry-uU-3FN"/>
                             </constraints>
                         </view>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Categories" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qYZ-jZ-qOD">
-                            <rect key="frame" x="8" y="12" width="83" height="20"/>
-                            <color key="textColor" red="0.019607843140000001" green="0.57254901960000004" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dnY-rG-Y3O">
                             <rect key="frame" x="336" y="10" width="53" height="24"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tat-pg-T3s">
+                            <rect key="frame" x="8" y="6" width="84" height="33"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="Categories"/>
+                            <connections>
+                                <action selector="onCategoryButtonClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="JWI-Ld-L26"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="c4l-LX-knh" firstAttribute="centerY" secondItem="yZZ-hd-OBt" secondAttribute="centerY" id="0M6-f9-DXw"/>
-                        <constraint firstItem="qYZ-jZ-qOD" firstAttribute="centerY" secondItem="Hbu-zs-YSh" secondAttribute="centerY" id="2am-BH-NkG"/>
                         <constraint firstAttribute="height" constant="44" id="6WC-qZ-OQM"/>
                         <constraint firstItem="QtS-e3-ro8" firstAttribute="bottom" secondItem="c4l-LX-knh" secondAttribute="bottom" id="7OE-vi-uLw"/>
                         <constraint firstItem="dnY-rG-Y3O" firstAttribute="centerX" secondItem="Hbu-zs-YSh" secondAttribute="centerX" id="CSw-SJ-qwC"/>
-                        <constraint firstItem="qYZ-jZ-qOD" firstAttribute="leading" secondItem="Hbu-zs-YSh" secondAttribute="leading" constant="8" id="GFv-BX-q4Z"/>
+                        <constraint firstItem="Tat-pg-T3s" firstAttribute="leading" secondItem="Hbu-zs-YSh" secondAttribute="leading" constant="8" id="Kgg-Vr-3Nh"/>
                         <constraint firstItem="ZA5-Dx-AFN" firstAttribute="top" secondItem="UPF-jM-voY" secondAttribute="bottom" constant="-3" id="LWP-HM-tZB"/>
                         <constraint firstItem="dnY-rG-Y3O" firstAttribute="centerY" secondItem="Hbu-zs-YSh" secondAttribute="centerY" id="MBj-7D-Rl8"/>
                         <constraint firstItem="c4l-LX-knh" firstAttribute="top" secondItem="Hbu-zs-YSh" secondAttribute="top" id="MOr-PE-cip"/>
                         <constraint firstItem="c4l-LX-knh" firstAttribute="width" secondItem="Hbu-zs-YSh" secondAttribute="width" multiplier="3:10" id="Njr-xM-mHS"/>
                         <constraint firstItem="yZZ-hd-OBt" firstAttribute="leading" secondItem="Hbu-zs-YSh" secondAttribute="leadingMargin" id="PhD-Gh-drD"/>
+                        <constraint firstItem="Tat-pg-T3s" firstAttribute="centerY" secondItem="Hbu-zs-YSh" secondAttribute="centerY" id="Q8Y-E9-boz"/>
                         <constraint firstAttribute="trailing" secondItem="QtS-e3-ro8" secondAttribute="trailing" constant="20" id="VKj-c5-Ap4"/>
                         <constraint firstItem="QtS-e3-ro8" firstAttribute="leading" secondItem="c4l-LX-knh" secondAttribute="trailing" constant="10" id="Xfn-4h-zjB"/>
                         <constraint firstItem="ZA5-Dx-AFN" firstAttribute="trailing" secondItem="UPF-jM-voY" secondAttribute="trailing" id="blh-jN-pl2"/>
@@ -125,12 +127,12 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="backButton" destination="yZZ-hd-OBt" id="PSp-cs-4pG"/>
-                <outlet property="categoryField" destination="qYZ-jZ-qOD" id="gKP-0c-jGR"/>
-                <outlet property="cityField" destination="UPF-jM-voY" id="iPV-B4-S4g"/>
-                <outlet property="cityLine" destination="ZA5-Dx-AFN" id="ByQ-ES-yYs"/>
-                <outlet property="searchBar" destination="c4l-LX-knh" id="Wc8-m8-eqy"/>
-                <outlet property="titleLabel" destination="dnY-rG-Y3O" id="Dx8-1s-WzI"/>
+                <outlet property="backButton" destination="yZZ-hd-OBt" id="rdQ-EF-EB8"/>
+                <outlet property="categoryField" destination="Tat-pg-T3s" id="lBH-rY-aIg"/>
+                <outlet property="cityField" destination="UPF-jM-voY" id="Pxr-oF-bku"/>
+                <outlet property="cityLine" destination="ZA5-Dx-AFN" id="l7b-WP-js7"/>
+                <outlet property="searchBar" destination="c4l-LX-knh" id="J9Y-gs-wv6"/>
+                <outlet property="titleLabel" destination="dnY-rG-Y3O" id="4yG-Ua-BDD"/>
             </connections>
             <point key="canvasLocation" x="644" y="347.5"/>
         </view>

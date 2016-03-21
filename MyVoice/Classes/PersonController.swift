@@ -13,7 +13,7 @@ import SwiftyJSON
 
 enum PersonInfoRequestType:Int{
     
-    case BasicInfo = 1, Views, Reviews, Profile, Work, Video, Event , SentimentTimeLine, SentimentMap,ReviewAnalysis
+    case BasicInfo = 1, Views, Reviews, Profile, Work, Video, Event , SentimentTimeLine, SentimentMap,ReviewAnalysis, Credits,Donations,PageView,Badges
 }
 
 class PersonController : ServerDataManager {
@@ -75,6 +75,7 @@ class PersonController : ServerDataManager {
 
         switch (infoRequest) {
         case .BasicInfo:
+            // print(data)
             if let d = Mapper<PersonBasicData>().map(data){
             person.basicInfo  = d
             person.basicInfo.userid = userId
@@ -83,7 +84,7 @@ class PersonController : ServerDataManager {
 
             break;
         case .Views:
-            print(data)
+            // print(data)
             let viewArray = JSON(data)
             var list = [MyViewData]()
             for (_,obj) in viewArray {
@@ -140,7 +141,7 @@ class PersonController : ServerDataManager {
             break;
       
         case .ReviewAnalysis:
-            print(data)
+            // print(data)
             let array = JSON(data)
             var list = [ReviewAnalyticsData]()
             for (_,obj) in array {
@@ -169,12 +170,15 @@ class PersonController : ServerDataManager {
     override func fetchListData(dataRequest: Int, parameter: [String : AnyObject], completionHandler: ServerRequestCallback?) {
         
         // let infoRequest = IssueInfoRequestType(rawValue: dataRequest)!
-        // let tab = parameter["tab"] as! Int
+        var tab = 0
+        if let t = parameter["tab"] as? Int {
+            tab = t
+        }
         // let index = parameter["index"] as! Int
         
         
         
-        let lists =  person.getList(dataRequest)
+        let lists =  person.getList(dataRequest,index: tab)
         
         if lists.hasAllEntries {
             if let handler = completionHandler {

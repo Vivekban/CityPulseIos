@@ -11,6 +11,20 @@ import Foundation
 
 class MyStrings {
     
+    // general
+    static let from = "FROM".localized
+    static let to = "TO".localized
+    static let yes = "Yes"
+    static let no = "No"
+
+    
+    static let ok = "Ok".localized
+    static let cancel = "Cancel".localized
+    static let tryAgain = "Try Again".localized
+    static let by = "By"
+
+    
+    
     static let messageTitleEmpty = "Title is empty"
     static let messageDescriptionIsEmpty = "Description is empty"
     static let messageNameEmpty = "Name is empty"
@@ -40,9 +54,6 @@ class MyStrings {
     static let errorWhileSaving = "Some error occur during saving"
     
     
-    static let ok = "Ok".localized
-    static let cancel = "Cancel".localized
-    static let tryAgain = "Try Again".localized
     
     // public figure tabs
     static let top_public_figure = "Top Public Figure"
@@ -60,10 +71,7 @@ class MyStrings {
     
     static let fetchingTag = "Getting Tags"
 
-    
-    //
-    static let by = "By"
-    
+  
     // home
     static let community_issue = "Community Issue"
     static let community_issues = "Community Issues"
@@ -71,7 +79,6 @@ class MyStrings {
     static let HOA_issues = "HOA Issues"
     static let HOA_issue = "HOA Issue"
     static let polls = "Polls"
-    
     
     //
     static let open = "Open"
@@ -145,5 +152,23 @@ class MyStrings {
 
     static let neighbourhood = "Neighborhood"
     static let state = "State"
+    
+    static let designation = "Designation"
+    static let workPlace = "Workplace"
+    
+    static let credits = "Credits"
+    static let badges = "Badges"
+    static let pageViews = "Page Views"
+    static let donationReceived = "Donations Received"
+    static let donationMade = "Donations Made"
+    
+    static let earned = "Earned"
+    static let toBeEarned = "To be Earned"
+
+    static let activeIssues = active + " " + issues
+    static let resolvedIssues = resolved + " " + issues
+    
+    
+    static let publicFigure = "Public Figure"
 
 }

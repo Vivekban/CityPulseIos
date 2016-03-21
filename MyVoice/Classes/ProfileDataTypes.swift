@@ -66,14 +66,12 @@ class EventData:ImageUrlData{
     var startTime: String = ""
     var endTime: String = ""
     var allDayEvent = false
-    var location:Location?
     var website:String = ""
     
     override func mapping(map: Map) {
         super.mapping(map)
         startTime <- map["startTime"]
         endTime <- map["endTime"]
-        location <- map["location"]
         website <- map["website"]
 
     }
@@ -164,6 +162,8 @@ class PersonBasicData : BaseData{
     
     var profilePic :String = ""
     var partyPic :String = ""
+    var isPublicOffice = false
+    var isCurrentlyWorkingInOffice = true
     
     
     override init() {

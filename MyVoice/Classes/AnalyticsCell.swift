@@ -94,6 +94,7 @@ class BaseBarChartController : UIViewController {
         
         mainView = NSBundle.mainBundle().loadNibNamed(xibName, owner: self, options: nil)[0] as! UIView
         chartView = mainView.viewWithTag(1) as! BarChartView
+        
         chartView.noDataText = ""
         // basic settings
         chartView.descriptionText = ""
@@ -140,13 +141,15 @@ class BaseBarChartController : UIViewController {
             dic["range"] = 20
             dic["month"] = count
             dic["index"] = type.rawValue
+            dic["tab"] = type.rawValue
         }
         else {
             dic["start"] = 0
             dic["range"] = 15
             dic["month"] = count
             dic["index"] = type.rawValue
-            
+            dic["tab"] = type.rawValue
+
         }
         return dic
         
@@ -271,7 +274,7 @@ class TimeLineChartController :BaseBarChartController {
                 }
             }
             
-            for i in data.count..<(12) {
+            for _ in data.count..<(12) {
                 months.append("")
             }
             

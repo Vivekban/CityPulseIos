@@ -121,12 +121,10 @@ class AnalyticsViewController: BaseHeaderCollectionView {
 //        
 //    }
 
-}
 
 
-extension AnalyticsViewController : UICollectionViewDelegateFlowLayout{
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
+
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
         
         if indexPath.section == 2 {

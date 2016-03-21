@@ -157,7 +157,18 @@ class MainController: UITabBarController {
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.Landscape
     }
-       
+    
+    
+    static func getCurrentTabController(controller : UIViewController) -> BaseTabViewController?{
+        
+        if let tab = controller.view.window?.rootViewController as? UITabBarController {
+            if let c = tab.selectedViewController as? BaseTabViewController {
+                return c
+            }
+        }
+            
+      return nil
+    }
 }
 
 

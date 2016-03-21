@@ -24,12 +24,31 @@ class PublicFigureTabViewController: BaseTabViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func setTabsParameter() {
+    
+    
+    override func getTabsController() -> [UIViewController] {
+        
         storyBoardName = "Public Figure"
-        addTab("PublicFigureListController", title: MyStrings.top_public_figure)
-        addTab("PublicFigureListController", title: MyStrings.my_public_figure)
-
+        
+        
+        var controllers = [UIViewController]()
+        // Do any additional setup after loading the view.
+        let firstStoryboard:UIStoryboard = UIStoryboard(name: storyBoardName, bundle: nil)
+        
+        let controller : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("PublicFigureListController")
+        controller.title = MyStrings.top_public_figure
+        controllers.append(controller)
+        
+        let controller2 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("PublicFigureListController")
+        controller2.title = MyStrings.my_public_figure
+        controllers.append(controller2)
+        
+        
+        
+        return controllers
     }
+
+    
     /*
     // MARK: - Navigation
 

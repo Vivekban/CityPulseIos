@@ -1,5 +1,5 @@
 //
-//  IssueController.swift
+//  HomeDataManager.swift
 //  MyVoice
 //
 //  Created by PB014 on 05/02/16.
@@ -31,9 +31,9 @@ enum IssueInfoRequestType:Int{
 
 
 
-class IssueController: ServerDataManager{
+class HomeDataManager: ServerDataManager{
    
-    var issuesData = IssuesList()
+    var homeDataLists = HomeDataList()
     var issueCategorises:[String] = [String]()
     override init(){
         super.init()
@@ -141,10 +141,10 @@ class IssueController: ServerDataManager{
             }
             
             if tab == 0 {
-                issuesData.issueListsManager[index].updateEntries(entities)
+                homeDataLists.issueListsManager[index].updateEntries(entities)
             }
             else{
-                issuesData.hoaIssueListsManager[index].updateEntries(entities)
+                homeDataLists.hoaIssueListsManager[index].updateEntries(entities)
             }
             
             break
@@ -160,7 +160,7 @@ class IssueController: ServerDataManager{
                     }
                 }
             }
-            issuesData.pollsListsManager[index].updateEntries(entities)
+            homeDataLists.pollsListsManager[index].updateEntries(entities)
            break
 
         default:
@@ -182,7 +182,7 @@ class IssueController: ServerDataManager{
         
         
         
-        let lists =  issuesData.getList(tab)
+        let lists =  homeDataLists.getList(tab)
         
         if lists[index].hasAllEntries {
             if let handler = completionHandler {

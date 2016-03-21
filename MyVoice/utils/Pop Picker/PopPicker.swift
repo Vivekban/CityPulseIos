@@ -8,7 +8,7 @@
 
 import UIKit
 
-public typealias PopCallback = (newSelection : [String], forTextField : UITextField)->()
+public typealias PopCallback = (newSelection : [String], forTextField : UIView)->()
 
 
 public class PopPicker : NSObject, UIPopoverPresentationControllerDelegate {

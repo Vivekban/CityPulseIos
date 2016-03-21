@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MyViewsViewController: ProfileBaseHeaderCollectionView {
+class MyViewsViewController: BaseProfileHeaderCollectionView {
     
     @IBOutlet var collectionView: UICollectionView!
     
@@ -78,11 +78,9 @@ class MyViewsViewController: ProfileBaseHeaderCollectionView {
     override func getTitleForHeader(index: Int) -> String {
         return (entries[index] as! MyViewData).title
     }
-}
 
-extension MyViewsViewController : UICollectionViewDelegateFlowLayout{
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
         return CGSize(width: Int(collectionView.frame.size.width)/columns, height: 140)
     }

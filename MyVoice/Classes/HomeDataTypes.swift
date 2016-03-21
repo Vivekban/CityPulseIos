@@ -14,7 +14,6 @@ class IssueData: ImageUrlData {
     var tags:String = ""
     var markTo:Int = -1
     var isCritical = false
-    var location:Location?
     var status:String = "n"
     
     var isSubscribed = 0
@@ -120,7 +119,11 @@ class PostCommentData : BaseData {
 
 
 class PollData:ImageUrlData {
-    
+    var category:String = ""
+    var isVoted = 0
+    var supporters = 0
+    var opposers = 0
+
 }
 
 

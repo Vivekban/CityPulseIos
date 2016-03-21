@@ -137,12 +137,18 @@ class TitleDesDateData :TitleDescriptionData{
 
 class ImageUrlData : TitleDesDateData{
     var imagesUrls = [String]()
+    var location:Location?
+    
     override func mapping(map: Map) {
+        
         super.mapping(map)
+        
         imagesUrls <- map["imgurls"]
+        location <- map["location"]
+
         var singleUrl:String = ""
          singleUrl <- map["imgurl"]
-        
+
         if !singleUrl.isEmpty && imagesUrls.count == 0 {
             imagesUrls.append(singleUrl)
         }

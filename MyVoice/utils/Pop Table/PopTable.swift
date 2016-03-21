@@ -14,12 +14,12 @@ public class PopTable : NSObject, UIPopoverPresentationControllerDelegate {
     
     var popVC : PopTableViewController
     var popover : UIPopoverPresentationController?
-    var textField : UITextField!
+    var textField : UIView!
     var dataChanged : PopCallback?
     var presented = false
     var offset : CGFloat = 8.0
     
-    public init(forTextField: UITextField, data: PopInfo) {
+    public init(forTextField: UIView, data: PopInfo) {
         
         popVC = PopTableViewController()
         popVC.info = data

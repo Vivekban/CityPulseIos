@@ -151,7 +151,7 @@
                 <outlet property="residentCreditInfo" destination="BVY-jW-BYZ" id="FCi-Fe-1Ej"/>
                 <outlet property="residentCreditLine" destination="Ll0-o5-dIy" id="73D-Xh-jA0"/>
             </connections>
-            <point key="canvasLocation" x="-169.5" y="316"/>
+            <point key="canvasLocation" x="-191.5" y="113"/>
         </view>
     </objects>
     <resources>

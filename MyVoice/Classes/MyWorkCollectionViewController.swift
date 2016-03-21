@@ -14,6 +14,7 @@ class MyWorkCollectionViewController: BaseNestedTabViewController {
     @IBOutlet weak var collecitonView: UICollectionView!
 
     override func viewDidLoad() {
+        columns = 3
         super.viewDidLoad()
         
         numberOfSections = 1
@@ -118,13 +119,6 @@ class MyWorkCollectionViewController: BaseNestedTabViewController {
     }
     
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        showDetailViewController(indexPath.row)
-    }
     
-    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-
 }
 

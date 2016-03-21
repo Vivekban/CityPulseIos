@@ -1,5 +1,5 @@
 //
-//  ProfileBaseNestedViewController.swift
+//  BaseProfileNestedViewController.swift
 //  MyVoice
 //
 //  Created by PB014 on 15/02/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileBaseNestedViewController: BaseNestedTabViewController {
+class BaseProfileNestedViewController: BaseNestedTabViewController {
 
     override func viewDidLoad() {
         serverDataManager = CurrentSession.i.personController
@@ -36,7 +36,7 @@ class ProfileBaseNestedViewController: BaseNestedTabViewController {
 }
 
 
-class ProfileBaseHeaderCollectionView :BaseHeaderCollectionView {
+class BaseProfileHeaderCollectionView :BaseHeaderCollectionView {
     
     override func viewDidLoad() {
         serverDataManager = CurrentSession.i.personController

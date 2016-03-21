@@ -21,7 +21,6 @@ class BaseTabViewController: UIViewController {
     var isBriefBar = true
     // MARK: properties
     
-    var controllers:[UIViewController] = [UIViewController]()
     var storyBoardName:String = "Main"
     var tabsViewStartPoint :CGFloat = 0
     
@@ -46,6 +45,7 @@ class BaseTabViewController: UIViewController {
     
     var currentActiveView:UIView?
     
+    var briefBarType:BriefProfileType = .TopBar
     
     //
     
@@ -60,7 +60,7 @@ class BaseTabViewController: UIViewController {
         
         createActionButton()
         
-        topBar = UINib(nibName: "TopBar", bundle: nil).instantiateWithOwner(self, options: nil)[0] as? TopBarView
+        topBar = NSBundle.mainBundle().loadNibNamed("TopBar", owner: TopBarView.self, options: nil)[0] as? TopBarView//UINib(nibName: "TopBar", bundle: nil).instantiateWithOwner(TopBarView.self, options: nil)[0] as? TopBarView
         topBar?.delegate = self
         topBar?.controller = self
         topBar?.frame = CGRectMake(0, 20, view.frame.width, 45)
@@ -71,7 +71,6 @@ class BaseTabViewController: UIViewController {
             loadBriefView()
         }
         
-        setTabsParameter()
         
         loadTabs()
         
@@ -111,7 +110,6 @@ class BaseTabViewController: UIViewController {
         EventUtils.addObserver(self, selector: Selector("onBasicInfoUpdate"), key: EventUtils.basicInfoUpdateKey)
         
         
-        log.info("adding observer...............\(tabTitles[0]).")
         
         
     }
@@ -129,7 +127,6 @@ class BaseTabViewController: UIViewController {
         super.viewDidDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
         
-        log.info("removing observer..............\(tabTitles[0])..")
         
     }
     
@@ -298,7 +295,7 @@ class BaseTabViewController: UIViewController {
     
     func loadBriefView(){
         
-        briefProfileView =  BriefProfileBar.newInstance(self, type: (CurrentSession.i.personUI?.briefType)!, dataType: .TopBar,data: CurrentSession.i.personController.person.profileData)
+        briefProfileView =  BriefProfileBar.newInstance(self, type: (CurrentSession.i.personUI?.briefType)!, barType: briefBarType,data: CurrentSession.i.personController.person.profileData)
         briefProfileView?.delegate = self
         
         minTabsYpos = (topBar?.frame.origin.y)! + (topBar?.frame.height)! + spaceInViews
@@ -342,7 +339,8 @@ class BaseTabViewController: UIViewController {
         if additionalController != nil {
             removeAdditionView()
         }
-        
+        topBar?.titleLabel.text = controller.title
+
         additionalController = controller
         // controller.willMoveToParentViewController(self)
         
@@ -352,17 +350,20 @@ class BaseTabViewController: UIViewController {
         currentActiveView = controller.view
         controller.didMoveToParentViewController(self)
         topBar?.changeVisibiltOfBackButton(false)
+        tabsMenu?.view.hidden = true
     }
     
     func removeAdditionView() {
         if let oldVC = additionalController {
+            tabsMenu?.view.frame = (currentActiveView?.frame)!
             oldVC.willMoveToParentViewController(nil)
             oldVC.view.removeFromSuperview()
             oldVC.removeFromParentViewController()
         }
         currentActiveView = tabsMenu?.view
         topBar?.changeVisibiltOfBackButton(true)
-        
+        tabsMenu?.view.hidden = false
+
     }
     
     
@@ -387,31 +388,22 @@ extension BaseTabViewController : CAPSPageMenuDelegate{
     }
     
     func didMoveToPage(controller: UIViewController, index: Int) {
-        lastScrollDirection = 1
-        onDraggingStop()
+        //lastScrollDirection = 1
+        // onDraggingStop()
     }
     
 }
 
 extension BaseTabViewController : TabsInitialisation{
     
-    func setTabsParameter() {
-        
+    func getTabsController() -> [UIViewController]{
+        return [UIViewController]()
     }
     
     func loadTabs(){
         
-        
-        // Do any additional setup after loading the view.
-        let firstStoryboard:UIStoryboard = UIStoryboard(name: storyBoardName, bundle: nil)
-        
-        
-        for (i,identifier) in tabIndentifiers.enumerate() {
-            let controller : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier(identifier)
-            controller.title = tabTitles[i]
-            controllers.append(controller)
-        }
-        
+        let controllers = getTabsController()
+               
         let parameters: [CAPSPageMenuOption] = [
             .SelectionIndicatorColor(Constants.accentColor),
             .MenuHeight(50),
@@ -440,6 +432,18 @@ extension BaseTabViewController : TabsInitialisation{
         //            }
         //        }
     }
+    
+    
+    func moveToTab(index : Int) {
+        if tabsMenu?.controllerArray.count > index {
+                tabsMenu?.moveToPage(index)
+                tabsMenu?.moveSelectionIndicator(index)
+                ((tabsMenu?.controllerArray[index]) as? BaseNestedTabViewController)?.isVisible = true
+        }
+        else {
+            assertionFailure("invalid tab")
+        }
+    }
 }
 
 // MARK: - Brief Profile delegate
@@ -451,15 +455,15 @@ extension BaseTabViewController: BriefProfileBarDelegate {
             if let controller = MyUtils.getViewControllerFromStoryBoard("AdditionalUI", controllerName: "EditReviewController") as? BaseEditViewController {
                 var data : [BaseData] = [BaseData]()
                 controller.setDataSourceWith(.NEW, data: &data, index: -1)
+                controller.title = MyStrings.write_review
                 addAdditionView(controller)
-                topBar?.titleLabel.text = MyStrings.write_review
             }
         }
         else{
             
             if let controller = MyUtils.getViewControllerFromStoryBoard("AdditionalUI", controllerName: "ReviewViewController") {
+                controller.title = MyStrings.reviews
                 addAdditionView(controller)
-                topBar?.titleLabel.text = MyStrings.reviews
             }
         }
     }
@@ -488,7 +492,7 @@ extension BaseTabViewController : TopBarViewDelegate {
 protocol TabsInitialisation {
     
     /// set storyboard name, add various tabs
-    func setTabsParameter()
+    func getTabsController() -> [UIViewController]
     
     /// create tabs for
     func loadTabs()

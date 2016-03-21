@@ -12,7 +12,6 @@ class CommunityHubTabController: BaseTabViewController  {
 
     override func viewDidLoad() {
         isBriefBar = false
-        menuItemWidth = 150
         storyBoardName = "Community Hub"
         super.viewDidLoad()
         actionButton.hidden = true
@@ -24,13 +23,36 @@ class CommunityHubTabController: BaseTabViewController  {
         // Dispose of any resources that can be recreated.
     }
     
-    override func setTabsParameter() {
-        addTab("MyCommunityController", title: MyStrings.myCommunity)
-        addTab("SearchListController", title: MyStrings.communities)
-        addTab("ListController", title: MyStrings.topResident)
-        addTab("ListController", title: MyStrings.topCommunity)
+    
+    override func getTabsController() -> [UIViewController] {
+        
+        
+        var controllers = [UIViewController]()
+        // Do any additional setup after loading the view.
+        let firstStoryboard:UIStoryboard = UIStoryboard(name: storyBoardName, bundle: nil)
+        
+        let controller : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("MyCommunityController")
+        controller.title = MyStrings.myCommunity
+        controllers.append(controller)
+        
+        let controller2 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("SearchListController")
+        controller2.title = MyStrings.communities
+        controllers.append(controller2)
+        
+        let controller3 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("ListController")
+        controller3.title = MyStrings.topResident
+        controllers.append(controller3)
 
+        let controller4 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("ListController")
+        controller3.title = MyStrings.topCommunity
+        controllers.append(controller4)
+
+        
+        return controllers
     }
+
+    
+    
     /*
     // MARK: - Navigation
 

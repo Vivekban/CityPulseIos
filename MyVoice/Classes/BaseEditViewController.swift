@@ -434,7 +434,7 @@ extension BaseEditViewController : UITextFieldDelegate {
         else if (popPickerTextFields.contains(textField)){
             resign()
             popPickers[popPickerTextFields.indexOf(textField)!].pick(self, initData: [textField.text ?? ""], dataChanged: { (newSelection, forTextField) -> () in
-                forTextField.text = newSelection[0]
+                ((forTextField as? UITextField)!.text) = newSelection[0]
             })
             return false
         }
@@ -445,9 +445,10 @@ extension BaseEditViewController : UITextFieldDelegate {
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
-        if !TextFieldWithCharacterLimit.isFieldInArray(textField, list: fieldWithCharaterLimit) {
+        guard let tfLimit = TextFieldWithCharacterLimit.isFieldInArray(textField, list: fieldWithCharaterLimit) else{
             return true
         }
+        
         
         guard let text = textField.text else
         {
@@ -455,7 +456,7 @@ extension BaseEditViewController : UITextFieldDelegate {
         }
         
         let newLength = text.characters.count + string.characters.count - range.length
-        return newLength <= 10 // Bool
+        return newLength <= tfLimit.maxLimit // Bool
 
         
     }

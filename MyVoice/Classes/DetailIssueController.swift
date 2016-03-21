@@ -56,7 +56,7 @@ class DetailIssueController: BaseImageDetailViewController {
 //        
         responseSectionHeight = -1
 //
-        for i in 0..<1 {
+        for _ in 0..<1 {
             let comnt = ResponseData()
             comnt.description = "I feel sorry to hear the inconvenience you have been facing. The park fall under our jurisdiction and I will make sure to send somebody from our department to inspect it at he earliest. We are here for you and incase you want to report something directly, please email us at parkdeptt@ca.gov "
             comnt.disPlayDate = TimeDateUtils.getShortDateInString(NSDate())

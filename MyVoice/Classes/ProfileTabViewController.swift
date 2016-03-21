@@ -9,16 +9,13 @@
 import UIKit
 
 class ProfileViewController: BaseTabViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         menuItemWidth = 80
         
-        tabsMenu?.moveToPage(4)
-        tabsMenu?.moveSelectionIndicator(4)
-        ((tabsMenu?.controllerArray[4]) as? BaseNestedTabViewController)?.isVisible = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -29,28 +26,33 @@ class ProfileViewController: BaseTabViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
         
-       
+        
     }
     
     
-    override func setTabsParameter() {
+    override func getTabsController() -> [UIViewController] {
         storyBoardName = "Me"
+
+        var controllers = [UIViewController]()
+        // Do any additional setup after loading the view.
+        let firstStoryboard:UIStoryboard = UIStoryboard(name: storyBoardName, bundle: nil)
         
         if  let tabs = CurrentSession.i.personUI?.profileTabs {
-        
-        for i in tabs {
-            addTab(i.string_1 , title: i.string_2)
-
+            
+            for i in tabs {
+                addTab(i.string_1 , title: i.string_2)
+                let controller : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier(i.string_1)
+                controller.title = i.string_2
+                controllers.append(controller)
+            }
         }
-        }
-        
-//        addTab("MyViews", title: "My Views")
-//        addTab("MyWorkViewController", title: "My Work")
-//        addTab("EventViewController", title: "Events")
+        return controllers
     }
-
+    
+    
+    
     override func willMoveToPage(controller: UIViewController, index: Int) {
-       changeVisibilityOfActionButton(false)
+        changeVisibilityOfActionButton(false)
     }
     
     override func didMoveToPage(controller: UIViewController, index: Int) {
@@ -90,5 +92,9 @@ class ProfileViewController: BaseTabViewController {
         (tabsMenu?.controllerArray[(tabsMenu?.currentPageIndex)!] as? BaseNestedTabProtocoal)?.onActionButtonClick(sender)
     }
     
+    
+    func moveToProfileTab(){
+        moveToTab((tabsMenu?.controllerArray.count)! - 1)
+    }
 }
 

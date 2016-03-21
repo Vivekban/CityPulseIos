@@ -12,7 +12,7 @@ import CoreLocation
 class HomeTabViewController: BaseTabViewController {
     
     let locationManager = CLLocationManager()
-
+    
     
     var filterPopOver:PopTable!
     var filterItems = [String]()
@@ -57,7 +57,7 @@ class HomeTabViewController: BaseTabViewController {
         filterPopOver = PopTable(forTextField: filterTextView, data: PopInfo(items: info,heading: MyStrings.filters))
         
         
-
+        
         
         // Do any additional setup after loading the view.
     }
@@ -70,39 +70,54 @@ class HomeTabViewController: BaseTabViewController {
     }
     
     
-    override func setTabsParameter() {
+    
+    override func getTabsController() -> [UIViewController] {
+        
         menuItemWithAccordingToText = true
         actionButton.setTitle("New".localized, forState: .Normal)
         
         storyBoardName = "Home"
-        // let tabs = CurrentSession.i.personUI?.nHomeTabs
-        addTab("IssueViewController", title: "\(MyStrings.community_issues)")
-        addTab("IssueViewController", title: "\(MyStrings.HOA_issues)")
-        addTab("IssueViewController", title: "\(MyStrings.polls)")
         
-        //        if tabs>3 {
-        //            addTab("IssueViewController", title: NSLocalizedString("Subscribed", comment: "Subscribed"))
-        //            addTab("IssueViewController", title: NSLocalizedString("Resolved", comment: "Resolved"))
-        //        }
         
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-      
-        topBar?.isCatergoryActive = true
-        topBar?.changeVisibiltOfCity(false)
+        var controllers = [UIViewController]()
+        // Do any additional setup after loading the view.
+        let firstStoryboard:UIStoryboard = UIStoryboard(name: storyBoardName, bundle: nil)
         
-        (tabsMenu?.controllerArray[1] as? IssueViewController)?.issueType = IssueType.HOA
+        let controller : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("IssueViewController")
+        controller.title = MyStrings.community_issues
+        controllers.append(controller)
+        
+        let controller2 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("IssueViewController")
+        controller2.title = MyStrings.HOA_issues
+        (controller2 as? IssueViewController)?.issueType = IssueType.HOA
 
+        controllers.append(controller2)
+        
+        
+        let controller3 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("PollsViewController")
+        controller3.title = MyStrings.polls
+        controllers.append(controller3)
+        
         
         //actionButton.frame
-              for (i,controller) in (tabsMenu?.controllerArray.enumerate())! {
+        for (i,controller) in (controllers.enumerate()) {
             if let con = controller as? HomeBaseNestedTabController {
                 con.currentFilter = CurrentSession.i.personUI?.homeFilters[i][0]
             }
         }
-        // (tabsMenu?.controllerArray[1] as? BaseNestedTabViewController)
+
+        
+        
+        return controllers
+    }
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        topBar?.isCatergoryActive = true
+        topBar?.changeVisibiltOfCity(false)
+               // (tabsMenu?.controllerArray[1] as? BaseNestedTabViewController)
         
     }
     
@@ -110,7 +125,7 @@ class HomeTabViewController: BaseTabViewController {
         super.viewDidAppear(animated)
         EventUtils.addObserver(self, selector: Selector("onCategoryUpdated"), key: EventUtils.categoryUpdateKey)
         setupForLocation()
-
+        
     }
     
     override  func onCategoryChanged(text:String, item index:Int) {
@@ -128,12 +143,12 @@ class HomeTabViewController: BaseTabViewController {
     }
     
     override func didMoveToPage(controller: UIViewController, index: Int) {
-       
-         self.filterTextView.text = (tabsMenu?.controllerArray[index] as? HomeBaseNestedTabController)?.currentFilter?.value
+        
+        self.filterTextView.text = (tabsMenu?.controllerArray[index] as? HomeBaseNestedTabController)?.currentFilter?.value
         filterTextView.sizeToFit()
         
         super.didMoveToPage(controller, index: index)
-
+        
         // currentTab = index
         
         
@@ -181,34 +196,34 @@ extension HomeTabViewController : UITextFieldDelegate {
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         
         if (textField == filterTextView) {
-             let filters = CurrentSession.i.personUI?.homeFilters[currentTab]
+            let filters = CurrentSession.i.personUI?.homeFilters[currentTab]
             
             
             
-        
+            
             if let controller = (tabsMenu?.controllerArray[(tabsMenu?.currentPageIndex)!] as? HomeBaseNestedTabController) {
                 filterPopOver.updateHeading(controller.title!)
                 filterPopOver.updateData(0, newData: BaseFilter.getFilterValues(filters!))
-
                 
                 
-            filterPopOver.pick(self, initData: [controller.currentFilter!.value], dataChanged: { [weak self] (newSelection, forTextField) -> () in
-                if self == nil {
-                    return
-                }
                 
-                if newSelection.count > 0 {
-                    let value = newSelection[0]
-                     self?.filterTextView.text = value
-                     self?.filterTextView.sizeToFit()
-
-                    controller.currentFilter = BaseFilter.getFilterOfString(value, filters:filters!) as? HomeFilter
+                filterPopOver.pick(self, initData: [controller.currentFilter!.value], dataChanged: { [weak self] (newSelection, forTextField) -> () in
+                    if self == nil {
+                        return
+                    }
                     
-                }
+                    if newSelection.count > 0 {
+                        let value = newSelection[0]
+                        self?.filterTextView.text = value
+                        self?.filterTextView.sizeToFit()
+                        
+                        controller.currentFilter = BaseFilter.getFilterOfString(value, filters:filters!) as? HomeFilter
+                        
+                    }
+                    
+                    })
                 
-                })
-            
-            return false
+                return false
             }
         }
         
@@ -225,7 +240,7 @@ extension HomeTabViewController : UITextFieldDelegate {
         //  Crashlytics.sharedInstance().crash()
         
     }
-
+    
 }
 
 
@@ -244,12 +259,12 @@ extension HomeTabViewController : CLLocationManagerDelegate {
                 // log.error("reverse geodcode fail: \(error!.localizedDescription)")
                 return
             }
-//            for place in placemarks! {
-//                if let p = place as? CLPlacemark {
-//                    log.info(" \(p.locality!)  \( p.administrativeArea!)")
-//                    
-//                }
-//            }
+            //            for place in placemarks! {
+            //                if let p = place as? CLPlacemark {
+            //                    log.info(" \(p.locality!)  \( p.administrativeArea!)")
+            //
+            //                }
+            //            }
             CurrentSession.i.userPlacemark = placemarks?[0]
             EventUtils.postNotification(EventUtils.locationUpdateKey)
             // self?.locationManager.stopUpdatingLocation()

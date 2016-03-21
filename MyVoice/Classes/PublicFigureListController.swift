@@ -36,6 +36,12 @@ class PublicFigureListController: BaseNestedTabViewController {
     
     //MARK: UITableViewDataSource
     
+    override func showDetailViewController(index: Int) -> UIViewController? {
+        let controller = SecondPersonProfileViewController()
+        MyUtils.presentViewController(self, newController: controller)
+        return controller
+    }
+    
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as UITableViewCell

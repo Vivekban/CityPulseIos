@@ -18,9 +18,12 @@ class ResidentUI: PersonUI {
     }
     
     override func personSpecificParmeter() {
+        donationType = DonationType.donated
         nHomeTabs = 3
         briefType = .Resident
-        profileTabs = [TwoString(str1: "BasicInfo", str2: "Info"),TwoString(str1: "BasicInfo", str2: "Activity"),TwoString(str1: "EventViewController", str2: "Events")]
+        profileTabs = [TwoString(str1: "BasicInfo", str2: "Info"),
+            TwoString(str1: "ActivityViewController", str2: "Activity"),
+            TwoString(str1: "EventViewController", str2: "Events")]
 
     }
     
@@ -30,11 +33,12 @@ class ResidentUI: PersonUI {
         case 0:
             return basicTextFieldInfo()
         case 1:
-            return contactTextFieldInfo()
-        case 2:
-            return educationTextFieldInfo()
-        case 3:
             return occupationTextFieldInfo()
+        case 2:
+            return contactTextFieldInfo()
+        case 3:
+            return educationTextFieldInfo()
+
         default:
             assertionFailure()
         }

@@ -20,7 +20,7 @@ class TopBarView: UIView {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var cityField: FloatLabelTextField!
     @IBOutlet weak var cityLine: UIView!
-    @IBOutlet weak var categoryField: UITextField!
+    @IBOutlet weak var categoryField: UIButton!
     
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -39,6 +39,17 @@ class TopBarView: UIView {
     }
     */
     
+    @IBAction func onCategoryButtonClick(sender: UIButton) {
+        categoryPopPicker.updateData(0, newData: CurrentSession.i.appDataController.appData.categories)
+        categoryPopPicker.pick(controller!, initData: [categoryField.titleLabel?.text ?? ""]) { (newSelection, forTextField) -> () in
+            if newSelection.count > 0 {
+                let val = newSelection[0]
+                (forTextField as? UIButton)?.setTitle(val, forState: UIControlState.Normal)
+                self.delegate?.onCategoryChanged(newSelection[0], item: self.categoryPopPicker.popVC.info?.items?[0].indexOf(val) ?? 0)
+            }
+        }
+
+    }
 
     @IBAction func onHelpButtonClick(sender: UIButton) {
         delegate?.onHelpButtonClick()
@@ -47,6 +58,9 @@ class TopBarView: UIView {
         delegate?.onBackButtonClick()
     }
    
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         categoryField.hidden = true
@@ -65,7 +79,6 @@ class TopBarView: UIView {
         info.items?.append(CurrentSession.i.issueController.issueCategorises)
         
         categoryPopPicker = PopTable(forTextField: categoryField, data: info)
-        categoryField.delegate = self
         
         // The icon is accessible through the 'leftView' property of the UITextField.
         // We set it to the 'rightView' instead.
@@ -79,12 +92,12 @@ class TopBarView: UIView {
     }
     
     
-    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
-        print(bounds)
-        print(frame)
-        return super.hitTest(point, withEvent: event)
-        
-    }
+//    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+//        print(bounds)
+//        print(frame)
+//        return super.hitTest(point, withEvent: event)
+//        
+//    }
     
     func changeVisibiltOfBackButton(visible:Bool){
 
@@ -116,15 +129,7 @@ extension TopBarView :UITextFieldDelegate{
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         controller?.view.endEditing(true)
-        categoryPopPicker.updateData(0, newData: CurrentSession.i.appDataController.appData.categories)
-        categoryPopPicker.pick(controller!, initData: [categoryField.text ?? ""]) { (newSelection, forTextField) -> () in
-            if newSelection.count > 0 {
-                let val = newSelection[0]
-                forTextField.text = val
-                self.delegate?.onCategoryChanged(newSelection[0], item: self.categoryPopPicker.popVC.info?.items?[0].indexOf(val) ?? 0)
-            }
-        }
-        return false
+              return false
     }
     
 }

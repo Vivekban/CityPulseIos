@@ -21,22 +21,22 @@ class MyUtils{
         return datePickerView
     }
     
-    static func presentViewController(controller:UIViewController, identifier: String) -> UIViewController?{
-        if let sectionController = controller.storyboard?.instantiateViewControllerWithIdentifier(identifier)
+    static func presentViewController(currentController:UIViewController, identifier: String) -> UIViewController?{
+        if let sectionController = currentController.storyboard?.instantiateViewControllerWithIdentifier(identifier)
         {
-            if let pController = controller.parentViewController {
-                // controller.presentViewController(sectionController, animated: true, completion: nil)
-                controller.view.window?.rootViewController?.presentViewController(sectionController, animated: true, completion: nil)
-            }
-            else{
-                // controller.presentViewController(sectionController, animated: true, completion: nil)
-                controller.view.window?.rootViewController?.presentViewController(sectionController, animated: true, completion: nil)
-                
-            }
+        presentViewController(currentController, newController: sectionController)
             return sectionController
         }
         return nil
     }
+    
+    
+    static func presentViewController(currentController:UIViewController, newController: UIViewController){
+            currentController.view.window?.rootViewController?.presentViewController(newController, animated: true, completion: nil)
+      
+    }
+
+    
     
     static func getViewControllerFromStoryBoard(storyBoadName : String, controllerName : String) -> UIViewController? {
         let aStoryboard =  UIStoryboard(name: storyBoadName, bundle: NSBundle.mainBundle())

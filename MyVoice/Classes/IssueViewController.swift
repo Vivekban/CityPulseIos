@@ -11,9 +11,12 @@ import CoreLocation
 
 class IssueViewController: HomeBaseNestedTabController {
     
-    var issueType = IssueType.Community
+    var issueType = IssueType.Community {
+        didSet{
+            tab = issueType.rawValue
+        }
+    }
     
-    var newIssueButton = UIButton(type:.System)
     
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -21,7 +24,7 @@ class IssueViewController: HomeBaseNestedTabController {
     override func viewDidLoad() {
         
         serverListRequestType = currentFilter?.dataRequestType ?? 0
-        
+        columns = 3
         super.viewDidLoad()
         
         collecView = collectionView
@@ -43,92 +46,11 @@ class IssueViewController: HomeBaseNestedTabController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(animated: Bool) {
-        entries = getAllEntries()
-        super.viewWillAppear(animated)
-        
-        // collecView?.reloadData()
-        
-        if newIssueButton.superview == nil {
-            if let parentView = view.superview {
-                print(newIssueButton.frame)
-                // newIssueButton.frame = CGRect(x: parentView.frame.width - 120, y: 8, width: 100, height: newIssueButton.frame.height)
-                parentView.addSubview(newIssueButton)
-                //parentView.addConstraint(NSLayoutConstraint(item: newIssueButton, attribute: .Trailing, relatedBy: .Equal, toItem: parentView, attribute: .Trailing, multiplier: 1, constant: 8))
-                
-            }
-        }
-    }
     
     
-    override func getParameterForListFetching(type: Int) -> [String : AnyObject] {
-        var params = super.getParameterForListFetching(type)
-        params["tab"] = issueType.rawValue
-        params["index"] = currentFilter?.index ?? 0
-        return params
-    }
-    
-    func getAllEntries() -> [BaseData] {
-        return CurrentSession.i.issueController.issuesData.issueListsManager[currentFilter?.index ?? 0].entries
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func onCatergoryChange(text:String, item index:Int){
-        if currentCategory != text {
-            currentCategory = text
-            currentCategoryIndex = index
-            filterEntriesByCategory()
-        }
-    }
-    
-    func filterEntriesByCategory() {
-        let allEntries = getAllEntries()
-        entries.removeAll()
-        
-        if currentCategoryIndex != 0 {
-            for i in allEntries {
-                if let d = i as? IssueData {
-                    if d.category == currentCategory {
-                        entries.append(d)
-                    }
-                }
-            }
-            
-        }
-        else{
-            entries.appendContentsOf(allEntries)
-        }
-        if collectionView != nil {
-            self.collectionView.reloadData()
-        }
-
-    }
-    
-    override func onFilterChange() {
-        
-        
-        if serverListRequestType != currentFilter?.dataRequestType ?? 0 {
-            serverListRequestType = currentFilter?.dataRequestType ?? 0
-            fetchListFromStart()
-        }
-    }
-    
-    override func updateListEntries(parameter: [String : AnyObject]) {
-        let c = currentFilter?.index ?? 0
-        
-        if let index = parameter["index"] as?Int {
-            if index == c {
-                entries = CurrentSession.i.issueController.issuesData.issueListsManager[c].entries
-                filterEntriesByCategory()
-                updateEntries()
-            }
-        }
-    }
     
     
+  
     
     
     
@@ -146,10 +68,7 @@ class IssueViewController: HomeBaseNestedTabController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return entries.count
-        
-    }
+
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! IssueCollectionViewCell
@@ -191,14 +110,7 @@ class IssueViewController: HomeBaseNestedTabController {
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        showDetailViewController(indexPath.row)
-    }
-    
-    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    
+        
     
     
     

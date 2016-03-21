@@ -74,12 +74,8 @@ class EventsViewController: BaseHeaderCollectionView {
         return (entries[index] as! EventData).title
     }
     
-        
-}
-
-extension EventsViewController : UICollectionViewDelegateFlowLayout{
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
+            
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
         return CGSize(width: Int(collectionView.frame.size.width)/columns, height: 140)
     }

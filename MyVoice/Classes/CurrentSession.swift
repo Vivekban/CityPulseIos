@@ -38,7 +38,7 @@ class CurrentSession {
         mainPersonController = personController
         
         appDataController = AppDataController()
-        issueController = IssueController()
+        issueController = HomeDataManager()
         
     }
     
@@ -54,7 +54,7 @@ class CurrentSession {
     
     // MARK: - issues
     
-    var issueController:IssueController!
+    var issueController:HomeDataManager!
     
     var appDataController:AppDataController!
     
@@ -62,6 +62,13 @@ class CurrentSession {
     
     func isVisitingSomeone() -> Bool {
         return mainPersonController != personController
+    }
+    
+    func isLeader() -> Bool{
+        if let _ = personUI as? LeaderUI {
+            return true
+        }
+        return false
     }
     
 }
