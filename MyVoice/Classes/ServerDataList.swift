@@ -49,11 +49,14 @@ class ServerDataList {
         if isClear {
             self.entries.removeAll()
         }
+
         for e in entries {
             if !isContainEntry(e) {
-                self.entries.appendContentsOf(entries)
+                self.entries.append(e)
             }
         }
+        
+        //print("final entry. count....\(entries.count).....");
         
         lastUpdated = NSDate()
         
@@ -63,8 +66,9 @@ class ServerDataList {
     
     
     func isContainEntry(e : BaseData) -> Bool {
+        let val = e.hashValue
         for i in entries {
-            if ( i.hashValue == e.hashValue ){
+            if ( i.hashValue == val){
                 return true
             }
         }

@@ -18,16 +18,23 @@ class LayoutConstraintUtils {
    static func getHeightContraint(view:UIView, height:CGFloat)->NSLayoutConstraint{
         return NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: height)
     }
+    
+    static func getTopContraint(view:UIView, container:UIView, value:CGFloat)->NSLayoutConstraint{
+        return NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: container, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: value)
+    }
+    
+    static func getBottomContraint(view:UIView, container:UIView, value:CGFloat)->NSLayoutConstraint{
+        return NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: container, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: value)
+    }
+
+    static func getLeadingContraint(view:UIView, container:UIView, value:CGFloat)->NSLayoutConstraint{
+        return NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: container, attribute: NSLayoutAttribute.Leading, multiplier: 1, constant: value)
+    }
+
+    static func getTrailingContraint(view:UIView, container:UIView, value:CGFloat)->NSLayoutConstraint{
+        return NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: container, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: value)
+    }
+
 }
 
 
-extension UIView {
-    
-     func addWidthContraint(width:CGFloat) {
-        addConstraint(LayoutConstraintUtils.getWidthContraint(self, width: width))
-    }
-    
-     func getHeightContraint(view:UIView, height:CGFloat){
-        addConstraint(LayoutConstraintUtils.getHeightContraint(self, height:height))
-    }
-}

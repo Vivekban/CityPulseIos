@@ -35,6 +35,7 @@ class BaseTabViewController: UIViewController {
     var scrollViewYOffset:CGFloat = -1
     var isScroll = false
     var lastScrollDirection = 0
+    var scrollViewContentOffset:CGFloat = 0
     //
     var minTabsYpos:CGFloat = 0
     var maxTabsYpos:CGFloat = 0
@@ -95,10 +96,11 @@ class BaseTabViewController: UIViewController {
     
     
     override func viewDidAppear(animated: Bool) {
-        log.debug("Start.............First view appear...\(topBar?.frame)...")
+        log.debug("Start.............First view appear...\(briefProfileView?.frame)...")
         topBar?.frame = CGRectMake(0, 20, view.frame.width, 45)
         briefProfileView?.frame = CGRectMake(0, minTabsYpos , view.frame.width, 100)
-        
+        log.debug("after....Start.............First view appear...\(briefProfileView?.frame)...")
+
         super.viewDidAppear(animated)
         if let i = tabsMenu?.currentPageIndex {
             didMoveToPage((tabsMenu?.controllerArray[i])!, index: i)
@@ -135,7 +137,9 @@ class BaseTabViewController: UIViewController {
         if let value = sender.object as? Int {
             
             if value == 2 {
+                if tabsViewStartPoint != minTabsYpos - spaceInViews && tabsViewStartPoint != maxTabsYpos {
                 onDraggingStop()
+                }
             }
             
             isScroll = value == 1 ? true : false
@@ -172,11 +176,12 @@ class BaseTabViewController: UIViewController {
             scrollViewYOffset = scrollView.panGestureRecognizer.translationInView(scrollView.superview).y
             self.scrollView = scrollView
             tranlation = 0//scrollView.panGestureRecognizer.translationInView(scrollView.superview).y
+            scrollViewContentOffset = scrollView.contentOffset.y
             return
         }
-        // print("tranlation...is \(scrollView.panGestureRecognizer.translationInView(scrollView.superview).y) and previos is \(tranlation)")
+        //print("tranlation...is \(scrollView.panGestureRecognizer.translationInView(scrollView.superview).y) and previos is \(tranlation)")
         
-        let val = scrollView.panGestureRecognizer.translationInView(scrollView.superview).y - tranlation
+        let val = scrollView.panGestureRecognizer.translationInView(scrollView.superview).y   - tranlation
         // scrollViewYOffset += val
         tranlation = scrollView.panGestureRecognizer.translationInView(scrollView.superview).y
         
@@ -185,30 +190,36 @@ class BaseTabViewController: UIViewController {
         
         let newTabsPos = max(minTabsYpos - spaceInViews, min(maxTabsYpos, tabsViewStartPoint + val))
         
+        
+        print(scrollView.contentOffset.y - scrollViewContentOffset)
+        
+        
         if newTabsPos != tabsViewStartPoint {
             
-            let change = newTabsPos - tabsViewStartPoint
-            
-            scrollView.contentOffset.y += change
-            
-            // var frame =  CGRectMake((briefProfileView?.frame.origin.x)!, (briefProfileView?.frame.origin.y)!, (briefProfileView?.frame.size.width)!, newTabsPos - minTabsYpos)
-            // frame.size.height = max(0,min(100,(frame.size.height)))
-            
-            briefProfileView?.frame.origin.y += change
-            
-            //   briefProfileView?.setNeedsDisplayInRect(frame)
-            
-            
-            tabsViewStartPoint = newTabsPos
-            
-            var tabsFrame = currentActiveView?.frame
-            
-            tabsFrame?.size.height -= change
-            tabsFrame?.origin.y += change
-            
-            currentActiveView?.frame = tabsFrame!
-            
-            view.setNeedsLayout()
+            if !(tabsViewStartPoint == minTabsYpos - spaceInViews && scrollView.contentOffset.y > 0) {
+                
+                let change = newTabsPos - tabsViewStartPoint
+                
+                // var frame =  CGRectMake((briefProfileView?.frame.origin.x)!, (briefProfileView?.frame.origin.y)!, (briefProfileView?.frame.size.width)!, newTabsPos - minTabsYpos)
+                // frame.size.height = max(0,min(100,(frame.size.height)))
+                //   briefProfileView?.setNeedsDisplayInRect(frame)
+                
+                
+                tabsViewStartPoint = newTabsPos
+                
+                var tabsFrame = currentActiveView?.frame
+                
+                tabsFrame?.size.height -= change
+                tabsFrame?.origin.y += change
+                briefProfileView?.frame.origin.y = (tabsFrame?.origin.y)! - (briefProfileView?.frame.height)! - spaceInViews
+                
+                
+                currentActiveView?.frame = tabsFrame!
+                
+                scrollView.contentOffset.y += change
+
+                view.setNeedsLayout()
+            }
         }
         
     }
@@ -218,14 +229,13 @@ class BaseTabViewController: UIViewController {
         if !isBriefBar {
             return
         }
+        
         view.layer.removeAllAnimations()
         if lastScrollDirection < 0 {
-            
             
             let newTabsPos = minTabsYpos - spaceInViews
             
             if newTabsPos != tabsViewStartPoint {
-                
                 let change = newTabsPos - tabsViewStartPoint
                 let time = change/50
                 // print(change)
@@ -235,7 +245,6 @@ class BaseTabViewController: UIViewController {
                     self.animateView(change)
                 })
             }
-            
         }
         else {
             let newTabsPos = maxTabsYpos
@@ -243,24 +252,25 @@ class BaseTabViewController: UIViewController {
             if newTabsPos != tabsViewStartPoint {
                 let change = newTabsPos - tabsViewStartPoint
                 let time = change/400
-                 
+                
                 tabsViewStartPoint = maxTabsYpos
-
+                
                 
                 UIView.animateWithDuration(NSTimeInterval(time), animations: { () -> Void in
                     
                     //self.animateView(change)
                     
-                    self.briefProfileView?.frame.origin.y =  self.minTabsYpos - self.spaceInViews
+                    self.briefProfileView?.frame.origin.y =  self.minTabsYpos
                     
                     var tabsFrame = self.currentActiveView?.frame
-                    tabsFrame?.origin.y = self.maxTabsYpos
-                    tabsFrame?.size.height = self.view.frame.height - self.maxTabsYpos
-
+                    tabsFrame?.origin.y = self.maxTabsYpos + self.spaceInViews
+                    tabsFrame?.size.height = self.view.frame.height - self.maxTabsYpos - self.spaceInViews
+                    
                     self.currentActiveView?.frame = tabsFrame!
                     self.view.setNeedsLayout()
-                  
+                    
                 })
+                
             }
         }
         
@@ -287,10 +297,13 @@ class BaseTabViewController: UIViewController {
     
     func createActionButton(){
         actionButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        //actionButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
+        actionButton.highlighted = false
         actionButton.titleLabel?.textColor = UIColor.whiteColor()
         actionButton.addTarget(self, action: Selector("onActionButtonClick:"), forControlEvents: .TouchUpInside)
         actionButton.frame = CGRect(x: (view.frame.width) - 100 - 15, y: 10, width: 100, height:30)
         actionButton.backgroundColor = Constants.accentColor
+        
     }
     
     func loadBriefView(){
@@ -340,7 +353,7 @@ class BaseTabViewController: UIViewController {
             removeAdditionView()
         }
         topBar?.titleLabel.text = controller.title
-
+        
         additionalController = controller
         // controller.willMoveToParentViewController(self)
         
@@ -363,7 +376,7 @@ class BaseTabViewController: UIViewController {
         currentActiveView = tabsMenu?.view
         topBar?.changeVisibiltOfBackButton(true)
         tabsMenu?.view.hidden = false
-
+        
     }
     
     
@@ -403,7 +416,7 @@ extension BaseTabViewController : TabsInitialisation{
     func loadTabs(){
         
         let controllers = getTabsController()
-               
+        
         let parameters: [CAPSPageMenuOption] = [
             .SelectionIndicatorColor(Constants.accentColor),
             .MenuHeight(50),
@@ -436,9 +449,9 @@ extension BaseTabViewController : TabsInitialisation{
     
     func moveToTab(index : Int) {
         if tabsMenu?.controllerArray.count > index {
-                tabsMenu?.moveToPage(index)
-                tabsMenu?.moveSelectionIndicator(index)
-                ((tabsMenu?.controllerArray[index]) as? BaseNestedTabViewController)?.isVisible = true
+            tabsMenu?.moveToPage(index)
+            tabsMenu?.moveSelectionIndicator(index)
+            ((tabsMenu?.controllerArray[index]) as? BaseNestedTabViewController)?.isVisible = true
         }
         else {
             assertionFailure("invalid tab")

@@ -1,5 +1,5 @@
 //
-//  PersonController.swift
+//  PersonDataManager.swift
 //  MyVoice
 //
 //  Created by PB014 on 25/01/16.
@@ -16,7 +16,7 @@ enum PersonInfoRequestType:Int{
     case BasicInfo = 1, Views, Reviews, Profile, Work, Video, Event , SentimentTimeLine, SentimentMap,ReviewAnalysis, Credits,Donations,PageView,Badges
 }
 
-class PersonController : ServerDataManager {
+class PersonDataManager : ServerDataManager {
     var person:PersonData = PersonData()
     var userId:Int!
     

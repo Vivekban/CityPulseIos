@@ -33,9 +33,9 @@ class EditIssueViewController: BaseImageEditViewController {
         var info = PopInfo()
         info.items = [[String]]()
         info.items?.append([String]())
-        
+        info.heading = MyStrings.categories
         // removing all option
-        var enty = CurrentSession.i.appDataController.appData.categories
+        var enty = CurrentSession.i.appDataManager.appData.categories
         if enty.count > 0 {
             enty.removeFirst()
         }
@@ -47,10 +47,10 @@ class EditIssueViewController: BaseImageEditViewController {
         var info2 = PopInfo()
         info2.items = [[String]]()
         info2.items?.append([String]())
-        info2.items![0].appendContentsOf(BaseFilter.getFilterValues(CurrentSession.i.appDataController.appData.markTo))
+        info2.items![0].appendContentsOf(BaseFilter.getFilterValues(CurrentSession.i.appDataManager.appData.markTo))
+        info2.heading = MyStrings.mark_to
 
         addTextFieldForPickerPopOver(markTo, info: info2)
-        
         
         collection = collectionView
         
@@ -61,6 +61,8 @@ class EditIssueViewController: BaseImageEditViewController {
         fieldHideByKeyboard.append(tags)
         
         tags.delegate = self
+        
+        descriptionField.textView.delegate = self
         
         // hide cancel button
         
@@ -106,7 +108,7 @@ class EditIssueViewController: BaseImageEditViewController {
             d.category = category.text ?? ""
             d.tags = tags.text ?? ""
             //   d.location = location.text
-            d.markTo = BaseFilter.getFilterOfString(markTo.text ?? "", filters: CurrentSession.i.appDataController.appData.markTo)?.index ?? 0
+            d.markTo = BaseFilter.getFilterOfString(markTo.text ?? "", filters: CurrentSession.i.appDataManager.appData.markTo)?.index ?? 0
             d.isCritical = criticalSwitch.on
         }
         

@@ -25,10 +25,8 @@ class HomeTabViewController: BaseTabViewController {
     }
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        
-        
-        
         
         filterTextView = UITextField(frame: CGRect(x: (actionButton.frame.origin.x) - 120 - 20, y: 14, width: 120, height:30))
         filterTextView.delegate = self
@@ -50,13 +48,9 @@ class HomeTabViewController: BaseTabViewController {
         
         tabsMenu?.view.addSubview(filterTextView)
         
-        
-        
         var info = [[String]]()
         info.append(filterItems)
         filterPopOver = PopTable(forTextField: filterTextView, data: PopInfo(items: info,heading: MyStrings.filters))
-        
-        
         
         
         // Do any additional setup after loading the view.

@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostCommentView" customModule="CityPulse" customModuleProvider="target">
             <connections>
-                <outlet property="descriptionField" destination="67b-iL-pVC" id="ZFx-I6-CgR"/>
+                <outlet property="descriptionField" destination="gCt-eh-IZ7" id="Nms-pQ-g0P"/>
                 <outlet property="postButton" destination="MuN-UY-fez" id="ecX-2l-WZ9"/>
             </connections>
         </placeholder>
@@ -16,19 +16,6 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="67b-iL-pVC">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="545"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                            <integer key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </textView>
                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MuN-UY-fez">
                     <rect key="frame" x="0.0" y="557" width="31" height="35"/>
                     <color key="backgroundColor" red="0.019607843140000001" green="0.57254901960000004" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -42,15 +29,21 @@
                         <action selector="onPostClick:" destination="-1" eventType="touchUpInside" id="uea-R6-ZWi"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gCt-eh-IZ7" customClass="DescriptionView" customModule="CityPulse" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="545"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="545" id="hP7-F8-U4p"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="67b-iL-pVC" secondAttribute="trailing" id="Bfe-64-jzl"/>
-                <constraint firstItem="67b-iL-pVC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="HJ7-O4-Fz7"/>
-                <constraint firstItem="MuN-UY-fez" firstAttribute="top" secondItem="67b-iL-pVC" secondAttribute="bottom" constant="12" id="JkI-W6-XYi"/>
-                <constraint firstAttribute="bottom" secondItem="MuN-UY-fez" secondAttribute="bottom" constant="8" id="RL0-Ed-Dup"/>
+                <constraint firstAttribute="trailing" secondItem="gCt-eh-IZ7" secondAttribute="trailing" id="K19-dV-wdM"/>
                 <constraint firstItem="MuN-UY-fez" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="VR7-00-ogN"/>
-                <constraint firstItem="67b-iL-pVC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="flf-77-lpO"/>
+                <constraint firstItem="gCt-eh-IZ7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="aBb-62-MBZ"/>
+                <constraint firstItem="gCt-eh-IZ7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="efg-kF-1Hd"/>
+                <constraint firstItem="MuN-UY-fez" firstAttribute="top" secondItem="gCt-eh-IZ7" secondAttribute="bottom" constant="12" id="otA-9p-Eq3"/>
             </constraints>
             <point key="canvasLocation" x="186" y="358"/>
         </view>

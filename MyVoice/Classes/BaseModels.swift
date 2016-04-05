@@ -38,7 +38,9 @@ class BaseData:Mappable{
     }
     
     func getCombineString() -> String {
-        return userid.toString() + id.toString() + owner.toString()
+        let s = userid.toString() + id.toString() + owner.toString()
+        print("combine Stirng .......\(s)")
+        return s
     }
 }
 

@@ -25,7 +25,7 @@ class Constants {
     static let grayColor_217 = UIColor(red: CGFloat(217.0/255), green: CGFloat(217.0/255), blue: CGFloat(217.0/255), alpha: 1)
     static let grayColor_239 = UIColor(red: CGFloat(239.0/255), green: CGFloat(239.0/255), blue: CGFloat(239.0/255), alpha: 1)
 
-    static let addCommentViewHeight:CGFloat = 200
+    static let addCommentViewHeight:CGFloat = 120
 
     
     
@@ -42,7 +42,7 @@ class Constants {
     
     static let BriefItemUI_Badges = BriefItemUI(heading: "Badges".localized, index: "Badges", isClickable: false)
     
-    static let BriefItemUI_Total_donations = BriefItemUI(heading: "Total_donations".localized, index: "Donation", isClickable: false)
+    static let BriefItemUI_Total_donations = BriefItemUI(heading: MyStrings.totalFunds, index: "Donation", isClickable: false)
     static let BriefItemUI_Amount_donated = BriefItemUI(heading: MyStrings.amountDonated, index: "Donation", isClickable: false)
     
     static let BriefItemUI_Credits = BriefItemUI(heading: "Credits".localized, index: "Credit", isClickable: false)

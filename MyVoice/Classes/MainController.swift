@@ -128,7 +128,7 @@ class MainController: UITabBarController {
     
     override func viewWillAppear(animated: Bool) {
         // let tabItemWidth = self.tabBar.itemWidth
-        let image = UIImage.imageWithColor(Constants.tab_selection, rect: CGRectMake(0, 0, 110, 55))
+        let image = UIImage.imageWithColor(Constants.tab_selection, rect: CGRectMake(0, 0, 118, 55))
         UITabBar.appearance().selectionIndicatorImage = image
     }
     

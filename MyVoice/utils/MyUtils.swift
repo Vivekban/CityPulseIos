@@ -21,9 +21,10 @@ class MyUtils{
         return datePickerView
     }
     
-    static func presentViewController(currentController:UIViewController, identifier: String) -> UIViewController?{
+    static func presentViewController(currentController:UIViewController, identifier: String, transition : UIModalTransitionStyle = .CoverVertical) -> UIViewController?{
         if let sectionController = currentController.storyboard?.instantiateViewControllerWithIdentifier(identifier)
         {
+            sectionController.modalTransitionStyle = transition
         presentViewController(currentController, newController: sectionController)
             return sectionController
         }

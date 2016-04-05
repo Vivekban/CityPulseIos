@@ -1,5 +1,5 @@
 //
-//  AppDataController.swift
+//  AppDataManager.swift
 //  MyVoice
 //
 //  Created by PB014 on 16/02/16.
@@ -14,7 +14,7 @@ enum AppDataRequest :Int {
     case Category = 0, MarkTo
 }
 
-class AppDataController : ServerDataManager{
+class AppDataManager : ServerDataManager{
     var appData = AppData()
 
     override init(){

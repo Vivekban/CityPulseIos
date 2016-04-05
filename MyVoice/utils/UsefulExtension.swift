@@ -43,6 +43,36 @@ extension UIApplication {
 }
 
 
+extension UIView {
+    
+    func addWidthContraint(width:CGFloat) {
+        addConstraint(LayoutConstraintUtils.getWidthContraint(self, width: width))
+    }
+    
+    func addHeightContraint(height:CGFloat){
+        addConstraint(LayoutConstraintUtils.getHeightContraint(self, height:height))
+    }
+    
+    func pinViewOnAllDirection(view :UIView){
+        
+        addConstraint(LayoutConstraintUtils.getBottomContraint(view, container: self, value: 0))
+        addConstraint(LayoutConstraintUtils.getLeadingContraint(view, container: self, value: 0))
+        addConstraint(LayoutConstraintUtils.getTopContraint(view, container: self, value: 0))
+        addConstraint(LayoutConstraintUtils.getTrailingContraint(view, container: self, value: 0))
+        
+    }
+    
+    func constraintWithIdentifier(identifier : String) -> NSLayoutConstraint?{
+        
+        for constraint in self.constraints{
+            if (constraint.identifier == identifier) {
+                return constraint
+            }
+        }
+        return nil
+    }
+}
+
 //class BoxedArray<T> : MutableCollectionType,Reflectable {
 //    var array :Array<T> = []
 //

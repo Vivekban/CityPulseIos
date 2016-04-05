@@ -71,7 +71,20 @@ public class PopTable : NSObject, UIPopoverPresentationControllerDelegate {
             _popover.permittedArrowDirections = UIPopoverArrowDirection.Up
             _popover.sourceView = textField
             _popover.sourceRect = textField.bounds
+            
+            
+            let label = UILabel()
+            label.font = UIFont.systemFontOfSize(18)
+            label.text = popVC.info?.heading
+            label.sizeToFit()
+            
+            if (textField.bounds.size.width) > 30 + label.frame.width {
+                _popover.sourceRect.size.width = label.frame.size.width
+ 
+            }
+            
             _popover.delegate = self
+            _popover.backgroundColor = UIColor.whiteColor()
             self.dataChanged = dataChanged
             inViewController.presentViewController(popVC, animated: true, completion: nil)
             presented = true

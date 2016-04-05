@@ -11,7 +11,7 @@ import Foundation
 
 
 //
-//  PersonController.swift
+//  PersonDataManager.swift
 //  MyVoice
 //
 //  Created by PB014 on 25/01/16.
@@ -151,8 +151,8 @@ class HomeDataManager: ServerDataManager{
         case 2:
             print(data)
             let viewArray = JSON(data)
+            entities = [PollData]()
             for (_,obj) in viewArray {
-                entities = [PollData]()
                 if let finalString = obj.rawString() {
                     // print(" value is \(i)...+....\(finalString)")
                     if let view = Mapper<PollData>().map(finalString) {

@@ -34,10 +34,10 @@ class CurrentSession {
         }
         
         
-        personController = PersonController(userID: userId)
-        mainPersonController = personController
+        personController = PersonDataManager(userID: userId)
+        mainPersonDataManager = personController
         
-        appDataController = AppDataController()
+        appDataManager = AppDataManager()
         issueController = HomeDataManager()
         
     }
@@ -46,22 +46,21 @@ class CurrentSession {
     var mainPersonUI:PersonUI?
     var secondaryPersonUI:PersonUI?
     
-    // controller
+    // MARK: -  Data Managers
     
-    var personController:PersonController!
-    var mainPersonController:PersonController!
-    var secondaryPersonController:PersonController!
+    var personController:PersonDataManager!
+    var mainPersonDataManager:PersonDataManager!
+    var secondaryPersonDataManager:PersonDataManager!
     
-    // MARK: - issues
     
     var issueController:HomeDataManager!
     
-    var appDataController:AppDataController!
+    var appDataManager:AppDataManager!
     
     var recentrlyEditedData:[BaseData]?
     
     func isVisitingSomeone() -> Bool {
-        return mainPersonController != personController
+        return mainPersonDataManager != personController
     }
     
     func isLeader() -> Bool{

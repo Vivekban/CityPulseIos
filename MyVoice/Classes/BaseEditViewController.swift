@@ -31,7 +31,7 @@ class BaseEditViewController: UIViewController {
     //MARK: Bar Title fields
     var mainTitle:String = "" {
         didSet{
-                setMainTitle()
+            setMainTitle()
         }
     }
     var myNavigationItem: UINavigationItem?
@@ -41,7 +41,7 @@ class BaseEditViewController: UIViewController {
     var popDatePickerTextFields = [PopDatePickerParam]()
     
     // string pickers
-    var popPickers = [PopPicker]()
+    var popPickers = [PopTable]()
     var popPickerTextFields = [UITextField]()
     
     // shadowElements
@@ -58,7 +58,7 @@ class BaseEditViewController: UIViewController {
     
     var scrollView:UIScrollView?
     
-    var activeTextField:UITextField?
+    var activeTextField:UIView?
     
     var fieldHideByKeyboard = [UITextField]()
     
@@ -68,7 +68,7 @@ class BaseEditViewController: UIViewController {
     
     
     deinit{
-     print(" Edit controller is deallocated.............................")
+        print(" Edit controller is deallocated.............................")
     }
     
     override func viewDidLoad() {
@@ -78,6 +78,14 @@ class BaseEditViewController: UIViewController {
         let item = myNavigationItem?.leftBarButtonItems![0]
         item?.action = "onBackButtonClick"
         item?.target = self
+        
+        if let items = myNavigationItem?.rightBarButtonItems {
+            let save = items[0]
+            save.action = "onSaveButtonClick"
+            save.target = self
+        }
+        
+        view.viewWithTag(3)?.hidden = true
         
         addTargetsTo(view.viewWithTag(3), and:view.viewWithTag(2))
         self.view.addSubview(progressHUD)
@@ -118,13 +126,13 @@ class BaseEditViewController: UIViewController {
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.Landscape
     }
-
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-    
+        
         // scrollView?.contentSize.height = max ((scrollView?.frame.height)!, (scrollView?.contentSize.height)!)
-
+        
     }
     
     func onBackButtonClick(){
@@ -143,13 +151,13 @@ class BaseEditViewController: UIViewController {
             MyUtils.createShadowOnView(vw)
         }
         EventUtils.addObserForKeyBoardEvents(self)
-
+        
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidAppear(animated)
         EventUtils.removeObserver(self)
-
+        
     }
     
     
@@ -159,13 +167,14 @@ class BaseEditViewController: UIViewController {
                 kbHeight = keyboardSize.height
                 //self.animateTextField(true)
                 
-                if activeTextField != nil  && scrollView != nil{
-                    if fieldHideByKeyboard.contains(activeTextField!){
-                       
-                        let contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbHeight, 0.0);
-                        scrollView!.contentInset = contentInsets;
-                        scrollView!.scrollIndicatorInsets = contentInsets;
-                        
+                if  scrollView != nil{
+                    
+                    let contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbHeight, 0.0);
+                    scrollView!.contentInset = contentInsets;
+                    scrollView!.scrollIndicatorInsets = contentInsets;
+                    
+                    
+                    if activeTextField != nil {
                         // If active text field is hidden by keyboard, scroll it so it's visible
                         // Your app might not need or want this behavior.
                         var aRect = self.view.frame;
@@ -176,7 +185,7 @@ class BaseEditViewController: UIViewController {
                             scrollView?.scrollRectToVisible((frame)!, animated: true)
                         }
                     }
-                }                
+                }
             }
         }
     }
@@ -186,8 +195,8 @@ class BaseEditViewController: UIViewController {
         activeTextField = nil
         let contentInsets = UIEdgeInsetsZero;
         if scrollView != nil {
-        scrollView!.contentInset = contentInsets;
-        scrollView!.scrollIndicatorInsets = contentInsets;
+            scrollView!.contentInset = contentInsets;
+            scrollView!.scrollIndicatorInsets = contentInsets;
         }
     }
     
@@ -212,17 +221,17 @@ class BaseEditViewController: UIViewController {
     
     func setMainTitle(){
         if  let item = myNavigationItem {
-
-        switch (type){
-        case .NEW:
-            item.title = "Add " + mainTitle
-            break
-        case .EDIT:
-            item.title = "Edit " + mainTitle
-            break
+            
+            switch (type){
+            case .NEW:
+                item.title = "Add " + mainTitle
+                break
+            case .EDIT:
+                item.title = "Edit " + mainTitle
+                break
+            }
         }
-        }
-
+        
     }
     
     func dismissKeyboard() {
@@ -242,7 +251,7 @@ class BaseEditViewController: UIViewController {
     func addTextFieldForPickerPopOver(field :UITextField, info: PopInfo){
         if !popPickerTextFields.contains(field){
             popPickerTextFields.append(field)
-            let popPicker = PopPicker(forTextField: field, data: info)
+            let popPicker = PopTable(forTextField: field, data: info)
             popPickers.append(popPicker)
             field.delegate = self
         }
@@ -338,13 +347,13 @@ class BaseEditViewController: UIViewController {
                 info = "{\"data\":\(info)}"
                 
                 print("data sending for savingh \(info)")
-//                ServerRequestInitiater.i.postMessageToServerForJsonResponse(url, postData: ["json" : info], completionHandler: { (result) -> Void in
-//                    self.serverRequestResult(result)
-//                })
+                //                ServerRequestInitiater.i.postMessageToServerForJsonResponse(url, postData: ["json" : info], completionHandler: { (result) -> Void in
+                //                    self.serverRequestResult(result)
+                //                })
                 
                 let uInfoRequest = ServerRequest(url: url, postData: ["json" : info]) { [weak self](result) -> Void in
                     self!.serverRequestResult(result)
-                 }
+                }
                 uInfoRequest.responseType = .Normal
                 ServerRequestInitiater.i.initiateServerRequest(uInfoRequest)
                 
@@ -354,22 +363,22 @@ class BaseEditViewController: UIViewController {
     }
     
     func serverRequestResult(result:ServerResult){
-       
+        
         
         if type == .NEW {
             dataArray.append(data!)
-           // CurrentSession.i.recentrlyEditedData = dataArray
-
+            // CurrentSession.i.recentrlyEditedData = dataArray
+            
         }
-        //TODO: remove this line and uncomment line below
-        delegate?.afterSaveDetail(type, modifiedData: dataArray, index: dataIndex)
         
-
+        
         switch result {
         case .Success(let value):
             if let uv = value {
                 print(uv)
-               // delegate?.afterSaveDetail(self.dataIndex)
+                // delegate?.afterSaveDetail(self.dataIndex)
+                delegate?.afterSaveDetail(type, modifiedData: dataArray, index: dataIndex)
+
                 onCancelButtonClick()
             }
             break
@@ -386,7 +395,7 @@ class BaseEditViewController: UIViewController {
         
         
         progressHUD.hide()
-
+        
     }
     
     func resign(){
@@ -398,6 +407,15 @@ class BaseEditViewController: UIViewController {
         //            textField.resignFirstResponder()
         //        }
         //        view.endEditing(true)
+    }
+    
+}
+// MARK: - UItextview delegate
+
+extension BaseEditViewController : UITextViewDelegate {
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        activeTextField = textView
     }
     
 }
@@ -457,7 +475,7 @@ extension BaseEditViewController : UITextFieldDelegate {
         
         let newLength = text.characters.count + string.characters.count - range.length
         return newLength <= tfLimit.maxLimit // Bool
-
+        
         
     }
 }
@@ -491,11 +509,11 @@ class BaseImageEditViewController: BaseEditViewController {
         }
     }
     
-
+    
     
     func openImagePicker(){
         fetchDataFromUIElements()
-
+        
         let imagePicker : UIImagePickerController = OneOrientaionImagePickerController()
         imagePicker.modalPresentationStyle = .CurrentContext
         imagePicker.delegate = self
@@ -504,17 +522,21 @@ class BaseImageEditViewController: BaseEditViewController {
         self.presentViewController(imagePicker, animated: true, completion: nil)
     }
     
-    func onItemClick(sender: UIGestureRecognizer){
-        if let _ = sender.view as? UIButton{
+    func onItemClick(sender: UIView){
+        if let _ = sender as? UIButton{
             openImagePicker()
         }
         else{
-            openImageView(sender.view?.tag ?? 0)
+            openImageView(sender.tag ?? 0)
         }
     }
     
+    func onImageClick(sender: UIGestureRecognizer){
+        openImageView(sender.view!.tag ?? 0)
+    }
+    
     func openImageView(tag:Int){
-
+        
         if let d =  (data as? ImageUrlData) {
             let imageViewController = ImagePageViewController.newInstance(d.imagesUrls, images: images, initialPosition: tag)
             imageViewController.delegate = self
@@ -552,41 +574,41 @@ class BaseImageEditViewController: BaseEditViewController {
                 for (_,image) in images {
                     fileUploader.addFileData(UIImageJPEGRepresentation(image, 0.05)!, withName: "image", withMimeType: "image/jpeg")
                 }
-//                
-//                let uInfoRequest = ServerRequest(url: url, postData: ["json" : info]) { [weak self](result) -> Void in
-//                    self!.serverRequestResult(result)
-//                }
+                //
+                //                let uInfoRequest = ServerRequest(url: url, postData: ["json" : info]) { [weak self](result) -> Void in
+                //                    self!.serverRequestResult(result)
+                //                }
                 
-//                uInfoRequest.responseType = .Normal
-//                ServerRequestInitiater.i.initiateServerRequest(uInfoRequest)
+                //                uInfoRequest.responseType = .Normal
+                //                ServerRequestInitiater.i.initiateServerRequest(uInfoRequest)
                 
                 let request = NSMutableURLRequest( URL: NSURL(string: url )! )
                 request.HTTPMethod = "POST"
                 
-                 req = fileUploader.uploadFile(request: request)
-                 req.progress { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
+                req = fileUploader.uploadFile(request: request)
+                req.progress { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
                     // print(totalBytesWritten)
-                        
-                        // This closure is NOT called on the main queue for performance
-                        // reasons. To update your ui, dispatch to the main queue.
-                        dispatch_async(dispatch_get_main_queue()) {
-                            print("Total bytes written on main queue: \(totalBytesWritten)....\(totalBytesExpectedToWrite)")
-                        }
+                    
+                    // This closure is NOT called on the main queue for performance
+                    // reasons. To update your ui, dispatch to the main queue.
+                    dispatch_async(dispatch_get_main_queue()) {
+                        print("Total bytes written on main queue: \(totalBytesWritten)....\(totalBytesExpectedToWrite)")
+                    }
                     }
                     .responseJSON { response in
                         debugPrint(response)
                         
                         if response.result.isSuccess {
-                        
-                        self.serverRequestResult(ServerResult.Success(response.data))
+                            
+                            self.serverRequestResult(ServerResult.Success(response.data))
                         }
                         else{
                             self.serverRequestResult(ServerResult.Failure(response.result.error))
-
+                            
                         }
-
+                        
                 }
-               
+                
                 //uploadTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
                 
                 
@@ -598,7 +620,7 @@ class BaseImageEditViewController: BaseEditViewController {
     func updateProgress(){
         //  print(req.progress())
     }
-
+    
     
 }
 
@@ -659,13 +681,17 @@ extension BaseImageEditViewController : UICollectionViewDataSource {
             if let iv = view as? UIImageView {
                 loadImageInImageView(iv, index: indexPath.row)
             }
+            cell.gestureRecognizers?.removeAll()
+            cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onImageClick:"))
+            cell.tag = indexPath.row
+            
         }
         else{
             MyUtils.createShadowOnView(cell)
-            
+            if let iv = view as? UIButton {
+                iv.addTarget(self, action: "onItemClick:", forControlEvents: UIControlEvents.TouchUpInside)
+            }
         }
-        view?.gestureRecognizers?.removeAll()
-        view?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onItemClick:"))
         
         return cell
     }
@@ -685,9 +711,15 @@ extension BaseImageEditViewController : UICollectionViewDataSource {
 
 extension BaseImageEditViewController : UICollectionViewDelegate{
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        // it is image open image
-        openImageView(indexPath.row)
         
+        
+        
+        //        if let _ = sender.view as? UIButton{
+        //            openImagePicker()
+        //        }
+        //        else{
+        //            openImageView(sender.view?.tag ?? 0)
+        //        }
     }
     
     func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {

@@ -180,8 +180,12 @@ extension CommentController : CommentCellDelegate {
 
 
 extension CommentController : PostCommentDelegate {
-    func onPostCommentClic(data : String , view :PostCommentView) {
+    func onPostCommentClic(data : String, view :PostCommentView) {
     
+    }
+    
+    func onPostCommentHeightChange(height: CGFloat, view : PostCommentView) {
+        
     }
 }
 

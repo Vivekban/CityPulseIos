@@ -22,6 +22,8 @@ class MyStrings {
     static let cancel = "Cancel".localized
     static let tryAgain = "Try Again".localized
     static let by = "By"
+    static let description = "Description"
+    static let mark_to = "Mark To"
 
     
     
@@ -38,7 +40,8 @@ class MyStrings {
     static let male = "Male"
     static let female = "Female"
 
-    
+    static let totalFunds = "Total Funds"
+
     //
     static let event = "Event"
     static let work = "Work".localized
@@ -170,5 +173,9 @@ class MyStrings {
     
     
     static let publicFigure = "Public Figure"
+    
+    static let comment = "Comment"
+    static let response = "Response"
+
 
 }

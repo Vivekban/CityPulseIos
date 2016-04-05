@@ -11,6 +11,7 @@ import UIKit
 
 protocol PostCommentDelegate :class {
     func onPostCommentClic(data : String , view :PostCommentView)
+    func onPostCommentHeightChange(height: CGFloat, view :PostCommentView)
 }
 
 enum PostCommentType : Int {
@@ -19,7 +20,7 @@ enum PostCommentType : Int {
 
 class PostCommentView: UIView {
 
-    @IBOutlet weak var descriptionField: UITextView!
+    @IBOutlet weak var descriptionField: DescriptionView!
     @IBOutlet weak var postButton: UIButton!
    
     weak var delegate : PostCommentDelegate?
@@ -44,7 +45,9 @@ class PostCommentView: UIView {
         self.addSubview(view)
         postButton.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
         view.frame = self.bounds
+        descriptionField.hint = MyStrings.comment
         descriptionField.delegate = self
+        descriptionField.sizeDelegate = self
         onTypeSet()
     }
     
@@ -57,21 +60,39 @@ class PostCommentView: UIView {
         switch (type) {
         case .Comment:
             postButton.setTitle(MyStrings.postComment, forState: UIControlState.Normal)
+            descriptionField.hint = MyStrings.comment
             break;
             
         case .Response :
             postButton.setTitle(MyStrings.postResponse, forState: UIControlState.Normal)
+            descriptionField.hint = MyStrings.response
+
             break
         default:
             break;
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let t = descriptionField.hint
+        descriptionField.hint = ""
+        descriptionField.hint = t
+    }
+    
+    
+    
 }
 
 extension PostCommentView : UITextViewDelegate {
     func textViewDidBeginEditing(textView: UITextView) {
         EventUtils.postNotification(EventUtils.commentFieldBeginEditing, object: textView)
+    }
+}
+
+extension PostCommentView : TextViewSizeChangeDelegate{
+    func heightChange(newHeight: CGFloat) {
+        delegate?.onPostCommentHeightChange(newHeight + 55,view: self);
     }
 }
 

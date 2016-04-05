@@ -10,9 +10,12 @@ import UIKit
 
 class DescriptionView: UIView {
     
+    private var  heightConstraint:NSLayoutConstraint!
+    private var  minHeightConstraint:NSLayoutConstraint!
+    private var  maxHeightConstraint:NSLayoutConstraint!
     
     
-    @IBOutlet weak var textView: FloatLabelTextView!
+    weak var textView: FloatLabelTextView!
     
     
     var text :String {
@@ -25,6 +28,19 @@ class DescriptionView: UIView {
         }
     }
     
+    var hint:String = ""{
+        didSet {
+            textView.hint = self.hint
+        }
+    }
+    
+   weak var delegate:UITextViewDelegate?{
+        didSet{
+            textView.delegate = delegate
+        }
+    }
+    
+    weak var sizeDelegate : TextViewSizeChangeDelegate?
     
     required init?(coder aDecoder: NSCoder) {
         // text = ""
@@ -34,11 +50,47 @@ class DescriptionView: UIView {
     
     func initView(){
         let view = NSBundle.mainBundle().loadNibNamed("DescriptionView", owner: self, options: nil)[0] as! UIView
+        textView = view.viewWithTag(1) as! FloatLabelTextView
+        textView.sizeChangeDelegate = self
+        view.frame = self.frame
+        view.translatesAutoresizingMaskIntoConstraints = false
+        pinViewOnAllDirection(view)
+
         self.addSubview(view)
-        view.frame = self.bounds
+
         
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.lightGrayColor().CGColor
+        // layer.borderWidth = 1
+        // layer.borderColor = UIColor.lightGrayColor().CGColor
+        associateConstraints()
+    }
+    
+    
+    
+    func associateConstraints(){
+        // iterate through all text view's constraints and identify
+        // height, max height and min height constraints.
+        
+        for constraint in self.constraints{
+            if (constraint.firstAttribute == NSLayoutAttribute.Height) {
+                
+                if (constraint.relation == NSLayoutRelation.Equal) {
+                    self.heightConstraint = constraint;
+                }
+                    
+                else if (constraint.relation == NSLayoutRelation.LessThanOrEqual) {
+                    self.maxHeightConstraint = constraint;
+                }
+                    
+                else if (constraint.relation == NSLayoutRelation.GreaterThanOrEqual) {
+                    self.minHeightConstraint = constraint;
+                }
+            }
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+       
     }
     
     /*
@@ -49,4 +101,17 @@ class DescriptionView: UIView {
     }
     */
     
+}
+
+extension DescriptionView : TextViewSizeChangeDelegate {
+    func heightChange(newHeight: CGFloat) {
+        
+        print("new height is \(newHeight)")
+        
+        if heightConstraint != nil {
+            self.heightConstraint.constant = newHeight
+        }
+        layoutIfNeeded()
+        sizeDelegate?.heightChange(newHeight)
+    }
 }

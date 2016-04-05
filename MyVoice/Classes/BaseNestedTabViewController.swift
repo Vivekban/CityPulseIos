@@ -97,7 +97,7 @@ class BaseNestedTabViewController :UIViewController{
     }
     
     func showDetailViewController(index:Int) -> UIViewController?{
-        let controller = MyUtils.presentViewController(self, identifier: detailControllerIdentifier)
+        let controller = MyUtils.presentViewController(self, identifier: detailControllerIdentifier,transition: UIModalTransitionStyle.FlipHorizontal)
         if let editController = controller as? BaseDetailViewController {
             editController.setDataSourceWith(entries, index: index)
             editController.delegate = self
