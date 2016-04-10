@@ -39,9 +39,16 @@ class BaseData:Mappable{
     
     func getCombineString() -> String {
         let s = userid.toString() + id.toString() + owner.toString()
-        print("combine Stirng .......\(s)")
+        // print("combine Stirng .......\(s)")
         return s
     }
+    
+    func update(data :BaseData , isForce :Bool = false){
+        userid = data.userid != 0 || isForce ? data.userid : userid
+        id = data.id != 0 || isForce ? data.id : id
+        owner = data.owner != 0 || isForce ? data.owner : owner
+    }
+    
 }
 
 extension BaseData : Hashable {
@@ -104,6 +111,15 @@ class TitleDescriptionData: BaseData {
     override func getCombineString() -> String {
         return (super.getCombineString() + title + description)
     }
+    
+    override func update(data :BaseData , isForce :Bool = false){
+        super.update(data, isForce: isForce)
+        guard let d = data as? TitleDescriptionData else {
+            return
+        }
+        title = !d.title.isEmpty || isForce ? d.title : title
+        description = !d.description.isEmpty || isForce ? d.description: description
+    }
 }
 
 class TitleDesDateData :TitleDescriptionData{
@@ -129,6 +145,16 @@ class TitleDesDateData :TitleDescriptionData{
             date = newValue
         }
     }
+    
+    func getNSDate() -> NSDate {
+        if !date.isEmpty {
+            if date.containsString("-"){
+                return TimeDateUtils.getDateFromServerString(date)
+            }
+        }
+        return NSDate()
+    }
+    
     override func mapping(map: Map) {
         super.mapping(map)
         date <- map["datetime"]
@@ -156,6 +182,18 @@ class ImageUrlData : TitleDesDateData{
         }
 
     }
+    
+    override func update(data :BaseData , isForce :Bool = false){
+        super.update(data, isForce: isForce)
+        guard let d = data as? ImageUrlData else {
+            return
+        }
+        if (d.imagesUrls.count > imagesUrls.count || isForce ){
+            self.imagesUrls.removeAll();
+            self.imagesUrls.appendContentsOf(d.imagesUrls);
+        }
+    }
+
 }
 
 

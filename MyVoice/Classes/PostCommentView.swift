@@ -23,7 +23,7 @@ class PostCommentView: UIView {
     @IBOutlet weak var descriptionField: DescriptionView!
     @IBOutlet weak var postButton: UIButton!
    
-    weak var delegate : PostCommentDelegate?
+    private weak var delegate : PostCommentDelegate?
     
     var type = PostCommentType.Comment {
         didSet{
@@ -41,11 +41,14 @@ class PostCommentView: UIView {
     }
     
     func setUp(){
+        self.clipsToBounds = true
         let view = NSBundle.mainBundle().loadNibNamed("PostComment", owner: self, options: nil)[0] as! UIView
+        view.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(view)
+        pinViewOnAllDirection(view)
         postButton.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
-        view.frame = self.bounds
-        descriptionField.hint = MyStrings.comment
+        //view.frame = self.bounds
+        descriptionField.hint = ""
         descriptionField.delegate = self
         descriptionField.sizeDelegate = self
         onTypeSet()
@@ -66,10 +69,7 @@ class PostCommentView: UIView {
         case .Response :
             postButton.setTitle(MyStrings.postResponse, forState: UIControlState.Normal)
             descriptionField.hint = MyStrings.response
-
             break
-        default:
-            break;
         }
     }
     
@@ -81,7 +81,9 @@ class PostCommentView: UIView {
     }
     
     
-    
+    func setDelegate(delegate : PostCommentDelegate){
+        self.delegate = delegate
+    }
 }
 
 extension PostCommentView : UITextViewDelegate {
@@ -92,6 +94,7 @@ extension PostCommentView : UITextViewDelegate {
 
 extension PostCommentView : TextViewSizeChangeDelegate{
     func heightChange(newHeight: CGFloat) {
+    
         delegate?.onPostCommentHeightChange(newHeight + 55,view: self);
     }
 }
@@ -100,7 +103,8 @@ extension PostCommentView : TextViewSizeChangeDelegate{
 class PostCommentCell : UITableViewCell {
     
     var postView : PostCommentView!
-    
+    weak var delegate : PostCommentDelegate?
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -117,14 +121,20 @@ class PostCommentCell : UITableViewCell {
     func setup(){
         clipsToBounds = true
         let leftSideOffset = BaseDetailViewController.leftSideOffset
-         postView = PostCommentView(frame: CGRect(x: leftSideOffset, y: 0, width: (self.frame.width) - 2 * leftSideOffset , height: 200))
+        postView = PostCommentView(frame: CGRect(x: leftSideOffset, y: 0, width: (self.frame.width) - 2 * leftSideOffset , height: 200))
+        
+        postView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        postView.delegate = self
         postView.type = .Response
         addSubview(postView)
+        pinViewOnAllDirection(postView, left: leftSideOffset, top: 2, right: -leftSideOffset, bottom: 2)
 
     }
     
     func setWidthOfCell(width :CGFloat){
-        postView.frame.size.width = width - 2 * BaseDetailViewController.leftSideOffset
+        //postView.frame.size.width = width - 2 * BaseDetailViewController.leftSideOffset
     }
     
     func setDelegate(delegate : PostCommentDelegate) {
@@ -132,4 +142,16 @@ class PostCommentCell : UITableViewCell {
 
     }
     
+}
+
+
+extension PostCommentCell : PostCommentDelegate{
+    func onPostCommentClic(data : String , view :PostCommentView){
+        delegate?.onPostCommentClic(data, view: view)
+    }
+    func onPostCommentHeightChange(height: CGFloat, view :PostCommentView){
+        delegate?.onPostCommentHeightChange(height, view: view)
+        frame.size.height = height
+        layoutIfNeeded()
+    }
 }

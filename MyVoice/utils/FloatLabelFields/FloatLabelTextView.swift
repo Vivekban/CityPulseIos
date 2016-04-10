@@ -245,7 +245,7 @@ protocol TextViewSizeChangeDelegate : class{
         var r = UIEdgeInsetsInsetRect(bounds, contentInset)
         r.origin.x += textContainer.lineFragmentPadding
         r.origin.y += textContainerInset.top
-        print(" is........\(bounds).....")
+        //print(" is........\(bounds).....")
 
         return CGRectIntegral(r)
     }
@@ -267,7 +267,7 @@ protocol TextViewSizeChangeDelegate : class{
         r.origin.x = placeholderX
         hintLabel.frame = r
         
-        print(" title frame  is........\(title.frame).........hint frame is \(hintLabel.frame)")
+        // print(" title frame  is........\(title.frame).........hint frame is \(hintLabel.frame)")
 
     }
     

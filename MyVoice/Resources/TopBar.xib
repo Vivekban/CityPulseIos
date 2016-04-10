@@ -23,10 +23,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="852" height="44"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QtS-e3-ro8">
-                            <rect key="frame" x="802" y="7" width="30" height="30"/>
+                            <rect key="frame" x="808" y="10" width="24" height="24"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="30" id="AP8-Kl-aPS"/>
-                                <constraint firstAttribute="height" constant="30" id="Yqs-GZ-yhr"/>
+                                <constraint firstAttribute="width" constant="24" id="AP8-Kl-aPS"/>
+                                <constraint firstAttribute="height" constant="24" id="Yqs-GZ-yhr"/>
                             </constraints>
                             <state key="normal" backgroundImage="Help"/>
                             <connections>
@@ -74,19 +74,20 @@
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tat-pg-T3s">
-                            <rect key="frame" x="8" y="6" width="84" height="33"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <state key="normal" title="Categories"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tat-pg-T3s">
+                            <rect key="frame" x="8" y="5" width="88" height="34"/>
+                            <state key="normal" title="Categories">
+                                <color key="titleColor" red="0.047058823530000002" green="0.56470588239999997" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
                             <connections>
                                 <action selector="onCategoryButtonClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="JWI-Ld-L26"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4zf-Do-0Fj">
-                            <rect key="frame" x="768" y="10" width="24" height="24"/>
+                            <rect key="frame" x="778" y="12" width="20" height="20"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="24" id="V5Q-WR-tpM"/>
-                                <constraint firstAttribute="width" constant="24" id="gTL-eg-o8A"/>
+                                <constraint firstAttribute="height" constant="20" id="V5Q-WR-tpM"/>
+                                <constraint firstAttribute="width" constant="20" id="gTL-eg-o8A"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <state key="normal" backgroundImage="search"/>

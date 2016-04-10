@@ -115,6 +115,8 @@ extension PopTableViewController : UITableViewDataSource {
     
     func configureCell(cell: UITableViewCell, forRowAtIndexPath: NSIndexPath) {
         cell.textLabel?.text =  "  \((info?.items![0][forRowAtIndexPath.row])!)"
+        
+        cell.selectionStyle = UITableViewCellSelectionStyle.Blue
 
     }
    

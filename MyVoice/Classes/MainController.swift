@@ -119,7 +119,6 @@ class MainController: UITabBarController {
         
         UISearchBar.appearance().setImage(UIImage(named: "search"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal)
         
-        
         //let error = [Int]()
         
         //print(error[3])
@@ -159,10 +158,10 @@ class MainController: UITabBarController {
     }
     
     
-    static func getCurrentTabController(controller : UIViewController) -> BaseTabViewController?{
+    static func getCurrentTabController(controller : UIViewController) -> BaseTabsViewController?{
         
         if let tab = controller.view.window?.rootViewController as? UITabBarController {
-            if let c = tab.selectedViewController as? BaseTabViewController {
+            if let c = tab.selectedViewController as? BaseTabsViewController {
                 return c
             }
         }

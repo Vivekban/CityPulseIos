@@ -23,9 +23,15 @@ class MyUtils{
     
     static func presentViewController(currentController:UIViewController, identifier: String, transition : UIModalTransitionStyle = .CoverVertical) -> UIViewController?{
         if let sectionController = currentController.storyboard?.instantiateViewControllerWithIdentifier(identifier)
-        {
+        {   if (transition == .CoverVertical){
             sectionController.modalTransitionStyle = transition
-        presentViewController(currentController, newController: sectionController)
+            presentViewController(currentController, newController: sectionController)
+            }
+        else{
+            //presentViewController(currentController, newController: sectionController, isShow: true)
+            presentViewController(currentController, newController: sectionController)
+
+            }
             return sectionController
         }
         return nil
@@ -35,6 +41,34 @@ class MyUtils{
     static func presentViewController(currentController:UIViewController, newController: UIViewController){
             currentController.view.window?.rootViewController?.presentViewController(newController, animated: true, completion: nil)
       
+    }
+    
+    static func presentViewController(currentController:UIViewController, newController: UIViewController, isShow : Bool){
+        
+        let rootController = currentController.view.window?.rootViewController;
+        
+        rootController?.view.insertSubview(newController.view, aboveSubview: currentController.view)
+        newController.view.transform = CGAffineTransformMakeTranslation(-newController.view.frame.size.width, 20)
+        
+        UIView.animateWithDuration(0.4,
+            delay: 0.0,
+            options: UIViewAnimationOptions.CurveEaseInOut,
+            animations: {
+                if (isShow) {
+                   newController.view.transform = CGAffineTransformMakeTranslation(0, 20)
+                }
+                else{
+                    
+                }
+            },
+            completion: { finished in
+                //currentController.presentViewController(newController, animated: false, completion: nil)
+                currentController.view.window?.rootViewController?.presentViewController(newController, animated: false, completion: nil)
+                
+            }
+        )
+        
+        
     }
 
     

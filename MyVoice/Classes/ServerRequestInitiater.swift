@@ -66,7 +66,7 @@ class ServerRequestInitiater {
         //  print(postData["json"]!)
         
         Alamofire.request(.POST,url, parameters: postData, encoding: ParameterEncoding.URLEncodedInURL, headers: nil).responseJSON { (response) -> Void in
-            // print(response.response)
+             print(response.response)
             
             if response.result.isSuccess {
                 completionHandler(.Success(response.result.value))

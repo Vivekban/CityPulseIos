@@ -8,9 +8,29 @@
 
 import UIKit
 
+
+enum ReviewsViewControllerTabType : Int{
+    case SevenDays = 0, ThrityDays, NintyDays, AllTime
+}
+
 class ReviewsViewController: BaseProfileNestedViewController {
     
     var isAnalyticsView = false
+    
+    var tabType = ReviewsViewControllerTabType.SevenDays
+    
+    static func dayInReviewControllerTabType(tabType: ReviewsViewControllerTabType ) -> Int{
+        switch (tabType) {
+        case .AllTime:
+            return Int.max
+        case .NintyDays:
+            return 90
+        case .ThrityDays:
+            return 30
+        case .SevenDays:
+            return 7
+        }
+    }
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -29,8 +49,8 @@ class ReviewsViewController: BaseProfileNestedViewController {
         
         
         if !isAnalyticsView {
-            let data = CurrentSession.i.personController.person.reviewsListManager.entries
-            entries = data
+            //let data = CurrentSession.i.personController.person.reviewsListManager.entries
+            //entries = data
         }
         
         self.tablView = tableView
@@ -52,18 +72,40 @@ class ReviewsViewController: BaseProfileNestedViewController {
     }
     
     override func updateListEntries(parameter: [String : AnyObject]) {
-        entries = CurrentSession.i.personController.person.reviewsListManager.entries
-        updateEntries()
+        updateEntries(CurrentSession.i.personController.person.reviewsListManager.entries)
         tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
     }
     
     func updateEntries(entries:[BaseData]){
-        self.entries = entries
+        self.entries.removeAll()
+        processEntriesAccordingToTab(entries)
         updateEntries()
         tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
 
     }
     
+    func processEntriesAccordingToTab(entries:[BaseData]){
+        if !isAnalyticsView {
+            let time = ReviewsViewController.dayInReviewControllerTabType(tabType)
+            let curDate = NSDate()
+            for i in entries {
+                if let j = i as? TitleDesDateData {
+                    
+                    print("days \(curDate.numberOfDaysUntilDateTime(j.getNSDate()))")
+                    
+                    if j.getNSDate().numberOfDaysUntilDateTime(curDate) <= time {
+                        self.entries.append(i)
+                    }
+                    else{
+                        return
+                    }
+                }
+            }
+        }
+        else{
+           self.entries.appendContentsOf(entries)
+        }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

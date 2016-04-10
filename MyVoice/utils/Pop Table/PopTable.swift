@@ -54,6 +54,7 @@ public class PopTable : NSObject, UIPopoverPresentationControllerDelegate {
         
         popVC.delegate = self
         popVC.modalPresentationStyle = UIModalPresentationStyle.Popover
+        popVC.view.layer.shadowColor = UIColor.clearColor().CGColor
         // popPickerVC.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.Up
         
         // popPickerVC.tableView.reloadData()

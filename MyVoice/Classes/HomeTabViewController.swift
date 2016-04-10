@@ -9,14 +9,14 @@
 import UIKit
 import CoreLocation
 
-class HomeTabViewController: BaseTabViewController {
+class HomeTabViewController: BaseTabsViewController {
     
     let locationManager = CLLocationManager()
     
     
     var filterPopOver:PopTable!
     var filterItems = [String]()
-    var filterTextView : UITextField!
+    var filterTextView : UIButton!
     var currentTab : Int {
         
         get{
@@ -27,22 +27,30 @@ class HomeTabViewController: BaseTabViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        filterTextView = UIButton(type: UIButtonType.System)
+        filterTextView.setTitleColor(Constants.accentColor, forState: UIControlState.Normal)
+
+        filterTextView.titleLabel?.font = UIFont.systemFontOfSize(18)
+        filterTextView.frame = CGRect(x: (actionButton.frame.origin.x) - 120 - 20, y: 14, width: 120, height:30)
         
-        filterTextView = UITextField(frame: CGRect(x: (actionButton.frame.origin.x) - 120 - 20, y: 14, width: 120, height:30))
-        filterTextView.delegate = self
-        filterTextView.text = "\(MyStrings.filters)"
-        filterTextView.textAlignment = NSTextAlignment.Right
-        filterTextView.textColor = Constants.accentColor
+        filterTextView.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+        filterTextView.titleLabel?.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+        filterTextView.imageView?.transform = CGAffineTransformMakeScale(-1, 1);
+        // filterTextView.delegate = self
+        filterTextView.setTitle(MyStrings.filters, forState: UIControlState.Normal)
         
+        //filterTextView.textAlignment = NSTextAlignment.Right
+        //filterTextView.textColor = Constants.accentColor
         
-        filterTextView.rightViewMode = UITextFieldViewMode.Always
+        filterTextView.addTarget(self, action: "onFilterButtonClick", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        //filterTextView.rightViewMode = UITextFieldViewMode.Always
         let image = UIImageView(image: UIImage(named: "downarrow"))
         // image.contentMode = UIViewContentMode.Right
         image.image = image.image?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         image.frame = CGRect(x: 8, y: 0, width: 20, height: 20)
         image.tintColor = Constants.accentColor
-        filterTextView.rightView = image
-        
+        filterTextView.setImage(UIImage(named: "downarrow"), forState: UIControlState.Normal)
         filterTextView.sizeToFit()
         
         
@@ -84,7 +92,7 @@ class HomeTabViewController: BaseTabViewController {
         let controller2 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("IssueViewController")
         controller2.title = MyStrings.HOA_issues
         (controller2 as? IssueViewController)?.issueType = IssueType.HOA
-
+        
         controllers.append(controller2)
         
         
@@ -99,7 +107,7 @@ class HomeTabViewController: BaseTabViewController {
                 con.currentFilter = CurrentSession.i.personUI?.homeFilters[i][0]
             }
         }
-
+        
         
         
         return controllers
@@ -111,7 +119,7 @@ class HomeTabViewController: BaseTabViewController {
         
         topBar?.isCatergoryActive = true
         topBar?.changeVisibiltOfCity(false)
-               // (tabsMenu?.controllerArray[1] as? BaseNestedTabViewController)
+        // (tabsMenu?.controllerArray[1] as? BaseNestedTabViewController)
         
     }
     
@@ -138,8 +146,8 @@ class HomeTabViewController: BaseTabViewController {
     
     override func didMoveToPage(controller: UIViewController, index: Int) {
         
-        self.filterTextView.text = (tabsMenu?.controllerArray[index] as? HomeBaseNestedTabController)?.currentFilter?.value
-        filterTextView.sizeToFit()
+        self.filterTextView.setTitleWithoutAnimation(((tabsMenu?.controllerArray[index] as? HomeBaseNestedTabController)?.currentFilter?.value)!,forState: UIControlState.Normal)
+            filterTextView.sizeToFit()
         
         super.didMoveToPage(controller, index: index)
         
@@ -179,9 +187,37 @@ class HomeTabViewController: BaseTabViewController {
     }
     */
     
-    
+    func onFilterButtonClick(){
+        let filters = CurrentSession.i.personUI?.homeFilters[currentTab]
+        
+        if let controller = (tabsMenu?.controllerArray[(tabsMenu?.currentPageIndex)!] as? HomeBaseNestedTabController) {
+            filterPopOver.updateHeading(controller.title!)
+            filterPopOver.updateData(0, newData: BaseFilter.getFilterValues(filters!))
+            
+            
+            
+            filterPopOver.pick(self, initData: [controller.currentFilter!.value], dataChanged: { [weak self] (newSelection, forTextField) -> () in
+                if self == nil {
+                    return
+                }
+                
+                if newSelection.count > 0 {
+                    let value = newSelection[0]
+                    self?.filterTextView.setTitleWithoutAnimation(value, forState: UIControlState.Normal)
+                    self?.filterTextView.sizeToFit()
+                    
+                    controller.currentFilter = BaseFilter.getFilterOfString(value, filters:filters!) as? HomeFilter
+                    
+                }
+                
+                })
+        }
+    }
     
 }
+
+
+
 
 // MARK: - UITextFieldDelegate
 
@@ -189,37 +225,6 @@ extension HomeTabViewController : UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         
-        if (textField == filterTextView) {
-            let filters = CurrentSession.i.personUI?.homeFilters[currentTab]
-            
-            
-            
-            
-            if let controller = (tabsMenu?.controllerArray[(tabsMenu?.currentPageIndex)!] as? HomeBaseNestedTabController) {
-                filterPopOver.updateHeading(controller.title!)
-                filterPopOver.updateData(0, newData: BaseFilter.getFilterValues(filters!))
-                
-                
-                
-                filterPopOver.pick(self, initData: [controller.currentFilter!.value], dataChanged: { [weak self] (newSelection, forTextField) -> () in
-                    if self == nil {
-                        return
-                    }
-                    
-                    if newSelection.count > 0 {
-                        let value = newSelection[0]
-                        self?.filterTextView.text = value
-                        self?.filterTextView.sizeToFit()
-                        
-                        controller.currentFilter = BaseFilter.getFilterOfString(value, filters:filters!) as? HomeFilter
-                        
-                    }
-                    
-                    })
-                
-                return false
-            }
-        }
         
         return true
     }

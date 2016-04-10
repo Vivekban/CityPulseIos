@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: BaseTabViewController {
+class ProfileViewController: BaseTabsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +40,7 @@ class ProfileViewController: BaseTabViewController {
         if  let tabs = CurrentSession.i.personUI?.profileTabs {
             
             for i in tabs {
-                addTab(i.string_1 , title: i.string_2)
+                // addTab(i.string_1 , title: i.string_2)
                 let controller : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier(i.string_1)
                 controller.title = i.string_2
                 controllers.append(controller)

@@ -45,7 +45,7 @@ class ServerUrls {
     static let getIssueByOwnerUrl = baseUrl + "/GetIssueByOwner"
     static let getIssueListByStatus = baseUrl + "/GetIssueByStatus"
     static let getSubscribedIssueUrl = baseUrl + "/GetSubscribedIssue"
-    static let getIssueDetails = baseUrl + "/GetIssueDetails"
+    static let getIssueDetails = baseUrl + "/GetIssueDetail"
 
     // MARK: - Issue Detail
     //static let Url = baseUrl + "/ADS"

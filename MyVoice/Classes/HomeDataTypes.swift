@@ -8,6 +8,7 @@
 
 import Foundation
 import ObjectMapper
+import SwiftyJSON
 
 class IssueData: ImageUrlData {
     var category:String = ""
@@ -49,7 +50,7 @@ class IssueData: ImageUrlData {
     var ownerName = ""
     var ownerPic = ""
     var ownerArea = ""
-    var ownerCredits = ""
+    var ownerCredits = 0
     
     var comments:[CommentData]?
     var response:[ResponseData]?
@@ -58,14 +59,63 @@ class IssueData: ImageUrlData {
         super.mapping(map)
         category <- map["category"]
         tags <- map["tags"]
-        markTo <- map["mark_to"]
-        isCritical <- map["critical"]
+        markTo <- map["markTo"]
+        isCritical <- map["isCritical"]
         category <- map["category"]
         status <- map["status"]
         responseCount <- map["response_count"]
+        isFlaged <- map["isFlaged"]
+        isVoted <- map["isVoted"]
+        isSubscribed <- map["isSubscribed"]
+        
+        ownerArea <- map["ownerArea"]
+        ownerCredits <- map["ownerCredits"]
+        ownerName <- map["ownerName"]
+        ownerPic <- map["ownerPic"]
+        
+        response <- map["responses"]
         
         id <- map ["issueid"]
     }
+    
+    func addComment(data : CommentData){
+        if comments == nil {
+            comments = [CommentData]()
+        }
+        comments?.append(data)
+    }
+    
+    func addResponse(data : ResponseData){
+        if response == nil {
+            response = [ResponseData]()
+        }
+        response?.append(data)
+    }
+    
+    
+    override func update(data :BaseData , isForce :Bool = false){
+        super.update(data, isForce: isForce)
+        guard let d = data as? IssueData else {
+            return
+        }
+        
+        
+        response = d.response
+        responseCount = d.responseCount > responseCount || isForce ? d.responseCount: responseCount
+        isFlaged = d.isFlaged
+        isVoted = d.isVoted
+        isSubscribed = d.isSubscribed
+        ownerCredits = d.ownerCredits > ownerCredits || isForce ? d.ownerCredits: ownerCredits
+        title = !d.title.isEmpty || isForce ? d.title : title
+        ownerPic = !d.ownerPic.isEmpty || isForce ? d.ownerPic: ownerPic
+        ownerName = !d.ownerName.isEmpty || isForce ? d.ownerName: ownerName
+        ownerArea = !d.ownerArea.isEmpty || isForce ? d.ownerArea: ownerArea
+        category = !d.category.isEmpty || isForce ? d.category: category
+        tags = !d.tags.isEmpty || isForce ? d.tags: tags
+        markTo = d.markTo > markTo || isForce ? d.markTo: markTo
+
+    }
+
     
 }
 
@@ -74,6 +124,7 @@ class CommentData:TitleDesDateData {
     var ownerName:String = ""
     var ownerPic:String = ""
     var ownerArea:String = ""
+    var isFlaged = 0
     
     func getTotalComments()-> Int {
         var sum = 0
@@ -90,7 +141,11 @@ class CommentData:TitleDesDateData {
     
     override func mapping(map: Map) {
         super.mapping(map)
-        ownerName <- map["ownername"]
+        ownerArea <- map["ownerArea"]
+        ownerName <- map["ownerName"]
+        ownerPic <- map["ownerPic"]
+        owner <- map["ownerId"]
+        isFlaged <- map["isFlaged"]
     }
     
     func initWithOwner(info : PersonBasicData ){
@@ -103,6 +158,14 @@ class CommentData:TitleDesDateData {
 
 class ResponseData:CommentData {
     var votes = 0
+    var isVoted = 0
+    
+    override func mapping(map: Map) {
+        super.mapping(map)
+        votes <- map["votes"]
+        isVoted <- map["isVoted"]
+    }
+
     
 }
 
@@ -114,6 +177,15 @@ class PostCommentData : BaseData {
         issueid <- map["issueid"]
         comment <- map["comment"]
 
+    }
+    override func isReadyToSave() -> String {
+        if comment.isEmpty {
+            return MyStrings.messageEmpty
+        }
+        else if comment.characters.count < 20 {
+            return MyStrings.messageIsTooShort
+        }
+        return ""
     }
 }
 

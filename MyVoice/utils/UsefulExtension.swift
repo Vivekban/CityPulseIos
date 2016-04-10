@@ -25,6 +25,34 @@ extension Int {
     
 }
 
+extension NSDate {
+    func numberOfDaysUntilDateTime(toDateTime: NSDate, inTimeZone timeZone: NSTimeZone? = nil) -> Int {
+        let calendar = NSCalendar.currentCalendar()
+        if let timeZone = timeZone {
+            calendar.timeZone = timeZone
+        }
+        
+        var fromDate: NSDate?, toDate: NSDate?
+        
+        calendar.rangeOfUnit(.Day, startDate: &fromDate, interval: nil, forDate: self)
+        calendar.rangeOfUnit(.Day, startDate: &toDate, interval: nil, forDate: toDateTime)
+        
+        let difference = calendar.components(.Day, fromDate: fromDate!, toDate: toDate!, options: [])
+        return difference.day
+    }
+}
+
+extension UIButton {
+    
+    func setTitleWithoutAnimation(title : String, forState: UIControlState){
+        UIView.performWithoutAnimation({ () -> Void in
+            self.setTitle(title, forState: forState)
+            self.layoutIfNeeded()
+            
+        })
+    }
+}
+
 extension UIApplication {
     class func topViewController(base: UIViewController? = UIApplication.sharedApplication().keyWindow?.rootViewController) -> UIViewController? {
         if let nav = base as? UINavigationController {
@@ -62,6 +90,16 @@ extension UIView {
         
     }
     
+    
+    func pinViewOnAllDirection(view :UIView, left:CGFloat,top:CGFloat,right:CGFloat,bottom:CGFloat){
+        
+        addConstraint(LayoutConstraintUtils.getBottomContraint(view, container: self, value:bottom))
+        addConstraint(LayoutConstraintUtils.getLeadingContraint(view, container: self, value: left))
+        addConstraint(LayoutConstraintUtils.getTopContraint(view, container: self, value: top))
+        addConstraint(LayoutConstraintUtils.getTrailingContraint(view, container: self, value: right))
+        
+    }
+    
     func constraintWithIdentifier(identifier : String) -> NSLayoutConstraint?{
         
         for constraint in self.constraints{
@@ -70,6 +108,12 @@ extension UIView {
             }
         }
         return nil
+    }
+}
+
+func += <KeyType, ValueType> (inout left: Dictionary<KeyType, ValueType>, right: Dictionary<KeyType, ValueType>) {
+    for (k, v) in right {
+        left.updateValue(v, forKey: k)
     }
 }
 

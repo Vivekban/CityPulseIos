@@ -324,7 +324,7 @@ class IssueDetailCell: BaseImageDetailCell {
             votesLabel.text = "\(d.votes)"
             ownerAreaLabel.text = d.ownerArea
             ownerNameLabel.text = d.ownerName
-            ownerCreditsLabel.text = d.ownerCredits
+            ownerCreditsLabel.text = d.ownerCredits.toString()
             ServerImageFetcher.i.loadProfileImageWithDefaultsIn(profilePic, url: d.ownerPic)
         }
     }

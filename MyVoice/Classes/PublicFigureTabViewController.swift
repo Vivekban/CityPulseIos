@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PublicFigureTabViewController: BaseTabViewController {
+class PublicFigureTabViewController: BaseTabsViewController {
 
     override func viewDidLoad() {
         isBriefBar = false

@@ -45,6 +45,19 @@ class TimeDateUtils {
     }
     
     
+    static func getDateFromServerString(dateString : String) -> NSDate{
+        let f = NSDateFormatter()
+        f.dateFormat = "yyyy-MM-dd"
+        if let date = f.dateFromString(dateString.componentsSeparatedByString(" ")[0]) {
+            return date
+        }
+        
+        return NSDate()
+        
+    }
+
+    
+    
     static func getShortDateInString(date : NSDate) -> String{
         formatter.dateStyle = .MediumStyle
         formatter.timeStyle = .NoStyle

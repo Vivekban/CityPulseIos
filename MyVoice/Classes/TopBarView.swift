@@ -48,7 +48,11 @@ class TopBarView: UIView {
         categoryPopPicker.pick(controller!, initData: [categoryField.titleLabel?.text ?? ""]) { (newSelection, forTextField) -> () in
             if newSelection.count > 0 {
                 let val = newSelection[0]
-                (forTextField as? UIButton)?.setTitle(val, forState: UIControlState.Normal)
+                UIView.performWithoutAnimation({ () -> Void in
+                    (forTextField as? UIButton)?.setTitle(val, forState: UIControlState.Normal)
+                    forTextField.layoutIfNeeded()
+
+                })
                 self.delegate?.onCategoryChanged(newSelection[0], item: self.categoryPopPicker.popVC.info?.items?[0].indexOf(val) ?? 0)
             }
         }
@@ -68,6 +72,8 @@ class TopBarView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         categoryField.hidden = true
+        categoryField.setTitleColor(UIColor.grayColor(), forState: UIControlState.Highlighted)
+
         cityField.titleFont = UIFont.systemFontOfSize(13.0)
         changeVisibiltOfBackButton(true)
        
@@ -94,15 +100,20 @@ class TopBarView: UIView {
             searchField!.rightViewMode = UITextFieldViewMode.Always;
         }
         
-        
-        searchBar = UITextField(frame: CGRect(x: 0, y: 5, width: 200, height: 30))
+    
+        searchBar = UITextField(frame: CGRect(x: 0, y: 6, width: 200, height: 30))
         searchBar.returnKeyType = UIReturnKeyType.Search
         //searchBar.translatesAutoresizingMaskIntoConstraints = false
 
         searchBar.textColor = Constants.grayColor_101
-        searchBar.font = UIFont.systemFontOfSize(18)
+        searchBar.font = UIFont.systemFontOfSize(15)
         searchBar.sizeToFit()
         searchBar.placeholder = "Search"
+        
+        let searchBarLine = UIView(frame: CGRect(x: 0, y: 16, width: 200, height: 1))
+        searchBarLine.backgroundColor = Constants.grayColor_217
+        
+        searchBar.addSubview(searchBarLine)
         
         addSubview(searchBar)
         
@@ -150,6 +161,7 @@ class TopBarView: UIView {
             
             if isSearchBarVisible {
                 searchBar.becomeFirstResponder()
+                searchBar.text = ""
                 
                 sender.setBackgroundImage(UIImage(named: "cross_blue"), forState: UIControlState.Normal)
                 

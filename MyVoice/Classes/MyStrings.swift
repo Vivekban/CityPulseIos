@@ -33,6 +33,9 @@ class MyStrings {
     static let messageStartDateEmpty = "Start Date is empty"
     static let messageEndDateEmpty = "End Date is empty"
     static let messageDobEmpty = "Date of birth is empty"
+    static let messageEmpty = "Message is empty"
+    static let messageIsTooShort = "Message is short"
+
 
 
     static let single = "Single"
@@ -121,10 +124,14 @@ class MyStrings {
     static let unableToVoteUp = "Unable to vote up"
     static let unableToVoteDown = "Unable to vote down"
     
+    static let last7days = "Last 7 Days"
+    static let last30days = "Last 30 Days"
+    static let last90days = "Last 90 Days"
     static let lastMonth = "Last Month"
     static let last3Month = "Last 3 Months"
     static let last6Month = "Last 6 Months"
     static let lastYear = "Last Year"
+    static let allTime = "All time"
 
 
     static let sentimentTimeline = "Sentiment Timeline"

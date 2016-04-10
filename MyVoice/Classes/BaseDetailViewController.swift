@@ -17,7 +17,7 @@ class BaseDetailViewController: UIViewController {
     static let leftSideOffset:CGFloat = 105
     let commentSectionIndex = 1
     let addCommentSectionIndex = 2
-    let reponseSectionIndex = 3
+    let responseSectionIndex = 3
     
     //MARK: data source fields
     var data:BaseData?
@@ -105,7 +105,22 @@ class BaseDetailViewController: UIViewController {
     
     
     func onBackButtonClick(){
-        dismissViewControllerAnimated(true, completion: nil)
+        
+//        UIView.animateWithDuration(0.4,
+//            delay: 0.0,
+//            options: UIViewAnimationOptions.CurveEaseInOut,
+//            animations: {
+//                    self.view.transform = CGAffineTransformMakeTranslation(-self.view.frame.size.width, 20)
+//        
+//            },
+//            completion: { finished in
+//                //currentController.presentViewController(newController, animated: false, completion: nil)
+//                //currentController.view.window?.rootViewController?.presentViewController(newController, animated: false, completion: nil)
+//
+//            }
+        //        )
+        self.dismissViewControllerAnimated(true, completion: nil)
+
         
     }
     
@@ -150,7 +165,10 @@ class BaseDetailViewController: UIViewController {
         }
     }
     
-    
+    func updateTableSize(){
+        containerTableView.beginUpdates()
+        containerTableView.endUpdates()
+    }
 }
 
 extension BaseDetailViewController : UITextViewDelegate {
@@ -181,7 +199,8 @@ extension BaseDetailViewController : UITableViewDataSource {
             c.updateViewsWith(data)
             if (descptionHeight != c.descriptionLabel.frame.size.height) {
                 descptionHeight =  c.descriptionLabel.frame.size.height
-                containerTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
+                //containerTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
+                updateTableSize()
             }
         }
     }
@@ -218,8 +237,10 @@ extension BaseDetailViewController : ActionsDelegate {
         
         if (d.isSubscribed == 0){
             // unsubscribed
-            ServerRequestInitiater.i.postMessageToServerForStringResponse(ServerUrls.subscribeIssueUrl, postData: ["userid":CurrentSession.i.userId,"issueid":d.id], completionHandler: { (result) -> Void in
+            let req = ServerRequest(url: ServerUrls.subscribeIssueUrl, postData: ["userid":CurrentSession.i.userId,"issueid":d.id], completionHandler: { (result) -> Void in
                 print(result)
+                LoaderUtils.i.hideLoader()
+
                 switch (result) {
                 case .Success(_):
                     // ToastUtils.displayToastWith("Subscribed")
@@ -233,9 +254,13 @@ extension BaseDetailViewController : ActionsDelegate {
                     break;
                 }
             })
+            req.responseType = .Normal
+            sendRequestToServer(req)
         }
         else {
-            ServerRequestInitiater.i.postMessageToServerForStringResponse(ServerUrls.subscribeIssueUrl, postData: ["userid":CurrentSession.i.userId,"issueid":d.id], completionHandler: { (result) -> Void in
+            
+            let req = ServerRequest(url: ServerUrls.subscribeIssueUrl, postData: ["userid":CurrentSession.i.userId,"issueid":d.id], completionHandler: { (result) -> Void in
+                LoaderUtils.i.hideLoader()
                 switch (result) {
                 case .Success(_):
                     // ToastUtils.displayToastWith("Subscribed")
@@ -249,6 +274,9 @@ extension BaseDetailViewController : ActionsDelegate {
                     break;
                 }
             })
+            req.responseType = .Normal
+            sendRequestToServer(req)
+            
         }
         
     }
@@ -265,6 +293,11 @@ extension BaseDetailViewController : ActionsDelegate {
         
     }
     
+    func sendRequestToServer(request : ServerRequest){
+        LoaderUtils.i.showLoader(self.view)
+        ServerRequestInitiater.i.initiateServerRequest(request)
+    }
+    
 }
 
 
@@ -277,15 +310,16 @@ extension BaseDetailViewController :UITableViewDelegate {
     //    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     //
     //    }
+    
     //
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return baseDetailHeight + descptionHeight
     }
     //
-    //    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    //
-    //    }
-    //
+        func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            return 0
+        }
+   
     //    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
     //
     //    }
@@ -309,7 +343,6 @@ extension BaseDetailViewController : BaseDetailCellDelegate {
 }
 
 class BaseCommentDetailViewController : BaseDetailViewController {
-    var comments:[CommentData] = [CommentData]()
     var commentView:UIView?
     var commentController:CommentController?
     let commentIdentifier = "commentSection"
@@ -343,6 +376,7 @@ class BaseCommentDetailViewController : BaseDetailViewController {
     func changeInTableElement(notification: NSNotification){
         if let e = notification.object as? CommentController {
             commentSectionHeight = e.tableView.contentSize.height
+            // updateTableSize()
             containerTableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
         }
     }
@@ -372,8 +406,21 @@ class BaseCommentDetailViewController : BaseDetailViewController {
     
     override func configureCell(cell: UITableViewCell, forRowAtIndexPath: NSIndexPath) {
         if let c = cell as? CommentController {
-            c.updateComments(comments)
+            commentController = c
             commentSectionHeight = c.tableView.contentSize.height
+            guard let d = data as? IssueData else{
+                return
+            }
+            
+            if d.comments != nil {
+                c.updateComments(d.comments!)
+                c.hidden = false
+
+            }
+            else{
+                c.hidden = true
+            }
+            
             //            if ( commentSectionHeight != c.tableView.contentSize.height ){
             //                containerTableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
             //            }
@@ -404,40 +451,59 @@ class BaseCommentDetailViewController : BaseDetailViewController {
         }
     }
     
-        func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-            if !isShowFooter && section == addCommentSectionIndex{
-                return 0
-            }
-            else{
-                return 20
-            }
-
+    func getHeightForFooterInSection(section: Int) -> CGFloat {
+        guard let d = data as? IssueData else{
+            return 20
         }
-    
-    //    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    //
-    //    }
-    
-        func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-            let container = UIView()
-            let view = UIView(frame: CGRect(x: BaseDetailViewController.leftSideOffset, y: 10, width: (tableView.frame.width) -  BaseDetailViewController.leftSideOffset - 10, height: 1))
+        
+        switch (section) {
+        case commentSectionIndex:
+            return (d.comments == nil || d.comments?.count == 0) ? 0 : 20
+        case addCommentSectionIndex :
+            return isShowFooter ? 20 : 0
+        default:
+            return 20
             
-            if !isShowFooter && section == addCommentSectionIndex{
-                view.backgroundColor = UIColor.clearColor()
-
-            }
-            else{
-            view.backgroundColor = Constants.grayColor_217
-            }
-            container.addSubview(view)
-            return container
         }
+
+        
+    }
+    
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return getHeightForFooterInSection(section)
+        
+    }
+    
+    
+    
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        let container = tableView.footerViewForSection(section) ?? UIView()
+        let view = UIView(frame: CGRect(x: BaseDetailViewController.leftSideOffset, y: 10, width: (tableView.frame.width) -  BaseDetailViewController.leftSideOffset - 10, height: 1))
+        
+        if getHeightForFooterInSection(section) == 0 {
+            view.backgroundColor = UIColor.clearColor()
+            
+        }
+        else{
+            view.backgroundColor = Constants.grayColor_217
+        }
+        container.addSubview(view)
+        return container
+    }
     
     override func onCommentButtonClick(){
         isShowFooter = !isShowFooter
-        containerTableView.reloadSections(NSIndexSet(index: commentSectionIndex), withRowAnimation: UITableViewRowAnimation.Automatic)
+        //containerTableView.reloadSections(NSIndexSet(index: commentSectionIndex), withRowAnimation: UITableViewRowAnimation.Automatic)
+        updateTableSize()
+        
         if isShowFooter {
-            containerTableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: addCommentSectionIndex), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+           containerTableView.footerViewForSection(addCommentSectionIndex)?.hidden = false            //containerTableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: addCommentSectionIndex), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+        }
+        else{
+            containerTableView.footerViewForSection(addCommentSectionIndex)?.hidden = true            //containerTableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: addCommentSectionIndex), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+
         }
     }
     
@@ -462,6 +528,41 @@ class BaseCommentDetailViewController : BaseDetailViewController {
         //  containerTableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: addResponseSectionIndex), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
         
     }
+    
+    
+    func postMessageToServer(info : String, completionHandler: ServerRequestCallback){
+        print(info)
+
+        let req = ServerRequest(url: ServerUrls.resposeIssueUrl, postData: ["json" : info], completionHandler: completionHandler)
+        req.retryCount = 2
+        req.responseType = .Normal
+        sendRequestToServer(req)
+        
+    }
+    
+    func onCommentAdd(data : String){
+        let comnt = CommentData()
+        comnt.description = data
+        comnt.initWithOwner(CurrentSession.i.personController.person.basicInfo)
+        
+        guard let d = self.data as? IssueData else{
+            return
+        }
+        
+        d.addComment(comnt)
+        if d.comments?.count == 1 {
+            containerTableView.reloadSections(NSIndexSet(index: commentSectionIndex), withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
+        else {
+            commentController?.updateComments(d.comments!)
+        }
+        commentSectionHeight = (commentController?.tableView.contentSize.height) ?? commentSectionHeight
+        updateTableSize()
+        // containerTableView.reloadSections(NSIndexSet(index: responseSectionIndex), withRowAnimation: UITableViewRowAnimation.Automatic)
+        // EventUtils.postNotification(EventUtils.changeInTableViewElement, object: reposnse)
+        
+    }
+
 }
 
 
@@ -469,6 +570,55 @@ extension BaseCommentDetailViewController : PostCommentDelegate {
     
     func onPostCommentClic(data : String , view :PostCommentView) {
         
+        view.endEditing(true)
+        
+        guard let d = self.data as? IssueData else {
+            log.error("in valid data")
+            return
+        }
+
+        if view.type == .Comment {
+            let obj = PostCommentData()
+            obj.userid = CurrentSession.i.userId
+            obj.comment = data
+            obj.issueid = d.id
+            
+            let m = obj.isReadyToSave()
+            if !m.isEmpty {
+                UIAlertUtils.createOkAlertFor(self, with: m)
+                return
+            }
+            
+            let param =  MyUtils.appendKayToJSONString(obj.toJSONString() ?? "")
+            
+            postMessageToServer(param, completionHandler: {[weak self] (result) -> Void in
+                
+                LoaderUtils.i.hideLoader()
+                
+                guard let s = self else{
+                    return
+                }
+                print(result)
+                switch (result) {
+                case .Success( _):
+                    s.onCommentAdd(data)
+                    view.descriptionField.text = ""
+                    break
+                case .Failure( _):
+                    UIAlertUtils.createTryAgainWithCancelAlertFor(s, with: MyStrings.unableToPostResponse, tryAgainHandler: { (action) -> Void in
+                        let v = PostCommentView()
+                        v.type = .Comment
+                        s.onPostCommentClic(data, view: v)
+                    })
+                    break
+                default:
+                    break;
+                }
+                })
+            
+            
+        }
+
     }
     
     func onPostCommentHeightChange(height: CGFloat, view : PostCommentView) {
@@ -484,7 +634,7 @@ extension BaseCommentDetailViewController : PostCommentDelegate {
 
 
 class BaseImageDetailViewController: BaseCommentDetailViewController {
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         containerTableView.rowHeight = 560

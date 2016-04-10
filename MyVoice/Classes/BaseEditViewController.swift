@@ -485,7 +485,7 @@ extension BaseEditViewController : UITextFieldDelegate {
 class BaseImageEditViewController: BaseEditViewController {
     var resuseIdentifierImageCell = "imageCell"
     var resuseIdentifierAddCell = "addCell"
-    var images = [Int:UIImage]()
+    var images = [UIImage]()
     weak var collection: UICollectionView!
     var uploadTimer: NSTimer?
     
@@ -546,7 +546,7 @@ class BaseImageEditViewController: BaseEditViewController {
     
     
     func addNewImage(image: UIImage){
-        images[images.count] = image
+        images.append(image)
         if let d = data as? ImageUrlData {
             d.imagesUrls.append("")
         }
@@ -571,7 +571,7 @@ class BaseImageEditViewController: BaseEditViewController {
                 
                 fileUploader.setValue(info, forParameter: "json")
                 
-                for (_,image) in images {
+                for (image) in images {
                     fileUploader.addFileData(UIImageJPEGRepresentation(image, 0.05)!, withName: "image", withMimeType: "image/jpeg")
                 }
                 //
@@ -625,10 +625,12 @@ class BaseImageEditViewController: BaseEditViewController {
 }
 
 extension BaseImageEditViewController : ImagePageViewControllerDelegate{
-    func finalChanges(urls: [String], images: [Int : UIImage]) {
-        self.images = images
+    func finalChanges(urls: [String], images: [UIImage]) {
+        self.images.removeAll()
+        self.images += images
         if let d = data as? ImageUrlData {
-            d.imagesUrls = urls
+            d.imagesUrls.removeAll()
+            d.imagesUrls.appendContentsOf(urls)
         }
     }
 }
@@ -676,11 +678,21 @@ extension BaseImageEditViewController : UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
         
         let view = cell.viewWithTag(1)
+        
+       
         if identifier == resuseIdentifierImageCell {
             //TODO: update image
-            if let iv = view as? UIImageView {
-                loadImageInImageView(iv, index: indexPath.row)
+            print("tag of view are................\(view?.tag).......\(cell.tag)")
+            for i in cell.subviews {
+                for  j in i.subviews {
+                    if let iv = j as? UIImageView {
+                        print("loading.............\(view!.tag).......\(cell.tag)")
+                        loadImageInImageView(iv, index: indexPath.row)
+                    }
+                }
             }
+           
+
             cell.gestureRecognizers?.removeAll()
             cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onImageClick:"))
             cell.tag = indexPath.row

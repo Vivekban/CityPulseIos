@@ -9,23 +9,23 @@
 import UIKit
 
 protocol ImagePageViewControllerDelegate{
-    func finalChanges(urls:[String], images : [Int:UIImage])
+    func finalChanges(urls:[String], images : [UIImage])
 }
 
 class ImagePageViewController: UIViewController {
     //data
-    var images:[Int:UIImage]?
-    var imagesUrls:[String]!
+    var images = [UIImage]()
+    var imagesUrls:[String] = [String]()
     var initialPosition:Int = 0
     var delegate:ImagePageViewControllerDelegate?
     
     var pageViewController:UIPageViewController!
     
-    static func newInstance(urls:[String], images : [Int:UIImage] , initialPosition: Int) -> ImagePageViewController {
+    static func newInstance(urls:[String], images : [UIImage] , initialPosition: Int) -> ImagePageViewController {
         
         let controller = ImagePageViewController()
-        controller.images = images
-        controller.imagesUrls = urls
+        controller.images += images
+        controller.imagesUrls.appendContentsOf(urls)
         controller.initialPosition = initialPosition
         return controller
         //        if let viewController = viewController {
@@ -63,7 +63,8 @@ class ImagePageViewController: UIViewController {
         
         let navigationItem = UINavigationItem()
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "onBackButtonPress")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: "onDeleteButtonPress")
+        let deleteItem = UIBarButtonItem(title: "Delete", style: UIBarButtonItemStyle.Plain, target: self, action: "onDeleteButtonPress")
+        navigationItem.rightBarButtonItem = deleteItem
         bar.items = [navigationItem]
         self.view.addSubview(bar)
         
@@ -87,8 +88,8 @@ class ImagePageViewController: UIViewController {
         if ( !imagesUrls[itemIndex].isEmpty) {
             pageItemController.imageName = imagesUrls[itemIndex]
         }
-        else if let img = images![itemIndex]{
-            pageItemController.image = img
+        else if images.count > itemIndex {
+            pageItemController.image = images[itemIndex]
         }
         else{
             assertionFailure()
@@ -98,12 +99,16 @@ class ImagePageViewController: UIViewController {
     }
     
     func onBackButtonPress() {
-        delegate?.finalChanges(self.imagesUrls, images: self.images!)
+        delegate?.finalChanges(self.imagesUrls, images: self.images)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func onDeleteButtonPress() {
+        
+        if imagesUrls.count > initialPosition {
+        
         imagesUrls.removeAtIndex(initialPosition)
+        
         removeItemFromDictionary(initialPosition)
         
         if imagesUrls.count > 0 {
@@ -112,6 +117,7 @@ class ImagePageViewController: UIViewController {
         }
         else {
             onBackButtonPress()
+        }
         }
     }
 
@@ -150,14 +156,8 @@ extension ImagePageViewController: UIPageViewControllerDataSource {
     //      func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int // The selected item reflected in the page indicator.
     
     func removeItemFromDictionary(index:Int){
-         images?.removeValueForKey(index)
-        
-        for i in index+1..<5{
-            if let v = images![i] {
-                images?.removeValueForKey(i)
-                images![i-1] = v
-            }
-        }
+         images.removeAtIndex(index)
+    
     }
 }
 

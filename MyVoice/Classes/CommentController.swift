@@ -33,7 +33,7 @@ class CommentController : UITableViewCell {
         tableView = UITableView(frame: CGRectMake(105, 0, self.frame.width-210, self.frame.height))
         // tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorColor = UIColor.clearColor()
-        tableView.rowHeight = 220
+        tableView.rowHeight = 180
         tableView.delegate = self
         tableView.dataSource = self
         tableView.scrollEnabled = false
@@ -47,17 +47,19 @@ class CommentController : UITableViewCell {
     }
     
     func updateComments(data : [CommentData]){
-        comments = data
+        comments.removeAll()
+        comments.appendContentsOf(data)
         tableView.reloadData()
         tableView.frame.size.height = tableView.contentSize.height
         tableView.frame.size.width = self.frame.width-210
+        
 
     }
     
     func addComment(data : CommentData){
         comments.append(data)
-        tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: comments.count - 1, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
-        EventUtils.postNotification(EventUtils.changeInTableViewElement, object: self)
+        tableView.reloadData();//insertRowsAtIndexPaths([NSIndexPath(forRow: comments.count - 1, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
+         EventUtils.postNotification(EventUtils.changeInTableViewElement, object: self)
 
     }
     
@@ -108,7 +110,7 @@ extension CommentController : UITableViewDataSource {
         if let c = cell as? CommentCell {
             c.delegate = self
             if forRowAtIndexPath.row == 0 {
-            c.initViewWithData(comments[forRowAtIndexPath.row])
+            c.initViewWithData(comments[forRowAtIndexPath.section])
             }
             else{
                 c.level = 1
@@ -154,7 +156,7 @@ extension CommentController :UITableViewDelegate {
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let container = UIView()
         let view = PostCommentView(frame: CGRect(x: BaseDetailViewController.leftSideOffset / 2, y: 0, width: tableView.frame.width - BaseDetailViewController.leftSideOffset/2, height: Constants.addCommentViewHeight))
-        view.delegate = self
+        view.setDelegate(self)
         container.addSubview(view)
         return container
     }
@@ -201,6 +203,8 @@ extension CommentController {
                 isShowFooter = -1
             }
             tableView.reloadData()//reloadRowsAtIndexPaths([index], withRowAnimation: UITableViewRowAnimation.Automatic)
+            print("previous size..\(tableView.frame)..........\(frame)")
+            tableView.frame.size.height = tableView.contentSize.height
             EventUtils.postNotification(EventUtils.changeInTableViewElement, object: self)
 
         }

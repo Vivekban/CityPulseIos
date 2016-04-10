@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommunityHubTabController: BaseTabViewController  {
+class CommunityHubTabController: BaseTabsViewController  {
 
     override func viewDidLoad() {
         isBriefBar = false

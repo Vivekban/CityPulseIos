@@ -8,24 +8,20 @@
 
 import UIKit
 
-class BaseTabViewController: UIViewController {
+
+
+class BaseTabsViewController: MyTabsViewController {
     
-    let spaceInViews:CGFloat = 2
     
     // MARK: Tabs related parameters
     var topBar: TopBarView?
     var briefProfileView: BriefProfileBar?
-    var tabsMenu:CAPSPageMenu?
-    var tabTitles = [String]()
-    var tabIndentifiers = [String]()
     var isBriefBar = true
     // MARK: properties
     
     var storyBoardName:String = "Main"
-    var tabsViewStartPoint :CGFloat = 0
     
-    var menuItemWidth:CGFloat = 100
-    var menuItemWithAccordingToText = false
+    
     // action button particular to tab
     var actionButton : UIButton = UIButton(type: .System)
     
@@ -57,7 +53,6 @@ class BaseTabViewController: UIViewController {
     
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         
         createActionButton()
         
@@ -73,7 +68,8 @@ class BaseTabViewController: UIViewController {
         }
         
         
-        loadTabs()
+        super.viewDidLoad()
+
         
         tabsMenu?.view.addSubview(actionButton)
         currentActiveView = tabsMenu?.view
@@ -247,33 +243,38 @@ class BaseTabViewController: UIViewController {
             }
         }
         else {
-            let newTabsPos = maxTabsYpos
-            
-            if newTabsPos != tabsViewStartPoint {
-                let change = newTabsPos - tabsViewStartPoint
-                let time = change/400
-                
-                tabsViewStartPoint = maxTabsYpos
-                
-                
-                UIView.animateWithDuration(NSTimeInterval(time), animations: { () -> Void in
-                    
-                    //self.animateView(change)
-                    
-                    self.briefProfileView?.frame.origin.y =  self.minTabsYpos
-                    
-                    var tabsFrame = self.currentActiveView?.frame
-                    tabsFrame?.origin.y = self.maxTabsYpos + self.spaceInViews
-                    tabsFrame?.size.height = self.view.frame.height - self.maxTabsYpos - self.spaceInViews
-                    
-                    self.currentActiveView?.frame = tabsFrame!
-                    self.view.setNeedsLayout()
-                    
-                })
-                
-            }
+           showBriefBar(true)
         }
         
+    }
+    
+    
+    func showBriefBar(isAnimate : Bool){
+        let newTabsPos = maxTabsYpos
+        if newTabsPos != tabsViewStartPoint {
+            let change = newTabsPos - tabsViewStartPoint
+            let time = isAnimate ? change/400 : 0
+            
+            tabsViewStartPoint = maxTabsYpos
+            
+            
+            UIView.animateWithDuration(NSTimeInterval(time), animations: { () -> Void in
+                
+                //self.animateView(change)
+                
+                self.briefProfileView?.frame.origin.y =  self.minTabsYpos
+                
+                var tabsFrame = self.currentActiveView?.frame
+                tabsFrame?.origin.y = self.maxTabsYpos + self.spaceInViews
+                tabsFrame?.size.height = self.view.frame.height - self.maxTabsYpos - self.spaceInViews
+                
+                self.currentActiveView?.frame = tabsFrame!
+                self.view.setNeedsLayout()
+                
+            })
+            
+        }
+
     }
     
     func animateView(change : CGFloat) {
@@ -325,10 +326,7 @@ class BaseTabViewController: UIViewController {
         
     }
     
-    func addTab(identifier:String , title:String){
-        tabTitles.append(title)
-        tabIndentifiers.append(identifier)
-    }
+    
     
     func onActionButtonClick(sender : UIButton){
         
@@ -376,6 +374,7 @@ class BaseTabViewController: UIViewController {
         currentActiveView = tabsMenu?.view
         topBar?.changeVisibiltOfBackButton(true)
         tabsMenu?.view.hidden = false
+        showBriefBar(false)
         
     }
     
@@ -392,76 +391,10 @@ class BaseTabViewController: UIViewController {
     
 }
 
-// MARK: CAPSMenuDelegate
-
-extension BaseTabViewController : CAPSPageMenuDelegate{
-    
-    func willMoveToPage(controller: UIViewController, index: Int) {
-        
-    }
-    
-    func didMoveToPage(controller: UIViewController, index: Int) {
-        //lastScrollDirection = 1
-        // onDraggingStop()
-    }
-    
-}
-
-extension BaseTabViewController : TabsInitialisation{
-    
-    func getTabsController() -> [UIViewController]{
-        return [UIViewController]()
-    }
-    
-    func loadTabs(){
-        
-        let controllers = getTabsController()
-        
-        let parameters: [CAPSPageMenuOption] = [
-            .SelectionIndicatorColor(Constants.accentColor),
-            .MenuHeight(50),
-            .MenuItemSeparatorWidth(15),
-            .SelectionIndicatorHeight(7),
-        ]
-        
-        let tabBarHeight = self.tabBarController?.tabBar.frame.height ?? 0
-        
-        
-        tabsMenu = CAPSPageMenu(viewControllers: controllers, frame: CGRect(x: 0, y: Int(tabsViewStartPoint + spaceInViews), width: Int(self.view.frame.width), height: Int(self.view.frame.height - tabsViewStartPoint - spaceInViews)), pageMenuOptions: parameters)
-        
-        
-        
-        tabsMenu?.delegate = self
-        
-        
-        
-        self.view.addSubview((tabsMenu?.view)!)
-        
-        //        if (isBriefBar) {
-        //
-        //            if let tabsView = tabsMenu?.view {
-        //
-        //                NSLayoutConstraint(item: tabsView, attribute: .Top, relatedBy: .Equal, toItem: briefProfileView, attribute: .Bottom, multiplier: 1, constant: 10).active = true
-        //            }
-        //        }
-    }
-    
-    
-    func moveToTab(index : Int) {
-        if tabsMenu?.controllerArray.count > index {
-            tabsMenu?.moveToPage(index)
-            tabsMenu?.moveSelectionIndicator(index)
-            ((tabsMenu?.controllerArray[index]) as? BaseNestedTabViewController)?.isVisible = true
-        }
-        else {
-            assertionFailure("invalid tab")
-        }
-    }
-}
 
 // MARK: - Brief Profile delegate
 
-extension BaseTabViewController: BriefProfileBarDelegate {
+extension BaseTabsViewController: BriefProfileBarDelegate {
     func onReviewClick() {
         
         if CurrentSession.i.isVisitingSomeone() {
@@ -474,17 +407,17 @@ extension BaseTabViewController: BriefProfileBarDelegate {
         }
         else{
             
-            if let controller = MyUtils.getViewControllerFromStoryBoard("AdditionalUI", controllerName: "ReviewViewController") {
+             let controller = ReviewsTabsController()
                 controller.title = MyStrings.reviews
                 addAdditionView(controller)
-            }
+            
         }
     }
 }
 
 // MARK: - Top bar delegate
 
-extension BaseTabViewController : TopBarViewDelegate {
+extension BaseTabsViewController : TopBarViewDelegate {
     func onBackButtonClick() {
         if additionalController != nil {
             removeAdditionView()
@@ -502,15 +435,7 @@ extension BaseTabViewController : TopBarViewDelegate {
 }
 
 
-protocol TabsInitialisation {
-    
-    /// set storyboard name, add various tabs
-    func getTabsController() -> [UIViewController]
-    
-    /// create tabs for
-    func loadTabs()
-    
-}
+
 
 
 

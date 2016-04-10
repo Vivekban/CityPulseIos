@@ -33,7 +33,9 @@ class ReviewCell: UITableViewCell {
     
     func updateViewsWithData(data :ReviewData){
         heading.text = data.title
-        nameDateLabel.text = MyStrings.by + " " + data.reviewerName + " - " + data.disPlayDate
+        nameDateLabel.text = MyStrings.by + " " + MyUtils.makeStringTrimmed(data.reviewerName) + " - " + data.disPlayDate
+        
+        print(".....info ,,,..\(nameDateLabel.text)...\(data.disPlayDate)")
         descriptionLabel.text = data.description
     }
 
