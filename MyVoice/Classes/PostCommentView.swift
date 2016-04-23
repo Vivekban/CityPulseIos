@@ -14,6 +14,11 @@ protocol PostCommentDelegate :class {
     func onPostCommentHeightChange(height: CGFloat, view :PostCommentView)
 }
 
+protocol PostCommentCellDelegate :class {
+    func onPostCommentClic(data : String , view :PostCommentCell)
+    func onPostCommentHeightChange(height: CGFloat, view :PostCommentCell)
+}
+
 enum PostCommentType : Int {
     case Comment = 0, Response
 }
@@ -103,7 +108,7 @@ extension PostCommentView : TextViewSizeChangeDelegate{
 class PostCommentCell : UITableViewCell {
     
     var postView : PostCommentView!
-    weak var delegate : PostCommentDelegate?
+    weak var delegate : PostCommentCellDelegate?
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -147,10 +152,10 @@ class PostCommentCell : UITableViewCell {
 
 extension PostCommentCell : PostCommentDelegate{
     func onPostCommentClic(data : String , view :PostCommentView){
-        delegate?.onPostCommentClic(data, view: view)
+        delegate?.onPostCommentClic(data, view: self)
     }
     func onPostCommentHeightChange(height: CGFloat, view :PostCommentView){
-        delegate?.onPostCommentHeightChange(height, view: view)
+        delegate?.onPostCommentHeightChange(height, view: self)
         frame.size.height = height
         layoutIfNeeded()
     }

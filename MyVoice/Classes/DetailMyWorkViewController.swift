@@ -12,6 +12,7 @@ class DetailMyWorkViewController: BaseImageDetailViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        baseDetailHeight = 520
 
         // Do any additional setup after loading the view.
     }

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol CommentControllerDelegate : class {
+    func postCommentOnComment(controller : CommentController,parent: CommentData, info : PostCommentData)
+}
+
 class CommentController : UITableViewCell {
     var tableView: UITableView!
     var expandedRows = Set<Int>()
@@ -16,10 +20,14 @@ class CommentController : UITableViewCell {
     
     var isShowFooter = -1
     
+    var footerHeight = Constants.addCommentViewHeight;
+    
+    weak var delegate : CommentControllerDelegate?
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         initViews()
-
+        
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -33,7 +41,7 @@ class CommentController : UITableViewCell {
         tableView = UITableView(frame: CGRectMake(105, 0, self.frame.width-210, self.frame.height))
         // tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorColor = UIColor.clearColor()
-        tableView.rowHeight = 180
+        tableView.rowHeight = 210
         tableView.delegate = self
         tableView.dataSource = self
         tableView.scrollEnabled = false
@@ -51,21 +59,34 @@ class CommentController : UITableViewCell {
         comments.appendContentsOf(data)
         tableView.reloadData()
         tableView.frame.size.height = tableView.contentSize.height
-        tableView.frame.size.width = self.frame.width-210
+        tableView.frame.size.width = self.frame.width - 210
         
-
+        
     }
     
     func addComment(data : CommentData){
         comments.append(data)
         tableView.reloadData();//insertRowsAtIndexPaths([NSIndexPath(forRow: comments.count - 1, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
-         EventUtils.postNotification(EventUtils.changeInTableViewElement, object: self)
-
+        EventUtils.postNotification(EventUtils.changeInTableViewElement, object: self)
+        
+    }
+    
+    func onCommentPosted(parent : CommentData , newComment : PostCommentData){
+        let data = CommentData()
+        data.initWithPostCommentData(newComment)
+        data.initWithOwner(CurrentSession.i.personController.person.basicInfo)
+        data.ownerArea = "sdfaf"
+        parent.addReply(data);
+        isShowFooter = -1
+        tableView.reloadData();//insertRowsAtIndexPaths([NSIndexPath(forRow: comments.count - 1, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
+        tableView.frame.size.height = tableView.contentSize.height
+        EventUtils.postNotification(EventUtils.changeInTableViewElement, object: self)
+        
     }
     
     func registerClassForTableView(){
         tableView.registerClass(CommentCell.self, forCellReuseIdentifier: "cell")
-
+        
     }
     
     func getHeightOfView()->CGFloat {
@@ -76,22 +97,22 @@ class CommentController : UITableViewCell {
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
-        // Drawing code
+    // Drawing code
     }
     */
-
+    
 }
 
-    //MARK: UITableViewDataSource
+//MARK: UITableViewDataSource
 extension CommentController : UITableViewDataSource {
-
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return comments.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if expandedRows.contains(section){
-         return (1 + comments[section].getTotalComments())
+            return (1 + comments[section].getTotalComments())
         }
         return 1 + comments[section].getTotalComments()
     }
@@ -110,7 +131,7 @@ extension CommentController : UITableViewDataSource {
         if let c = cell as? CommentCell {
             c.delegate = self
             if forRowAtIndexPath.row == 0 {
-            c.initViewWithData(comments[forRowAtIndexPath.section])
+                c.initViewWithData(comments[forRowAtIndexPath.section])
             }
             else{
                 c.level = 1
@@ -122,45 +143,47 @@ extension CommentController : UITableViewDataSource {
 }
 
 extension CommentController :UITableViewDelegate {
-
+    
     //MARK: UITableViewDelegate
     
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
-
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     }
     
-//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        
-//    }
+    //    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    //
+    //    }
     
-//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        
-//    }
+    //    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    //
+    //    }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if isShowFooter == section{
-            return Constants.addCommentViewHeight
+            return footerHeight
         }
         else{
             return 0
         }
     }
     
-//    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//       
-//    }
+    //    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    //
+    //    }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let container = UIView()
         let view = PostCommentView(frame: CGRect(x: BaseDetailViewController.leftSideOffset / 2, y: 0, width: tableView.frame.width - BaseDetailViewController.leftSideOffset/2, height: Constants.addCommentViewHeight))
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.setDelegate(self)
         container.addSubview(view)
+        container.pinViewOnAllDirection(view, left: BaseDetailViewController.leftSideOffset / 2, top: 0, right: -BaseDetailViewController.leftSideOffset/2, bottom: 0)
         return container
     }
-
+    
 }
 
 
@@ -183,10 +206,32 @@ extension CommentController : CommentCellDelegate {
 
 extension CommentController : PostCommentDelegate {
     func onPostCommentClic(data : String, view :PostCommentView) {
-    
+        
+        let selectedComment = comments[isShowFooter]
+        
+        let obj = PostCommentData()
+        obj.userid = CurrentSession.i.userId
+        obj.comment = data
+        obj.type = "comment"
+        obj.id = selectedComment.id
+        
+        
+        guard let d = delegate else { assertionFailure(); return }
+        
+        
+        d.postCommentOnComment(self, parent: selectedComment, info: obj)
+        
+               
     }
     
     func onPostCommentHeightChange(height: CGFloat, view : PostCommentView) {
+        footerHeight = height
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        tableView.frame.size.height = tableView.contentSize.height
+        view.frame.size.height = tableView.contentSize.height + 15
+        EventUtils.postNotification(EventUtils.changeInTableViewElement, object: self)
+        
         
     }
 }
@@ -205,8 +250,9 @@ extension CommentController {
             tableView.reloadData()//reloadRowsAtIndexPaths([index], withRowAnimation: UITableViewRowAnimation.Automatic)
             print("previous size..\(tableView.frame)..........\(frame)")
             tableView.frame.size.height = tableView.contentSize.height
+            
             EventUtils.postNotification(EventUtils.changeInTableViewElement, object: self)
-
+            
         }
     }
     

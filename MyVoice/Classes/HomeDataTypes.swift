@@ -10,7 +10,10 @@ import Foundation
 import ObjectMapper
 import SwiftyJSON
 
-class IssueData: ImageUrlData {
+
+
+
+class IssueData: ImageCommentData {
     var category:String = ""
     var tags:String = ""
     var markTo:Int = -1
@@ -52,7 +55,6 @@ class IssueData: ImageUrlData {
     var ownerArea = ""
     var ownerCredits = 0
     
-    var comments:[CommentData]?
     var response:[ResponseData]?
     
     override func mapping(map: Map) {
@@ -67,10 +69,12 @@ class IssueData: ImageUrlData {
         isFlaged <- map["isFlaged"]
         isVoted <- map["isVoted"]
         isSubscribed <- map["isSubscribed"]
-        
+        votes <- map["votes"]
         ownerArea <- map["ownerArea"]
+        ownerArea.doTrimming()
         ownerCredits <- map["ownerCredits"]
         ownerName <- map["ownerName"]
+        ownerName.doTrimming()
         ownerPic <- map["ownerPic"]
         
         response <- map["responses"]
@@ -78,12 +82,7 @@ class IssueData: ImageUrlData {
         id <- map ["issueid"]
     }
     
-    func addComment(data : CommentData){
-        if comments == nil {
-            comments = [CommentData]()
-        }
-        comments?.append(data)
-    }
+    
     
     func addResponse(data : ResponseData){
         if response == nil {
@@ -119,51 +118,17 @@ class IssueData: ImageUrlData {
     
 }
 
-class CommentData:TitleDesDateData {
-    var reply:[CommentData]?
-    var ownerName:String = ""
-    var ownerPic:String = ""
-    var ownerArea:String = ""
-    var isFlaged = 0
-    
-    func getTotalComments()-> Int {
-        var sum = 0
-        
-        if reply != nil {
-            for i in reply! {
-                sum++
-                sum += i.getTotalComments()
-            }
-        }
-        
-        return sum
-    }
-    
-    override func mapping(map: Map) {
-        super.mapping(map)
-        ownerArea <- map["ownerArea"]
-        ownerName <- map["ownerName"]
-        ownerPic <- map["ownerPic"]
-        owner <- map["ownerId"]
-        isFlaged <- map["isFlaged"]
-    }
-    
-    func initWithOwner(info : PersonBasicData ){
-        disPlayDate = TimeDateUtils.getShortDateInString(NSDate())
-        ownerName = info.first_name
-        ownerArea = info.address1
-        ownerPic = info.profilePic
-    }
-}
 
 class ResponseData:CommentData {
     var votes = 0
     var isVoted = 0
+    var isAns = ""
     
     override func mapping(map: Map) {
         super.mapping(map)
         votes <- map["votes"]
         isVoted <- map["isVoted"]
+        isAns <- map["isAns"]
     }
 
     
@@ -172,10 +137,13 @@ class ResponseData:CommentData {
 class PostCommentData : BaseData {
     var issueid : Int = 0
     var comment = ""
+    var type = "issue"
+    
     override func mapping(map: Map) {
         super.mapping(map)
         issueid <- map["issueid"]
         comment <- map["comment"]
+        type <- map["type"]
 
     }
     override func isReadyToSave() -> String {

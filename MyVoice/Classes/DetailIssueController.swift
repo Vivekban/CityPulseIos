@@ -90,9 +90,9 @@
             containerTableView.tableHeaderView?.frame.size.height = 1
         }
         
-        override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            return CGFloat.min
-        }
+//        override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//            return CGFloat.min
+//        }
         
         override func fetchMoreDetailFromServer() {
             
@@ -118,7 +118,7 @@
         
         func onServerResponse(data: AnyObject?){
             guard let d = data else {return}
-            //print(d)
+            print(d)
             let viewArray = JSON(d)
             for (_,obj) in viewArray {
                 if let finalString = obj.rawString() {
@@ -148,7 +148,7 @@
         override func configureCell(cell: UITableViewCell, forRowAtIndexPath: NSIndexPath) {
             if forRowAtIndexPath.section == responseSectionIndex {
                 if let c = cell as? ResponseConroller {
-                    
+
                     guard let d = data as? IssueData else{
                         return
                     }
@@ -161,6 +161,8 @@
                         c.hidden = true
                     }
                     responsesController = c
+                    responsesController?.delegate = self
+
                     responseSectionHeight = c.tableView.contentSize.height
                     
                     //                if ( responseSectionHeight != c.tableView.contentSize.height ){
@@ -233,9 +235,9 @@
         //        }
         
         
-        func onResponseAdd(data : String){
+        func onResponseAdd(data : PostCommentData){
             let comnt = ResponseData()
-            comnt.description = data
+            comnt.initWithPostCommentData(data)
             comnt.initWithOwner(CurrentSession.i.personController.person.basicInfo)
             
             guard let d = self.data as? IssueData else{
@@ -257,8 +259,7 @@
                 return
             }
             
-            
-            
+        
             
             if view.type == .Response {
                 let obj = PostCommentData()
@@ -282,8 +283,10 @@
                     }
                     print(result)
                     switch (result) {
-                    case .Success( _):
-                        s.onResponseAdd(data)
+                    case .Success(let d):
+                        print(d)
+                        obj.id = Int(d! as! NSNumber)
+                        s.onResponseAdd(obj)
                         view.descriptionField.text = ""
                         break
                     case .Failure( _):
@@ -318,13 +321,13 @@
         
         
         override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-            if  section == addResponseSectionIndex{
-                tableView.footerViewForSection(section)?.hidden = true
-                return 0
-            }
-            else{
+//            if  section == addResponseSectionIndex{
+//                tableView.footerViewForSection(section)?.hidden = true
+//                return 0
+//            }
+//            else{
                 return super.tableView(tableView, heightForFooterInSection: section)
-            }
+            //           }
             
         }
         

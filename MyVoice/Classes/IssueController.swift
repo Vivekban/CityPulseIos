@@ -103,7 +103,7 @@ class HomeDataManager: ServerDataManager{
         case .Relevant:
             return ["status":"o"]
         case .Subscribed:
-            return ["status":"o"]
+            return ["userid":CurrentSession.i.userId]
         case .Resolved:
             return ["status":"o"]
         case .Own:

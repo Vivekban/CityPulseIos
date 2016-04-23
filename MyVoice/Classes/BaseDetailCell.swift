@@ -83,7 +83,7 @@ class BaseCommentDetailCell: BaseDetailCell {
     override func awakeFromNib() {
         super.awakeFromNib()
        
-        for i in 48...52 {
+        for i in 48...53 {
             if let button = self.viewWithTag(i) as? UIButton {
             button.addTarget(self, action: "onActionButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
             }
@@ -129,6 +129,8 @@ class BaseImageDetailCell: BaseCommentDetailCell {
                 onItemClick(0)
             }
         }
+        
+        collectionView.reloadData()
     }
     
 }
@@ -271,7 +273,7 @@ class IssueDetailCell: BaseImageDetailCell {
             return
         }
         
-      let param = MyUtils.appendKayToJSONString("{\"vote\":\(change),\"issueid\":\(d.id),\"userid\":\(CurrentSession.i.userId)} ")
+      let param = MyUtils.appendKayToJSONString("{\"votes\":\(change),\"issueid\":\(d.id),\"userid\":\(CurrentSession.i.userId)} ")
 
         print(param)
         ServerRequestInitiater.i.postMessageToServerForStringResponse(ServerUrls.voteIssueUrl, postData: ["json": param]) { [weak self] (r) -> Void in
@@ -322,9 +324,9 @@ class IssueDetailCell: BaseImageDetailCell {
             log.info(d.title)
             category.text = d.category
             votesLabel.text = "\(d.votes)"
-            ownerAreaLabel.text = d.ownerArea
-            ownerNameLabel.text = d.ownerName
-            ownerCreditsLabel.text = d.ownerCredits.toString()
+            ownerAreaLabel.text = d.ownerArea.doTrimming()
+            ownerNameLabel.text =  d.ownerName.doTrimming()
+            ownerCreditsLabel.text = d.ownerCredits.toString().doTrimming()
             ServerImageFetcher.i.loadProfileImageWithDefaultsIn(profilePic, url: d.ownerPic)
         }
     }

@@ -29,6 +29,12 @@ class InfoData : BaseData{
         super.mapping(map)
         content <- map["content"]
     }
+    
+    override func getCombineString() -> String {
+        var s = super.getCombineString()
+        s += content
+        return s
+    }
 }
 
 
@@ -46,14 +52,12 @@ class MyViewData :TitleDesDateData{
 
 // MARK: Work
 
-class MyWorkData:ImageUrlData {
+class MyWorkData:ImageCommentData {
     var likes = 0
-    var comments = 0
-    var category = "Category"
+    var category = ""
      override func mapping(map: Map) {
         super.mapping(map)
         likes <- map["likes"]
-        comments <- map["comments"]
         category <- map["category"]
     }
 }
@@ -104,6 +108,10 @@ class SentimentTimelineData: BaseData {
     override func mapping(map: Map) {
         label <- map["label"]
         value <- map["data"]
+    }
+    
+    override func getCombineString() -> String {
+        return super.getCombineString() + label + value.toString()
     }
 }
 

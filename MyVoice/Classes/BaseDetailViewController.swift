@@ -106,21 +106,21 @@ class BaseDetailViewController: UIViewController {
     
     func onBackButtonClick(){
         
-//        UIView.animateWithDuration(0.4,
-//            delay: 0.0,
-//            options: UIViewAnimationOptions.CurveEaseInOut,
-//            animations: {
-//                    self.view.transform = CGAffineTransformMakeTranslation(-self.view.frame.size.width, 20)
-//        
-//            },
-//            completion: { finished in
-//                //currentController.presentViewController(newController, animated: false, completion: nil)
-//                //currentController.view.window?.rootViewController?.presentViewController(newController, animated: false, completion: nil)
-//
-//            }
+        //        UIView.animateWithDuration(0.4,
+        //            delay: 0.0,
+        //            options: UIViewAnimationOptions.CurveEaseInOut,
+        //            animations: {
+        //                    self.view.transform = CGAffineTransformMakeTranslation(-self.view.frame.size.width, 20)
+        //
+        //            },
+        //            completion: { finished in
+        //                //currentController.presentViewController(newController, animated: false, completion: nil)
+        //                //currentController.view.window?.rootViewController?.presentViewController(newController, animated: false, completion: nil)
+        //
+        //            }
         //        )
         self.dismissViewControllerAnimated(true, completion: nil)
-
+        
         
     }
     
@@ -240,7 +240,7 @@ extension BaseDetailViewController : ActionsDelegate {
             let req = ServerRequest(url: ServerUrls.subscribeIssueUrl, postData: ["userid":CurrentSession.i.userId,"issueid":d.id], completionHandler: { (result) -> Void in
                 print(result)
                 LoaderUtils.i.hideLoader()
-
+                
                 switch (result) {
                 case .Success(_):
                     // ToastUtils.displayToastWith("Subscribed")
@@ -316,10 +316,10 @@ extension BaseDetailViewController :UITableViewDelegate {
         return baseDetailHeight + descptionHeight
     }
     //
-        func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            return 0
-        }
-   
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.min
+    }
+    
     //    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
     //
     //    }
@@ -407,6 +407,7 @@ class BaseCommentDetailViewController : BaseDetailViewController {
     override func configureCell(cell: UITableViewCell, forRowAtIndexPath: NSIndexPath) {
         if let c = cell as? CommentController {
             commentController = c
+            commentController?.delegate = self
             commentSectionHeight = c.tableView.contentSize.height
             guard let d = data as? IssueData else{
                 return
@@ -415,7 +416,7 @@ class BaseCommentDetailViewController : BaseDetailViewController {
             if d.comments != nil {
                 c.updateComments(d.comments!)
                 c.hidden = false
-
+                
             }
             else{
                 c.hidden = true
@@ -452,8 +453,13 @@ class BaseCommentDetailViewController : BaseDetailViewController {
     }
     
     func getHeightForFooterInSection(section: Int) -> CGFloat {
-        guard let d = data as? IssueData else{
+        guard let d = data as? ImageCommentData else{
             return 20
+        }
+        
+        if section == numberOfSection - 1{
+             containerTableView.footerViewForSection(section)?.hidden = true
+        return 0
         }
         
         switch (section) {
@@ -465,7 +471,7 @@ class BaseCommentDetailViewController : BaseDetailViewController {
             return 20
             
         }
-
+        
         
     }
     
@@ -499,11 +505,11 @@ class BaseCommentDetailViewController : BaseDetailViewController {
         updateTableSize()
         
         if isShowFooter {
-           containerTableView.footerViewForSection(addCommentSectionIndex)?.hidden = false            //containerTableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: addCommentSectionIndex), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+            containerTableView.footerViewForSection(addCommentSectionIndex)?.hidden = false            //containerTableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: addCommentSectionIndex), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
         }
         else{
             containerTableView.footerViewForSection(addCommentSectionIndex)?.hidden = true            //containerTableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: addCommentSectionIndex), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
-
+            
         }
     }
     
@@ -532,7 +538,7 @@ class BaseCommentDetailViewController : BaseDetailViewController {
     
     func postMessageToServer(info : String, completionHandler: ServerRequestCallback){
         print(info)
-
+        
         let req = ServerRequest(url: ServerUrls.resposeIssueUrl, postData: ["json" : info], completionHandler: completionHandler)
         req.retryCount = 2
         req.responseType = .Normal
@@ -540,9 +546,9 @@ class BaseCommentDetailViewController : BaseDetailViewController {
         
     }
     
-    func onCommentAdd(data : String){
+    func onCommentAdd(data : PostCommentData){
         let comnt = CommentData()
-        comnt.description = data
+        comnt.initWithPostCommentData(data)
         comnt.initWithOwner(CurrentSession.i.personController.person.basicInfo)
         
         guard let d = self.data as? IssueData else{
@@ -562,7 +568,51 @@ class BaseCommentDetailViewController : BaseDetailViewController {
         // EventUtils.postNotification(EventUtils.changeInTableViewElement, object: reposnse)
         
     }
+    
+}
 
+extension BaseCommentDetailViewController : CommentControllerDelegate {
+    
+    func postCommentOnComment(controller: CommentController, parent: CommentData, info: PostCommentData) {
+        
+        view.endEditing(true)
+        
+        let m = info.isReadyToSave()
+        
+        if !m.isEmpty {
+            UIAlertUtils.createOkAlertFor(self, with: m)
+            return
+        }
+        
+        let param =  MyUtils.appendKayToJSONString(info.toJSONString() ?? "")
+        
+        postMessageToServer(param, completionHandler: {[weak self] (result) -> Void in
+            
+            LoaderUtils.i.hideLoader()
+            
+            guard let s = self else{
+                return
+            }
+            print(result)
+            switch (result) {
+            case .Success( _):
+                controller.onCommentPosted(parent, newComment: info)
+                //   s.onCommentAdd(data)
+                // view.descriptionField.text = ""
+                break
+            case .Failure( _):
+                UIAlertUtils.createTryAgainWithCancelAlertFor(s, with: MyStrings.unableToPostResponse, tryAgainHandler: { (action) -> Void in
+                    
+                    s.postCommentOnComment(controller, parent: parent, info:info)
+                })
+                break
+            default:
+                break;
+            }
+            })
+        
+        
+    }
 }
 
 
@@ -576,7 +626,7 @@ extension BaseCommentDetailViewController : PostCommentDelegate {
             log.error("in valid data")
             return
         }
-
+        
         if view.type == .Comment {
             let obj = PostCommentData()
             obj.userid = CurrentSession.i.userId
@@ -600,8 +650,9 @@ extension BaseCommentDetailViewController : PostCommentDelegate {
                 }
                 print(result)
                 switch (result) {
-                case .Success( _):
-                    s.onCommentAdd(data)
+                case .Success(let d):
+                    obj.id = Int(d! as! NSNumber)
+                    s.onCommentAdd(obj)
                     view.descriptionField.text = ""
                     break
                 case .Failure( _):
@@ -618,7 +669,7 @@ extension BaseCommentDetailViewController : PostCommentDelegate {
             
             
         }
-
+        
     }
     
     func onPostCommentHeightChange(height: CGFloat, view : PostCommentView) {

@@ -248,7 +248,7 @@ class TextFieldWithCharacterLimit {
 }
 
 enum Actions :Int {
-    case  Subscribe = 48, Share = 49, Comment = 50, Flag = 51, Message = 52, VoteUp = 10, VoteDown = 11
+    case  Subscribe = 48, Share = 49, Comment = 50, Flag = 51, Message = 52,Like = 53, VoteUp = 10, VoteDown = 11
 }
 
 protocol ActionsDelegate : class { 

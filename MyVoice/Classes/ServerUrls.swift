@@ -55,6 +55,7 @@ class ServerUrls {
     static let flagIssueUrl = baseUrl + "/"
 
     static let voteIssueUrl = baseUrl + "/VoteIssue"
+    static let voteResponseUrl = baseUrl + "/VoteIssueResponse"
 
     
     static let voteIssueResponsUrl = baseUrl + "/VoteIssueResponse"
@@ -68,13 +69,13 @@ class ServerUrls {
 
     // MARK: - event
     
-    static let addEventUrl = baseUrl + "/AddEvent/"
+    static let addEventUrl = baseUrl + "/AddEvent"
     static let updateEventUrl = baseUrl + "/UpdateEvet"
     static let getEventByIdUrl = baseUrl + "/GetEventById"
 
     // MARK: - work
     
-    static let addWorkUrl = baseUrl + "/AddWork/"
+    static let addWorkUrl = baseUrl + "/SubmitWork"
     static let updateWorkUrl = baseUrl + "/UpdateWork"
     static let getWorkByIdUrl = baseUrl + "/GetWorkById"
     

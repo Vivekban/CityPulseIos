@@ -33,6 +33,8 @@ class TopBarView: UIView {
     
     private var isSearchBarVisible = false
     private var isSearchAnimating = false
+    
+    private var searchBarLine : UIView!
 
     // private var testFiled : UITextField!
     /*
@@ -110,7 +112,7 @@ class TopBarView: UIView {
         searchBar.sizeToFit()
         searchBar.placeholder = "Search"
         
-        let searchBarLine = UIView(frame: CGRect(x: 0, y: 16, width: 200, height: 1))
+        searchBarLine = UIView(frame: CGRect(x: 0, y: 16, width: 200, height: 1))
         searchBarLine.backgroundColor = Constants.grayColor_217
         
         searchBar.addSubview(searchBarLine)
@@ -169,6 +171,7 @@ class TopBarView: UIView {
                 frame.size.width = 200
                 frame.origin.x = self.searchCrossButton.frame.origin.x - 4 - 200
                 self.searchBar.hidden = false
+                searchBarLine.hidden = true
 
                 //searchBar.transform = CGAffineTransformMakeScale(0.1,1);
 
@@ -181,6 +184,7 @@ class TopBarView: UIView {
                     //  self.layoutIfNeeded()
                     },completion: { (complete) -> Void in
                         self.isSearchAnimating = false
+                        self.searchBarLine.hidden = false
                 })
                 
 
@@ -195,9 +199,9 @@ class TopBarView: UIView {
                 sender.setBackgroundImage(UIImage(named: "search"), forState: UIControlState.Normal)
                 
                 var frame = searchBar.frame
-                //frame.size.width = 0
+                //frame.size.width = 1
                 frame.origin.x = self.searchCrossButton.frame.origin.x - 4
-              
+                searchBarLine.hidden = true
                 //self.searchBar.transform = CGAffineTransformMakeScale(1,1)
                 
                 UIView.animateWithDuration(1, animations: { () -> Void in

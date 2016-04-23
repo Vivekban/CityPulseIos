@@ -96,9 +96,9 @@ class ReviewsViewController: BaseProfileNestedViewController {
                     if j.getNSDate().numberOfDaysUntilDateTime(curDate) <= time {
                         self.entries.append(i)
                     }
-                    else{
-                        return
-                    }
+//                    else{
+//                        return
+//                    }
                 }
             }
         }

@@ -31,7 +31,7 @@ class HomeTabViewController: BaseTabsViewController {
         filterTextView.setTitleColor(Constants.accentColor, forState: UIControlState.Normal)
 
         filterTextView.titleLabel?.font = UIFont.systemFontOfSize(18)
-        filterTextView.frame = CGRect(x: (actionButton.frame.origin.x) - 120 - 20, y: 14, width: 120, height:30)
+        filterTextView.frame = CGRect(x: (actionButton.frame.origin.x) - 120 - 20, y: 10, width: 120, height:30)
         
         filterTextView.transform = CGAffineTransformMakeScale(-1.0, 1.0);
         filterTextView.titleLabel?.transform = CGAffineTransformMakeScale(-1.0, 1.0);

@@ -15,6 +15,7 @@ class EditWorkViewController: BaseImageEditViewController {
     //  @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var descriptionField: DescriptionView!
     @IBOutlet weak var imagesCollection: UICollectionView!
+    @IBOutlet weak var category: FloatLabelTextField!
     
     override func viewDidLoad() {
         mainTitle = "Work".localized
@@ -28,6 +29,23 @@ class EditWorkViewController: BaseImageEditViewController {
         
         addItemUrl = ServerUrls.addWorkUrl
         updateItemUrl = ServerUrls.updateWorkUrl
+        
+        
+        // category
+        var info = PopInfo()
+        info.items = [[String]]()
+        info.items?.append([String]())
+        info.heading = MyStrings.categories
+        // removing all option
+        var enty = CurrentSession.i.appDataManager.appData.categories
+        if enty.count > 0 {
+            enty.removeFirst()
+        }
+        info.items![0].appendContentsOf(enty)
+        
+        addTextFieldForPickerPopOver(category, info: info)
+
+        
     }
     
     override func getDataForNewItem() -> BaseData {
@@ -40,6 +58,8 @@ class EditWorkViewController: BaseImageEditViewController {
             titleField.text = d.title
             descriptionField.text = d.description
             //dateField.text =  d.disPlayDate
+            category.text = d.category
+
         }
     }
     
@@ -48,6 +68,8 @@ class EditWorkViewController: BaseImageEditViewController {
             d.title = titleField.text ?? ""
             d.description = descriptionField.text ?? ""
             //  d.disPlayDate = dateField.text ?? ""
+            d.category = category.text ?? ""
+
         }
     }
     

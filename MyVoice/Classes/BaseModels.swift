@@ -38,9 +38,8 @@ class BaseData:Mappable{
     }
     
     func getCombineString() -> String {
-        let s = userid.toString() + id.toString() + owner.toString()
         // print("combine Stirng .......\(s)")
-        return s
+        return userid.toString() + id.toString() + owner.toString()
     }
     
     func update(data :BaseData , isForce :Bool = false){
@@ -123,7 +122,7 @@ class TitleDescriptionData: BaseData {
 }
 
 class TitleDesDateData :TitleDescriptionData{
-    private var date:String = ""
+    internal var date:String = ""
     var disPlayDate:String {
         get {
             if !date.isEmpty {
@@ -196,5 +195,76 @@ class ImageUrlData : TitleDesDateData{
 
 }
 
+
+class ImageCommentData: ImageUrlData {
+    var comments:[CommentData]?
+    
+    func addComment(data : CommentData){
+        if comments == nil {
+            comments = [CommentData]()
+        }
+        comments?.append(data)
+    }
+    
+    override func mapping(map: Map) {
+        super.mapping(map)
+        comments <- map["comments"]
+        
+    }
+}
+
+class CommentData:TitleDesDateData {
+    var reply:[CommentData]?
+    var ownerName:String = ""
+    var ownerPic:String = ""
+    var ownerArea:String = ""
+    var isFlaged = 0
+    
+    func getTotalComments()-> Int {
+        var sum = 0
+        
+        if reply != nil {
+            for i in reply! {
+                sum++
+                sum += i.getTotalComments()
+            }
+        }
+        
+        return sum
+    }
+    
+    override func mapping(map: Map) {
+        super.mapping(map)
+        ownerArea <- map["ownerArea"]
+        ownerArea = ownerArea.doTrimming()
+        ownerName <- map["ownerName"]
+        ownerName = ownerName.doTrimming()
+        ownerPic <- map["ownerPic"]
+        owner <- map["ownerId"]
+        isFlaged <- map["isFlaged"]
+        reply <- map["reply"]
+        date <- map["time"]
+        
+    }
+    
+    func initWithOwner(info : PersonBasicData ){
+        disPlayDate = TimeDateUtils.getShortDateInString(NSDate())
+        ownerName = info.first_name
+        ownerArea = info.address1
+        ownerPic = info.profilePic
+    }
+    
+    func initWithPostCommentData(data : PostCommentData){
+        description = data.comment
+        id = data.id
+    }
+    
+    func addReply(data : CommentData){
+        if reply == nil {
+            reply = [CommentData]()
+        }
+        reply?.append(data)
+    }
+}
 
 

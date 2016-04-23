@@ -89,7 +89,7 @@ class PersonData{
         case PersonInfoRequestType.SentimentTimeLine.rawValue:
             return sentimentTimeLineListManager[index]
         default :
-            assertionFailure("unknown request")
+            // assertionFailure("unknown request")
             return viewsListManager
         }
     }

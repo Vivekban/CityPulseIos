@@ -61,7 +61,7 @@ class ServerImageFetcher {
         
         if let nSUrl = NSURL(string: validateUrl(url)){
             let indicator = getAndAddIndicator(iv)
-            iv.af_setImageWithURL(nSUrl, placeholderImage: nil,filter:AspectScaledToFillSizeFilter(size: iv.frame.size),imageTransition: .CrossDissolve(0.3),runImageTransitionIfCached: false,
+            iv.af_setImageWithURL(nSUrl, placeholderImage: nil,filter:AspectScaledToFillSizeFilter(size: getValidFrameSize(iv.frame.size)),imageTransition: .CrossDissolve(0.3),runImageTransitionIfCached: false,
                 completion: { (response) -> Void in
                 indicator.removeFromSuperview()
             })
@@ -104,6 +104,11 @@ class ServerImageFetcher {
         indicator.startAnimating()
         imageView.addSubview(indicator)
         return indicator
+    }
+    
+    func getValidFrameSize(size: CGSize) -> CGSize{
+        
+        return CGSize( width: max(size.width, 1), height: max(size.height,1))
     }
     
 }

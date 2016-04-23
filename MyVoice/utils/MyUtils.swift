@@ -23,15 +23,18 @@ class MyUtils{
     
     static func presentViewController(currentController:UIViewController, identifier: String, transition : UIModalTransitionStyle = .CoverVertical) -> UIViewController?{
         if let sectionController = currentController.storyboard?.instantiateViewControllerWithIdentifier(identifier)
-        {   if (transition == .CoverVertical){
-            sectionController.modalTransitionStyle = transition
-            presentViewController(currentController, newController: sectionController)
-            }
-        else{
-            //presentViewController(currentController, newController: sectionController, isShow: true)
+        {
+            //if (transition == .CoverVertical){
+            //sectionController.modalTransitionStyle = transition
+//            presentViewController(currentController, newController: sectionController)
+//            }
+//        else{
+//            //presentViewController(currentController, newController: sectionController, isShow: true)
+//            presentViewController(currentController, newController: sectionController)
+//
+//            }
             presentViewController(currentController, newController: sectionController)
 
-            }
             return sectionController
         }
         return nil

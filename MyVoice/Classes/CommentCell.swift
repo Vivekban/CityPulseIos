@@ -67,7 +67,13 @@ class CommentView: UIView {
         
     }
     
-    
+    func updateView(data : CommentData){
+        date.text = data.disPlayDate
+        name.text = data.ownerName
+        area.text = data.ownerArea
+        descrption.text = data.description
+        ServerImageFetcher.i.loadProfileImageWithDefaultsIn(profilePic, url: data.ownerPic)
+    }
     
     
     func setSpacerWidth(level :Int){
@@ -93,6 +99,8 @@ class CommentCell: UITableViewCell {
         }
     }
     weak var delegate:CommentCellDelegate?
+    
+    var data :BaseData!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -122,12 +130,8 @@ class CommentCell: UITableViewCell {
     }
     
     func initViewWithData(data:CommentData){
-        commentView.date.text = data.disPlayDate
-        commentView.name.text = data.ownerName
-        commentView.area.text = data.ownerArea
-        commentView.descrption.text = data.description
-        ServerImageFetcher.i.loadProfileImageWithDefaultsIn(commentView.profilePic, url: data.ownerPic)
-        
+        self.data = data
+        commentView.updateView(data)
     }
     
 }
