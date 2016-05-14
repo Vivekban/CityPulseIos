@@ -46,7 +46,7 @@ class PersonUI {
     
     init(){
         educationInfoItems = ["LAST_DEGREE_HELD".localized,"YEAR".localized]
-        occupationInfoItems = [MyStrings.designation,MyStrings.workPlace,MyStrings.from, MyStrings.to]
+        occupationInfoItems = [MyStrings.designation,MyStrings.workPlace,MyStrings.from, MyStrings.TO]
         personSpecificParmeter()
     }
     

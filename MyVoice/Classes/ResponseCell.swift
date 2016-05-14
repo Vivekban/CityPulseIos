@@ -107,6 +107,10 @@ class ResponseCell: CommentCell {
             if d.isVoted < 1 {
                 onVoteRequest(1)
             }
+            else{
+                UIAlertUtils.createOkAlertFor(self, with: MyStrings.alreadyVoteUp)
+            }
+
             
         }
     }
@@ -116,6 +120,10 @@ class ResponseCell: CommentCell {
             if d.isVoted > -1 {
                 onVoteRequest(-1)
             }
+            else{
+                UIAlertUtils.createOkAlertFor(self, with: MyStrings.alreadyVoteDown)
+            }
+
             
         }
     }

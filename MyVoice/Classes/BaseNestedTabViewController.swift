@@ -98,8 +98,10 @@ class BaseNestedTabViewController :UIViewController{
     
     func showDetailViewController(index:Int) -> UIViewController?{
         
+        if(detailControllerIdentifier.isEmpty){
+            return nil
+        }
         
-              
         
         let controller = MyUtils.presentViewController(self, identifier: detailControllerIdentifier)
         if let editController = controller as? BaseDetailViewController {
@@ -333,9 +335,9 @@ extension BaseNestedTabViewController : UICollectionViewDelegateFlowLayout{
         }
         
         
-            let width =  Int(collectionView.frame.width - flowLayout.sectionInset.left - flowLayout.sectionInset.right)/columns
-            
-            return CGSize(width: CGFloat(width) - flowLayout.minimumInteritemSpacing, height: (flowLayout.itemSize.height))
+        let width =  Int(collectionView.frame.width - flowLayout.sectionInset.left - flowLayout.sectionInset.right)/columns
+        
+        return CGSize(width: CGFloat(width) - flowLayout.minimumInteritemSpacing, height: (flowLayout.itemSize.height))
         
     }
 }

@@ -1331,6 +1331,95 @@
             </objects>
             <point key="canvasLocation" x="-6729" y="-2069"/>
         </scene>
+        <!--Edit Comment Pop View Controller-->
+        <scene sceneID="tD2-Sp-nI5">
+            <objects>
+                <viewController storyboardIdentifier="EditCommetPopController" id="JgI-09-7Ic" customClass="EditCommentPopViewController" customModule="CityPulse" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oDJ-cF-Tr7"/>
+                        <viewControllerLayoutGuide type="bottom" id="5vi-xL-L4d"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Dh8-UL-P5g">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Xvb-Zn-AfW">
+                                <rect key="frame" x="20" y="87" width="560" height="447"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lW7-E4-9en">
+                                <rect key="frame" x="352" y="542" width="240" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EvL-vV-uvv">
+                                        <rect key="frame" x="140" y="8" width="90" height="35"/>
+                                        <color key="backgroundColor" red="0.019607843140000001" green="0.57254901960000004" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="7pt-93-YrP"/>
+                                            <constraint firstAttribute="width" constant="90" id="sgS-Gk-efc"/>
+                                        </constraints>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onCancel:" destination="JgI-09-7Ic" eventType="touchUpInside" id="Cef-K9-s8A"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qQ7-e6-bP4">
+                                        <rect key="frame" x="0.0" y="8" width="90" height="35"/>
+                                        <color key="backgroundColor" red="0.019607843140000001" green="0.57254901960000004" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="4Jy-p2-Wxe"/>
+                                            <constraint firstAttribute="height" constant="35" id="n0d-S3-5e3"/>
+                                        </constraints>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onSaveButton:" destination="JgI-09-7Ic" eventType="touchUpInside" id="7QY-WX-xo3"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="EvL-vV-uvv" firstAttribute="leading" secondItem="qQ7-e6-bP4" secondAttribute="trailing" constant="50" id="FJX-md-mC0"/>
+                                    <constraint firstItem="EvL-vV-uvv" firstAttribute="centerY" secondItem="lW7-E4-9en" secondAttribute="centerY" id="FTy-eG-ZaY"/>
+                                    <constraint firstAttribute="width" constant="240" id="Ms7-lM-zMc"/>
+                                    <constraint firstAttribute="height" constant="50" id="VUE-Dq-Vzo"/>
+                                    <constraint firstItem="qQ7-e6-bP4" firstAttribute="centerY" secondItem="lW7-E4-9en" secondAttribute="centerY" id="arX-DP-V0r"/>
+                                    <constraint firstItem="qQ7-e6-bP4" firstAttribute="leading" secondItem="lW7-E4-9en" secondAttribute="leading" id="vqB-UH-ehi"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Edit Comment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJF-SK-y3O">
+                                <rect key="frame" x="274" y="20" width="52" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" red="0.0" green="0.1764705882" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Xvb-Zn-AfW" firstAttribute="leading" secondItem="Dh8-UL-P5g" secondAttribute="leading" constant="20" id="25Y-qX-65O"/>
+                            <constraint firstAttribute="trailing" secondItem="Xvb-Zn-AfW" secondAttribute="trailing" constant="20" id="2ce-mq-5t4"/>
+                            <constraint firstItem="uJF-SK-y3O" firstAttribute="top" secondItem="oDJ-cF-Tr7" secondAttribute="bottom" constant="20" id="EYg-V2-1Yo"/>
+                            <constraint firstItem="uJF-SK-y3O" firstAttribute="centerX" secondItem="Dh8-UL-P5g" secondAttribute="centerX" id="Mzq-sU-QVs"/>
+                            <constraint firstItem="Xvb-Zn-AfW" firstAttribute="top" secondItem="uJF-SK-y3O" secondAttribute="bottom" constant="20" id="bva-Wt-hv1"/>
+                            <constraint firstAttribute="trailing" secondItem="lW7-E4-9en" secondAttribute="trailing" constant="8" id="kda-zC-mdR"/>
+                            <constraint firstAttribute="bottom" secondItem="lW7-E4-9en" secondAttribute="bottom" constant="8" id="raA-Sh-wwu"/>
+                            <constraint firstItem="lW7-E4-9en" firstAttribute="top" secondItem="Xvb-Zn-AfW" secondAttribute="bottom" constant="8" id="ymV-Kw-fsr"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="commentField" destination="Xvb-Zn-AfW" id="I4L-hE-Miq"/>
+                        <outlet property="titleLabel" destination="uJF-SK-y3O" id="xmj-wf-OSu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="96k-oe-Lad" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-6754" y="-1148"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Back Arrow" width="25" height="25"/>

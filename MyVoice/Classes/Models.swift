@@ -53,6 +53,18 @@ class PersonData{
             worksListManager.entries.append(dummyWork)
         }
         
+        for i in 1...2 {
+            let dummyEvent = EventData()
+            dummyEvent.website = "www.playbuff.com"
+            dummyEvent.startTime = TimeDateUtils.getStringFrom(NSDate(), mode: UIDatePickerMode.DateAndTime);
+            dummyEvent.endTime = TimeDateUtils.getStringFrom(NSDate(), mode: UIDatePickerMode.DateAndTime);
+            dummyEvent.description = "Description of event...... \(i)..\nSecond line and finally \nThird line\n forth line\nfith line"
+            dummyEvent.title = "Title of event \(i)"
+            eventsListManager.entries.append(dummyEvent)
+        }
+
+        
+        
         for _ in 0...2 {
             let list1 = ServerDataList(entries: [SentimentTimelineData]())
             var list2 = [ServerDataList]()

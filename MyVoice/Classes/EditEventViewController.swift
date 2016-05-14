@@ -14,6 +14,8 @@ class EditEventViewController: BaseImageEditViewController {
     @IBOutlet weak var name: FloatLabelTextField!
     @IBOutlet weak var startTime: FloatLabelTextField!
     
+    
+    
     @IBOutlet weak var endTime: FloatLabelTextField!
     @IBOutlet weak var allDaySwitch: UISwitch!
     @IBOutlet weak var location: FloatLabelTextField!
@@ -31,6 +33,7 @@ class EditEventViewController: BaseImageEditViewController {
         
         addItemUrl = ServerUrls.addEventUrl
         updateItemUrl = ServerUrls.updateEventUrl
+        
         // Do any additional setup after loading the view.
     }
 

@@ -21,9 +21,18 @@ class UIAlertUtils {
         controller.presentViewController(alert, animated:true, completion:nil);
     }
     
+    static func createAlertFor(view : UIView, with message : String , and actions :[UIAlertAction]){
+        createAlertFor(view.getViewController()!, with: message, and: actions)
+    }
+
+    
     static func createOkAlertFor(controller : UIViewController, with message : String){
         createAlertFor(controller, with: message, and: [UIAlertAction(title: MyStrings.ok, style: .Default, handler: nil)])
 
+    }
+    static func createOkAlertFor(view : UIView, with message : String){
+        createAlertFor(view, with: message, and: [UIAlertAction(title: MyStrings.ok, style: .Default, handler: nil)])
+        
     }
     
     static func createTryAgainWithCancelAlertFor(controller : UIViewController, with message : String, tryAgainHandler:AlertActionHandler){

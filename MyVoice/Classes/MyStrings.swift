@@ -13,7 +13,8 @@ class MyStrings {
     
     // general
     static let from = "FROM".localized
-    static let to = "TO".localized
+    static let to = "to"
+    static let TO = "TO".localized
     static let yes = "Yes"
     static let no = "No"
 
@@ -183,6 +184,11 @@ class MyStrings {
     
     static let comment = "Comment"
     static let response = "Response"
+    
+    static let alreadyVoteUp = "You already voted up"
+    static let alreadyVoteDown = "You already voted down"
+
+    static let editResponse = "Edit Response"
 
 
 }

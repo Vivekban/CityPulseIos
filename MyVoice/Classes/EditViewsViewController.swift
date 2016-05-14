@@ -13,7 +13,7 @@ import SwiftyJSON
 class EditViewsViewController: BaseEditViewController {
     
     @IBOutlet weak var titleField: UITextField!
-    @IBOutlet weak var dateField: UITextField!
+    // @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var descriptionField: DescriptionView!
     
     
@@ -26,10 +26,10 @@ class EditViewsViewController: BaseEditViewController {
         super.viewDidLoad()
         mainTitle = "View".localized
         super.viewDidLoad()
-        popDatePickerTextFields.append(PopDatePickerParam(field: dateField, mode: .Date))
+        //     popDatePickerTextFields.append(PopDatePickerParam(field: dateField, mode: .Date))
         addItemUrl = ServerUrls.addViewUrl
         updateItemUrl = ServerUrls.updateViewUrl
-        dateField.hidden = true
+        // dateField.hidden = true
         // shadowObject.append(descriptionField)
         // Do any additional setup after loading the view.
         doBasicSettingOnCharts(emotionBarChart)
@@ -218,7 +218,7 @@ class EditViewsViewController: BaseEditViewController {
         if let d = data as? MyViewData {
             titleField.text = d.title
             descriptionField.text = d.description
-            dateField.text = d.disPlayDate.isEmpty ? TimeDateUtils.getShortDateInString(NSDate()): d.disPlayDate
+            //  dateField.text = d.disPlayDate.isEmpty ? TimeDateUtils.getShortDateInString(NSDate()): d.disPlayDate
         }
         
     }
@@ -227,7 +227,7 @@ class EditViewsViewController: BaseEditViewController {
         if let d = data as? MyViewData {
             d.title = titleField.text ?? ""
             d.description = descriptionField.text ?? ""
-            d.disPlayDate = dateField.text ?? ""
+            // d.disPlayDate = dateField.text ?? ""
         }
     }
     

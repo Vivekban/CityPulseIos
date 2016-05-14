@@ -11,11 +11,11 @@
             <rect key="frame" x="0.0" y="0.0" width="735" height="328"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d7A-bj-YcP">
-                    <rect key="frame" x="0.0" y="0.0" width="631" height="237"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d7A-bj-YcP">
+                    <rect key="frame" x="0.0" y="0.0" width="631" height="290"/>
                     <subviews>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ndi-3B-pmh">
-                            <rect key="frame" x="8" y="25" width="90" height="196"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ndi-3B-pmh">
+                            <rect key="frame" x="8" y="25" width="90" height="249"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fOW-d3-bB7">
                                     <rect key="frame" x="0.0" y="4" width="90" height="90"/>
@@ -150,8 +150,8 @@
                         <constraint firstItem="mXX-uG-S7Q" firstAttribute="top" secondItem="3nx-6N-Ibv" secondAttribute="bottom" constant="16" id="wAb-hH-ZsJ"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3bk-Nz-YiV" userLabel="Actions">
-                    <rect key="frame" x="0.0" y="237" width="480" height="30"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3bk-Nz-YiV" userLabel="Actions">
+                    <rect key="frame" x="0.0" y="290" width="576" height="30"/>
                     <subviews>
                         <button opaque="NO" tag="50" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BbD-zT-TZA">
                             <rect key="frame" x="8" y="4" width="130" height="22"/>
@@ -171,16 +171,28 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                             <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="Flag" image="Comment"/>
+                            <state key="normal" title="Flag" image="flag"/>
                         </button>
                         <button opaque="NO" tag="52" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8eU-2e-GAm">
-                            <rect key="frame" x="292" y="6" width="130" height="18"/>
+                            <rect key="frame" x="292" y="4" width="130" height="22"/>
                             <constraints>
+                                <constraint firstAttribute="height" constant="22" id="64i-LN-nrC"/>
                                 <constraint firstAttribute="width" constant="130" id="rX6-Vy-kRx"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                             <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Message" image="Message 2"/>
+                        </button>
+                        <button opaque="NO" tag="54" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YM2-Bl-yP5">
+                            <rect key="frame" x="434" y="4" width="130" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="41q-HX-nSJ"/>
+                                <constraint firstAttribute="width" constant="130" id="8kT-9K-3Vq"/>
+                                <constraint firstAttribute="height" constant="22" id="Cyo-LG-bEL"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                            <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="Edit" image="edit"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.96078431369999995" green="0.70980392160000005" blue="0.08235294118" alpha="1" colorSpace="calibratedRGB"/>
@@ -193,9 +205,17 @@
                         <constraint firstItem="8eU-2e-GAm" firstAttribute="centerY" secondItem="3bk-Nz-YiV" secondAttribute="centerY" id="ZiE-QR-6ru"/>
                         <constraint firstAttribute="trailing" secondItem="8eU-2e-GAm" secondAttribute="trailing" constant="30" id="Zqc-Uv-HPJ"/>
                         <constraint firstItem="8eU-2e-GAm" firstAttribute="leading" secondItem="dh3-z0-dve" secondAttribute="trailing" constant="12" id="dXU-ix-hMX"/>
+                        <constraint firstItem="YM2-Bl-yP5" firstAttribute="leading" secondItem="8eU-2e-GAm" secondAttribute="trailing" constant="12" id="eVK-z0-BWB"/>
+                        <constraint firstAttribute="trailing" secondItem="YM2-Bl-yP5" secondAttribute="trailing" constant="12" id="mwH-Z8-CkH"/>
                         <constraint firstItem="dh3-z0-dve" firstAttribute="leading" secondItem="BbD-zT-TZA" secondAttribute="trailing" constant="12" id="tPG-Su-ypb"/>
+                        <constraint firstItem="YM2-Bl-yP5" firstAttribute="centerY" secondItem="3bk-Nz-YiV" secondAttribute="centerY" id="uP5-f5-kYv"/>
                         <constraint firstItem="dh3-z0-dve" firstAttribute="centerY" secondItem="3bk-Nz-YiV" secondAttribute="centerY" id="yoL-Cr-Gqd"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Zqc-Uv-HPJ"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -218,5 +238,7 @@
         <image name="Comment" width="24" height="24"/>
         <image name="Message 2" width="24" height="18"/>
         <image name="Vote" width="48" height="48"/>
+        <image name="edit" width="38" height="38"/>
+        <image name="flag" width="19" height="19"/>
     </resources>
 </document>

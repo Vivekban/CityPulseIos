@@ -253,6 +253,9 @@ class IssueDetailCell: BaseImageDetailCell {
             if d.isVoted < 1 {
                onVoteRequest(1)
             }
+            else{
+                UIAlertUtils.createOkAlertFor(self, with: MyStrings.alreadyVoteUp)
+            }
         
         }
     }
@@ -260,6 +263,9 @@ class IssueDetailCell: BaseImageDetailCell {
         if let d = data as? IssueData where !isVoting{
             if d.isVoted > -1 {
                 onVoteRequest(-1)
+            }
+            else{
+                UIAlertUtils.createOkAlertFor(self, with: MyStrings.alreadyVoteUp)
             }
 
         }

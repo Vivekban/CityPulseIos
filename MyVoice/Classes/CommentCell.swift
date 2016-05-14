@@ -48,8 +48,11 @@ class CommentView: UIView {
             leftSpacer?.addConstraint(leftSpacerWidthConstraint!)
         }
         
-        for i in 50...52 {
-            let button = self.viewWithTag(i) as! UIButton
+        for i in 50...54 {
+            guard let button = self.viewWithTag(i) as? UIButton else{
+                continue
+            }
+            
             button.addTarget(self, action: "onActionButtonClick:", forControlEvents: UIControlEvents.TouchUpInside)
             actionButtons.append(button)
         }
@@ -73,6 +76,15 @@ class CommentView: UIView {
         area.text = data.ownerArea
         descrption.text = data.description
         ServerImageFetcher.i.loadProfileImageWithDefaultsIn(profilePic, url: data.ownerPic)
+        
+        if(data.owner == CurrentSession.i.userId){
+            let view = self.viewWithTag(Actions.Edit.rawValue) // edit button
+            view?.hidden = false
+        }
+        else{
+            self.viewWithTag(Actions.Edit.rawValue)?.hidden = true
+        }
+        
     }
     
     

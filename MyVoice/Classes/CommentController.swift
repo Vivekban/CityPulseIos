@@ -10,6 +10,8 @@ import UIKit
 
 protocol CommentControllerDelegate : class {
     func postCommentOnComment(controller : CommentController,parent: CommentData, info : PostCommentData)
+    func editComment(controller : CommentController, info: CommentCell)
+
 }
 
 class CommentController : UITableViewCell {
@@ -184,6 +186,9 @@ extension CommentController :UITableViewDelegate {
         return container
     }
     
+    func onCommentEdit(cell : CommentCell){
+        tableView.reloadData()
+    }
 }
 
 
@@ -197,6 +202,10 @@ extension CommentController : CommentCellDelegate {
             break;
         case .Flag:
             onFlagButtonClick(cell)
+            break;
+        case .Edit:
+            onEditButtonClick(cell)
+            break;
         default:
             break;
         }
@@ -262,6 +271,23 @@ extension CommentController {
     
     func onMessageButtonClick(cell:CommentCell){
         
+    }
+    
+    func onEditButtonClick(cell : CommentCell){
+//        var alert = UIAlertController(title: "Edit", message: "Message", preferredStyle: UIAlertControllerStyle.Alert)
+//        alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.Default, handler: nil))
+//        alert.ad
+//        alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+//            textField.placeholder = "Enter text:"
+//            textField.secureTextEntry = true
+//        })
+//        self.presentViewController(alert, animated: true, completion: nil)
+        
+        guard let d = delegate else { assertionFailure(); return }
+        
+        d.editComment(self, info: cell)
+
+       
     }
     
     

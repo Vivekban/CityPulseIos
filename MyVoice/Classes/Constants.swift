@@ -174,10 +174,23 @@ struct TextFieldInputData {
 }
 
 
-struct Location {
+class Location {
     var latitude:Double = 0.0
     var longitude:Double = 0.0
     var city:String = ""
+    var name = ""
+    var country = ""
+    var address = ""
+    var postalCode = ""
+    var administrativeArea = ""
+    var subAdministrativeArea = ""
+    var locality = ""
+    var subLocality = ""
+    var thoroughfare = ""
+    var subThoroughfare = ""
+    var region = ""
+    var timeZone = ""
+    
 }
 
 /**
@@ -248,7 +261,7 @@ class TextFieldWithCharacterLimit {
 }
 
 enum Actions :Int {
-    case  Subscribe = 48, Share = 49, Comment = 50, Flag = 51, Message = 52,Like = 53, VoteUp = 10, VoteDown = 11
+    case  Subscribe = 48, Share = 49, Comment = 50, Flag = 51, Message = 52,Like = 53, Edit = 54 ,VoteUp = 10, VoteDown = 11
 }
 
 protocol ActionsDelegate : class { 

@@ -245,6 +245,7 @@
             }
             
             d.response?.append(comnt)
+            
             responsesController?.updateComments(d.response!)
             responseSectionHeight = (responsesController?.tableView.contentSize.height) ?? responseSectionHeight
             updateTableSize()
@@ -285,7 +286,12 @@
                     switch (result) {
                     case .Success(let d):
                         print(d)
-                        obj.id = Int(d! as! NSNumber)
+                        var response = d as! String
+                        
+                        response = response.stringByReplacingOccurrencesOfString("(", withString: "")
+                        response = response.stringByReplacingOccurrencesOfString(")", withString: "")
+                        
+                        obj.id = Int(response) ?? 0
                         s.onResponseAdd(obj)
                         view.descriptionField.text = ""
                         break

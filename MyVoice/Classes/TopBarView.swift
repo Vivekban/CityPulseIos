@@ -112,10 +112,10 @@ class TopBarView: UIView {
         searchBar.sizeToFit()
         searchBar.placeholder = "Search"
         
-        searchBarLine = UIView(frame: CGRect(x: 0, y: 16, width: 200, height: 1))
-        searchBarLine.backgroundColor = Constants.grayColor_217
+        searchBarLine = UIView(frame: CGRect(x: 0, y: 31, width: 200, height: 1))
+        searchBarLine.backgroundColor = Constants.grayColor_239
         
-        searchBar.addSubview(searchBarLine)
+        addSubview(searchBarLine)
         
         addSubview(searchBar)
         
@@ -170,6 +170,12 @@ class TopBarView: UIView {
                 var frame = searchBar.frame
                 frame.size.width = 200
                 frame.origin.x = self.searchCrossButton.frame.origin.x - 4 - 200
+                
+                var frame2 = searchBarLine.frame
+                frame2.size.width = 200
+                frame2.origin.x = self.searchCrossButton.frame.origin.x - 4 - 200
+
+                
                 self.searchBar.hidden = false
                 searchBarLine.hidden = true
 
@@ -177,7 +183,7 @@ class TopBarView: UIView {
 
                 UIView.animateWithDuration(1, animations: { () -> Void in
                     self.searchBar.frame = frame
-
+                    self.searchBarLine.frame = frame2
                     // self.searchBar.transform = CGAffineTransformMakeScale(1,1)
 
                     // self.testFiled.frame.size.width = 300
@@ -201,6 +207,12 @@ class TopBarView: UIView {
                 var frame = searchBar.frame
                 //frame.size.width = 1
                 frame.origin.x = self.searchCrossButton.frame.origin.x - 4
+//                
+//                var frame2 = searchBarLine.frame
+//                //frame.size.width = 1
+//                frame2.origin.x = self.searchCrossButton.frame.origin.x - 4
+
+                
                 searchBarLine.hidden = true
                 //self.searchBar.transform = CGAffineTransformMakeScale(1,1)
                 
@@ -213,6 +225,7 @@ class TopBarView: UIView {
                     },completion: { (complete) -> Void in
                         self.searchBar.hidden = true
                         self.isSearchAnimating = false
+                        
                 })
                 
                 

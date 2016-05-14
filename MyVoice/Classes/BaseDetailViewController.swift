@@ -610,9 +610,50 @@ extension BaseCommentDetailViewController : CommentControllerDelegate {
                 break;
             }
             })
+    }
+    
+    func editComment(controller: CommentController, info: CommentCell) {
         
+        let controller = MyUtils.getViewControllerFromStoryBoard("Home", controllerName: "EditCommetPopController")!
+        
+        guard let edit = controller as? EditCommentPopViewController else{
+            return
+        }
+        
+        edit.setData(info, delegate: self)
+        
+        
+        controller.modalPresentationStyle = UIModalPresentationStyle.FormSheet
+        //controller.view.layer.shadowColor = UIColor.clearColor().CGColor
+        // popPickerVC.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.Up
+        
+        // popPickerVC.tableView.reloadData()
+        controller.preferredContentSize = CGSizeMake(self.view.frame.width / 1.4,self.view.frame.height / 1.8 )
+        
+        presentViewController(controller, animated: true, completion: nil)
+        
+//        popover = popVC.popoverPresentationController
+//        if let _popover = popover {
+//            
+//            // _popover.sourceView = textField
+//            // _popover.sourceRect = CGRectMake(self.offset,textField.bounds.size.height,0,0)
+//            
+//            
+//        }
+
+    }
+}
+
+extension BaseCommentDetailViewController: EditCommentPopDelegate{
+    
+    func onSave(cell: CommentCell) {
+        commentController?.onCommentEdit(cell)
+    }
+    
+    func onCancel() {
         
     }
+    
 }
 
 
@@ -651,15 +692,22 @@ extension BaseCommentDetailViewController : PostCommentDelegate {
                 print(result)
                 switch (result) {
                 case .Success(let d):
-                    obj.id = Int(d! as! NSNumber)
+                    
+                    var response = d as! String
+                    
+                     response = response.stringByReplacingOccurrencesOfString("(", withString: "")
+                    response = response.stringByReplacingOccurrencesOfString(")", withString: "")
+
+                    obj.id = Int(response) ?? 0
                     s.onCommentAdd(obj)
                     view.descriptionField.text = ""
+                    s.onCommentButtonClick()
                     break
                 case .Failure( _):
                     UIAlertUtils.createTryAgainWithCancelAlertFor(s, with: MyStrings.unableToPostResponse, tryAgainHandler: { (action) -> Void in
-                        let v = PostCommentView()
-                        v.type = .Comment
-                        s.onPostCommentClic(data, view: v)
+//                        let v = PostCommentView()
+//                        v.type = .Comment
+                        s.onPostCommentClic(data, view: view)
                     })
                     break
                 default:

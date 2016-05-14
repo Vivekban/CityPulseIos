@@ -107,6 +107,7 @@ extension PopTableViewController : UITableViewDataSource {
         
         // if cell == nil {
           let  cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
+        
         // }
         
         configureCell(cell, forRowAtIndexPath: indexPath)
@@ -114,13 +115,17 @@ extension PopTableViewController : UITableViewDataSource {
     }
     
     func configureCell(cell: UITableViewCell, forRowAtIndexPath: NSIndexPath) {
-        cell.textLabel?.text =  "  \((info?.items![0][forRowAtIndexPath.row])!)"
         
-        cell.selectionStyle = UITableViewCellSelectionStyle.Blue
+        cell.textLabel?.text =  "  \((info?.items![0][forRowAtIndexPath.row])!)"
+        cell.textLabel?.textColor = Constants.grayColor_101
+        
+        
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = Constants.accentColor
+        cell.selectedBackgroundView = bgColorView
 
     }
    
-
 
 }
 
@@ -151,6 +156,7 @@ extension PopTableViewController : UITableViewDelegate {
         let field = UILabel(frame: CGRectMake(18, 0, self.view.frame.width - 8, 40))
         field.textAlignment = NSTextAlignment.Center
         field.font = UIFont.boldSystemFontOfSize(18)
+        // field.textColor = Constants.grayColor_101
         field.text = info?.heading
         
         field.backgroundColor = UIColor.whiteColor()

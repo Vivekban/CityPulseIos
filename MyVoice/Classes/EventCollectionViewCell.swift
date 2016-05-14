@@ -7,15 +7,16 @@
 //
 
 import UIKit
+import MapKit
 
 class EventCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var time: UILabel!
     
+    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var loaction: UILabel!
     @IBOutlet weak var website: UILabel!
     @IBOutlet weak var descrption: UILabel!
-    
     
 }

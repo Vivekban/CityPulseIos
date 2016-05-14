@@ -16,7 +16,7 @@ extension String {
     }
     
     
-     func doTrimming() -> String{
+    func doTrimming() -> String{
         return stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
     }
     
@@ -116,6 +116,17 @@ extension UIView {
         }
         return nil
     }
+    
+    func getViewController() -> UIViewController? {
+        var parentResponder: UIResponder? = self
+        while parentResponder != nil {
+            parentResponder = parentResponder!.nextResponder()
+            if let viewController = parentResponder as? UIViewController {
+                return viewController
+            }
+        }
+        return nil
+    }
 }
 
 func += <KeyType, ValueType> (inout left: Dictionary<KeyType, ValueType>, right: Dictionary<KeyType, ValueType>) {
@@ -134,7 +145,7 @@ func += <KeyType, ValueType> (inout left: Dictionary<KeyType, ValueType>, right:
 //        set (newValue) {
 //            array[index] = newValue
 //        }
-//        
+//
 //    }
 //
 //}

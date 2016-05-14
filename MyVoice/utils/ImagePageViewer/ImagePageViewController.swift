@@ -113,6 +113,7 @@ class ImagePageViewController: UIViewController {
         
         if imagesUrls.count > 0 {
             let nextControllerIndex = initialPosition % imagesUrls.count
+            initialPosition = nextControllerIndex;
             setViewControllerForPageView(nextControllerIndex)
         }
         else {

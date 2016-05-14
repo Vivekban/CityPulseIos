@@ -61,7 +61,7 @@ class EventsViewController: BaseHeaderCollectionView {
             cell.loaction.text = d.location?.city
             cell.descrption.text = d.description
             cell.website.text = d.website
-            cell.time.text = d.startTime + "  " + d.endTime
+            cell.time.text = d.startTime + " " + MyStrings.to + " " + d.endTime
             
             ServerImageFetcher.i.loadImageWithDefaultsIn(cell.image, url: d.imagesUrls.count > 0 ? d.imagesUrls[0]: "" )
            
@@ -77,7 +77,7 @@ class EventsViewController: BaseHeaderCollectionView {
             
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
-        return CGSize(width: Int(collectionView.frame.size.width)/columns, height: 140)
+        return CGSize(width: Int(collectionView.frame.size.width)/columns, height: 160)
     }
     
     

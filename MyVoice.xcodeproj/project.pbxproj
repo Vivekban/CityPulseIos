@@ -79,9 +79,12 @@
 		048DDEC81C451A5E00616085 /* PopPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048DDEC71C451A5E00616085 /* PopPicker.swift */; };
 		048FF4D01C7CA5F1009EB6BB /* SecondPersonProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048FF4CF1C7CA5F1009EB6BB /* SecondPersonProfileViewController.swift */; };
 		048FF4D21C7CDF24009EB6BB /* SplashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048FF4D11C7CDF24009EB6BB /* SplashView.xib */; };
+		04911DA31CBA42EE004D5B33 /* ReviewsTabsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04911DA21CBA42ED004D5B33 /* ReviewsTabsController.swift */; };
+		04911DA51CBA4660004D5B33 /* MyTabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04911DA41CBA4660004D5B33 /* MyTabsViewController.swift */; };
 		0495763E1C6385A1000A6851 /* CommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495763D1C6385A1000A6851 /* CommentController.swift */; };
 		049886711C6CE307006C2820 /* HomeBaseNestedTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049886701C6CE307006C2820 /* HomeBaseNestedTabController.swift */; };
 		049886731C6CE390006C2820 /* BaseFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049886721C6CE390006C2820 /* BaseFilter.swift */; };
+		049976151CB9A172003C4EE4 /* LeftToRightPresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049976141CB9A172003C4EE4 /* LeftToRightPresentAnimationController.swift */; };
 		04B592761C282EAF00B6807E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04B592751C282EAF00B6807E /* Assets.xcassets */; };
 		04B7D9201C442EB80041B499 /* BriefCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B7D9081C442EB80041B499 /* BriefCollectionCell.xib */; };
 		04B7D9211C442EB80041B499 /* BriefProfileBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B7D9091C442EB80041B499 /* BriefProfileBar.xib */; };
@@ -134,6 +137,7 @@
 		04B8D7EA1C91D54500616DF6 /* Activity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04B8D7E91C91D54500616DF6 /* Activity.storyboard */; };
 		04BB58211C46867A009904F9 /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB58201C46867A009904F9 /* EventsViewController.swift */; };
 		04BB58231C46869C009904F9 /* EditEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB58221C46869C009904F9 /* EditEventViewController.swift */; };
+		04BD95221CDB753700369C01 /* EditCommentPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BD95211CDB753700369C01 /* EditCommentPopViewController.swift */; };
 		04CEBEBD1C6B4A6700A901B6 /* FloatingTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CEBEBC1C6B4A6700A901B6 /* FloatingTextLabel.swift */; };
 		04CEBEBF1C6B4A8500A901B6 /* FloatingTextLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04CEBEBE1C6B4A8500A901B6 /* FloatingTextLabel.xib */; };
 		04CEBEC11C6B5D1300A901B6 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CEBEC01C6B5D1300A901B6 /* ImageUtils.swift */; };
@@ -157,6 +161,7 @@
 		04EAD9B31C88CC93005CB7E4 /* ReviewAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAD9B21C88CC93005CB7E4 /* ReviewAnalysisCell.swift */; };
 		04EAD9B51C88CCAA005CB7E4 /* SentimentMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAD9B41C88CCAA005CB7E4 /* SentimentMapCell.swift */; };
 		04EAD9B71C88CDA1005CB7E4 /* SentimentMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAD9B61C88CDA1005CB7E4 /* SentimentMapController.swift */; };
+		04F45E4C1CA1B90300FE132C /* MessageTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F45E4B1CA1B90300FE132C /* MessageTabController.swift */; };
 		04F6CE671C501DF80082C625 /* EditIssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F6CE661C501DF80082C625 /* EditIssueViewController.swift */; };
 		04F6CE691C5024C30082C625 /* BaseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F6CE681C5024C30082C625 /* BaseModels.swift */; };
 		04F6CE6B1C50285B0082C625 /* HomeDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F6CE6A1C50285B0082C625 /* HomeDataTypes.swift */; };
@@ -261,9 +266,12 @@
 		048DDEC71C451A5E00616085 /* PopPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopPicker.swift; path = "Pop Picker/PopPicker.swift"; sourceTree = "<group>"; };
 		048FF4CF1C7CA5F1009EB6BB /* SecondPersonProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondPersonProfileViewController.swift; sourceTree = "<group>"; };
 		048FF4D11C7CDF24009EB6BB /* SplashView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashView.xib; sourceTree = "<group>"; };
+		04911DA21CBA42ED004D5B33 /* ReviewsTabsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsTabsController.swift; sourceTree = "<group>"; };
+		04911DA41CBA4660004D5B33 /* MyTabsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabsViewController.swift; sourceTree = "<group>"; };
 		0495763D1C6385A1000A6851 /* CommentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentController.swift; sourceTree = "<group>"; };
 		049886701C6CE307006C2820 /* HomeBaseNestedTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBaseNestedTabController.swift; sourceTree = "<group>"; };
 		049886721C6CE390006C2820 /* BaseFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFilter.swift; sourceTree = "<group>"; };
+		049976141CB9A172003C4EE4 /* LeftToRightPresentAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftToRightPresentAnimationController.swift; sourceTree = "<group>"; };
 		04B5926B1C282EAE00B6807E /* CityPulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CityPulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04B592751C282EAF00B6807E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04B5927A1C282EAF00B6807E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -318,6 +326,7 @@
 		04B8D7E91C91D54500616DF6 /* Activity.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Activity.storyboard; sourceTree = "<group>"; };
 		04BB58201C46867A009904F9 /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		04BB58221C46869C009904F9 /* EditEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditEventViewController.swift; sourceTree = "<group>"; };
+		04BD95211CDB753700369C01 /* EditCommentPopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCommentPopViewController.swift; sourceTree = "<group>"; };
 		04CEBEBC1C6B4A6700A901B6 /* FloatingTextLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingTextLabel.swift; sourceTree = "<group>"; };
 		04CEBEBE1C6B4A8500A901B6 /* FloatingTextLabel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FloatingTextLabel.xib; sourceTree = "<group>"; };
 		04CEBEC01C6B5D1300A901B6 /* ImageUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
@@ -342,6 +351,7 @@
 		04EAD9B21C88CC93005CB7E4 /* ReviewAnalysisCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewAnalysisCell.swift; sourceTree = "<group>"; };
 		04EAD9B41C88CCAA005CB7E4 /* SentimentMapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentimentMapCell.swift; sourceTree = "<group>"; };
 		04EAD9B61C88CDA1005CB7E4 /* SentimentMapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentimentMapController.swift; sourceTree = "<group>"; };
+		04F45E4B1CA1B90300FE132C /* MessageTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTabController.swift; sourceTree = "<group>"; };
 		04F6CE661C501DF80082C625 /* EditIssueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditIssueViewController.swift; sourceTree = "<group>"; };
 		04F6CE681C5024C30082C625 /* BaseModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseModels.swift; sourceTree = "<group>"; };
 		04F6CE6A1C50285B0082C625 /* HomeDataTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDataTypes.swift; sourceTree = "<group>"; };
@@ -449,6 +459,7 @@
 			children = (
 				045007421C56100500185B69 /* ReviewsViewController.swift */,
 				048B32CB1C690188002C965A /* EditReviewController.swift */,
+				04911DA21CBA42ED004D5B33 /* ReviewsTabsController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -604,6 +615,7 @@
 				0465DC761C80AD420041FBAC /* LoaderUtils.swift */,
 				040CDDA91C906979009860E7 /* AdvancedSwitch.swift */,
 				04450CBA1C96952000E9D4C2 /* TopImageUIButton.swift */,
+				049976141CB9A172003C4EE4 /* LeftToRightPresentAnimationController.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -703,6 +715,7 @@
 				04F6CE6C1C502C420082C625 /* BaseDetailViewController.swift */,
 				049886721C6CE390006C2820 /* BaseFilter.swift */,
 				04E1749A1C6F3C5A00C5B93C /* ServerDataManager.swift */,
+				04911DA41CBA4660004D5B33 /* MyTabsViewController.swift */,
 			);
 			name = Abstract/Base;
 			sourceTree = "<group>";
@@ -887,6 +900,7 @@
 				04450CC21C96E47A00E9D4C2 /* Views */,
 				04450CC11C96E46200E9D4C2 /* Models */,
 				04450CC01C96E44E00E9D4C2 /* Controllers */,
+				04F45E4B1CA1B90300FE132C /* MessageTabController.swift */,
 			);
 			name = Messages;
 			sourceTree = "<group>";
@@ -923,6 +937,7 @@
 				04B7D9441C442F000041B499 /* IssueViewController.swift */,
 				04F6CE661C501DF80082C625 /* EditIssueViewController.swift */,
 				046A67821C627AFD0090646C /* DetailIssueController.swift */,
+				04BD95211CDB753700369C01 /* EditCommentPopViewController.swift */,
 			);
 			name = Issues;
 			sourceTree = "<group>";
@@ -1168,6 +1183,7 @@
 				046A67861C627B5B0090646C /* CommentCell.swift in Sources */,
 				04B7D9511C442F000041B499 /* AppDelegate.swift in Sources */,
 				0410F1821C9310BF007907A7 /* BaseProfileListViewController.swift in Sources */,
+				04F45E4C1CA1B90300FE132C /* MessageTabController.swift in Sources */,
 				048B32CC1C690188002C965A /* EditReviewController.swift in Sources */,
 				0410F1801C92FC11007907A7 /* ActivityDataTypes.swift in Sources */,
 				049886731C6CE390006C2820 /* BaseFilter.swift in Sources */,
@@ -1182,6 +1198,7 @@
 				04B7D9531C442F000041B499 /* BaseEditViewController.swift in Sources */,
 				04F90CDD1C9000AF0002E77B /* EditPollViewController.swift in Sources */,
 				0405F8311C64D0E000ED2ABF /* IssueController.swift in Sources */,
+				049976151CB9A172003C4EE4 /* LeftToRightPresentAnimationController.swift in Sources */,
 				04B8D7E41C9169CF00616DF6 /* ActivitiesViewController.swift in Sources */,
 				04EAD9B31C88CC93005CB7E4 /* ReviewAnalysisCell.swift in Sources */,
 				040F483F1C69EFB800EFD0E8 /* DescriptionView.swift in Sources */,
@@ -1192,6 +1209,7 @@
 				04B7D9651C442F000041B499 /* MyViewsViewController.swift in Sources */,
 				0465DC771C80AD420041FBAC /* LoaderUtils.swift in Sources */,
 				045007431C56100500185B69 /* ReviewsViewController.swift in Sources */,
+				04BD95221CDB753700369C01 /* EditCommentPopViewController.swift in Sources */,
 				04B7D96A1C442F000041B499 /* ProfileDataTypes.swift in Sources */,
 				0475848B1C67C4FE00439DA8 /* LayoutConstraintUtils.swift in Sources */,
 				0410F17A1C92EFE3007907A7 /* BadgesViewController.swift in Sources */,
@@ -1202,6 +1220,7 @@
 				0411B7651C4E138B00775172 /* PagerContentViewController.swift in Sources */,
 				04E1749B1C6F3C5A00C5B93C /* ServerDataManager.swift in Sources */,
 				0411B7631C4E136400775172 /* ImagePageViewController.swift in Sources */,
+				04911DA51CBA4660004D5B33 /* MyTabsViewController.swift in Sources */,
 				04BB58231C46869C009904F9 /* EditEventViewController.swift in Sources */,
 				0405F8351C651A7A00ED2ABF /* TimeDateUtils.swift in Sources */,
 				04EAD9B11C88CC75005CB7E4 /* TimeLineCell.swift in Sources */,
@@ -1234,6 +1253,7 @@
 				04B7D9321C442EB80041B499 /* UsefulExtension.swift in Sources */,
 				04EAD9B51C88CCAA005CB7E4 /* SentimentMapCell.swift in Sources */,
 				048796AC1C710B7A0095B341 /* ProfileBaseNestedViewController.swift in Sources */,
+				04911DA31CBA42EE004D5B33 /* ReviewsTabsController.swift in Sources */,
 				04CEBEC11C6B5D1300A901B6 /* ImageUtils.swift in Sources */,
 				047A97241C52B91500663278 /* LeaderProfileBar.swift in Sources */,
 				04E141C81C53E81500035998 /* ListViewController.swift in Sources */,
