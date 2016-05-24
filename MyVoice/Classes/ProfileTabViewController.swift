@@ -15,6 +15,7 @@ class ProfileViewController: BaseTabsViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         menuItemWidth = 80
+        //CurrentSession.i.isEditingEnable = true;
         
     }
     

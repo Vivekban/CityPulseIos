@@ -32,8 +32,12 @@ struct BriefBarInfo {
     
 }
 
+@objc
 protocol BriefProfileBarDelegate: class{
     func onReviewClick()
+    optional func onDonationClick()
+    optional func onFollowClick()
+    optional func onMessageClick()
 }
 
 
@@ -152,14 +156,14 @@ class BriefProfileBar: UIView {
         
         
         
-        
+        initViewWithData()
         addCollectionViewBasedOnProfile()
         addOptionsCollectionView()
         
     }
     
     
-    func initView(){
+    func initViewWithData(){
         if let d = data {
             
             
@@ -209,7 +213,7 @@ class BriefProfileBar: UIView {
         // fetch data
         if (data != nil){
             self.data = data
-            initView()
+            initViewWithData()
         }
         itemsCollectionView?.reloadData()
     }

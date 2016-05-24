@@ -18,6 +18,7 @@ class CurrentSession {
     
     var userLocation:CLLocation?
     var userPlacemark:CLPlacemark?
+    var isEditingEnable = true
     
     
     private init(){
@@ -39,6 +40,7 @@ class CurrentSession {
         
         appDataManager = AppDataManager()
         issueController = HomeDataManager()
+        publicFigureDataManager = PublicFigureDataManager()
         
     }
     
@@ -54,6 +56,9 @@ class CurrentSession {
     
     
     var issueController:HomeDataManager!
+    
+    var publicFigureDataManager : PublicFigureDataManager!
+    
     
     var appDataManager:AppDataManager!
     

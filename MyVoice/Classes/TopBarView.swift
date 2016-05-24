@@ -114,7 +114,7 @@ class TopBarView: UIView {
         
         searchBarLine = UIView(frame: CGRect(x: 0, y: 31, width: 200, height: 1))
         searchBarLine.backgroundColor = Constants.grayColor_239
-        
+        searchBarLine.hidden = true
         addSubview(searchBarLine)
         
         addSubview(searchBar)

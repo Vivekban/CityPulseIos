@@ -53,6 +53,39 @@ class EditBasicInfoViewController: BaseEditViewController {
         }
     }
     
+    
+    override func keyboardWillShow(notification: NSNotification) {
+        
+        if let userInfo = notification.userInfo {
+            if let keyboardSize =  (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+                kbHeight = keyboardSize.height
+                //self.animateTextField(true)
+                
+                if  scrollView != nil{
+                    
+                    let contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbHeight, 0.0);
+                    scrollView!.contentInset = contentInsets;
+                    scrollView!.scrollIndicatorInsets = contentInsets;
+                    
+                    
+                    if activeTextField != nil {
+                        // If active text field is hidden by keyboard, scroll it so it's visible
+                        // Your app might not need or want this behavior.
+                        var aRect = self.view.frame;
+                        aRect.size.height -= kbHeight;
+                        if (!CGRectContainsPoint(aRect, (activeTextField?.frame.origin)!) ) {
+                            var frame = activeTextField?.frame;
+                            frame?.origin.y = (frame?.origin.y)! + 10
+                            scrollView?.scrollRectToVisible((frame)!, animated: true)
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    
 }
 
 
@@ -74,6 +107,7 @@ extension EditBasicInfoViewController : UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! EditInfoCell
         
         cell.textField.placeholder = items![indexPath.row]
+        cell.textField.delegate = self
         
         if let tFData = textFieldsDatas?[indexPath.row] {
             

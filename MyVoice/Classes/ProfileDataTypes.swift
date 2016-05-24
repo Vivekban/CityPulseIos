@@ -74,9 +74,10 @@ class EventData:ImageUrlData{
     
     override func mapping(map: Map) {
         super.mapping(map)
-        startTime <- map["startTime"]
-        endTime <- map["endTime"]
+        startTime <- map["start_time"]
+        endTime <- map["end_time"]
         website <- map["website"]
+        allDayEvent <- map["allday"]
 
     }
     

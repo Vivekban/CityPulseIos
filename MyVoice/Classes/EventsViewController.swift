@@ -56,7 +56,7 @@ class EventsViewController: BaseHeaderCollectionView {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! EventCollectionViewCell
         
-        // Configure the cell
+        // Configure the cellmamamamdsma
         if let d = entries[indexPath.section] as? EventData{
             cell.loaction.text = d.location?.city
             cell.descrption.text = d.description

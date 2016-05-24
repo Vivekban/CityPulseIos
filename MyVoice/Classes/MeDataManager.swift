@@ -1,5 +1,5 @@
 //
-//  PersonDataManager.swift
+//  MeDataManager.swift
 //  MyVoice
 //
 //  Created by PB014 on 25/01/16.
@@ -17,20 +17,20 @@ enum PersonInfoRequestType:Int{
 }
 
 class PersonDataManager : ServerDataManager {
-    var person:PersonData = PersonData()
+    var person:MeData = MeData()
     var userId:Int!
     
     init(userID:Int){
         super.init()
         self.userId = userID
         // CurrentSession.i.userId = userID
-       // getUserViews(nil)
-       // getUserInfo(nil)
+        // getUserViews(nil)
+        // getUserInfo(nil)
         
         fetchData(PersonInfoRequestType.BasicInfo.rawValue, completionHandler: nil)
-
+        
         fetchData(PersonInfoRequestType.Views.rawValue, completionHandler: nil)
-
+        
     }
     
     
@@ -38,7 +38,7 @@ class PersonDataManager : ServerDataManager {
     
     override func getUrlBasedOnRequest(dataRequest: Int) -> String {
         let infoRequest = PersonInfoRequestType(rawValue: dataRequest)!
-
+        
         switch (infoRequest) {
         case .BasicInfo:
             return ServerUrls.getUserDetailsUrl
@@ -52,36 +52,47 @@ class PersonDataManager : ServerDataManager {
             return ServerUrls.getSentimentTimelineUrl
         case .ReviewAnalysis:
             return ServerUrls.getReviewAnalyticsUrl
+        case .Work:
+            return ServerUrls.getWorkUrl
+        case .Event:
+            return ServerUrls.getEventByIdUrl
         default:
-            return "";
+        return "";
         }
-
+        
     }
     
     override func getParamterBasedOnRequest(dataRequest: Int, parameter:[String : AnyObject]? = nil) -> [String : AnyObject] {
         let infoRequest = PersonInfoRequestType(rawValue: dataRequest)!
-
+        
         switch (infoRequest) {
         case .Reviews:
             return ["userid":"\(userId)"]
+            
+        case .Work:
+            return ["id":"\(userId)","getby":"owner"]
+            
+        case .Work:
+            return ["id":"\(userId)","getby":"owner"]
+            
         default:
             break;
         }
-       return ["userid":"\(userId)"]
+        return ["userid":"\(userId)"]
     }
     
     override func onSuccesfulRequset(dataRequest:Int , parameter:[String : AnyObject]? = nil, data:AnyObject){
         let infoRequest = PersonInfoRequestType(rawValue: dataRequest)!
-
+        
         switch (infoRequest) {
         case .BasicInfo:
             // print(data)
             if let d = Mapper<PersonBasicData>().map(data){
-            person.basicInfo  = d
-            person.basicInfo.userid = userId
+                person.basicInfo  = d
+                person.basicInfo.userid = userId
             }
             fetchData(PersonInfoRequestType.Profile.rawValue, completionHandler: nil)
-
+            
             break;
         case .Views:
             // print(data)
@@ -96,7 +107,7 @@ class PersonDataManager : ServerDataManager {
                 }
             }
             person.viewsListManager.updateEntries(list)
-
+            
             break
         case .Reviews:
             let reviewArray = JSON(data)
@@ -110,17 +121,17 @@ class PersonDataManager : ServerDataManager {
                 }
             }
             person.reviewsListManager.updateEntries(list)
-
+            
             break
         case .Profile:
             if let d = Mapper<ProfileData>().map(data) {
                 person.profileData  = d
                 person.profileData.takeDataFromBasicInfo(person.basicInfo)
                 EventUtils.postNotification(EventUtils.basicInfoUpdateKey)
-
+                
             }
             break
-      
+            
         case .SentimentTimeLine:
             let array = JSON(data)
             var list = [SentimentTimelineData]()
@@ -134,12 +145,12 @@ class PersonDataManager : ServerDataManager {
             }
             
             if let p = parameter {
-            let index = p["index"] as! Int
-            
-            person.sentimentTimeLineListManager[index].updateEntries(list)
+                let index = p["index"] as! Int
+                
+                person.sentimentTimeLineListManager[index].updateEntries(list)
             }
             break;
-      
+            
         case .ReviewAnalysis:
             // print(data)
             let array = JSON(data)
@@ -159,7 +170,7 @@ class PersonDataManager : ServerDataManager {
                 let filter = p["filter"] as!Int
                 person.reviewAnalysisListManager[index][filter].updateEntries(list)
             }
-
+            
             break
         default:
             break;
@@ -203,7 +214,7 @@ class PersonDataManager : ServerDataManager {
         super.fetchListData(dataRequest, parameter: para, completionHandler: completionHandler)
         
     }
-
+    
     
     
 }

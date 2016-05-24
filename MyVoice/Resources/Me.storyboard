@@ -328,8 +328,20 @@
                                     <constraint firstItem="kUG-C2-vSY" firstAttribute="leading" secondItem="hKO-Nb-HQH" secondAttribute="leading" id="owe-Un-HQd"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="79G-Wr-fpE">
-                                <rect key="frame" x="20" y="68" width="560" height="273"/>
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uOj-CV-QUr">
+                                <rect key="frame" x="40" y="361" width="90" height="35"/>
+                                <color key="backgroundColor" red="0.019607843140000001" green="0.57254901960000004" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="UFX-MO-fWS"/>
+                                    <constraint firstAttribute="height" constant="35" id="Y2d-aq-sUU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="79G-Wr-fpE">
+                                <rect key="frame" x="20" y="64" width="560" height="273"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Bpv-Rl-Eyu">
                                     <size key="itemSize" width="322" height="50"/>
@@ -395,18 +407,6 @@
                                     <outlet property="delegate" destination="0Ej-D9-8os" id="Lkx-RU-HaV"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uOj-CV-QUr">
-                                <rect key="frame" x="40" y="361" width="90" height="35"/>
-                                <color key="backgroundColor" red="0.019607843140000001" green="0.57254901960000004" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="90" id="UFX-MO-fWS"/>
-                                    <constraint firstAttribute="height" constant="35" id="Y2d-aq-sUU"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Save">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -699,7 +699,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qqI-a5-O2R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="768" y="63"/>
+            <point key="canvasLocation" x="756" y="63"/>
         </scene>
         <!--Detail My Views Controller-->
         <scene sceneID="T9q-6c-0Pg">
@@ -2174,7 +2174,7 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ChO-1I-oqy">
                                                             <rect key="frame" x="-30" y="65" width="660" height="325"/>
                                                             <subviews>
-                                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" tag="7" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VIp-sM-kEe">
+                                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" tag="7" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VIp-sM-kEe">
                                                                     <rect key="frame" x="0.0" y="0.0" width="490" height="325"/>
                                                                 </mapView>
                                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="6" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YpN-Wr-amh">
@@ -2238,37 +2238,16 @@
                                                                         </mask>
                                                                     </variation>
                                                                 </collectionView>
-                                                                <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jbf-vC-74a">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="490" height="325"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="325" id="Xj3-Qm-8an"/>
-                                                                        <constraint firstAttribute="width" constant="600" id="b6h-zW-LO1"/>
-                                                                    </constraints>
-                                                                    <variation key="default">
-                                                                        <mask key="constraints">
-                                                                            <exclude reference="Xj3-Qm-8an"/>
-                                                                            <exclude reference="b6h-zW-LO1"/>
-                                                                        </mask>
-                                                                    </variation>
-                                                                </imageView>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
-                                                                <constraint firstItem="YpN-Wr-amh" firstAttribute="leading" secondItem="jbf-vC-74a" secondAttribute="trailing" constant="10" id="3Ui-Mm-6nx"/>
                                                                 <constraint firstAttribute="width" constant="660" id="8ov-Ff-tBV"/>
                                                                 <constraint firstItem="YpN-Wr-amh" firstAttribute="top" secondItem="ChO-1I-oqy" secondAttribute="top" id="HI1-pg-acN"/>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="325" id="MUY-z2-Sxe"/>
-                                                                <constraint firstItem="jbf-vC-74a" firstAttribute="leading" secondItem="ChO-1I-oqy" secondAttribute="leading" id="Mkv-L0-u2r"/>
-                                                                <constraint firstItem="VIp-sM-kEe" firstAttribute="top" secondItem="jbf-vC-74a" secondAttribute="top" id="MmT-Ts-POA"/>
                                                                 <constraint firstAttribute="height" constant="325" id="Nbh-Bu-sME"/>
                                                                 <constraint firstAttribute="bottom" secondItem="YpN-Wr-amh" secondAttribute="bottom" id="TH7-Ol-aXz"/>
-                                                                <constraint firstItem="VIp-sM-kEe" firstAttribute="leading" secondItem="jbf-vC-74a" secondAttribute="leading" id="YR4-Ta-MdB"/>
                                                                 <constraint firstAttribute="trailing" secondItem="YpN-Wr-amh" secondAttribute="trailing" id="aKm-5e-6oW"/>
-                                                                <constraint firstItem="VIp-sM-kEe" firstAttribute="trailing" secondItem="jbf-vC-74a" secondAttribute="trailing" id="cAV-GB-e7N"/>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="660" id="o02-ZQ-W5E"/>
-                                                                <constraint firstAttribute="bottom" secondItem="jbf-vC-74a" secondAttribute="bottom" id="rdF-0w-f1s"/>
-                                                                <constraint firstItem="jbf-vC-74a" firstAttribute="top" secondItem="ChO-1I-oqy" secondAttribute="top" id="xRb-VW-pc1"/>
-                                                                <constraint firstItem="VIp-sM-kEe" firstAttribute="bottom" secondItem="jbf-vC-74a" secondAttribute="bottom" id="zkw-Vy-whF"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
@@ -2306,6 +2285,19 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jbf-vC-74a">
+                                <rect key="frame" x="-32" y="184" width="490" height="325"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="325" id="Xj3-Qm-8an"/>
+                                    <constraint firstAttribute="width" constant="600" id="b6h-zW-LO1"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Xj3-Qm-8an"/>
+                                        <exclude reference="b6h-zW-LO1"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>

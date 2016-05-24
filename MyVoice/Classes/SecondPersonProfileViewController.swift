@@ -9,26 +9,92 @@
 import UIKit
 
 class SecondPersonProfileViewController: ProfileViewController {
-
+    
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
-        // Drawing code
+    // Drawing code
     }
     */
     
     override func viewDidLoad() {
         briefBarType = BriefProfileType.TopBarSecondPerson
         super.viewDidLoad()
-        
         topBar?.titleLabel.text = MyStrings.publicFigure
         topBar?.changeVisibiltOfBackButton(false)
+        CurrentSession.i.isEditingEnable = false;
+        
     }
     
     override func didMoveToPage(controller: UIViewController, index: Int) {
         changeVisibilityOfActionButton(false)
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        CurrentSession.i.isEditingEnable = false;
+        
+        EventUtils.addObserver(self, selector: "onBriefBarEvents:", key: EventUtils.briefBarActions)
+        
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        EventUtils.removeObserver(self)
+    }
+    
+    
+    func onBriefBarEvents(sender:NSNotification) {
+        
+        if let i = sender.object as? Int {
+            
+            switch (i) {
+            case 1:
+                onMessageClick()
+                break;
+            case 2:
+                onFollowClick()
+                break
+            case 3:
+                onReviewClick()
+                break
+            case 4:
+                onDonationClick()
+                break
+            default:
+                break;
+            }
+            
+        }
+        
+    }
+    
+    
+    override func onReviewClick() {
+//        if (CurrentSession.i.isVisitingSomeone()){
+//        super.onReviewClick()
+//        }
+//        else{
+//            
+//        }
+
+    super.onReviewClick()
+    }
+    
+    func onMessageClick() {
+        
+    }
+    
+    func onFollowClick() {
+        
+    }
+    
+    func onDonationClick() {
+        
+    }
+    
+    
     
     
     override func getTabsController() -> [UIViewController] {
@@ -44,11 +110,11 @@ class SecondPersonProfileViewController: ProfileViewController {
             for i in tabs {
                 let controller : UIViewController!
                 if i.storyBoard == "Me" {
-                controller = firstStoryboard.instantiateViewControllerWithIdentifier(i.identifier)
+                    controller = firstStoryboard.instantiateViewControllerWithIdentifier(i.identifier)
                 }
                 else{
                     controller = secondStoryboard.instantiateViewControllerWithIdentifier(i.identifier)
-
+                    
                 }
                 controller.title = i.title
                 controllers.append(controller)
@@ -56,9 +122,10 @@ class SecondPersonProfileViewController: ProfileViewController {
         }
         return controllers
     }
-
+    
     override func onBackButtonClick() {
         dismissViewControllerAnimated(true, completion: nil)
+        CurrentSession.i.isEditingEnable = true;
     }
-
+    
 }

@@ -8,6 +8,9 @@
 
 import UIKit
 
+import ObjectMapper
+import SwiftyJSON
+
 class DetailMyWorkViewController: BaseImageDetailViewController {
 
     override func viewDidLoad() {
@@ -20,6 +23,45 @@ class DetailMyWorkViewController: BaseImageDetailViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func fetchMoreDetailFromServer() {
+        guard let d = data as? MyWorkData  else {return}
+        
+        ServerRequestInitiater.i.postMessageToServerForJsonResponse(ServerUrls.getWorkUrl, postData: ["id": "\(d.id)","getby": "work","userid": "\(CurrentSession.i.userId)"]) { [weak self](r) -> Void in
+            switch r {
+            case .Success(let data):
+                
+                self?.onServerResponse(data)
+                
+                break
+            case .Failure(let error):
+                print(error)
+                break
+            default :
+                break
+            }
+        }
+
+    }
+    
+    
+    func onServerResponse(data: AnyObject?){
+        guard let d = data else {return}
+        print(d)
+        let viewArray = JSON(d)
+        for (_,obj) in viewArray {
+            if let finalString = obj.rawString() {
+                // print(" value is \(i)...+....\(finalString)")
+                if let view = Mapper<MyWorkData>().map(finalString) {
+                    self.data?.update(view)
+                    //self.responseSectionHeight = -1
+                    self.containerTableView.reloadData()
+                    // self.containerTableView.reloadSections(NSIndexSet(index: responseSectionIndex), withRowAnimation: UITableViewRowAnimation.Automatic)
+                }
+            }
+        }
+        
     }
     
 

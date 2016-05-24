@@ -39,10 +39,15 @@ class PublicFigureTabViewController: BaseTabsViewController {
         controller.title = MyStrings.top_public_figure
         controllers.append(controller)
         
+        
         let controller2 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("PublicFigureListController")
         controller2.title = MyStrings.my_public_figure
         controllers.append(controller2)
-        
+     
+        if let c = controller2 as? PublicFigureListController {
+            c.listType =  PublicFigureListType.MyFigure
+        }
+
         
         
         return controllers

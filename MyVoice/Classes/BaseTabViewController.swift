@@ -397,7 +397,7 @@ class BaseTabsViewController: MyTabsViewController {
 extension BaseTabsViewController: BriefProfileBarDelegate {
     func onReviewClick() {
         
-        if CurrentSession.i.isVisitingSomeone() {
+        if !CurrentSession.i.isEditingEnable {
             if let controller = MyUtils.getViewControllerFromStoryBoard("AdditionalUI", controllerName: "EditReviewController") as? BaseEditViewController {
                 var data : [BaseData] = [BaseData]()
                 controller.setDataSourceWith(.NEW, data: &data, index: -1)

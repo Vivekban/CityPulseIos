@@ -67,6 +67,26 @@ class VisiterBriefBar: BriefProfileBar {
     
    
     @IBAction func onButtonClick(sender: UIButton) {
+        
+        EventUtils.postNotification(EventUtils.briefBarActions, object: sender.tag)
+        
+        switch (sender.tag) {
+        case 1:
+            delegate?.onMessageClick?()
+            break;
+        case 2:
+            delegate?.onFollowClick?()
+            break
+        case 3:
+            delegate?.onReviewClick()
+            break
+        case 4:
+            delegate?.onDonationClick?()
+            break
+        default:
+            break;
+        }
+        
     }
     
 }

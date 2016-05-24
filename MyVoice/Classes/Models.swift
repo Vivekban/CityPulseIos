@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 import SwiftyJSON
 
-class PersonData{
+class MeData{
     var basicInfo:PersonBasicData = PersonBasicData()
     var profileData:ProfileData = ProfileData()
     var viewsListManager:ServerDataList!

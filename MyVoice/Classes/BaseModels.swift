@@ -13,6 +13,43 @@ import ObjectMapper
 
 // Data types....
 
+
+class Location : Mappable {
+    var latitude:Double = 0.0
+    var longitude:Double = 0.0
+    var city:String = ""
+    var name = ""
+    var country = ""
+    var address = ""
+    var postalCode = ""
+    var administrativeArea = ""
+    var subAdministrativeArea = ""
+    var locality = ""
+    var subLocality = ""
+    var thoroughfare = ""
+    var subThoroughfare = ""
+    var region = ""
+    var timeZone = ""
+    
+    func mapping(map: Map) {
+        name <- map["I_name"]
+        country <- map["country"]
+        address <- map["address"]
+        postalCode <- map["postalcode"]
+        administrativeArea <- map["admin_area"]
+        subAdministrativeArea <- map["subadmin_area"]
+        locality <- map["locality"]
+        subLocality <- map["sublocality"]
+        thoroughfare <- map["thoroughfare"]
+        subThoroughfare <- map["subthoroughfare"]
+        region <- map["region"]
+        timeZone <- map["timezone"]
+    }
+    
+}
+
+
+
 class BaseData:Mappable{
     var userid:Int = 0
     var id:Int = 0
@@ -211,6 +248,14 @@ class ImageCommentData: ImageUrlData {
         comments <- map["comments"]
         
     }
+    
+    override func update(data: BaseData, isForce: Bool) {
+        super.update(data, isForce: isForce)
+        guard let d = data as? ImageCommentData else {
+            return
+        }
+       comments = d.comments
+    }
 }
 
 class CommentData:TitleDesDateData {
@@ -265,6 +310,8 @@ class CommentData:TitleDesDateData {
         }
         reply?.append(data)
     }
+    
+    
 }
 
 

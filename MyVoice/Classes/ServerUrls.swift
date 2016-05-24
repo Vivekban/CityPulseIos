@@ -69,15 +69,15 @@ class ServerUrls {
 
     // MARK: - event
     
-    static let addEventUrl = baseUrl + "/AddEvent"
-    static let updateEventUrl = baseUrl + "/UpdateEvet"
-    static let getEventByIdUrl = baseUrl + "/GetEventById"
+    static let addEventUrl = baseUrl + "/SubmitEvent"
+    static let updateEventUrl = baseUrl + "/EditEvent"
+    static let getEventByIdUrl = baseUrl + "/GetEventByUser"
 
     // MARK: - work
     
     static let addWorkUrl = baseUrl + "/SubmitWork"
-    static let updateWorkUrl = baseUrl + "/UpdateWork"
-    static let getWorkByIdUrl = baseUrl + "/GetWorkById"
+    static let updateWorkUrl = baseUrl + "/EditWork"
+    static let getWorkUrl = baseUrl + "/GetWork"
     
     // MARK: - App related
     static let appDataUrl = baseUrl + "/CategoryList"
@@ -87,8 +87,8 @@ class ServerUrls {
     static let getSentimentTimelineUrl = baseUrl + "/GetSentimentData"
     static let getReviewAnalyticsUrl = baseUrl + "/GetAnalyticData"
 
-    //    static let Url = baseUrl + "/ADS"
-    //    static let Url = baseUrl + "/ADS"
+        static let getTopCommunityLeaderUrl = baseUrl + "/ADS"
+        static let getMyCommunityLeaderUrl = baseUrl + "/ADS"
     //    static let Url = baseUrl + "/ADS"
 
     

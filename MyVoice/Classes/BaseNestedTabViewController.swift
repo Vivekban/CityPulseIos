@@ -9,6 +9,13 @@
 import UIKit
 
 
+/***
+
+ If child class show data from server then...it has to set @serverRequestType, serverListRequestType
+ 
+*/
+
+
 class BaseNestedTabViewController :UIViewController{
     var columns = 1
     var numberOfSections = 1
@@ -96,6 +103,8 @@ class BaseNestedTabViewController :UIViewController{
         return ImageUrlData()
     }
     
+    
+    
     func showDetailViewController(index:Int) -> UIViewController?{
         
         if(detailControllerIdentifier.isEmpty){
@@ -104,6 +113,8 @@ class BaseNestedTabViewController :UIViewController{
         
         
         let controller = MyUtils.presentViewController(self, identifier: detailControllerIdentifier)
+
+        
         if let editController = controller as? BaseDetailViewController {
             editController.setDataSourceWith(entries, index: index)
             editController.delegate = self
@@ -112,7 +123,11 @@ class BaseNestedTabViewController :UIViewController{
     }
     
     func showEditViewController(type: EditControllerType,index:Int) -> UIViewController?{
+        
         let controller = MyUtils.presentViewController(self, identifier: editControlllerIdentifier)
+        
+        
+        //let controller = MyUtils.presentViewController(self, identifier: editControlllerIdentifier)
         if let con = controller as? BaseEditViewController {
             con.setDataSourceWith(type, data: &entries, index: index)
             con.delegate = self
@@ -445,9 +460,15 @@ protocol BaseNestedTabProtocoal{
 
 class BaseHeaderCollectionView: BaseNestedTabViewController {
     
-    var isEditButtonHidden = false
+    var isEditButtonHidden = !CurrentSession.i.isEditingEnable
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
+        if !isEditButtonHidden{
+           isEditButtonHidden = !CurrentSession.i.isEditingEnable 
+        }
+        
+        
         switch kind {
             //2
         case UICollectionElementKindSectionHeader:

@@ -34,6 +34,8 @@ class BaseDetailCell: UITableViewCell {
         editButton =  viewWithTag(2) as! UIButton
         editButton.addTarget(self, action: "onEditButtonClick", forControlEvents: UIControlEvents.TouchUpInside)
         
+        editButton.hidden = !CurrentSession.i.isEditingEnable
+        
         dateLabel =  viewWithTag(3) as! UILabel
         descriptionLabel =  viewWithTag(4) as! UILabel
 

@@ -11,7 +11,7 @@ import Foundation
 
 
 //
-//  PersonDataManager.swift
+//  MeDataManager.swift
 //  MyVoice
 //
 //  Created by PB014 on 25/01/16.
@@ -76,9 +76,9 @@ class HomeDataManager: ServerDataManager{
         case .Normal:
             return ServerUrls.getIssueListByStatus
         case .Popular:
-            return ServerUrls.getIssueByOwnerUrl
+            return ServerUrls.getIssueDetails
         case .Relevant:
-            return ServerUrls.getIssueByOwnerUrl
+            return ServerUrls.getIssueDetails
         case .Subscribed:
             return ServerUrls.getSubscribedIssueUrl
         case .Resolved:
@@ -99,9 +99,9 @@ class HomeDataManager: ServerDataManager{
         case .Normal:
             return ["status":"n"]//["status":"O"]
         case .Popular:
-            return ["status":"o"]
+            return ["getBy":"popular"]
         case .Relevant:
-            return ["status":"o"]
+            return ["getBy":"relevant"]
         case .Subscribed:
             return ["userid":CurrentSession.i.userId]
         case .Resolved:
@@ -111,7 +111,7 @@ class HomeDataManager: ServerDataManager{
         default:
             break;
         }
-        return ["owner":"O"]
+        return ["owner":CurrentSession.i.userId]
     }
 
     

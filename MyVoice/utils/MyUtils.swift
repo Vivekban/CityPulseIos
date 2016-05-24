@@ -11,8 +11,8 @@ import UIKit
 
 class MyUtils{
     
-   
-   
+    
+    
     static func getDatePicker(target: AnyObject?, selector:Selector) -> UIDatePicker{
         let datePickerView:UIDatePicker = UIDatePicker()
         datePickerView.datePickerMode = UIDatePickerMode.Date
@@ -21,29 +21,56 @@ class MyUtils{
         return datePickerView
     }
     
-    static func presentViewController(currentController:UIViewController, identifier: String, transition : UIModalTransitionStyle = .CoverVertical) -> UIViewController?{
+    static func presentViewController(currentController:UIViewController, identifier: String,transition : UIModalTransitionStyle = .CoverVertical, type:Int = 0) -> UIViewController?{
         if let sectionController = currentController.storyboard?.instantiateViewControllerWithIdentifier(identifier)
         {
             //if (transition == .CoverVertical){
             //sectionController.modalTransitionStyle = transition
-//            presentViewController(currentController, newController: sectionController)
-//            }
-//        else{
-//            //presentViewController(currentController, newController: sectionController, isShow: true)
-//            presentViewController(currentController, newController: sectionController)
-//
-//            }
-            presentViewController(currentController, newController: sectionController)
-
+            //            presentViewController(currentController, newController: sectionController)
+            //            }
+            //        else{
+            //            //presentViewController(currentController, newController: sectionController, isShow: true)
+            //            presentViewController(currentController, newController: sectionController)
+            //
+            //            }
+            
+            if type == 0 {
+                presentViewControllerOnRoot(currentController, newController: sectionController)
+            }
+            else{
+                presentViewControllerOnCurrent(currentController, newController: sectionController)
+                
+            }
+            
             return sectionController
         }
         return nil
     }
     
+    static func presentViewControllerOnCurrent(currentController:UIViewController, newController: UIViewController){
+        // UIApplication.sharedApplication().delegate?.window!?.rootViewController?.presentViewController(newController, animated: true, completion: nil)
+        currentController.presentViewController(newController, animated: true, completion: nil)
+        
+    }
     
-    static func presentViewController(currentController:UIViewController, newController: UIViewController){
-            currentController.view.window?.rootViewController?.presentViewController(newController, animated: true, completion: nil)
-      
+    static func presentViewControllerOnRoot(currentController:UIViewController, newController: UIViewController){
+        
+        getTopMostController()?.presentViewController(newController, animated: true, completion: nil)
+        //        currentController.view.window?.rootViewController?.presentViewController(newController, animated: true, completion: nil)
+
+        // UIApplication.sharedApplication().delegate?.window!?.rootViewController?.presentViewController(newController, animated: true, completion: nil)
+        //currentController.presentViewController(newController, animated: true, completion: nil)
+    }
+    
+    
+    static func getTopMostController() -> UIViewController? {
+       var topController =  UIApplication.sharedApplication().keyWindow?.rootViewController
+        
+        while (topController?.presentedViewController != nil) {
+            topController = topController!.presentedViewController;
+        }
+        return topController
+        
     }
     
     static func presentViewController(currentController:UIViewController, newController: UIViewController, isShow : Bool){
@@ -58,7 +85,7 @@ class MyUtils{
             options: UIViewAnimationOptions.CurveEaseInOut,
             animations: {
                 if (isShow) {
-                   newController.view.transform = CGAffineTransformMakeTranslation(0, 20)
+                    newController.view.transform = CGAffineTransformMakeTranslation(0, 20)
                 }
                 else{
                     
@@ -73,21 +100,21 @@ class MyUtils{
         
         
     }
-
+    
     
     
     static func getViewControllerFromStoryBoard(storyBoadName : String, controllerName : String) -> UIViewController? {
         let aStoryboard =  UIStoryboard(name: storyBoadName, bundle: NSBundle.mainBundle())
         
         if controllerName.isEmpty {
-           return aStoryboard.instantiateInitialViewController()
+            return aStoryboard.instantiateInitialViewController()
         }
         else{
-           return aStoryboard.instantiateViewControllerWithIdentifier(controllerName)
+            return aStoryboard.instantiateViewControllerWithIdentifier(controllerName)
         }
     }
     
-       
+    
     static func imageResize (image:UIImage, sizeChange:CGSize)-> UIImage{
         
         UIGraphicsBeginImageContext(sizeChange)
@@ -130,7 +157,7 @@ class MyUtils{
     
     static func appendKayToJSONString(string:String) -> String{
         return "{\"data\":\(string)}"
-
+        
     }
     
     
@@ -141,12 +168,12 @@ class MyUtils{
     // MARK: - border
     static func createGreyBorder(view :UIView?, width:CGFloat = 1){
         if view != nil {
-        view!.layer.borderWidth = width
+            view!.layer.borderWidth = width
             view?.layer.borderColor = UIColor.lightGrayColor().CGColor
         }
     }
-
-
+    
+    
     static func addDictionary <U,T>(inout lhs :[U:T], rhs:[U:T]) {
         for (key,value) in rhs {
             lhs[key] = value

@@ -174,24 +174,6 @@ struct TextFieldInputData {
 }
 
 
-class Location {
-    var latitude:Double = 0.0
-    var longitude:Double = 0.0
-    var city:String = ""
-    var name = ""
-    var country = ""
-    var address = ""
-    var postalCode = ""
-    var administrativeArea = ""
-    var subAdministrativeArea = ""
-    var locality = ""
-    var subLocality = ""
-    var thoroughfare = ""
-    var subThoroughfare = ""
-    var region = ""
-    var timeZone = ""
-    
-}
 
 /**
  *   For header and content info UITable or UiCollection view
