@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchListViewController: UIViewController {
+class SearchListViewController: BaseNestedTabViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

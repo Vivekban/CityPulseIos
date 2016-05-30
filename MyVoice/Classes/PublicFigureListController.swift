@@ -32,7 +32,7 @@ class PublicFigureListController: BaseNestedTabViewController {
                     entries.append(CurrentSession.i.personController.person.profileData)
                 }
         
-        serverRequestType = listType.rawValue;
+        serverListRequestType = listType.rawValue;
         
         // Do any additional setup after loading the view.
     }

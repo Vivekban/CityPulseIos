@@ -15,8 +15,14 @@ class PublicFigureTabViewController: BaseTabsViewController {
         menuItemWidth = 150
         super.viewDidLoad()
         actionButton.hidden = true
+        
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        topBar?.setHiddenStatusOfCity(true)
     }
 
     override func didReceiveMemoryWarning() {

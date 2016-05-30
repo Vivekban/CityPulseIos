@@ -152,6 +152,11 @@ class TopBarView: UIView {
         changeVisibiltOfBackButton(!visible)
     }
     
+    func setHiddenStatusOfCity(isHidden :Bool){
+        cityLine.hidden = isHidden
+        cityField.hidden = isHidden
+    }
+    
     func updateCategories(){
         categoryPopPicker.updateData(0, newData:CurrentSession.i.issueController.issueCategorises)
     }

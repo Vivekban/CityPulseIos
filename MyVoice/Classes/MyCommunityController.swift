@@ -8,11 +8,13 @@
 
 import UIKit
 
-class MyCommunityController: UIViewController {
+class MyCommunityController: BaseNestedTabViewController {
 
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tablView = tableView
         // Do any additional setup after loading the view.
     }
 

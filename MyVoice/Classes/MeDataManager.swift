@@ -72,8 +72,8 @@ class PersonDataManager : ServerDataManager {
         case .Work:
             return ["id":"\(userId)","getby":"owner"]
             
-        case .Work:
-            return ["id":"\(userId)","getby":"owner"]
+        case .Event:
+            return ["id":"\(userId)","getby":"user"]
             
         default:
             break;

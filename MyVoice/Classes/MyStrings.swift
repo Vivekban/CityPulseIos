@@ -23,6 +23,9 @@ class MyStrings {
     static let cancel = "Cancel".localized
     static let tryAgain = "Try Again".localized
     static let by = "By"
+    static let search = "Search"
+
+    
     static let description = "Description"
     static let mark_to = "Mark To"
 
@@ -75,7 +78,7 @@ class MyStrings {
     static let communities = "Communities"
     static let topResident = "Top Resident"
     static let topCommunity = "Top Communities"
-    
+    static let topCommunityMember = "Top Community Members"
     static let fetchingTag = "Getting Tags"
 
   
@@ -178,7 +181,6 @@ class MyStrings {
 
     static let activeIssues = active + " " + issues
     static let resolvedIssues = resolved + " " + issues
-    
     
     static let publicFigure = "Public Figure"
     

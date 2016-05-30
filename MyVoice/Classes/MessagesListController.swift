@@ -8,11 +8,15 @@
 
 import UIKit
 
-class MessagesListController: UIViewController {
+class MessagesListController: BaseNestedTabViewController {
 
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.tablView = tableView
+        
         // Do any additional setup after loading the view.
     }
 

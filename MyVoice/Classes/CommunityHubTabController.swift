@@ -12,7 +12,7 @@ class CommunityHubTabController: BaseTabsViewController  {
 
     override func viewDidLoad() {
         isBriefBar = false
-        storyBoardName = "Community Hub"
+        storyBoardName = "Community"
         super.viewDidLoad()
         actionButton.hidden = true
         // Do any additional setup after loading the view.
@@ -23,6 +23,10 @@ class CommunityHubTabController: BaseTabsViewController  {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        topBar?.setHiddenStatusOfCity(true)
+    }
     
     override func getTabsController() -> [UIViewController] {
         
@@ -35,20 +39,33 @@ class CommunityHubTabController: BaseTabsViewController  {
         controller.title = MyStrings.myCommunity
         controllers.append(controller)
         
-        let controller2 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("SearchListController")
-        controller2.title = MyStrings.communities
+        let controller2 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("ListController")
+        
+        if let c = controller2 as? BaseNestedTabViewController {
+            c.tabPosition = 1
+        }
+        
+        controller2.title = MyStrings.topCommunity
         controllers.append(controller2)
         
         let controller3 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("ListController")
-        controller3.title = MyStrings.topResident
+        controller3.title = MyStrings.topCommunityMember
         controllers.append(controller3)
+        
+        if let c = controller3 as? BaseNestedTabViewController {
+            c.tabPosition = 2
+        }
 
         let controller4 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("ListController")
-        controller3.title = MyStrings.topCommunity
+        controller4.title = MyStrings.search
         controllers.append(controller4)
-
+       
+        if let c = controller4 as? BaseNestedTabViewController {
+            c.tabPosition = 3
+        }
         
         return controllers
+        
     }
 
     

@@ -2049,8 +2049,8 @@
                                     <constraint firstItem="bYC-Sy-pUg" firstAttribute="leading" secondItem="9Gp-v3-edl" secondAttribute="leading" id="zgJ-du-pJy"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" tag="99" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="650" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="tPu-B7-D5t">
-                                <rect key="frame" x="26" y="68" width="600" height="532"/>
+                            <tableView clipsSubviews="YES" tag="99" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="650" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="tPu-B7-D5t">
+                                <rect key="frame" x="0.0" y="68" width="600" height="532"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="baseDetailCell" id="ap7-cR-L3H" customClass="BaseImageDetailCell" customModule="CityPulse" customModuleProvider="target">
@@ -2174,9 +2174,12 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ChO-1I-oqy">
                                                             <rect key="frame" x="-30" y="65" width="660" height="325"/>
                                                             <subviews>
-                                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" tag="7" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VIp-sM-kEe">
+                                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" tag="7" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VIp-sM-kEe">
                                                                     <rect key="frame" x="0.0" y="0.0" width="490" height="325"/>
                                                                 </mapView>
+                                                                <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jbf-vC-74a">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="490" height="325"/>
+                                                                </imageView>
                                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="6" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YpN-Wr-amh">
                                                                     <rect key="frame" x="500" y="0.0" width="160" height="325"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2241,13 +2244,19 @@
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
+                                                                <constraint firstItem="YpN-Wr-amh" firstAttribute="leading" secondItem="jbf-vC-74a" secondAttribute="trailing" constant="10" id="5uM-qK-rzS"/>
+                                                                <constraint firstItem="VIp-sM-kEe" firstAttribute="trailing" secondItem="jbf-vC-74a" secondAttribute="trailing" id="6e5-ge-Yp6"/>
                                                                 <constraint firstAttribute="width" constant="660" id="8ov-Ff-tBV"/>
+                                                                <constraint firstItem="VIp-sM-kEe" firstAttribute="top" secondItem="jbf-vC-74a" secondAttribute="top" id="EXs-gy-1oK"/>
+                                                                <constraint firstItem="jbf-vC-74a" firstAttribute="leading" secondItem="ChO-1I-oqy" secondAttribute="leading" id="EcS-eH-jBp"/>
                                                                 <constraint firstItem="YpN-Wr-amh" firstAttribute="top" secondItem="ChO-1I-oqy" secondAttribute="top" id="HI1-pg-acN"/>
-                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="325" id="MUY-z2-Sxe"/>
+                                                                <constraint firstItem="jbf-vC-74a" firstAttribute="top" secondItem="ChO-1I-oqy" secondAttribute="top" id="Nb3-5Z-xm6"/>
                                                                 <constraint firstAttribute="height" constant="325" id="Nbh-Bu-sME"/>
+                                                                <constraint firstAttribute="bottom" secondItem="jbf-vC-74a" secondAttribute="bottom" id="QIx-GF-keF"/>
                                                                 <constraint firstAttribute="bottom" secondItem="YpN-Wr-amh" secondAttribute="bottom" id="TH7-Ol-aXz"/>
                                                                 <constraint firstAttribute="trailing" secondItem="YpN-Wr-amh" secondAttribute="trailing" id="aKm-5e-6oW"/>
-                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="660" id="o02-ZQ-W5E"/>
+                                                                <constraint firstItem="VIp-sM-kEe" firstAttribute="leading" secondItem="jbf-vC-74a" secondAttribute="leading" id="aqB-7D-er1"/>
+                                                                <constraint firstItem="VIp-sM-kEe" firstAttribute="bottom" secondItem="jbf-vC-74a" secondAttribute="bottom" id="yw0-oj-bOS"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
@@ -2285,19 +2294,6 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jbf-vC-74a">
-                                <rect key="frame" x="-32" y="184" width="490" height="325"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="325" id="Xj3-Qm-8an"/>
-                                    <constraint firstAttribute="width" constant="600" id="b6h-zW-LO1"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="Xj3-Qm-8an"/>
-                                        <exclude reference="b6h-zW-LO1"/>
-                                    </mask>
-                                </variation>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>

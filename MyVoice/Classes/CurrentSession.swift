@@ -41,6 +41,7 @@ class CurrentSession {
         appDataManager = AppDataManager()
         issueController = HomeDataManager()
         publicFigureDataManager = PublicFigureDataManager()
+        communityHubDataManager = CommunityHubDataManager()
         
     }
     
@@ -58,7 +59,7 @@ class CurrentSession {
     var issueController:HomeDataManager!
     
     var publicFigureDataManager : PublicFigureDataManager!
-    
+    var communityHubDataManager : CommunityHubDataManager!
     
     var appDataManager:AppDataManager!
     

@@ -10,10 +10,10 @@ import UIKit
 
 
 /***
-
+ 
  If child class show data from server then...it has to set @serverRequestType, serverListRequestType
  
-*/
+ */
 
 
 class BaseNestedTabViewController :UIViewController{
@@ -24,7 +24,7 @@ class BaseNestedTabViewController :UIViewController{
     var reuseIdentifier = ""
     var editControlllerIdentifier = ""
     var detailControllerIdentifier = ""
-    
+    var tabPosition = 0
     // collections table
     var collecView:UICollectionView?{
         didSet{
@@ -113,7 +113,7 @@ class BaseNestedTabViewController :UIViewController{
         
         
         let controller = MyUtils.presentViewController(self, identifier: detailControllerIdentifier)
-
+        
         
         if let editController = controller as? BaseDetailViewController {
             editController.setDataSourceWith(entries, index: index)
@@ -465,7 +465,7 @@ class BaseHeaderCollectionView: BaseNestedTabViewController {
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         
         if !isEditButtonHidden{
-           isEditButtonHidden = !CurrentSession.i.isEditingEnable 
+            isEditButtonHidden = !CurrentSession.i.isEditingEnable
         }
         
         
