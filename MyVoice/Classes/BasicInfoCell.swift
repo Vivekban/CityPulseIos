@@ -16,6 +16,7 @@ class BasicInfoCell: UICollectionViewCell {
     
     @IBOutlet weak var content: UILabel!
     
+    @IBOutlet weak var bottomLine: UIView!
     
     
 }

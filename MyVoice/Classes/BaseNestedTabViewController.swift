@@ -294,9 +294,9 @@ extension BaseNestedTabViewController : UIScrollViewDelegate {
 extension BaseNestedTabViewController : BaseDetaiViewControllerDelegate {
     func onEditButtonClick(index: Int) {
         
-        MyUtils.delay(0.05) {[weak self] () -> () in
-            self?.showEditViewController(EditControllerType.EDIT,index: index)
-        }
+        //MyUtils.delay(0.05) {[weak self] () -> () in
+            self.showEditViewController(EditControllerType.EDIT,index: index)
+        //}
         
         //  performSelector("showEditViewController:", withObject: index, afterDelay: 0.1)
         //

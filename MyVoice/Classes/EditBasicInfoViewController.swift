@@ -55,7 +55,6 @@ class EditBasicInfoViewController: BaseEditViewController {
     
     
     override func keyboardWillShow(notification: NSNotification) {
-        
         if let userInfo = notification.userInfo {
             if let keyboardSize =  (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
                 kbHeight = keyboardSize.height
@@ -73,18 +72,17 @@ class EditBasicInfoViewController: BaseEditViewController {
                         // Your app might not need or want this behavior.
                         var aRect = self.view.frame;
                         aRect.size.height -= kbHeight;
-                        if (!CGRectContainsPoint(aRect, (activeTextField?.frame.origin)!) ) {
-                            var frame = activeTextField?.frame;
-                            frame?.origin.y = (frame?.origin.y)! + 10
-                            scrollView?.scrollRectToVisible((frame)!, animated: true)
+                        
+                        var frame = MyUtils.getViewPositionWithRespectToView(activeTextField!, baseView: scrollView)
+                        if (!CGRectContainsPoint(aRect, frame.origin ) ) {
+                            frame.origin.y = (frame.origin.y) + 10
+                            scrollView?.scrollRectToVisible((frame), animated: true)
                         }
                     }
                 }
             }
         }
-        
-    }
-    
+    }//
     
 }
 

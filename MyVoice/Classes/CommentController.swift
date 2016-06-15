@@ -40,7 +40,7 @@ class CommentController : UITableViewCell {
     }
     
     func initViews(){
-        tableView = UITableView(frame: CGRectMake(105, 0, self.frame.width-210, self.frame.height))
+        tableView = UITableView(frame: CGRectMake(105, 0, self.frame.width - 105 - 20, self.frame.height))
         // tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorColor = UIColor.clearColor()
         tableView.rowHeight = 210
@@ -61,7 +61,7 @@ class CommentController : UITableViewCell {
         comments.appendContentsOf(data)
         tableView.reloadData()
         tableView.frame.size.height = tableView.contentSize.height
-        tableView.frame.size.width = self.frame.width - 210
+        tableView.frame.size.width = self.frame.width - 105 - 55
         
         
     }

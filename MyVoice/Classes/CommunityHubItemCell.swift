@@ -18,9 +18,11 @@ class CommunityHubItemView: UIView {
     
     @IBOutlet weak var issueResoledDetail: UILabel!
     
+    @IBOutlet weak var viewDetail: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        viewDetail.layer.borderColor = Constants.accentColor.CGColor
     }
     
     func updateView(data : CommunityItemData){
@@ -32,6 +34,7 @@ class CommunityHubItemView: UIView {
         issueResoledDetail.text = data.issueRaised.toString()
     }
     
+    @IBOutlet weak var onDetailViewClick: UIButton!
 }
 
 

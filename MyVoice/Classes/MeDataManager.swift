@@ -172,6 +172,36 @@ class PersonDataManager : ServerDataManager {
             }
             
             break
+            
+        case .Work:
+            let workArray = JSON(data)
+            var list = [MyWorkData]()
+            for (_,obj) in workArray {
+                if let finalString = obj.rawString() {
+                    // print(" value is \(i)...+....\(finalString)")
+                    if let view = Mapper<MyWorkData>().map(finalString) {
+                        list.append(view)
+                    }
+                }
+            }
+            person.worksListManager.updateEntries(list)
+            break
+            
+        case .Event:
+            let eventArray = JSON(data)
+            var list = [EventData]()
+            for (_,obj) in eventArray {
+                if let finalString = obj.rawString() {
+                    // print(" value is \(i)...+....\(finalString)")
+                    if let view = Mapper<EventData>().map(finalString) {
+                        list.append(view)
+                    }
+                }
+            }
+            person.eventsListManager.updateEntries(list)
+            break
+
+            
         default:
             break;
         }

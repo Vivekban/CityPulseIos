@@ -82,10 +82,28 @@ class BasicInfoViewController: BaseHeaderCollectionView {
             let title = CurrentSession.i.personUI!.getInfoItemBy(infoType)[indexPath.row]
             cell.title.text = title
             cell.content.text = CurrentSession.i.personController.person.basicInfo.getValueBy(infoType, row: indexPath.row) ?? ""
+            cell.bottomLine.hidden = isBottomLineHidde(indexPath.row, section: indexPath.section)
         }
         
       
         return cell
+    }
+    
+    func isBottomLineHidde(index : Int , section : Int) -> Bool {
+        
+        let max = CurrentSession.i.personUI?.getInfoItemBy(PersonBasicInfoType(rawValue: section)!).count ?? 0
+        
+        if (max == index + 1){
+            return true
+        }
+        else if (max == index + 2 &&  max % 2 == 0){
+            return true
+        }
+        
+        
+        
+        return false
+        
     }
     
     override func getTitleForHeader(index: Int) -> String {

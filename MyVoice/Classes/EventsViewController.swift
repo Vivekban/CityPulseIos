@@ -8,11 +8,13 @@
 
 import UIKit
 
-class EventsViewController: BaseHeaderCollectionView {
+class EventsViewController: BaseProfileHeaderCollectionView {
    
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
+        serverListRequestType = PersonInfoRequestType.Event.rawValue
+
         super.viewDidLoad()
 
         expandedRows.insert(0)

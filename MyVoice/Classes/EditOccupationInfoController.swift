@@ -34,6 +34,14 @@ class EditOccupationInfoController: EditBasicInfoViewController {
             d.isPublicOffice = posiitonSwitch.isOn()
         }
     }
+    
+    override func keyboardWillShow(notification: NSNotification) {
+        // activeTextField = nil
+        //    super.keyboardWillShow(notification)
+        
+    }
+    
+   
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

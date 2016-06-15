@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="WFr-j1-x2v">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="WFr-j1-x2v">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -68,7 +68,7 @@
             </objects>
             <point key="canvasLocation" x="-1235" y="-418"/>
         </scene>
-        <!--Community Leaders-->
+        <!-- Community Leaders -->
         <scene sceneID="nxF-31-qdw">
             <objects>
                 <viewController id="sWF-jo-pxm" customClass="PublicFigureTabViewController" customModule="CityPulse" customModuleProvider="target" sceneMemberID="viewController">
@@ -81,7 +81,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Community Leaders" image="Public figure" selectedImage="Public figure" id="aAi-Kn-mGs"/>
+                    <tabBarItem key="tabBarItem" title=" Community Leaders " image="Public figure" selectedImage="Public figure" id="aAi-Kn-mGs"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4P9-0g-FsI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -148,7 +148,7 @@
                                             <constraint firstAttribute="height" constant="60" id="flm-Nj-fB2"/>
                                             <constraint firstAttribute="width" constant="65" id="hsz-xG-dQW"/>
                                         </constraints>
-                                        <state key="normal" title="Delete" image="Back Arrow"/>
+                                        <state key="normal" title="Delete" image="delete"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="4"/>
@@ -174,7 +174,7 @@
                                             <constraint firstAttribute="width" constant="85" id="kB1-HE-7xq"/>
                                             <constraint firstAttribute="height" constant="60" id="tfw-UC-f4o"/>
                                         </constraints>
-                                        <state key="normal" title="Report Spam" image="star"/>
+                                        <state key="normal" title="Report Spam" image="spam"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="4"/>
@@ -187,7 +187,7 @@
                                             <constraint firstAttribute="width" constant="70" id="bLY-Th-xrZ"/>
                                             <constraint firstAttribute="height" constant="60" id="sUk-G6-KNl"/>
                                         </constraints>
-                                        <state key="normal" title="Forward" image="Comment"/>
+                                        <state key="normal" title="Forward" image="message_farward"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="4"/>
@@ -195,7 +195,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="8oF-nK-Qyd" firstAttribute="leading" secondItem="bkS-tK-EnN" secondAttribute="trailing" constant="8" id="2kf-fm-hmj"/>
                                     <constraint firstItem="BAR-eD-kkz" firstAttribute="leading" secondItem="8oF-nK-Qyd" secondAttribute="trailing" constant="8" id="5oS-O3-Pyl"/>
@@ -558,14 +558,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Back Arrow" width="25" height="25"/>
         <image name="Chat" width="42" height="42"/>
-        <image name="Comment" width="24" height="24"/>
         <image name="Community Hub" width="40" height="40"/>
         <image name="Me" width="22" height="22"/>
         <image name="Message 2" width="24" height="18"/>
         <image name="Public figure" width="21" height="25"/>
+        <image name="delete" width="22" height="26"/>
         <image name="home" width="37" height="37"/>
-        <image name="star" width="25" height="25"/>
+        <image name="message_farward" width="27" height="26"/>
+        <image name="spam" width="22" height="22"/>
     </resources>
 </document>

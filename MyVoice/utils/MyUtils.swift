@@ -179,4 +179,18 @@ class MyUtils{
             lhs[key] = value
         }
     }
+    
+    
+    static func getViewPositionWithRespectToView(view : UIView, baseView: UIView? ) -> CGRect {
+        var finalFrame = view.frame
+        var tempView = view.superview
+        while ( tempView != nil && tempView?.superview != baseView) {
+            finalFrame.origin.x += (tempView?.frame.origin.x) ?? 0
+            finalFrame.origin.y += tempView?.frame.origin.y ?? 0
+            tempView = tempView?.superview
+        }
+        
+        return finalFrame
+    }
+    
 }

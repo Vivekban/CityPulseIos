@@ -337,8 +337,10 @@ extension BaseDetailViewController :UITableViewDelegate {
 
 extension BaseDetailViewController : BaseDetailCellDelegate {
     func onEditButtonClick() {
-        delegate?.onEditButtonClick(dataIndex)
-        dismissViewControllerAnimated(true, completion: nil)
+        let index = dataIndex
+        delegate?.onEditButtonClick(index)
+
+        //dismissViewControllerAnimated(true, completion: nil)
     }
 }
 

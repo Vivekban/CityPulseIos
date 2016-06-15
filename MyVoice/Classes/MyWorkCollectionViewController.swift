@@ -9,14 +9,15 @@
 import UIKit
 
 
-class MyWorkCollectionViewController: BaseNestedTabViewController {
+class MyWorkCollectionViewController: BaseProfileNestedViewController {
     
     @IBOutlet weak var collecitonView: UICollectionView!
 
     override func viewDidLoad() {
-        columns = 3
+        serverListRequestType = PersonInfoRequestType.Work.rawValue
         super.viewDidLoad()
         
+        columns = 3
         numberOfSections = 1
         reuseIdentifier = "WorkCell"
         editControlllerIdentifier = "EditWorkViewController"
@@ -111,7 +112,7 @@ class MyWorkCollectionViewController: BaseNestedTabViewController {
             cell.date.text = info.disPlayDate
             cell.title.text = info.title
             cell.likes.text = "\(info.likes)"
-            cell.comments.text = "\(info.comments)"
+            cell.comments.text = "\(info.comments?.count ?? 0)"
             cell.category.text = info.category
         }
         

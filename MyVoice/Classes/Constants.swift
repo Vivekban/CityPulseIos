@@ -33,7 +33,7 @@ class Constants {
     static let notification_center_scroll_event_key = "scroll_event_key"
     
     
-    static let personInfoHeader = ["BASIC_INFO".localized,"OCCUPATION_INFO".localized,"CONTACT_INFO".localized,"EDUCATION_INFO".localized]
+    static let personInfoHeader = ["BASIC".localized,"OCCUPATION".localized,"CONTACT".localized,"EDUCATION".localized]
     
     static let BriefItemUI_Follower = BriefItemUI(heading: "Followers".localized, index: "Followers", isClickable: false)
     

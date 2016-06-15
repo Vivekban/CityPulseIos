@@ -12,7 +12,7 @@ class LeaderUI: ResidentUI {
     
     override init() {
         super.init()
-        basicInfoItems += ["PoliticalParty"]
+        basicInfoItems += ["Political Party"]
         nHomeTabs = 5
         //TwoString(str1: "MyWorkViewController", str2: "Videos")
     }

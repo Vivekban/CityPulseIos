@@ -27,6 +27,8 @@ class PopTableViewController: UIViewController {
         }
     }
     
+    var selectedRowIndex = 0
+    
     convenience init() {
         
         self.init(nibName: "PopTableViewController", bundle: nil)
@@ -117,8 +119,15 @@ extension PopTableViewController : UITableViewDataSource {
     func configureCell(cell: UITableViewCell, forRowAtIndexPath: NSIndexPath) {
         
         cell.textLabel?.text =  "  \((info?.items![0][forRowAtIndexPath.row])!)"
-        cell.textLabel?.textColor = Constants.grayColor_101
         
+        if selectedRowIndex == forRowAtIndexPath.row {
+            cell.textLabel?.textColor = UIColor.whiteColor()
+
+        }
+        else{
+        
+        cell.textLabel?.textColor = Constants.grayColor_101
+        }
         
         let bgColorView = UIView()
         bgColorView.backgroundColor = Constants.accentColor
@@ -132,7 +141,13 @@ extension PopTableViewController : UITableViewDataSource {
     //MARK: UITableViewDelegate
 extension PopTableViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        selectedRowIndex = indexPath.row
+        
+        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        
         onRowSelected(indexPath.row)
+        
     }
 
 //    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

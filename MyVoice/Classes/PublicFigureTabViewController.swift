@@ -60,6 +60,12 @@ class PublicFigureTabViewController: BaseTabsViewController {
     }
 
     
+    override func didMoveToPage(controller: UIViewController, index: Int) {
+        super.didMoveToPage(controller, index: index)
+        topBar?.setTitle(controller.title ?? "")
+
+    }
+    
     /*
     // MARK: - Navigation
 

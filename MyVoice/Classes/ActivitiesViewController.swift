@@ -122,12 +122,47 @@ class ActivitiesViewController: BaseNestedTabViewController {
         
         return cell
     }
+    
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else {
+            return CGSize()
+        }
+        
+        
+        let width =  Int(collectionView.frame.width - flowLayout.sectionInset.left - flowLayout.sectionInset.right)/columns
+        
+        var height = flowLayout.itemSize.height;
+        
+        switch (indexPath.row) {
+        case 4:
+            height = 116
+            break;
+            
+        default:
+            break;
+        }
+        
+        
+        
+        return CGSize(width: CGFloat(width) - flowLayout.minimumInteritemSpacing, height: height)
+        
+    }
 
 
 }
 
 extension ActivitiesViewController : ActivityCellDelegate {
     func onMoreButtonClick(sender: BaseActivityCell) {
-        showDetailViewController((collectionView.indexPathForCell(sender)?.row) ?? 0)
+        
+        let index = (collectionView.indexPathForCell(sender)?.row) ?? 0
+        
+        if index != 1 {
+        showDetailViewController(index)
+        }
+        else{
+            onCompleteProfileButtonClick(1)
+        }
+        
     }
 }

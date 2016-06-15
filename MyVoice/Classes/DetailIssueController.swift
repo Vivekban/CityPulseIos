@@ -30,7 +30,7 @@
             super.viewDidLoad()
             
             
-            baseDetailHeight = 590
+            baseDetailHeight = 558
             numberOfSection = 5
             
             containerTableView.registerClass(ResponseConroller.self, forCellReuseIdentifier: responseIdentifier)

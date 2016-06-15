@@ -37,10 +37,10 @@
 "Work" = "Work";
 
 // Info headings
-"BASIC_INFO"      = "Basic Info";
-"CONTACT_INFO"    = "Contact Info";
-"EDUCATION_INFO"  = "Education Info";
-"OCCUPATION_INFO" = "Occupation Info";
+"BASIC"      = "Basic";
+"CONTACT"    = "Contact";
+"EDUCATION"  = "Education";
+"OCCUPATION" = "Occupation";
 
 // EDUCATION IFO items
 "YEAR" = "Year";

@@ -86,6 +86,8 @@ class ProfileViewController: BaseTabsViewController {
             assertionFailure("pata ni")
         }
         
+        topBar?.setTitle(controller.title ?? "")
+        
         super.didMoveToPage(controller, index: index)
     }
     

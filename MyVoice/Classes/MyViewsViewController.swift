@@ -66,7 +66,7 @@ class MyViewsViewController: BaseProfileHeaderCollectionView {
         if let entry = entries[indexPath.section] as? MyViewData{
             print(entry.description)
             cell.detailLabel.text = entry.description
-            // cell.detailLabel.sizeToFit()
+            cell.detailLabel.sizeToFit()
             // cell.layoutIfNeeded()
             cell.dateField.text = entry.disPlayDate
         }

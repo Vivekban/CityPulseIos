@@ -46,12 +46,12 @@ class MeData{
             badgesListManager.append(ServerDataList(entries: [BadgesData]()))
         }
 
-        for i in 1...2 {
-            let dummyWork = MyWorkData()
-            dummyWork.description = "Description of work \(i)"
-            dummyWork.title = "Title of work \(i)"
-            worksListManager.entries.append(dummyWork)
-        }
+//        for i in 1...2 {
+//            let dummyWork = MyWorkData()
+//            dummyWork.description = "Description of work \(i)"
+//            dummyWork.title = "Title of work \(i)"
+//            worksListManager.entries.append(dummyWork)
+//        }
         
         for i in 1...2 {
             let dummyEvent = EventData()

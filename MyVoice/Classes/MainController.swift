@@ -112,7 +112,7 @@ class MainController: UITabBarController {
         
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: UIFont(name: "Helvetica", size: CGFloat(15))!], forState:.Normal)
         UITabBar.appearance().tintColor = UIColor.whiteColor()
-        UITabBar.appearance().itemWidth = 100
+        UITabBar.appearance().itemWidth = 110
         
         
         UISearchBar.appearance().setSearchFieldBackgroundImage(UIImage.imageWithColor(UIColor.whiteColor(), rect: CGRectMake(0, 0, 300, 30)), forState: UIControlState.Normal)        // print(MyUtils.getServerStyleDateInString("Feb 4, 2016"))
@@ -127,7 +127,7 @@ class MainController: UITabBarController {
     
     override func viewWillAppear(animated: Bool) {
         // let tabItemWidth = self.tabBar.itemWidth
-        let image = UIImage.imageWithColor(Constants.tab_selection, rect: CGRectMake(0, 0, 118, 55))
+        let image = UIImage.imageWithColor(Constants.tab_selection, rect: CGRectMake(0, 0, 125, 55))
         UITabBar.appearance().selectionIndicatorImage = image
     }
     

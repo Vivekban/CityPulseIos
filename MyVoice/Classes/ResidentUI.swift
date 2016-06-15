@@ -55,7 +55,7 @@ class ResidentUI: PersonUI {
         fDate.inputType = .DATE_PICKER
         
         
-        let fMarriage = getTextFieldInputDataForPickerData(["SINGLE".localized,"MARRIED".localized])
+        let fMarriage = getTextFieldInputDataForPickerData(["SINGLE".localized,"MARRIED".localized,"OTHERS".localized])
         
         let fGender = getTextFieldInputDataForPickerData(["MALE".localized,"FEMALE".localized,"OTHERS".localized])
         

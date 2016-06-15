@@ -17,6 +17,11 @@ class MessagesListController: BaseNestedTabViewController {
 
         self.tablView = tableView
         
+        
+        if let navContr = self.navigationController {
+            navContr.navigationBar.barTintColor = UIColor.whiteColor()
+        }
+        
         // Do any additional setup after loading the view.
     }
 

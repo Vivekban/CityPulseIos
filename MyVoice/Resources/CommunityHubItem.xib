@@ -22,14 +22,14 @@
                                 <constraint firstAttribute="width" secondItem="g0b-zc-CIh" secondAttribute="height" multiplier="1:1" id="DtI-Uw-ch0"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Area" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BT3-vP-PKx">
-                            <rect key="frame" x="79" y="33" width="30" height="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Area" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BT3-vP-PKx">
+                            <rect key="frame" x="79" y="31" width="30" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.51372549020000002" green="0.51372549020000002" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3EB-46-tz6">
-                            <rect key="frame" x="79" y="6" width="53" height="23"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3EB-46-tz6">
+                            <rect key="frame" x="79" y="6" width="48" height="21"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                             <color key="textColor" red="0.39607843139999999" green="0.39607843139999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -128,6 +128,23 @@
                                 <constraint firstItem="WHN-bh-i3y" firstAttribute="centerY" secondItem="DbJ-kR-BbT" secondAttribute="centerY" id="u6H-cI-h7A"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zhE-hD-ZrJ">
+                            <rect key="frame" x="819" y="19" width="100" height="30"/>
+                            <state key="normal" title="  View Details  ">
+                                <color key="titleColor" red="0.047058823530000002" green="0.56470588239999997" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                    <integer key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                    <color key="value" red="0.047058823530000002" green="0.56470588239999997" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="4"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -138,8 +155,10 @@
                         <constraint firstItem="DbJ-kR-BbT" firstAttribute="centerX" secondItem="8sa-NB-TAY" secondAttribute="centerX" id="JEM-PG-Xf1"/>
                         <constraint firstItem="g0b-zc-CIh" firstAttribute="height" secondItem="8sa-NB-TAY" secondAttribute="height" id="M41-u9-E1S"/>
                         <constraint firstItem="g0b-zc-CIh" firstAttribute="leading" secondItem="8sa-NB-TAY" secondAttribute="leading" constant="4" id="MqB-p6-aAq"/>
+                        <constraint firstAttribute="trailing" secondItem="zhE-hD-ZrJ" secondAttribute="trailing" constant="12" id="OxM-V9-jFf"/>
                         <constraint firstItem="3EB-46-tz6" firstAttribute="leading" secondItem="g0b-zc-CIh" secondAttribute="trailing" constant="8" id="Pl8-yv-4co"/>
                         <constraint firstItem="DbJ-kR-BbT" firstAttribute="top" secondItem="tuk-EO-VPN" secondAttribute="bottom" constant="8" id="Ua8-Ic-IU0"/>
+                        <constraint firstItem="zhE-hD-ZrJ" firstAttribute="centerY" secondItem="8sa-NB-TAY" secondAttribute="centerY" id="Vhx-8w-kr2"/>
                         <constraint firstItem="tuk-EO-VPN" firstAttribute="centerX" secondItem="8sa-NB-TAY" secondAttribute="centerX" id="a74-bB-8Ie"/>
                         <constraint firstItem="3EB-46-tz6" firstAttribute="top" secondItem="8sa-NB-TAY" secondAttribute="top" constant="6" id="fE2-h4-FtV"/>
                         <constraint firstItem="BT3-vP-PKx" firstAttribute="leading" secondItem="g0b-zc-CIh" secondAttribute="trailing" constant="8" id="nGF-R0-nxv"/>
@@ -165,8 +184,10 @@
                 <outlet property="creditsDetail" destination="edg-r2-n4J" id="TUa-4O-HlJ"/>
                 <outlet property="detail" destination="BT3-vP-PKx" id="KvT-2A-XLv"/>
                 <outlet property="issueResoledDetail" destination="2f6-WJ-AUT" id="vRa-8v-unv"/>
+                <outlet property="onDetailViewClick" destination="zhE-hD-ZrJ" id="bko-vZ-nzo"/>
                 <outlet property="pic" destination="g0b-zc-CIh" id="MSJ-Su-c1V"/>
                 <outlet property="title" destination="3EB-46-tz6" id="lnY-aB-FhU"/>
+                <outlet property="viewDetail" destination="zhE-hD-ZrJ" id="5j3-LJ-vgX"/>
             </connections>
             <point key="canvasLocation" x="680.5" y="-204.5"/>
         </view>

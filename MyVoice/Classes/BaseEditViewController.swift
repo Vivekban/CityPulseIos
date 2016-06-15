@@ -56,9 +56,9 @@ class BaseEditViewController: UIViewController {
     // delegate
     weak var delegate:BaseEditViewControllerDelegate?
     
-    var scrollView:UIScrollView?
+    weak var scrollView:UIScrollView?
     
-    var activeTextField:UIView?
+    weak var activeTextField:UIView?
     
     var fieldHideByKeyboard = [UITextField]()
     
