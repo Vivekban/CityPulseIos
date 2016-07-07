@@ -128,6 +128,18 @@ class HomeDataList {
         for _ in 0...3{
             pollsListsManager.append(ServerDataList(entries: [PollData]()))
         }
+        
+        var dummyPolls = [PollData]()
+        
+        for i in 0...2 {
+            let pol = PollData()
+            pol.title = "This is question of poll \(i).\n here comes next line "
+            pol.category = "Educaiton"
+            dummyPolls.append(pol)
+        }
+        
+        pollsListsManager[0].updateEntries(dummyPolls, isClear: true)
+        
     }
     
     

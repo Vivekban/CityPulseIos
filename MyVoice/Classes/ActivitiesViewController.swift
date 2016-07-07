@@ -13,13 +13,13 @@ class ActivitiesViewController: BaseNestedTabViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
-        columns = 2
+        columns = 1
         super.viewDidLoad()
         
         collecView = collectionView
-        let cellNames = ["creditCell","profileCell","donationCell","pageViewCell","badgeCell"];
+        let cellNames = ["profileCell","creditCell","pageViewCell"];
         
-        for i in 0...4 {
+        for i in 0...2 {
             let d = TitleDescriptionData()
             d.title = cellNames[i]
             entries.append(d)
@@ -53,16 +53,16 @@ class ActivitiesViewController: BaseNestedTabViewController {
         
         switch (index) {
         case 0:
+            return nil
+        case 1:
             controllerName = "CreditsController"
             title = MyStrings.credits
             break;
-        case 1:
-            return nil
-        case 2:
+        case 3:
             controllerName = "DonationController"
             title = CurrentSession.i.personUI?.donationType.toString() ?? "Donations"
             break
-        case 3:
+        case 2:
             controllerName =  "PageViewsController"
             title = MyStrings.pageViews
             break

@@ -17,19 +17,19 @@ let visitorLeaderInfo = BriefBarInfo(items: [Constants.BriefItemUI_Follower,Cons
 class VisiterBriefBar: BriefProfileBar {
 
     override func setInfo(){
-        switch (ptype) {
-        case .Resident:
+        switch (type) {
+        case .TopBarResident:
             info = visitorResidentInfo
             break;
-        case .Leadear:
+        default:
             info = visitorLeaderInfo
         }
     }
     
     override func getValueForCell(row : Int) ->Int {
         if let data = self.data {
-            switch (ptype) {
-            case .Resident:
+            switch (type) {
+            case .TopBarResident:
                 
                 switch (row) {
                 case 0:
@@ -43,7 +43,7 @@ class VisiterBriefBar: BriefProfileBar {
                 }
                 
                 break;
-            case .Leadear:
+            default:
                 switch (row) {
                 case 0:
                     return data.followers

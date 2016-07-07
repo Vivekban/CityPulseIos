@@ -9,7 +9,7 @@
 import UIKit
 
 enum PublicFigureListType:Int{
-    case TopFigure = 0, MyFigure
+    case TopFigure = 0, MyFigure, CityOfficial
 }
 
 class PublicFigureListController: BaseNestedTabViewController {
@@ -74,12 +74,20 @@ class PublicFigureListController: BaseNestedTabViewController {
     
     func configureCell(cell: UITableViewCell, forRowAtIndexPath: NSIndexPath) {
         if let c = cell as? BriefProfileBarTableCell {
-            c.briefView.initialCollectionViews(BriefProfilePersonType.Leadear, dataType: BriefProfileType.TableRow, data: entries[forRowAtIndexPath.row] as! ProfileData)
+            
+            var type = BriefProfileType.TableRowLeader
+            
+            if listType == .CityOfficial {
+                type = BriefProfileType.TableRowCityOfficial
+            }
+            
+            
+            
+            c.briefView.initialCollectionViews(type, data: entries[forRowAtIndexPath.row] as! ProfileData)
         }
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 100
+        return 78
     }
 }
-

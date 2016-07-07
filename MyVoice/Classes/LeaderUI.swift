@@ -19,10 +19,10 @@ class LeaderUI: ResidentUI {
     
     override func personSpecificParmeter() {
         donationType = DonationType.received
-
-        briefType = BriefProfilePersonType.Leadear
-         homeFilters = Constants.leaderHomeIssueFilter
-       
+        
+        briefType = BriefProfileType.TopBarResident
+        homeFilters = Constants.leaderHomeIssueFilter
+        
         profileTabs.appendContentsOf([TwoString(str1: "MyWorkViewController", str2: MyStrings.works),
             TwoString(str1: "MyViews", str2: MyStrings.views),
             TwoString(str1: "EventViewController", str2: MyStrings.events),

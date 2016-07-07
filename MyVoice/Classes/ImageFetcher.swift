@@ -80,6 +80,9 @@ class ServerImageFetcher {
             iv.af_setImageWithURL(nSUrl, placeholderImage: UIImage(),filter:AspectScaledToFitSizeFilter(size: iv.frame.size),imageTransition: .CrossDissolve(0.3),runImageTransitionIfCached: false,
                 completion: { (response) -> Void in
                     indicator.removeFromSuperview()
+                    
+                    iv.layer.cornerRadius = iv.frame.size.width / 2;
+                    iv.clipsToBounds = true;
             })
 
         }
@@ -99,10 +102,18 @@ class ServerImageFetcher {
     
     
     func getAndAddIndicator(imageView :UIImageView) -> UIActivityIndicatorView {
+        
+        if let v = imageView.viewWithTag(43539) as? UIActivityIndicatorView {
+            return v
+        }
+        
         let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        indicator.tag = 43539
         indicator.center = imageView.center
         indicator.startAnimating()
         imageView.addSubview(indicator)
+        imageView.pinViewToCenter(indicator)
+        
         return indicator
     }
     

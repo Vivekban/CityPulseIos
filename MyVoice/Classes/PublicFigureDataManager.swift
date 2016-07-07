@@ -12,7 +12,7 @@ import SwiftyJSON
 
 enum PublicFigureDataRequestType:Int{
     
-    case Top = 0, My
+    case Top = 0, My , Official
 }
 
 class PublicFigureDataManager : ServerDataManager {
@@ -21,7 +21,7 @@ class PublicFigureDataManager : ServerDataManager {
     
     override init(){
         
-        for _ in 0...1{
+        for _ in 0...2{
             leadearsLists.append(ServerDataList(entries: [ProfileData]()))
         }
         
@@ -34,6 +34,9 @@ class PublicFigureDataManager : ServerDataManager {
             return ServerUrls.getTopCommunityLeaderUrl
         case .My:
             return ServerUrls.getMyCommunityLeaderUrl
+        case .Official:
+            return ServerUrls.getOfficialsUrl
+
         default:
             break;
         }
@@ -51,7 +54,7 @@ class PublicFigureDataManager : ServerDataManager {
         case .My:
             return ["userid":CurrentSession.i.userId]
         default:
-            break;
+            return ["userid":CurrentSession.i.userId]
         }
         return ["owner":"O"]
     }

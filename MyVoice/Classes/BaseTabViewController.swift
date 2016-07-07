@@ -17,6 +17,8 @@ class BaseTabsViewController: MyTabsViewController {
     var topBar: TopBarView?
     var briefProfileView: BriefProfileBar?
     var isBriefBar = true
+    var briefBarHeight:CGFloat = 100
+    
     // MARK: properties
     
     var storyBoardName:String = "Main"
@@ -42,7 +44,7 @@ class BaseTabsViewController: MyTabsViewController {
     
     var currentActiveView:UIView?
     
-    var briefBarType:BriefProfileType = .TopBar
+    var briefBarType:BriefProfileType = .TopBarLeader
     
     //
     
@@ -94,18 +96,18 @@ class BaseTabsViewController: MyTabsViewController {
     override func viewDidAppear(animated: Bool) {
         log.debug("Start.............First view appear...\(briefProfileView?.frame)...")
         topBar?.frame = CGRectMake(0, 20, view.frame.width, 45)
-        briefProfileView?.frame = CGRectMake(0, minTabsYpos , view.frame.width, 100)
+        briefProfileView?.frame = CGRectMake(0, minTabsYpos , view.frame.width, briefBarHeight)
         log.debug("after....Start.............First view appear...\(briefProfileView?.frame)...")
 
         super.viewDidAppear(animated)
         if let i = tabsMenu?.currentPageIndex {
             didMoveToPage((tabsMenu?.controllerArray[i])!, index: i)
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onViewScroll:", name: Constants.notification_center_scroll_key, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onViewScrollEvent:", name: Constants.notification_center_scroll_event_key, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BaseTabsViewController.onViewScroll(_:)), name: Constants.notification_center_scroll_key, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BaseTabsViewController.onViewScrollEvent(_:)), name: Constants.notification_center_scroll_event_key, object: nil)
         
-        EventUtils.addObserver(self, selector: Selector("onLocationUpdate"), key: EventUtils.locationUpdateKey)
-        EventUtils.addObserver(self, selector: Selector("onBasicInfoUpdate"), key: EventUtils.basicInfoUpdateKey)
+        EventUtils.addObserver(self, selector: #selector(BaseTabsViewController.onLocationUpdate), key: EventUtils.locationUpdateKey)
+        EventUtils.addObserver(self, selector: #selector(BaseTabsViewController.onBasicInfoUpdate), key: EventUtils.basicInfoUpdateKey)
         
         
         
@@ -197,7 +199,7 @@ class BaseTabsViewController: MyTabsViewController {
                 let change = newTabsPos - tabsViewStartPoint
                 
                 // var frame =  CGRectMake((briefProfileView?.frame.origin.x)!, (briefProfileView?.frame.origin.y)!, (briefProfileView?.frame.size.width)!, newTabsPos - minTabsYpos)
-                // frame.size.height = max(0,min(100,(frame.size.height)))
+                // frame.size.height = max(0,min(briefBarHeight,(frame.size.height)))
                 //   briefProfileView?.setNeedsDisplayInRect(frame)
                 
                 
@@ -309,13 +311,13 @@ class BaseTabsViewController: MyTabsViewController {
     
     func loadBriefView(){
         
-        briefProfileView =  BriefProfileBar.newInstance(self, type: (CurrentSession.i.personUI?.briefType)!, barType: briefBarType,data: CurrentSession.i.personController.person.profileData)
+        briefProfileView =  BriefProfileBar.newInstance(self, barType: briefBarType, data: CurrentSession.i.personController.person.profileData)
         briefProfileView?.delegate = self
         
         minTabsYpos = (topBar?.frame.origin.y)! + (topBar?.frame.height)! + spaceInViews
-        maxTabsYpos = minTabsYpos + 100
+        maxTabsYpos = minTabsYpos + briefBarHeight
         
-        briefProfileView?.frame = CGRectMake(0, minTabsYpos , view.frame.width, 100)
+        briefProfileView?.frame = CGRectMake(0, minTabsYpos , view.frame.width, briefBarHeight)
         
         briefProfileView?.updateData(CurrentSession.i.personController.person.profileData)
         
@@ -425,12 +427,13 @@ extension BaseTabsViewController : TopBarViewDelegate {
         // onDraggingStop()
     }
     
-    func onHelpButtonClick() {
+    func onNotifiactionClick(index: Int){
         
     }
     
-    func onCategoryChanged(text:String, item index:Int) {
-        
+    func onProfileButtonClick(){
+        let controller = ProfileViewController()
+        MyUtils.presentViewControllerOnRoot(self, newController: controller)
     }
 }
 

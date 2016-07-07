@@ -18,6 +18,8 @@ class PollsViewController: HomeBaseNestedTabController {
         tab = 2
         serverListRequestType = currentFilter?.dataRequestType ?? 0
         
+        columns = 3
+        
         super.viewDidLoad()
 
         collecView = collectionView
@@ -68,5 +70,9 @@ class PollsViewController: HomeBaseNestedTabController {
         
         return cell
     }
+    
+    
+        
+    
 
 }

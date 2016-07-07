@@ -13,5 +13,7 @@ pod 'AlamofireImage', '~> 2.0'
 pod 'XCGLogger', '~> 3.2'
 pod 'Charts'
 #pod 'ObjectMapper', '~> 1.1
+pod 'RealmSwift'
+
 end
 

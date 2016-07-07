@@ -146,6 +146,8 @@
 		04BB58211C46867A009904F9 /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB58201C46867A009904F9 /* EventsViewController.swift */; };
 		04BB58231C46869C009904F9 /* EditEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BB58221C46869C009904F9 /* EditEventViewController.swift */; };
 		04BD95221CDB753700369C01 /* EditCommentPopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BD95211CDB753700369C01 /* EditCommentPopViewController.swift */; };
+		04CC620B1D12D815001B249A /* MapLocations.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04CC620A1D12D815001B249A /* MapLocations.xib */; };
+		04CC620D1D12DF19001B249A /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CC620C1D12DF19001B249A /* LocationView.swift */; };
 		04CEBEBD1C6B4A6700A901B6 /* FloatingTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CEBEBC1C6B4A6700A901B6 /* FloatingTextLabel.swift */; };
 		04CEBEBF1C6B4A8500A901B6 /* FloatingTextLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04CEBEBE1C6B4A8500A901B6 /* FloatingTextLabel.xib */; };
 		04CEBEC11C6B5D1300A901B6 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CEBEC01C6B5D1300A901B6 /* ImageUtils.swift */; };
@@ -343,6 +345,8 @@
 		04BB58201C46867A009904F9 /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		04BB58221C46869C009904F9 /* EditEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditEventViewController.swift; sourceTree = "<group>"; };
 		04BD95211CDB753700369C01 /* EditCommentPopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCommentPopViewController.swift; sourceTree = "<group>"; };
+		04CC620A1D12D815001B249A /* MapLocations.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapLocations.xib; sourceTree = "<group>"; };
+		04CC620C1D12DF19001B249A /* LocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		04CEBEBC1C6B4A6700A901B6 /* FloatingTextLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingTextLabel.swift; sourceTree = "<group>"; };
 		04CEBEBE1C6B4A8500A901B6 /* FloatingTextLabel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FloatingTextLabel.xib; sourceTree = "<group>"; };
 		04CEBEC01C6B5D1300A901B6 /* ImageUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
@@ -508,6 +512,7 @@
 				048B32C91C688024002C965A /* BaseDetailCell.swift */,
 				04114F871C74D0D80001C207 /* PostCommentView.swift */,
 				04F90CDF1C9001B40002E77B /* PollViewCell.swift */,
+				04CC620C1D12DF19001B249A /* LocationView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -990,6 +995,7 @@
 				04B7D9091C442EB80041B499 /* BriefProfileBar.xib */,
 				04635B6B1C95F2D6002CC601 /* LeaderVisiterBriefBarView.xib */,
 				043A0CA31CF62B5F002DDAD1 /* CommunityHubItem.xib */,
+				04CC620A1D12D815001B249A /* MapLocations.xib */,
 			);
 			name = nib;
 			sourceTree = "<group>";
@@ -1129,6 +1135,7 @@
 				040F483C1C69EDA700EFD0E8 /* DescriptionView.xib in Resources */,
 				045007481C5611B800185B69 /* AdditionalUI.storyboard in Resources */,
 				04B592761C282EAF00B6807E /* Assets.xcassets in Resources */,
+				04CC620B1D12D815001B249A /* MapLocations.xib in Resources */,
 				04B7D9211C442EB80041B499 /* BriefProfileBar.xib in Resources */,
 				04EAD9AF1C88CA5B005CB7E4 /* SentimentMapView.xib in Resources */,
 				046A677F1C626BBE0090646C /* Comment.xib in Resources */,
@@ -1254,6 +1261,7 @@
 				043A0CA91CF633EF002DDAD1 /* CommunityHubDataTypes.swift in Sources */,
 				048DDEBF1C44E7AF00616085 /* EditBasicInfoViewController.swift in Sources */,
 				04F6CE6D1C502C420082C625 /* BaseDetailViewController.swift in Sources */,
+				04CC620D1D12DF19001B249A /* LocationView.swift in Sources */,
 				0411B7651C4E138B00775172 /* PagerContentViewController.swift in Sources */,
 				04E1749B1C6F3C5A00C5B93C /* ServerDataManager.swift in Sources */,
 				04086D401CF4DC5E00CA8CCC /* MyLocation.swift in Sources */,
@@ -1389,7 +1397,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1431,7 +1439,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "";
@@ -1455,7 +1463,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = MyVoice/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.citypulse;
 				PRODUCT_NAME = CityPulse;
@@ -1480,7 +1488,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = MyVoice/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.citypulse;
 				PRODUCT_NAME = CityPulse;

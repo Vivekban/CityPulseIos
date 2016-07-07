@@ -193,4 +193,15 @@ class MyUtils{
         return finalFrame
     }
     
+    
+    
+    static func setStatusBarBackgroundColor(color: UIColor) {
+        
+        guard  let statusBar = UIApplication.sharedApplication().valueForKey("statusBarWindow")?.valueForKey("statusBar") as? UIView else {
+            return
+        }
+        
+        statusBar.backgroundColor = color
+    }
+    
 }

@@ -32,8 +32,20 @@ class LayoutConstraintUtils {
     }
 
     static func getTrailingContraint(view:UIView, container:UIView, value:CGFloat)->NSLayoutConstraint{
+        
         return NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: container, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: value)
     }
+    
+    static func getCenterXConstraint(view :UIView, container : UIView, value:CGFloat) -> NSLayoutConstraint {
+        return NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: container, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: value)
+
+    }
+    
+    static func getCenterYConstraint(view :UIView, container : UIView, value:CGFloat) -> NSLayoutConstraint {
+        return NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: container, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: value)
+        
+    }
+
 
 }
 

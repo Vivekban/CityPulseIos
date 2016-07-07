@@ -110,14 +110,28 @@ class MainController: UITabBarController {
         
         
         
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: UIFont(name: "Helvetica", size: CGFloat(15))!], forState:.Normal)
-        UITabBar.appearance().tintColor = UIColor.whiteColor()
+            UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Constants.grayColor_101, NSFontAttributeName: UIFont(name: "Helvetica", size: CGFloat(15))!], forState:.Normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Constants.primaryColor, NSFontAttributeName: UIFont(name: "Helvetica", size: CGFloat(15))!], forState: UIControlState.Selected)
+
+        //   UITabBar.appearance().tintColor = Constants.primaryColor
         UITabBar.appearance().itemWidth = 110
         
         
         UISearchBar.appearance().setSearchFieldBackgroundImage(UIImage.imageWithColor(UIColor.whiteColor(), rect: CGRectMake(0, 0, 300, 30)), forState: UIControlState.Normal)        // print(MyUtils.getServerStyleDateInString("Feb 4, 2016"))
         
         UISearchBar.appearance().setImage(UIImage(named: "search"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal)
+        
+        
+        
+        if let items = self.tabBar.items {
+            
+            items[0].selectedImage = UIImage(named: "home_red")
+            items[3].selectedImage = UIImage(named: "Community Hub_red")
+            items[1].selectedImage = UIImage(named: "Chat_red")
+            items[2].selectedImage = UIImage(named: "Public figure_red_3")
+
+            
+        }
         
         //let error = [Int]()
         
@@ -127,8 +141,8 @@ class MainController: UITabBarController {
     
     override func viewWillAppear(animated: Bool) {
         // let tabItemWidth = self.tabBar.itemWidth
-        let image = UIImage.imageWithColor(Constants.tab_selection, rect: CGRectMake(0, 0, 125, 55))
-        UITabBar.appearance().selectionIndicatorImage = image
+        //let image = UIImage.imageWithColor(Constants.tab_selection, rect: CGRectMake(0, 0, 125, 55))
+        // UITabBar.appearance().selectionIndicatorImage = image
     }
     
     override func viewDidAppear(animated: Bool) {

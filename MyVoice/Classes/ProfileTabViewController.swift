@@ -10,13 +10,21 @@ import UIKit
 
 class ProfileViewController: BaseTabsViewController {
     
+    func ProfileViewController(){
+    
+    }
+    
     override func viewDidLoad() {
+        briefBarHeight = 78
         super.viewDidLoad()
+        
+        view.backgroundColor = UIColor.groupTableViewBackgroundColor()
         // Do any additional setup after loading the view, typically from a nib.
         
         menuItemWidth = 80
         //CurrentSession.i.isEditingEnable = true;
-        
+        topBar?.changeVisibiltOfBackButton(false)
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -99,5 +107,10 @@ class ProfileViewController: BaseTabsViewController {
     func moveToProfileTab(){
         moveToTab((tabsMenu?.controllerArray.count)! - 1)
     }
+    
+    override func onBackButtonClick() {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+
 }
 

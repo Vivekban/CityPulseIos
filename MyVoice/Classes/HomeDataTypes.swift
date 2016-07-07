@@ -131,6 +131,7 @@ class ResponseData:CommentData {
         isAns <- map["isAns"]
     }
 
+   
     
 }
 
@@ -163,6 +164,15 @@ class PollData:ImageUrlData {
     var isVoted = 0
     var supporters = 0
     var opposers = 0
+    var isCritical = false
+    
+    override func isReadyToSave() -> String {
+        if title.isEmpty {
+            return MyStrings.messageTitleEmpty
+        }
+        
+        return ""
+    }
 
 }
 

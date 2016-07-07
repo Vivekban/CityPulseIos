@@ -42,14 +42,21 @@ class PublicFigureTabViewController: BaseTabsViewController {
         let firstStoryboard:UIStoryboard = UIStoryboard(name: storyBoardName, bundle: nil)
         
         let controller : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("PublicFigureListController")
-        controller.title = MyStrings.top_public_figure
+        controller.title = MyStrings.top_leaders
         controllers.append(controller)
         
         
         let controller2 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("PublicFigureListController")
-        controller2.title = MyStrings.my_public_figure
+        controller2.title = MyStrings.my_leaders
         controllers.append(controller2)
      
+       
+        let controller3 : PublicFigureListController = firstStoryboard.instantiateViewControllerWithIdentifier("PublicFigureListController") as! PublicFigureListController
+        controller3.title = MyStrings.city_officials
+        controller3.listType = PublicFigureListType.CityOfficial
+        controllers.append(controller3)
+        
+        
         if let c = controller2 as? PublicFigureListController {
             c.listType =  PublicFigureListType.MyFigure
         }

@@ -36,32 +36,23 @@ class CommunityHubTabController: BaseTabsViewController  {
         let firstStoryboard:UIStoryboard = UIStoryboard(name: storyBoardName, bundle: nil)
         
         let controller : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("MyCommunityController")
-        controller.title = MyStrings.myCommunity
+        controller.title = MyStrings.myNeighbourhood
         controllers.append(controller)
         
         let controller2 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("ListController")
-        
         if let c = controller2 as? BaseNestedTabViewController {
             c.tabPosition = 1
         }
-        
-        controller2.title = MyStrings.topCommunity
+        controller2.title = MyStrings.nearbyNeighbourhood
         controllers.append(controller2)
-        
+    
+
         let controller3 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("ListController")
-        controller3.title = MyStrings.topCommunityMember
+        controller3.title = MyStrings.search
         controllers.append(controller3)
-        
+       
         if let c = controller3 as? BaseNestedTabViewController {
             c.tabPosition = 2
-        }
-
-        let controller4 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("ListController")
-        controller4.title = MyStrings.search
-        controllers.append(controller4)
-       
-        if let c = controller4 as? BaseNestedTabViewController {
-            c.tabPosition = 3
         }
         
         return controllers

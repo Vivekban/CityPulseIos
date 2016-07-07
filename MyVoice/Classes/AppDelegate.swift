@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = UIColor.whiteColor()
         
         // Override point for customization after application launch.
-        setStatusBarBackgroundColor(UIColor.whiteColor())
+        MyUtils.setStatusBarBackgroundColor(Constants.primaryColor)
         
         let cacheDirectory: NSURL = {
             let urls = NSFileManager.defaultManager().URLsForDirectory(.CachesDirectory, inDomains: .UserDomainMask)
@@ -84,13 +84,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-    func setStatusBarBackgroundColor(color: UIColor) {
-        
-        guard  let statusBar = UIApplication.sharedApplication().valueForKey("statusBarWindow")?.valueForKey("statusBar") as? UIView else {
-            return
-        }
-        
-        statusBar.backgroundColor = color
-    }
 }
 

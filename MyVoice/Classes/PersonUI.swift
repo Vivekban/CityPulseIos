@@ -37,7 +37,7 @@ class PersonUI {
     
     var nHomeTabs = 1
     var briefViewXibName = "BriefProfileBar"
-    var briefType:BriefProfilePersonType = BriefProfilePersonType.Resident
+    var briefType:BriefProfileType = BriefProfileType.TopBarResident
     
     var homeFilters = Constants.residentHomeIssueFilter
     

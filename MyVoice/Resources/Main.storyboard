@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="WFr-j1-x2v">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -35,7 +34,7 @@
                         <viewControllerLayoutGuide type="bottom" id="kUj-dC-EGL"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5gE-Fl-TVw">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -49,26 +48,24 @@
         <scene sceneID="blQ-Ca-BWw">
             <objects>
                 <tabBarController id="WFr-j1-x2v" customClass="MainController" customModule="CityPulse" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Xc6-qg-MvD">
+                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="Xc6-qg-MvD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.13333333333333333" green="0.14901960784313725" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
                         <segue destination="Gz8-OE-0Bt" kind="relationship" relationship="viewControllers" id="OYK-vl-xau"/>
-                        <segue destination="0VX-qo-sJy" kind="relationship" relationship="viewControllers" id="9H1-GL-vcj"/>
+                        <segue destination="81A-fk-Sl5" kind="relationship" relationship="viewControllers" id="rO4-x0-64R"/>
                         <segue destination="sWF-jo-pxm" kind="relationship" relationship="viewControllers" id="maO-eG-MKK"/>
                         <segue destination="uDj-7g-I73" kind="relationship" relationship="viewControllers" id="JMi-pn-MiU"/>
-                        <segue destination="81A-fk-Sl5" kind="relationship" relationship="viewControllers" id="rO4-x0-64R"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TPF-oT-dgP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1235" y="-418"/>
         </scene>
-        <!-- Community Leaders -->
+        <!--Leaders -->
         <scene sceneID="nxF-31-qdw">
             <objects>
                 <viewController id="sWF-jo-pxm" customClass="PublicFigureTabViewController" customModule="CityPulse" customModuleProvider="target" sceneMemberID="viewController">
@@ -81,13 +78,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title=" Community Leaders " image="Public figure" selectedImage="Public figure" id="aAi-Kn-mGs"/>
+                    <tabBarItem key="tabBarItem" title="Leaders " image="Public figure" selectedImage="Public figure" id="aAi-Kn-mGs"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4P9-0g-FsI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1235" y="345"/>
         </scene>
-        <!--Community Hub-->
+        <!--My Neighbors-->
         <scene sceneID="W0M-g6-1En">
             <objects>
                 <viewController id="uDj-7g-I73" customClass="CommunityHubTabController" customModule="CityPulse" customModuleProvider="target" sceneMemberID="viewController">
@@ -100,7 +97,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Community Hub" image="Community Hub" selectedImage="Community Hub" id="Dtk-MQ-RaG"/>
+                    <tabBarItem key="tabBarItem" title="My Neighbors" image="Community Hub" selectedImage="Community Hub" id="Dtk-MQ-RaG"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tm9-x6-TGc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -391,7 +388,7 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rX0-Ep-nYI">
                                 <rect key="frame" x="0.0" y="90" width="600" height="3"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="3" id="Wd2-lm-dcL"/>
                                 </constraints>
@@ -558,11 +555,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Chat" width="42" height="42"/>
+        <image name="Chat" width="53" height="53"/>
         <image name="Community Hub" width="40" height="40"/>
         <image name="Me" width="22" height="22"/>
         <image name="Message 2" width="24" height="18"/>
-        <image name="Public figure" width="21" height="25"/>
+        <image name="Public figure" width="24" height="29"/>
         <image name="delete" width="22" height="26"/>
         <image name="home" width="37" height="37"/>
         <image name="message_farward" width="27" height="26"/>

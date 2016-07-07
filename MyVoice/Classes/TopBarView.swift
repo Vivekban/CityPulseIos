@@ -10,8 +10,8 @@ import UIKit
 
 protocol TopBarViewDelegate : class{
     func onBackButtonClick()
-    func onHelpButtonClick()
-    func onCategoryChanged(text:String, item index:Int)
+    func onNotifiactionClick(index: Int)
+    func onProfileButtonClick()
 }
 
 class TopBarView: UIView {
@@ -20,14 +20,14 @@ class TopBarView: UIView {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var cityField: FloatLabelTextField!
     @IBOutlet weak var cityLine: UIView!
-    @IBOutlet weak var categoryField: UIButton!
     @IBOutlet weak var searchCrossButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var profileButton: UIButton!
+    @IBOutlet weak var notification: UIButton!
     
     weak var delegate : TopBarViewDelegate?
     weak var controller :UIViewController?
     
-    var categoryPopPicker:PopTable!
     
     var isCatergoryActive = false
     
@@ -35,6 +35,9 @@ class TopBarView: UIView {
     private var isSearchAnimating = false
     
     private var searchBarLine : UIView!
+    
+    var notificationPopPicker:PopTable!
+    
     
     // private var testFiled : UITextField!
     /*
@@ -45,62 +48,52 @@ class TopBarView: UIView {
      }
      */
     
-    @IBAction func onCategoryButtonClick(sender: UIButton) {
-        categoryPopPicker.updateData(0, newData: CurrentSession.i.appDataManager.appData.categories)
-        categoryPopPicker.pick(controller!, initData: [categoryField.titleLabel?.text ?? ""]) { (newSelection, forTextField) -> () in
+    
+    
+    @IBAction func onNotificationButtonClick(sender: UIButton) {
+        
+        
+        
+        notificationPopPicker.updateData(0, newData: CurrentSession.i.appDataManager.appData.categories)
+        notificationPopPicker.pick(controller!, initData: [""]) { (newSelection, forTextField) -> () in
             if newSelection.count > 0 {
                 let val = newSelection[0]
-                UIView.performWithoutAnimation({ () -> Void in
-                    (forTextField as? UIButton)?.setTitle(val, forState: UIControlState.Normal)
-                    forTextField.layoutIfNeeded()
-                    
-                })
-                self.delegate?.onCategoryChanged(newSelection[0], item: self.categoryPopPicker.popVC.info?.items?[0].indexOf(val) ?? 0)
+            self.delegate?.onNotifiactionClick(self.notificationPopPicker.popVC.info?.items?[0].indexOf(val) ?? 0)
+                
             }
         }
         
-    }
-    
-    @IBAction func onHelpButtonClick(sender: UIButton) {
-        delegate?.onHelpButtonClick()
+        
+        
     }
     @IBAction func onBackButtonClick(sender: UIButton) {
         delegate?.onBackButtonClick()
     }
     
     
+    @IBAction func onProfileButtonClick(sender: AnyObject) {
+        
+        delegate?.onProfileButtonClick()
+        
+    }
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        categoryField.hidden = true
-        categoryField.setTitleColor(UIColor.grayColor(), forState: UIControlState.Highlighted)
         
-        cityField.titleFont = UIFont.systemFontOfSize(13.0)
+        
+        cityField.titleFont = UIFont.systemFontOfSize(14.0)
+        cityField.title.textColor = UIColor.whiteColor()
         changeVisibiltOfBackButton(true)
         
-        var searchField: UITextField?
-        //        for  subview in self.searchBar.subviews {
-        //            if (subview.isKindOfClass(UITextField.self)) {
-        //                searchField = subview as? UITextField
-        //                break;
-        //            }
-        //        }
-        
-        var info = PopInfo(items: [[String]](),heading: MyStrings.categories)
-        info.items?.append(CurrentSession.i.issueController.issueCategorises)
-        
-        categoryPopPicker = PopTable(forTextField: categoryField, data: info)
-        
-        // The icon is accessible through the 'leftView' property of the UITextField.
-        // We set it to the 'rightView' instead.
-        if (searchField != nil)
-        {
-            let searchIcon = searchField!.leftView;
-            searchField!.rightView = searchIcon;
-            searchField!.leftViewMode = UITextFieldViewMode.Never;
-            searchField!.rightViewMode = UITextFieldViewMode.Always;
-        }
+//        let searchField: UITextField?
+//        if (searchField != nil)
+//        {
+//            let searchIcon = searchField!.leftView;
+//            searchField!.rightView = searchIcon;
+//            searchField!.leftViewMode = UITextFieldViewMode.Never;
+//            searchField!.rightViewMode = UITextFieldViewMode.Always;
+//        }
         
         
         searchBar = UITextField(frame: CGRect(x: 0, y: 6, width: 200, height: 30))
@@ -118,6 +111,13 @@ class TopBarView: UIView {
         addSubview(searchBarLine)
         
         addSubview(searchBar)
+        
+        
+        var data = PopInfo(items: [[String]](),heading: MyStrings.categories)
+        data.items?.append(CurrentSession.i.issueController.issueCategorises)
+        
+        
+        notificationPopPicker = PopTable(forTextField: notification, data: data)
         
     }
     
@@ -143,9 +143,10 @@ class TopBarView: UIView {
         cityField.hidden = !visible
         
         if isCatergoryActive {
-            categoryField.hidden = !visible
             
         }
+        profileButton.hidden = !visible
+        
     }
     
     
@@ -172,9 +173,6 @@ class TopBarView: UIView {
         cityField.hidden = isHidden
     }
     
-    func updateCategories(){
-        categoryPopPicker.updateData(0, newData:CurrentSession.i.issueController.issueCategorises)
-    }
     
     @IBAction func onSEarchCrossButtonClick(sender: UIButton) {
         if !isSearchAnimating {
@@ -253,6 +251,11 @@ class TopBarView: UIView {
             
         }
     }
+    
+    
+    
+    
+    
     
     
 }

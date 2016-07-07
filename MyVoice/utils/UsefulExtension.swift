@@ -107,6 +107,12 @@ extension UIView {
         
     }
     
+    func pinViewToCenter(view :UIView) {
+        addConstraint(LayoutConstraintUtils.getCenterXConstraint(view, container: self, value: 0))
+        addConstraint(LayoutConstraintUtils.getCenterYConstraint(view, container: self, value: 0))
+
+    }
+    
     func constraintWithIdentifier(identifier : String) -> NSLayoutConstraint?{
         
         for constraint in self.constraints{

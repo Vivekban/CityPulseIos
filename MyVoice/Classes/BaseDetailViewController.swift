@@ -69,12 +69,23 @@ class BaseDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        MyUtils.setStatusBarBackgroundColor(UIColor.whiteColor())
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         // As intially the height of coment and response section is unknow
         containerTableView.reloadData()
         EventUtils.addObserForKeyBoardEvents(self)
+
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        MyUtils.setStatusBarBackgroundColor(Constants.primaryColor)
+
     }
     
     override func viewDidDisappear(animated: Bool) {

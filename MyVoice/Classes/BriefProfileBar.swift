@@ -9,16 +9,17 @@
 import UIKit
 
 
-enum BriefProfilePersonType:Int {
-    case Resident = 1, Leadear
-}
 enum BriefProfileType:Int {
-    case TopBar = 1,TableRow, TopBarSecondPerson
+    case TopBarLeader = 1,TopBarResident, TopBarSecondPersonLeader,TopBarSecondPersonResident,TableRowLeader,TableRowCityOfficial
 }
 
 
-let residentInfo = BriefBarInfo(items: [Constants.BriefItemUI_Issue_Raised,Constants.BriefItemUI_Amount_donated,Constants.BriefItemUI_Badges], rect:CGRectMake(750, 10, 240, 80))
-let leaderInfo = BriefBarInfo(items: [Constants.BriefItemUI_Follower,Constants.BriefItemUI_Issue_Resolved,Constants.BriefItemUI_Badges,Constants.BriefItemUI_Total_donations,Constants.BriefItemUI_Credits,Constants.BriefItemUI_Reviews], rect: CGRectMake(430, 10, 584, 80))
+let topBarResidentInfo = BriefBarInfo(items: [Constants.BriefItemUI_Issue_Raised,Constants.BriefItemUI_Amount_donated,Constants.BriefItemUI_Badges], rect:CGRectMake(750, 14, 240, 63))
+let topBarLeaderInfo = BriefBarInfo(items: [Constants.BriefItemUI_Follower,Constants.BriefItemUI_Replies,Constants.BriefItemUI_Credits,Constants.BriefItemUI_Reviews], rect: CGRectMake(430, 14, 584, 63))
+let topSecondPersonBarLeaderInfo = BriefBarInfo(items: [Constants.BriefItemUI_Follower,Constants.BriefItemUI_Replies,Constants.BriefItemUI_Credits,Constants.BriefItemUI_Reviews], rect: CGRectMake(430, 14, 584, 63))
+let topSecondPersonBarResidentInfo = BriefBarInfo(items: [Constants.BriefItemUI_Follower,Constants.BriefItemUI_Replies,Constants.BriefItemUI_Credits,Constants.BriefItemUI_Reviews], rect: CGRectMake(430, 14, 584, 63))
+let tableRowLeaderInfo = BriefBarInfo(items: [Constants.BriefItemUI_Follower,Constants.BriefItemUI_Replies,Constants.BriefItemUI_Credits,Constants.BriefItemUI_Reviews], rect: CGRectMake(430, 14, 584, 63))
+let tableRowCityOfficialInfo = BriefBarInfo(items: [Constants.BriefItemUI_Follower,Constants.BriefItemUI_Replies,Constants.BriefItemUI_Credits,Constants.BriefItemUI_Contact], rect: CGRectMake(430, 14, 584, 63))
 
 
 struct BriefBarInfo {
@@ -31,7 +32,6 @@ struct BriefBarInfo {
     }
     
 }
-
 @objc
 protocol BriefProfileBarDelegate: class{
     func onReviewClick()
@@ -55,10 +55,9 @@ class BriefProfileBar: UIView {
     weak var delegate:BriefProfileBarDelegate?
     
     // types
-    var ptype:BriefProfilePersonType = .Leadear
-    var type:BriefProfileType = .TopBar
+    var type:BriefProfileType = .TopBarLeader
     
-    var info:BriefBarInfo = leaderInfo
+    var info:BriefBarInfo = topBarLeaderInfo
     var data:ProfileData?
     // collection views
     //basic info like credits, isues donation etc
@@ -69,20 +68,18 @@ class BriefProfileBar: UIView {
     
     
     
-    static func newInstance(owner:UIViewController,type:BriefProfilePersonType, barType:BriefProfileType , data : ProfileData) -> BriefProfileBar{
+    static func newInstance(owner:UIViewController,barType:BriefProfileType , data : ProfileData) -> BriefProfileBar{
         let briefProfileView : BriefProfileBar!
         switch (barType) {
-        case .TopBar,.TableRow:
-            briefProfileView = UINib(nibName: "BriefProfileBar", bundle: nil).instantiateWithOwner(owner, options: nil)[0] as! BriefProfileBar
-            break;
-        case .TopBarSecondPerson:
+        case .TopBarSecondPersonLeader :
             briefProfileView = UINib(nibName: "LeaderVisiterBriefBarView", bundle: nil).instantiateWithOwner(owner, options: nil)[0] as! BriefProfileBar
             break
         default:
+            briefProfileView = UINib(nibName: "BriefProfileBar", bundle: nil).instantiateWithOwner(owner, options: nil)[0] as! BriefProfileBar
             break;
         }
         
-        briefProfileView.initialCollectionViews(type, dataType: barType, data: data)
+        briefProfileView.initialCollectionViews(barType, data: data)
         
         return briefProfileView
     }
@@ -118,43 +115,50 @@ class BriefProfileBar: UIView {
         
     }
     
-    func initialCollectionViews(type:BriefProfilePersonType, dataType:BriefProfileType , data : ProfileData){
-        self.ptype = type
-        
-        setInfo()
-        self.type = dataType
+    func initialCollectionViews(type:BriefProfileType, data : ProfileData){
+        self.type = type
         self.data = data
+        setInfo()
         setupViews()
     }
     
     func setInfo(){
-        switch (ptype) {
-        case .Resident:
-            info = residentInfo
+        switch (type) {
+        case .TopBarResident:
+            info = topBarResidentInfo
             break;
-        case .Leadear:
-            info = leaderInfo
+        case .TopBarLeader:
+            info = topBarLeaderInfo
+            break
+        case .TableRowCityOfficial:
+            info = tableRowCityOfficialInfo
+            break
+        default:
+            info = topBarLeaderInfo
         }
     }
     
     func setupViews(){
         
-        switch (ptype) {
-        case .Resident:
+        switch (type) {
+        case .TopBarResident:
             partyImage.hidden = true
             issueResolvedLabel.hidden = true
             areaLabel.textColor = UIColor.grayColor()
             areaLabel.font = UIFont.systemFontOfSize(15)
             break;
             
-        case .Leadear:
+        case .TopBarLeader,.TableRowLeader:
             areaLabel.textColor = UIColor(red: 251.0/255.0, green: 140.0/255.0, blue: 0, alpha: 1)
             areaLabel.font = UIFont.boldSystemFontOfSize(14)
             residentCreditLine.hidden = true
             break;
+        case .TableRowCityOfficial:
+            residentCreditLine.hidden = true
+
+        default:
+            break
         }
-        
-        
         
         initViewWithData()
         addCollectionViewBasedOnProfile()
@@ -166,25 +170,40 @@ class BriefProfileBar: UIView {
     func initViewWithData(){
         if let d = data {
             
-            
             ServerImageFetcher.i.loadProfileImageWithDefaultsIn(profileImage, url: d.profileImageUrl)
+            print(profileImage.frame.width)
+            
+            profileImage.layer.cornerRadius = (profileImage.frame.maxX - profileImage.frame.minX)/2;
+            
             nameLabel.text = d.name
             
-            switch (ptype) {
-            case .Resident:
+            switch (type) {
+            case .TopBarResident:
                 areaLabel.text = d.area
                 residentCreditInfo.text = "\(d.credits)"
                 break;
-            case .Leadear:
+            case .TopBarLeader:
                 areaLabel.text = d.position
                 ServerImageFetcher.i.loadImageWithDefaultsIn(partyImage, url: d.politicalPartyImage)
                 issueResolvedLabel.text = d.politicalPary
                 issueResolvedLabel.sizeToFit()
                 break;
+            default:
+                break
             }
             
         }
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        print(profileImage.frame)
+        
+        
+    }
+    
+    
     
     func addCollectionViewBasedOnProfile(){
         if (itemsCollectionView == nil) {
@@ -197,6 +216,8 @@ class BriefProfileBar: UIView {
             itemsCollectionView!.registerClass(BriefCell.self, forCellWithReuseIdentifier: "Cell")
             itemsCollectionView!.backgroundColor = UIColor.whiteColor()
             addSubview(itemsCollectionView!)
+            // itemsCollectionView?.translatesAutoresizingMaskIntoConstraints = false
+            //pinViewOnAllDirection(itemsCollectionView!, left: info.infoItemsRect.origin.x, top: 14, right: 32, bottom: 14)
         }
         itemsCollectionView?.frame = info.infoItemsRect
     }
@@ -292,8 +313,8 @@ extension BriefProfileBar : UICollectionViewDataSource{
     
     func getValueForCell(row : Int) ->Int {
         if let data = self.data {
-            switch (ptype) {
-            case .Resident:
+            switch (type) {
+            case .TopBarResident:
                 
                 switch (row) {
                 case 0:
@@ -307,23 +328,22 @@ extension BriefProfileBar : UICollectionViewDataSource{
                 }
                 
                 break;
-            case .Leadear:
+            case .TopBarLeader,.TableRowLeader,.TableRowCityOfficial:
                 switch (row) {
                 case 0:
                     return data.followers
                 case 1:
-                    return data.issueResolved
+                    return data.replies
                 case 2:
-                    return data.badges
-                case 3:
-                    return data.donations
-                case 4:
                     return data.credits
-                case 5:
+                case 3:
                     return data.reviews
                 default:
                     break;
                 }
+                
+            default:
+                return 0
             }
         }
         return 0
@@ -362,7 +382,7 @@ class BriefProfileBarTableCell: UITableViewCell {
         /*let viewName = NSStringFromClass(self.classForCoder)*/
         let viewName = "BriefProfileBar"
         briefView = NSBundle.mainBundle().loadNibNamed(viewName,
-            owner: self, options: nil)[0] as! BriefProfileBar
+                                                       owner: self, options: nil)[0] as! BriefProfileBar
         self.addSubview(briefView)
         briefView.frame = self.bounds
     }

@@ -89,6 +89,8 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-MyVoice/AlamofireObjectMapper.framework"
   install_framework "Pods-MyVoice/Charts.framework"
   install_framework "Pods-MyVoice/ObjectMapper.framework"
+  install_framework "Pods-MyVoice/Realm.framework"
+  install_framework "Pods-MyVoice/RealmSwift.framework"
   install_framework "Pods-MyVoice/SwiftyJSON.framework"
   install_framework "Pods-MyVoice/XCGLogger.framework"
 fi
@@ -98,6 +100,8 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-MyVoice/AlamofireObjectMapper.framework"
   install_framework "Pods-MyVoice/Charts.framework"
   install_framework "Pods-MyVoice/ObjectMapper.framework"
+  install_framework "Pods-MyVoice/Realm.framework"
+  install_framework "Pods-MyVoice/RealmSwift.framework"
   install_framework "Pods-MyVoice/SwiftyJSON.framework"
   install_framework "Pods-MyVoice/XCGLogger.framework"
 fi

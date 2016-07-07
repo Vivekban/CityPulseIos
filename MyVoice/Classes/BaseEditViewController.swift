@@ -75,6 +75,9 @@ class BaseEditViewController: UIViewController {
         super.viewDidLoad()
         myNavigationItem = (self.view.viewWithTag(1) as? UINavigationBar)?.items![0]
         
+        MyUtils.setStatusBarBackgroundColor(UIColor.whiteColor())
+
+        
         let item = myNavigationItem?.leftBarButtonItems![0]
         item?.action = "onBackButtonClick"
         item?.target = self
@@ -142,7 +145,8 @@ class BaseEditViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         initialiseViews()
-        
+        MyUtils.setStatusBarBackgroundColor(UIColor.whiteColor())
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -159,6 +163,14 @@ class BaseEditViewController: UIViewController {
         EventUtils.removeObserver(self)
         
     }
+    
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        MyUtils.setStatusBarBackgroundColor(Constants.primaryColor)
+        
+    }
+    
     
     
     func keyboardWillShow(notification: NSNotification) {

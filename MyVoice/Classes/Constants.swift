@@ -16,6 +16,8 @@ class Constants {
     static let tempUserId:Int = 6
     
     static let accentColor = UIColor(red: CGFloat(5.0/255), green: CGFloat(146.0/255), blue: CGFloat(1), alpha: 1)
+    static let primaryColor = UIColor(red: CGFloat(235.0/255), green: CGFloat(6.0/255), blue: CGFloat(39.0/255), alpha: 1)
+
     static let tab_selection = UIColor(red: CGFloat(240.0/255), green: CGFloat(90.0/255), blue: CGFloat(40.0/255), alpha: 1)
     
     static let closed_color = UIColor(red: CGFloat(0), green: CGFloat(76.0/255), blue: CGFloat(80.0/255), alpha: 1)
@@ -39,7 +41,8 @@ class Constants {
     
     static let BriefItemUI_Issue_Resolved = BriefItemUI(heading: "Issue_resolved".localized, index: "Issue", isClickable: false)
     static let BriefItemUI_Issue_Raised = BriefItemUI(heading: MyStrings.issueRaised, index: "Issue", isClickable: false)
-    
+    static let BriefItemUI_Replies = BriefItemUI(heading: MyStrings.replies, index: "Issue", isClickable: false)
+
     static let BriefItemUI_Badges = BriefItemUI(heading: "Badges".localized, index: "Badges", isClickable: false)
     
     static let BriefItemUI_Total_donations = BriefItemUI(heading: MyStrings.totalFunds, index: "Donation", isClickable: false)
@@ -49,6 +52,8 @@ class Constants {
     
     static let BriefItemUI_Reviews = BriefItemUI(heading: "Reviews".localized, index: "Review", isClickable: true)
     
+    static let BriefItemUI_Contact = BriefItemUI(heading: MyStrings.contact, index: "Contact", isClickable: true)
+
     
     static let BriefButtonUI_Review = BriefItemUI(heading: "Reviews".localized, index: "Review", isClickable: true)
     static let BriefButtonUI_Message = BriefItemUI(heading: "Reviews".localized, index: "Review", isClickable: true)
@@ -63,16 +68,15 @@ class Constants {
         HomeFilter(index: 2,value: MyStrings.subscribed,dataRequest:3),
         HomeFilter(index: 3,value: MyStrings.own,dataRequest: 5)],
        
-        [HomeFilter(index: 0,value: MyStrings.active,dataRequest: 0),
-            HomeFilter(index: 0,value: MyStrings.popular,dataRequest: 1),
-            HomeFilter(index: 1,value: MyStrings.relevant,dataRequest: 2),
-            HomeFilter(index: 2,value: MyStrings.subscribed,dataRequest: 3),
-            HomeFilter(index: 3,value: MyStrings.own,dataRequest: 5)] ,
         
         [HomeFilter(index: 0,value: MyStrings.active,dataRequest: 0),
             HomeFilter(index: 1,value: MyStrings.popular,dataRequest: 1),
             HomeFilter(index: 2,value: MyStrings.relevant,dataRequest: 2),
-            HomeFilter(index: 3,value: MyStrings.own,dataRequest: 5)]]
+            HomeFilter(index: 3,value: MyStrings.own,dataRequest: 5)],
+    
+        [],
+        []
+    ]
     
     
     static let leaderHomeIssueFilter = [[HomeFilter(index: 0,value: MyStrings.active,dataRequest: 0),
@@ -82,17 +86,14 @@ class Constants {
         HomeFilter(index: 3,value: MyStrings.resolved,dataRequest: 4),
         HomeFilter(index: 4,value: MyStrings.own,dataRequest: 5)],
       
-        [HomeFilter(index: 0,value: MyStrings.active,dataRequest: 0),
-            HomeFilter(index: 0,value: MyStrings.popular,dataRequest: 1),
-            HomeFilter(index: 1,value: MyStrings.relevant,dataRequest: 2),
-            HomeFilter(index: 2,value: MyStrings.subscribed,dataRequest: 3),
-            HomeFilter(index: 3,value: MyStrings.resolved,dataRequest: 4),
-            HomeFilter(index: 4,value: MyStrings.own,dataRequest: 5)] ,
-        
         [HomeFilter(index: 0,value: MyStrings.active,dataRequest: 1),
             HomeFilter(index: 1,value: MyStrings.popular,dataRequest: 1),
             HomeFilter(index: 2,value: MyStrings.relevant,dataRequest: 1),
-            HomeFilter(index: 3,value: MyStrings.own,dataRequest: 1)]]
+            HomeFilter(index: 3,value: MyStrings.own,dataRequest: 1)],
+        [],
+        []
+    
+    ]
     
     
     static func getChartColor(val : Double) -> UIColor {

@@ -12,7 +12,6 @@ import UIKit
 /***
  
  If child class show data from server then...it has to set @serverRequestType, serverListRequestType
- 
  */
 
 
@@ -60,6 +59,9 @@ class BaseNestedTabViewController :UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        MyUtils.setStatusBarBackgroundColor(Constants.primaryColor)
+
         
         fetchListFromStart()
         isReloadEntries = false

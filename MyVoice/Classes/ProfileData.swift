@@ -28,7 +28,7 @@ class ProfileData: BaseData {
     var reviews = 0
     var issueRaised = 0
     
-
+    var replies = 0
     
     override func mapping(map: Map) {
         super.mapping(map)
@@ -42,7 +42,7 @@ class ProfileData: BaseData {
         reviews <- map["reviews"]
         followers <- map["followers"]
         followers <- map["issue_raised"]
-
+        replies <- map["replies"]
 
     }
     

@@ -9,6 +9,11 @@ PODS:
     - Charts/Core (= 2.2.2)
   - Charts/Core (2.2.2)
   - ObjectMapper (1.1.2)
+  - Realm (1.0.1):
+    - Realm/Headers (= 1.0.1)
+  - Realm/Headers (1.0.1)
+  - RealmSwift (1.0.1):
+    - Realm (= 1.0.1)
   - SwiftyJSON (2.3.2)
   - XCGLogger (3.2)
 
@@ -17,6 +22,7 @@ DEPENDENCIES:
   - AlamofireImage (~> 2.0)
   - AlamofireObjectMapper (~> 2.1)
   - Charts
+  - RealmSwift
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
   - XCGLogger (~> 3.2)
 
@@ -35,6 +41,8 @@ SPEC CHECKSUMS:
   AlamofireObjectMapper: 24097576202064f8b0a583452dd934064f78dc0e
   Charts: e32b718fa716bdb7693b9e419d6d4a39a3f7992e
   ObjectMapper: 148765647481443b1a18983b4ac8ec3189cbce35
+  Realm: 2e15e39d35b08abb529e212ed5d8af107b5236c8
+  RealmSwift: d73ea2af08c3676dbdd5e4b669651a0f492162a4
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   XCGLogger: da1f341f4bb8979db6e1df64232f04d9698402d4
 

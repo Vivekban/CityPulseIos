@@ -27,6 +27,11 @@
         private var addResponseHeight = Constants.addCommentViewHeight;
         
         override func viewDidLoad() {
+            
+            mainTitle = MyStrings.post
+            
+            
+            
             super.viewDidLoad()
             
             
@@ -89,10 +94,6 @@
             
             containerTableView.tableHeaderView?.frame.size.height = 1
         }
-        
-//        override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//            return CGFloat.min
-//        }
         
         override func fetchMoreDetailFromServer() {
             

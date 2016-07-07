@@ -20,7 +20,7 @@ class ResidentUI: PersonUI {
     override func personSpecificParmeter() {
         donationType = DonationType.donated
         nHomeTabs = 3
-        briefType = .Resident
+        briefType = BriefProfileType.TopBarResident
         profileTabs = [TwoString(str1: "BasicInfo", str2: "Info"),
             TwoString(str1: "ActivityViewController", str2: "Activity"),
             TwoString(str1: "EventViewController", str2: "Events")]

@@ -32,7 +32,7 @@ class BaseDetailCell: UITableViewCell {
         // Initialization code
         titleLabel =  viewWithTag(1) as! UILabel
         editButton =  viewWithTag(2) as! UIButton
-        editButton.addTarget(self, action: "onEditButtonClick", forControlEvents: UIControlEvents.TouchUpInside)
+        editButton.addTarget(self, action: #selector(BaseDetailCell.onEditButtonClick), forControlEvents: UIControlEvents.TouchUpInside)
         
         editButton.hidden = !CurrentSession.i.isEditingEnable
         
@@ -223,7 +223,7 @@ class IssueDetailCell: BaseImageDetailCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        editButton.hidden = true
+        // editButton.hidden = true
         // Initialization code
         votesLabel =  viewWithTag(22) as! UILabel
         

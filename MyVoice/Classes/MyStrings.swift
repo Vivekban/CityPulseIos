@@ -58,6 +58,9 @@ class MyStrings {
     static let works = "Works".localized
     static let issues = "Issues"
     static let views = "Views"
+    static let replies = "Replies"
+
+    
 
 
     static let saving = "Saving"
@@ -68,7 +71,11 @@ class MyStrings {
     // public figure tabs
     static let top_public_figure = "Top Public Figure"
     static let my_public_figure = "My Public Figure"
-
+    
+    static let top_leaders = "Top Leaders"
+    static let my_leaders = "My Leaders"
+    static let city_officials = "City Officials"
+    
     // Brielf Bar
     static let issueRaised = "Issue Raised"
     static let amountDonated = "Amount Donated"
@@ -80,16 +87,23 @@ class MyStrings {
     static let topCommunity = "Top Communities"
     static let topCommunityMember = "Top Community Members"
     static let fetchingTag = "Getting Tags"
+    static let myNeighbourhood = "My Neighborhood"
+    static let nearbyNeighbourhood = "Nearby Neighborhood"
 
   
     // home
+    static let ugrentAlerts = "Urgent Alerts"
+    static let posts = "Posts"
+    static let post = "Post "
     static let community_issue = "Community Issue"
     static let community_issues = "Community Issues"
     static let active_community_issue = "Active Community Issues"
     static let HOA_issues = "HOA Issues"
     static let HOA_issue = "HOA Issue"
     static let polls = "Polls"
-    
+    static let poll = "Poll"
+    static let contact = "Contact"
+
     //
     static let open = "Open"
     static let closed = "Closed"

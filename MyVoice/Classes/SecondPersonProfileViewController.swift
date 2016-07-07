@@ -18,9 +18,15 @@ class SecondPersonProfileViewController: ProfileViewController {
     }
     */
     
+    func SecondPersonProfileViewController(){
+        
+    }
+    
     override func viewDidLoad() {
-        briefBarType = BriefProfileType.TopBarSecondPerson
+        briefBarType = BriefProfileType.TopBarSecondPersonLeader
         super.viewDidLoad()
+        briefBarHeight = 100
+
         topBar?.titleLabel.text = MyStrings.publicFigure
         topBar?.changeVisibiltOfBackButton(false)
         CurrentSession.i.isEditingEnable = false;
@@ -114,7 +120,6 @@ class SecondPersonProfileViewController: ProfileViewController {
                 }
                 else{
                     controller = secondStoryboard.instantiateViewControllerWithIdentifier(i.identifier)
-                    
                 }
                 controller.title = i.title
                 controllers.append(controller)

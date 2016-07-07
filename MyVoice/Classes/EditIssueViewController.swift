@@ -118,10 +118,10 @@ class EditIssueViewController: BaseImageEditViewController {
         
         switch (issueType) {
         case .Community:
-            mainTitle =  MyStrings.community_issue
+            mainTitle =  MyStrings.post
             break;
         case .HOA:
-            mainTitle =  MyStrings.HOA_issue
+            mainTitle =  MyStrings.post
             break
         default:
             break;
