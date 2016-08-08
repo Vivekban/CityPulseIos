@@ -63,15 +63,16 @@ class BaseDetailViewController: UIViewController {
         
         let myNavigationItem = (self.view.viewWithTag(10) as? UINavigationBar)?.items![0]
         let item = myNavigationItem?.leftBarButtonItems![0]
-        item?.action = "onBackButtonClick"
+        item?.tintColor = UIColor.whiteColor()
+        item?.action = #selector(BaseDetailViewController.onBackButtonClick)
         item?.target = self
         
-        // Do any additional setup after loading the view.
+        // Do any additional setup after loading the view.ou
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        MyUtils.setStatusBarBackgroundColor(UIColor.whiteColor())
+        // MyUtils.setStatusBarBackgroundColor(UIColor.whiteColor())
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -84,7 +85,7 @@ class BaseDetailViewController: UIViewController {
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        MyUtils.setStatusBarBackgroundColor(Constants.primaryColor)
+        // MyUtils.setStatusBarBackgroundColor(Constants.primaryColor)
 
     }
     

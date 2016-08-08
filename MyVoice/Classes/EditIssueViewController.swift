@@ -111,7 +111,6 @@ class EditIssueViewController: BaseImageEditViewController {
             d.markTo = BaseFilter.getFilterOfString(markTo.text ?? "", filters: CurrentSession.i.appDataManager.appData.markTo)?.index ?? 0
             d.isCritical = criticalSwitch.on
         }
-        
     }
     
     func onIssueTypeSet(){

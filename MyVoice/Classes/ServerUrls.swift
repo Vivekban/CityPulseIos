@@ -84,7 +84,7 @@ class ServerUrls {
     
     static let addWorkUrl = baseUrl + "/SubmitWork"
     static let updateWorkUrl = baseUrl + "/EditWork"
-    static let getWorkUrl = baseUrl + "/GetWork"
+    static let getWorkUrl = baseUrl + "/GetWorkDetail"
     
     // MARK: - App related
     static let appDataUrl = baseUrl + "/CategoryList"

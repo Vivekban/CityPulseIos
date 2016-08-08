@@ -119,7 +119,9 @@ extension PopTable : PopViewControllerDelegate {
         if let _dataChanged = dataChanged {
             if let _data = rows {
                 _dataChanged(newSelection: _data, forTextField: textField)
+                return
             }
+            _dataChanged(newSelection: nil, forTextField: textField)
         }
         presented = false
     }

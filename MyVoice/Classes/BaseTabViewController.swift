@@ -54,6 +54,10 @@ class BaseTabsViewController: MyTabsViewController {
     }
     
     
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
+    
     override func viewDidLoad() {
         
         createActionButton()

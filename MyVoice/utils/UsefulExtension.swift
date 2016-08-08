@@ -20,6 +20,9 @@ extension String {
         return stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
     }
     
+    func length() -> Int {
+        return characters.count
+    }
     
 }
 

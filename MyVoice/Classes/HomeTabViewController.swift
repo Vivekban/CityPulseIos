@@ -64,7 +64,7 @@ class HomeTabViewController: BaseTabsViewController {
         
         testingLocationView = NSBundle.mainBundle().loadNibNamed("MapLocations", owner: LocationView.self, options: nil)[0] as? LocationView
         testingLocationView?.frame = CGRectMake(20, 60, view.frame.width - 40, view.frame.height - 80)
-        view.addSubview(testingLocationView!)
+        // view.addSubview(testingLocationView!)
         
         
         //UINib(nibName: "TopBar", bundle: nil).instantiateWithOwner(TopBarView.self, options: nil)[0] as? TopBarView
@@ -160,15 +160,16 @@ class HomeTabViewController: BaseTabsViewController {
         controllers.append(controller2)
         
         
-        
         let controller3 : UIViewController = UIStoryboard(name: "Me", bundle: nil).instantiateViewControllerWithIdentifier("EventViewController")
-        controller3.title = MyStrings.event
+        controller3.title = MyStrings.events
         controllers.append(controller3)
         
         
-        //        let controller4 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("PollsViewController")
-        //        controller4.title = MyStrings.ugrentAlerts
-        //        controllers.append(controller4)
+        //                let controller4 : UIViewController = firstStoryboard.instantiateViewControllerWithIdentifier("EventViewController")
+        let controller4 : UIViewController = UIStoryboard(name: "Me", bundle: nil).instantiateViewControllerWithIdentifier("EventViewController")
+        
+        controller4.title = MyStrings.ugrentAlerts
+        controllers.append(controller4)
         
         
         
@@ -203,17 +204,25 @@ class HomeTabViewController: BaseTabsViewController {
     
     
     func onCategoryButtonClick(sender: UIButton) {
+        sender.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+        
         categoryPopPicker.updateData(0, newData: CurrentSession.i.appDataManager.appData.categories)
         categoryPopPicker.pick(self, initData: [categoryField.titleLabel?.text ?? ""]) { (newSelection, forTextField) -> () in
-            if newSelection.count > 0 {
-                let val = newSelection[0]
-                UIView.performWithoutAnimation({ () -> Void in
-                    (forTextField as? UIButton)?.setTitle(val, forState: UIControlState.Normal)
-                    forTextField.layoutIfNeeded()
-                    
-                })
-                self.onCategoryChanged(newSelection[0], item: self.categoryPopPicker.popVC.info?.items?[0].indexOf(val) ?? 0)
+            sender.setTitleColor(Constants.accentColor, forState: UIControlState.Normal)
+
+            if let selection = newSelection {
                 
+                if selection.count > 0 {
+                    
+                    let val = selection[0]
+                    UIView.performWithoutAnimation({ () -> Void in
+                        (forTextField as? UIButton)?.setTitle(val, forState: UIControlState.Normal)
+                        forTextField.layoutIfNeeded()
+                        
+                    })
+                    self.onCategoryChanged(selection[0], item: self.categoryPopPicker.popVC.info?.items?[0].indexOf(val) ?? 0)
+                    
+                }
             }
         }
         
@@ -237,6 +246,8 @@ class HomeTabViewController: BaseTabsViewController {
     
     
     override func onActionButtonClick(sender: UIButton) {
+        // sender.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+        
         (tabsMenu?.controllerArray[(tabsMenu?.currentPageIndex) ?? 0] as? BaseNestedTabViewController)?.onActionButtonClick(sender)
         
     }
@@ -256,7 +267,7 @@ class HomeTabViewController: BaseTabsViewController {
             
         case 0:
             changeVisibilityOfActionButton(true)
-            //  setTitleOfActionButton(MyStrings.add)
+            setTitleOfActionButton(MyStrings.newPost)
             filterTextView.hidden = false
             categoryField.hidden = false
             
@@ -264,19 +275,19 @@ class HomeTabViewController: BaseTabsViewController {
             
         case 1:
             changeVisibilityOfActionButton(true)
-            //                    setTitleOfActionButton("Add_Work".localized)
+            setTitleOfActionButton(MyStrings.newPoll)
             filterTextView.hidden = true
             categoryField.hidden = false
             
             break
         case 2:
             changeVisibilityOfActionButton(true)
-            //                    setTitleOfActionButton("ADD_EVENT".localized)
+                        setTitleOfActionButton(MyStrings.newEvent)
             filterTextView.hidden = true
             categoryField.hidden = true
             break
         case 3:
-            changeVisibilityOfActionButton(true)
+            changeVisibilityOfActionButton(false)
             filterTextView.hidden = true
             categoryField.hidden = true
         default:
@@ -306,6 +317,7 @@ class HomeTabViewController: BaseTabsViewController {
     
     func onFilterButtonClick(){
         let filters = CurrentSession.i.personUI?.homeFilters[currentTab]
+        filterTextView.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
         
         if let controller = (tabsMenu?.controllerArray[(tabsMenu?.currentPageIndex)!] as? HomeBaseNestedTabController) {
             filterPopOver.updateHeading(controller.title!)
@@ -317,14 +329,18 @@ class HomeTabViewController: BaseTabsViewController {
                 if self == nil {
                     return
                 }
+                self?.filterTextView.setTitleColor(Constants.accentColor, forState: UIControlState.Normal)
                 
-                if newSelection.count > 0 {
-                    let value = newSelection[0]
-                    self?.filterTextView.setTitleWithoutAnimation(value, forState: UIControlState.Normal)
-                    self?.filterTextView.sizeToFit()
-                    self?.updatePostionOfFilters()
-                    controller.currentFilter = BaseFilter.getFilterOfString(value, filters:filters!) as? HomeFilter
+                if let selection = newSelection {
                     
+                    if selection.count > 0 {
+                        let value = selection[0]
+                        self?.filterTextView.setTitleWithoutAnimation(value, forState: UIControlState.Normal)
+                        self?.filterTextView.sizeToFit()
+                        self?.updatePostionOfFilters()
+                        controller.currentFilter = BaseFilter.getFilterOfString(value, filters:filters!) as? HomeFilter
+                        
+                    }
                 }
                 
                 })
@@ -368,32 +384,32 @@ extension HomeTabViewController : CLLocationManagerDelegate {
         
         CurrentSession.i.userLocation = locations[0]
         
-        fetchNeighBourLocation(locations[0])
+        //gm fetchNeighBourLocation(locations[0])
         
         
-//        let geocoder = CLGeocoder()
-//        geocoder.reverseGeocodeLocation(locations[0]) { [weak self](placemarks, error) -> Void in
-//            if (error != nil || placemarks == nil||placemarks?.count == 0) {
-//                // log.error("reverse geodcode fail: \(error!.localizedDescription)")
-//                return
-//            }
-//            
-//            let place = MyPlacemark()
-//            place.initWithPlacemark(placemarks![0])
-//            self?.testingLocationView?.updateMainLocation(place)
-//            
-//            for place in placemarks! {
-//                if let p = place as? CLPlacemark {
-//                    print(" \(placemarks?.count)  \(p.locality!) --- \(p.subLocality)--- \( p.administrativeArea!) -------- \(p.subAdministrativeArea)...\(p.thoroughfare)")
-//                    
-//                }
-//            }
-//            CurrentSession.i.userPlacemark = placemarks?[0]
-//            EventUtils.postNotification(EventUtils.locationUpdateKey)
-//            // self?.locationManager.stopUpdatingLocation()
-//            //self?.locationManager.startMonitoringSignificantLocationChanges()
-//        }
-
+        //        let geocoder = CLGeocoder()
+        //        geocoder.reverseGeocodeLocation(locations[0]) { [weak self](placemarks, error) -> Void in
+        //            if (error != nil || placemarks == nil||placemarks?.count == 0) {
+        //                // log.error("reverse geodcode fail: \(error!.localizedDescription)")
+        //                return
+        //            }
+        //
+        //            let place = MyPlacemark()
+        //            place.initWithPlacemark(placemarks![0])
+        //            self?.testingLocationView?.updateMainLocation(place)
+        //
+        //            for place in placemarks! {
+        //                if let p = place as? CLPlacemark {
+        //                    print(" \(placemarks?.count)  \(p.locality!) --- \(p.subLocality)--- \( p.administrativeArea!) -------- \(p.subAdministrativeArea)...\(p.thoroughfare)")
+        //
+        //                }
+        //            }
+        //            CurrentSession.i.userPlacemark = placemarks?[0]
+        //            EventUtils.postNotification(EventUtils.locationUpdateKey)
+        //            // self?.locationManager.stopUpdatingLocation()
+        //            //self?.locationManager.startMonitoringSignificantLocationChanges()
+        //        }
+        
         
         
         
@@ -406,9 +422,16 @@ extension HomeTabViewController : CLLocationManagerDelegate {
             let data = NSData(contentsOfURL: url!)
             let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as! NSDictionary
             
+            
+            
+            
             let place = MyPlacemark()
             
             if let result = json["results"] as? NSArray {
+                
+                if result.count < 1 {
+                    return
+                }
                 
                 if let address = result[0]["address_components"] as? NSArray {
                     
@@ -447,17 +470,17 @@ extension HomeTabViewController : CLLocationManagerDelegate {
         
         
     }
-
-        
-        
-        
-        
-        
-        // let long = locations[0].coordinate.longitude;
-        // let lat = locations[0].coordinate.latitude;
-        
-        //Do What ever you want with it
-
+    
+    
+    
+    
+    
+    
+    // let long = locations[0].coordinate.longitude;
+    // let lat = locations[0].coordinate.latitude;
+    
+    //Do What ever you want with it
+    
     
     
     func fetchNeighBourLocation(location : CLLocation) {
@@ -535,7 +558,7 @@ extension HomeTabViewController : CLLocationManagerDelegate {
             let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as! NSDictionary
             
             let place = MyPlacemark()
-
+            
             if let result = json["results"] as? NSArray {
                 
                 if let address = result[0]["address_components"] as? NSArray {
@@ -574,9 +597,9 @@ extension HomeTabViewController : CLLocationManagerDelegate {
         
         
         
-        }
-        
-        
     }
     
+    
+}
+
 

@@ -22,6 +22,7 @@ class EditEventViewController: BaseImageEditViewController {
     @IBOutlet weak var webSite: FloatLabelTextField!
     @IBOutlet weak var descrip: DescriptionView!
     
+    @IBOutlet weak var endTimeLayout: UIView!
     override func viewDidLoad() {
         mainTitle = MyStrings.event
 
@@ -33,6 +34,8 @@ class EditEventViewController: BaseImageEditViewController {
         
         addItemUrl = ServerUrls.addEventUrl
         updateItemUrl = ServerUrls.updateEventUrl
+        
+        allDaySwitch.addTarget(self, action: #selector(EditEventViewController.onSwitchChange), forControlEvents: UIControlEvents.ValueChanged)
         
         // Do any additional setup after loading the view.
     }
@@ -72,9 +75,29 @@ class EditEventViewController: BaseImageEditViewController {
             webSite.text = d.website
            allDaySwitch.setOn(d.allDayEvent, animated: false)
         }
-        
+        onSwitchChange()
     }
 
+    
+    func onSwitchChange(){
+       
+        endTimeLayout.hidden = allDaySwitch.on
+
+    }
+    
+    
+    override func getMinimunDateForField(textfield : UITextField) -> NSDate {
+        
+        if textfield == endTime {
+            
+            return TimeDateUtils.getDateFrom(startTime.text ?? "", mode: UIDatePickerMode.DateAndTime)
+        
+        }
+        
+        return super.getMinimunDateForField(textfield)
+    }
+
+    
 
     /*
     // MARK: - Navigation

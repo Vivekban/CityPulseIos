@@ -180,8 +180,8 @@ protocol TextViewSizeChangeDelegate : class{
         // Placeholder label
         hintLabel.font = font
         hintLabel.text = hint
-        hintLabel.numberOfLines = 0
-        hintLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        hintLabel.numberOfLines = 1
+        hintLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail
         hintLabel.backgroundColor = UIColor.clearColor()
         hintLabel.textColor = placeholderTextColor
         insertSubview(hintLabel, atIndex:0)
@@ -314,5 +314,7 @@ protocol TextViewSizeChangeDelegate : class{
             self.title.frame = r
             }, completion:nil)
     }
+    
+ 
     
 }

@@ -121,6 +121,16 @@ class MainController: UITabBarController {
         
         UISearchBar.appearance().setImage(UIImage(named: "search"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal)
         
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+
+        UINavigationBar.appearance().barTintColor = Constants.primaryColor
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [
+            NSForegroundColorAttributeName : Constants.grayColor_242,
+        ]
+
+        
+        // UIButton.appearance().adjus
         
         
         if let items = self.tabBar.items {
@@ -137,6 +147,10 @@ class MainController: UITabBarController {
         
         //print(error[3])
         
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
     
     override func viewWillAppear(animated: Bool) {

@@ -60,13 +60,17 @@ class BaseNestedTabViewController :UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        MyUtils.setStatusBarBackgroundColor(Constants.primaryColor)
-
+        //MyUtils.setStatusBarBackgroundColor(Constants.primaryColor)
+        
         
         fetchListFromStart()
         isReloadEntries = false
         
         NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "panGestureChecker", userInfo: nil, repeats: true)
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -297,7 +301,7 @@ extension BaseNestedTabViewController : BaseDetaiViewControllerDelegate {
     func onEditButtonClick(index: Int) {
         
         //MyUtils.delay(0.05) {[weak self] () -> () in
-            self.showEditViewController(EditControllerType.EDIT,index: index)
+        self.showEditViewController(EditControllerType.EDIT,index: index)
         //}
         
         //  performSelector("showEditViewController:", withObject: index, afterDelay: 0.1)
@@ -466,13 +470,10 @@ class BaseHeaderCollectionView: BaseNestedTabViewController {
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         
-        if !isEditButtonHidden{
-            isEditButtonHidden = !CurrentSession.i.isEditingEnable
-        }
         
         
         switch kind {
-            //2
+        //2
         case UICollectionElementKindSectionHeader:
             //3
             let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind,withReuseIdentifier: "BasicInfoHeaderView",forIndexPath: indexPath) as! BasicInfoHeader
@@ -480,7 +481,7 @@ class BaseHeaderCollectionView: BaseNestedTabViewController {
             headerView.headerLabel.text = getTitleForHeader(indexPath.section)
             headerView.tag =  indexPath.section
             headerView.editButton.hidden = CurrentSession.i.isVisitingSomeone()
-            headerView.editButton.hidden = isEditButtonHidden
+            headerView.editButton.hidden = getEditButtonStatus(indexPath)
             headerView.updateArrowLabel(expandedRows.contains(indexPath.section))
             return headerView
         default:
@@ -488,6 +489,14 @@ class BaseHeaderCollectionView: BaseNestedTabViewController {
             assert(false, "Unexpected element kind")
         }
         return UICollectionReusableView()
+        
+    }
+    
+    func getEditButtonStatus(indexPath : NSIndexPath) -> Bool {
+        if !isEditButtonHidden{
+            isEditButtonHidden = !CurrentSession.i.isEditingEnable
+        }
+        return isEditButtonHidden
         
     }
     
@@ -509,7 +518,12 @@ class BaseHeaderCollectionView: BaseNestedTabViewController {
     
     override func reloadData(index: Int) {
         if let c = collecView {
-            c.reloadSections(NSIndexSet(index: index))
+            
+            c.performBatchUpdates({
+                c.reloadSections(NSIndexSet(index: index))
+                
+                }, completion: nil)
+            
         }
         else {
             log.error("Error : -    collecview is not set")

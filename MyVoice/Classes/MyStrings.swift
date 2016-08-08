@@ -60,7 +60,10 @@ class MyStrings {
     static let views = "Views"
     static let replies = "Replies"
 
-    
+    static let newPost = "New Post"
+    static let newPoll = "New Poll"
+    static let newEvent = "New Event"
+
 
 
     static let saving = "Saving"
@@ -206,5 +209,11 @@ class MyStrings {
 
     static let editResponse = "Edit Response"
 
-
+    
+    static let pollQuestion = "Poll Question"
+    static let characters = "Characters"
+    static let character = "Character"
+    static let remains = "remains"
+    static let limitReached = "limit reached"
+    static let pollQuestionLimit = " (max 100 charaters)"
 }

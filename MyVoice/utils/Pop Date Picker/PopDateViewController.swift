@@ -53,6 +53,7 @@ class PopDateViewController : UIViewController {
         
         updatePickerCurrentDate()
         datePicker.datePickerMode = self.datePickerMode
+        datePicker.minimumDate = NSDate()
     }
     
     override func viewDidDisappear(animated: Bool) {

@@ -52,11 +52,11 @@ class DescriptionView: UIView {
         let view = NSBundle.mainBundle().loadNibNamed("DescriptionView", owner: self, options: nil)[0] as! UIView
         textView = view.viewWithTag(1) as! FloatLabelTextView
         textView.sizeChangeDelegate = self
+        textView.translatesAutoresizingMaskIntoConstraints = false
         view.frame = self.frame
         view.translatesAutoresizingMaskIntoConstraints = false
-        pinViewOnAllDirection(view)
-
         self.addSubview(view)
+        pinViewOnAllDirection(view)
 
         
         // layer.borderWidth = 1

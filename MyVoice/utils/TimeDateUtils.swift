@@ -44,6 +44,8 @@ class TimeDateUtils {
         
     }
     
+   
+    
     
     static func getDateFromServerString(dateString : String) -> NSDate{
         let f = NSDateFormatter()
@@ -89,6 +91,32 @@ class TimeDateUtils {
         
         return formatter.stringFromDate(date)
     }
+    
+    static func getDateFrom(date : String, mode:UIDatePickerMode) -> NSDate{
+        
+        switch (mode) {
+        case .Date:
+            formatter.dateStyle = .MediumStyle
+            formatter.timeStyle = .NoStyle
+            break
+        case .Time:
+            formatter.dateStyle = .NoStyle
+            formatter.timeStyle = .ShortStyle
+            break
+        case .DateAndTime:
+            formatter.dateStyle = .MediumStyle
+            formatter.timeStyle = .ShortStyle
+            break
+        case .CountDownTimer:
+            formatter.dateStyle = .NoStyle
+            formatter.timeStyle = .MediumStyle
+            break
+        }
+        
+        return formatter.dateFromString(date) ?? NSDate()
+    }
+
+    
     
     static func getCurrentDateInlong() -> Double{
         return NSDate().timeIntervalSince1970

@@ -166,7 +166,7 @@ class TitleDesDateData :TitleDescriptionData{
 
 class ImageUrlData : TitleDesDateData{
     var imagesUrls = [String]()
-    var location: MyLocation?
+    var location: MyLocation = MyLocation()
     
     override func mapping(map: Map) {
         

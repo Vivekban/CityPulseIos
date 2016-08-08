@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04019C7F1D2ECF50007E7C49 /* ChatMessageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04019C7E1D2ECF50007E7C49 /* ChatMessageData.swift */; };
 		0405F8311C64D0E000ED2ABF /* HomeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0405F8301C64D0E000ED2ABF /* HomeDataManager.swift */; };
 		0405F8331C6502FB00ED2ABF /* ResponseConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0405F8321C6502FB00ED2ABF /* ResponseConroller.swift */; };
 		0405F8351C651A7A00ED2ABF /* TimeDateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0405F8341C651A7A00ED2ABF /* TimeDateUtils.swift */; };
@@ -49,7 +50,7 @@
 		04450CBF1C96D5D000E9D4C2 /* Messages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04450CBE1C96D5D000E9D4C2 /* Messages.storyboard */; };
 		04450CC41C96E4FC00E9D4C2 /* MessagesListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04450CC31C96E4FC00E9D4C2 /* MessagesListController.swift */; };
 		04450CC71C96E53000E9D4C2 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04450CC61C96E53000E9D4C2 /* ChatViewController.swift */; };
-		04450CC91C96E55700E9D4C2 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04450CC81C96E55700E9D4C2 /* MessageCell.swift */; };
+		04450CC91C96E55700E9D4C2 /* ChatPeopleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04450CC81C96E55700E9D4C2 /* ChatPeopleCell.swift */; };
 		0448DA2A1CF6F9CA003E8029 /* CommunityHubDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0448DA291CF6F9CA003E8029 /* CommunityHubDataManager.swift */; };
 		045007431C56100500185B69 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045007421C56100500185B69 /* ReviewsViewController.swift */; };
 		045007461C56108900185B69 /* AdditionalDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045007451C56108900185B69 /* AdditionalDatas.swift */; };
@@ -184,6 +185,7 @@
 		04FA69A61C47700D0053771E /* ServerUrls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA69A51C47700D0053771E /* ServerUrls.swift */; };
 		04FA69A81C47784A0053771E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA69A71C47784A0053771E /* Models.swift */; };
 		04FCA8F71C50BC8A00D1FD95 /* DetailMyWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCA8F61C50BC8A00D1FD95 /* DetailMyWorkViewController.swift */; };
+		04FF87AD1D3E098E00D73939 /* Localizable.stringsdict.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04FF87AC1D3E098E00D73939 /* Localizable.stringsdict.plist */; };
 		30E3982A045EF5AF34786BD0 /* Pods_MyVoice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CB4C9D97C857A5F35B191A5 /* Pods_MyVoice.framework */; };
 /* End PBXBuildFile section */
 
@@ -201,6 +203,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		04019C7E1D2ECF50007E7C49 /* ChatMessageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageData.swift; sourceTree = "<group>"; };
 		0405F8301C64D0E000ED2ABF /* HomeDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDataManager.swift; sourceTree = "<group>"; };
 		0405F8321C6502FB00ED2ABF /* ResponseConroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseConroller.swift; sourceTree = "<group>"; };
 		0405F8341C651A7A00ED2ABF /* TimeDateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeDateUtils.swift; sourceTree = "<group>"; };
@@ -246,7 +249,7 @@
 		04450CBE1C96D5D000E9D4C2 /* Messages.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Messages.storyboard; sourceTree = "<group>"; };
 		04450CC31C96E4FC00E9D4C2 /* MessagesListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesListController.swift; sourceTree = "<group>"; };
 		04450CC61C96E53000E9D4C2 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
-		04450CC81C96E55700E9D4C2 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		04450CC81C96E55700E9D4C2 /* ChatPeopleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPeopleCell.swift; sourceTree = "<group>"; };
 		0448DA291CF6F9CA003E8029 /* CommunityHubDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityHubDataManager.swift; sourceTree = "<group>"; };
 		045007421C56100500185B69 /* ReviewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		045007451C56108900185B69 /* AdditionalDatas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalDatas.swift; sourceTree = "<group>"; };
@@ -384,6 +387,7 @@
 		04FA69A51C47700D0053771E /* ServerUrls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerUrls.swift; sourceTree = "<group>"; };
 		04FA69A71C47784A0053771E /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		04FCA8F61C50BC8A00D1FD95 /* DetailMyWorkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMyWorkViewController.swift; sourceTree = "<group>"; };
+		04FF87AC1D3E098E00D73939 /* Localizable.stringsdict.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Localizable.stringsdict.plist; sourceTree = "<group>"; };
 		6CB4C9D97C857A5F35B191A5 /* Pods_MyVoice.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyVoice.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6114B8DDDBE3919C4DFEE11 /* Pods-MyVoice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyVoice.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyVoice/Pods-MyVoice.release.xcconfig"; sourceTree = "<group>"; };
 		DD7277A8EDA47F55ADA4F319 /* Pods-MyVoice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyVoice.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyVoice/Pods-MyVoice.debug.xcconfig"; sourceTree = "<group>"; };
@@ -460,6 +464,7 @@
 		04450CC11C96E46200E9D4C2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				04019C7E1D2ECF50007E7C49 /* ChatMessageData.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -467,7 +472,7 @@
 		04450CC21C96E47A00E9D4C2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				04450CC81C96E55700E9D4C2 /* MessageCell.swift */,
+				04450CC81C96E55700E9D4C2 /* ChatPeopleCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -614,6 +619,7 @@
 				04B8D7E91C91D54500616DF6 /* Activity.storyboard */,
 				04450CBE1C96D5D000E9D4C2 /* Messages.storyboard */,
 				043A0CA11CF61C70002DDAD1 /* Community.storyboard */,
+				04FF87AC1D3E098E00D73939 /* Localizable.stringsdict.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1110,6 +1116,7 @@
 				046A67811C6271630090646C /* Response.xib in Resources */,
 				04B8D7EA1C91D54500616DF6 /* Activity.storyboard in Resources */,
 				04B7D9201C442EB80041B499 /* BriefCollectionCell.xib in Resources */,
+				04FF87AD1D3E098E00D73939 /* Localizable.stringsdict.plist in Resources */,
 				04CEBEBF1C6B4A8500A901B6 /* FloatingTextLabel.xib in Resources */,
 				04B7D9231C442EB80041B499 /* Issues.storyboard in Resources */,
 				048796A41C70F0E30095B341 /* PopPickerViewController.xib in Resources */,
@@ -1214,7 +1221,7 @@
 			files = (
 				04450CC41C96E4FC00E9D4C2 /* MessagesListController.swift in Sources */,
 				0423E1CD1C79B35B002E3103 /* GradientView.swift in Sources */,
-				04450CC91C96E55700E9D4C2 /* MessageCell.swift in Sources */,
+				04450CC91C96E55700E9D4C2 /* ChatPeopleCell.swift in Sources */,
 				04FCA8F71C50BC8A00D1FD95 /* DetailMyWorkViewController.swift in Sources */,
 				04B7D9611C442F000041B499 /* IssueViewController.swift in Sources */,
 				0410F1761C92EF9F007907A7 /* CreditsViewController.swift in Sources */,
@@ -1305,6 +1312,7 @@
 				04E141C81C53E81500035998 /* ListViewController.swift in Sources */,
 				04B8D7E81C91705800616DF6 /* BaseActivityCell.swift in Sources */,
 				049886711C6CE307006C2820 /* HomeBaseNestedTabController.swift in Sources */,
+				04019C7F1D2ECF50007E7C49 /* ChatMessageData.swift in Sources */,
 				04B7D92E1C442EB80041B499 /* OneOrientaionImagePickerController.swift in Sources */,
 				048796A91C70F7200095B341 /* PopTableViewController.swift in Sources */,
 				040EB00E1C48089F004A984F /* ImageFetcher.swift in Sources */,

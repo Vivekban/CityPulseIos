@@ -55,6 +55,7 @@ class MeData{
         
         for i in 1...2 {
             let dummyEvent = EventData()
+            dummyEvent.owner = CurrentSession.i.userId
             dummyEvent.website = "www.playbuff.com"
             dummyEvent.startTime = TimeDateUtils.getStringFrom(NSDate(), mode: UIDatePickerMode.DateAndTime);
             dummyEvent.endTime = TimeDateUtils.getStringFrom(NSDate(), mode: UIDatePickerMode.DateAndTime);

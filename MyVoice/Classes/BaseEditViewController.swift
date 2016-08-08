@@ -75,16 +75,16 @@ class BaseEditViewController: UIViewController {
         super.viewDidLoad()
         myNavigationItem = (self.view.viewWithTag(1) as? UINavigationBar)?.items![0]
         
-        MyUtils.setStatusBarBackgroundColor(UIColor.whiteColor())
+        // MyUtils.setStatusBarBackgroundColor(UIColor.whiteColor())
 
         
         let item = myNavigationItem?.leftBarButtonItems![0]
-        item?.action = "onBackButtonClick"
+        item?.action = #selector(BaseEditViewController.onBackButtonClick)
         item?.target = self
         
         if let items = myNavigationItem?.rightBarButtonItems {
             let save = items[0]
-            save.action = "onSaveButtonClick"
+            save.action = #selector(BaseEditViewController.onSaveButtonClick)
             save.target = self
         }
         
@@ -145,7 +145,7 @@ class BaseEditViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         initialiseViews()
-        MyUtils.setStatusBarBackgroundColor(UIColor.whiteColor())
+        // MyUtils.setStatusBarBackgroundColor(UIColor.whiteColor())
 
     }
     
@@ -167,7 +167,7 @@ class BaseEditViewController: UIViewController {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        MyUtils.setStatusBarBackgroundColor(Constants.primaryColor)
+        //MyUtils.setStatusBarBackgroundColor(Constants.primaryColor)
         
     }
     
@@ -457,20 +457,29 @@ extension BaseEditViewController : UITextFieldDelegate {
                 forTextField.text = (TimeDateUtils.getStringFrom(newDate, mode: mode) ?? "?") as String
                 
             }
-            
-            popDatePickers[popDatePickerTextFields.indexOf(param)!].pick(self, initDate: initDate, dataChanged: dataChangedCallback)
+                let datePicker = popDatePickers[popDatePickerTextFields.indexOf(param)!]
+            datePicker.pick(self, initDate: initDate, dataChanged: dataChangedCallback)
+            datePicker.datePickerVC.datePicker.minimumDate = getMinimunDateForField(textField)
+
             return false
         }
         else if (popPickerTextFields.contains(textField)){
             resign()
             popPickers[popPickerTextFields.indexOf(textField)!].pick(self, initData: [textField.text ?? ""], dataChanged: { (newSelection, forTextField) -> () in
-                ((forTextField as? UITextField)!.text) = newSelection[0]
+                if let selection = newSelection {
+
+                ((forTextField as? UITextField)!.text) = selection[0] ?? ""
+                }
             })
             return false
         }
         return true
     }
     
+    
+    func getMinimunDateForField(textfield : UITextField) -> NSDate {
+        return NSDate()
+    }
     
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {

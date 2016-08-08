@@ -47,10 +47,7 @@ class EventsViewController: BaseProfileHeaderCollectionView {
 
     
     
-    override func reloadData(index:Int) {
-        collectionView.reloadData()
-    }
-    
+        
     override func getDataForNewItem() ->BaseData {
         return EventData()
     }
@@ -60,7 +57,7 @@ class EventsViewController: BaseProfileHeaderCollectionView {
         
         // Configure the cellmamamamdsma
         if let d = entries[indexPath.section] as? EventData{
-            cell.loaction.text = d.location?.city
+            cell.loaction.text = d.location.city
             cell.descrption.text = d.description
             cell.website.text = d.website
             cell.time.text = d.startTime + " " + MyStrings.to + " " + d.endTime
@@ -80,6 +77,17 @@ class EventsViewController: BaseProfileHeaderCollectionView {
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
         return CGSize(width: Int(collectionView.frame.size.width)/columns, height: 160)
+    }
+    
+    
+    override func getEditButtonStatus(indexPath : NSIndexPath) -> Bool {
+        if let d = entries[indexPath.section] as? EventData{
+            if CurrentSession.i.userId == d.owner {
+                return true
+            }
+        }
+        
+        return false
     }
     
     

@@ -26,6 +26,7 @@ class Constants {
     static let grayColor_131 = UIColor(red: CGFloat(131.0/255), green: CGFloat(131.0/255), blue: CGFloat(131.0/255), alpha: 1)
     static let grayColor_217 = UIColor(red: CGFloat(217.0/255), green: CGFloat(217.0/255), blue: CGFloat(217.0/255), alpha: 1)
     static let grayColor_239 = UIColor(red: CGFloat(239.0/255), green: CGFloat(239.0/255), blue: CGFloat(239.0/255), alpha: 1)
+    static let grayColor_242 = UIColor(red: CGFloat(242.0/255), green: CGFloat(242.0/255), blue: CGFloat(242.0/255), alpha: 1)
 
     static let addCommentViewHeight:CGFloat = 120
 
@@ -83,13 +84,12 @@ class Constants {
         HomeFilter(index: 0,value: MyStrings.popular,dataRequest: 1),
         HomeFilter(index: 1,value: MyStrings.relevant,dataRequest: 2),
         HomeFilter(index: 2,value: MyStrings.subscribed,dataRequest: 3),
-        HomeFilter(index: 3,value: MyStrings.resolved,dataRequest: 4),
         HomeFilter(index: 4,value: MyStrings.own,dataRequest: 5)],
       
-        [HomeFilter(index: 0,value: MyStrings.active,dataRequest: 1),
+        [HomeFilter(index: 0,value: MyStrings.active,dataRequest: 0),
             HomeFilter(index: 1,value: MyStrings.popular,dataRequest: 1),
-            HomeFilter(index: 2,value: MyStrings.relevant,dataRequest: 1),
-            HomeFilter(index: 3,value: MyStrings.own,dataRequest: 1)],
+            HomeFilter(index: 2,value: MyStrings.relevant,dataRequest: 2),
+            HomeFilter(index: 3,value: MyStrings.own,dataRequest: 5)],
         [],
         []
     

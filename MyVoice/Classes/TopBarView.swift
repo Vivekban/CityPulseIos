@@ -56,8 +56,9 @@ class TopBarView: UIView {
         
         notificationPopPicker.updateData(0, newData: CurrentSession.i.appDataManager.appData.categories)
         notificationPopPicker.pick(controller!, initData: [""]) { (newSelection, forTextField) -> () in
-            if newSelection.count > 0 {
-                let val = newSelection[0]
+            
+            if  newSelection != nil &&  newSelection!.count > 0 {
+                let val = newSelection![0]
             self.delegate?.onNotifiactionClick(self.notificationPopPicker.popVC.info?.items?[0].indexOf(val) ?? 0)
                 
             }
@@ -94,19 +95,21 @@ class TopBarView: UIView {
 //            searchField!.leftViewMode = UITextFieldViewMode.Never;
 //            searchField!.rightViewMode = UITextFieldViewMode.Always;
 //        }
-        
+        searchCrossButton.adjustsImageWhenHighlighted = false
         
         searchBar = UITextField(frame: CGRect(x: 0, y: 6, width: 200, height: 30))
         searchBar.returnKeyType = UIReturnKeyType.Search
         //searchBar.translatesAutoresizingMaskIntoConstraints = false
         
-        searchBar.textColor = Constants.grayColor_101
+        searchBar.textColor = UIColor.whiteColor()
         searchBar.font = UIFont.systemFontOfSize(15)
         searchBar.sizeToFit()
         searchBar.placeholder = "Search"
-        
+        //searchBar.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSForegroundColorAttributeName : NSForegroundColorAttributeName])
+        searchBar.attributedPlaceholder = NSAttributedString(string:"Search", attributes: [NSForegroundColorAttributeName: Constants.grayColor_242])
+
         searchBarLine = UIView(frame: CGRect(x: 0, y: 34, width: 200, height: 1))
-        searchBarLine.backgroundColor = Constants.grayColor_239
+        searchBarLine.backgroundColor = Constants.grayColor_242
         searchBarLine.hidden = true
         addSubview(searchBarLine)
         

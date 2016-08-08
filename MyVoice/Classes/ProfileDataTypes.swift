@@ -429,12 +429,9 @@ class PersonBasicData : BaseData{
         
     }
     
-    
-    
-    
-    
     enum PersonType:String{
         case RESIDENT = "R";
         case LEADER = "L"
     }
+    
 }

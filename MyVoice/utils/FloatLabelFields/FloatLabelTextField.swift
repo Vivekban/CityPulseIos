@@ -45,6 +45,7 @@ import UIKit
 			title.sizeToFit()
 		}
 	}
+    
 	
 	@IBInspectable var titleFont:UIFont = UIFont.systemFontOfSize(18.0) {
 		didSet {
@@ -52,6 +53,8 @@ import UIKit
 			title.sizeToFit()
 		}
 	}
+    
+    @IBInspectable var maxCharacterLimit:Int = 4999
 	
 	@IBInspectable var hintYPadding:CGFloat = 0.0
 
@@ -211,4 +214,15 @@ import UIKit
             }, completion:nil)
         
 	}
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        let currentCharacterCount = textField.text?.characters.count ?? 0
+        if (range.length + range.location > currentCharacterCount){
+            return false
+        }
+        let newLength = currentCharacterCount + string.characters.count - range.length
+        return newLength <= maxCharacterLimit
+    }
+    
 }

@@ -64,7 +64,6 @@ class EditWorkViewController: BaseImageEditViewController {
     }
     
     override func fetchDataFromUIElements() {
-        super.fetchDataFromUIElements()
         if let d = data as? MyWorkData {
             d.title = titleField.text ?? ""
             d.description = descriptionField.text ?? ""

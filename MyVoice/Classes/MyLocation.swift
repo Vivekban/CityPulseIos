@@ -16,7 +16,7 @@ class MyLocation : Mappable {
     var name = ""
     var country = ""
     var address = ""
-    var postalCode = ""
+    var postalCode = "1234"
     var administrativeArea = ""
     var subAdministrativeArea = ""
     var locality = ""
@@ -26,6 +26,10 @@ class MyLocation : Mappable {
     var region = ""
     var timeZone = ""
     
+    init(){
+        
+    }
+    
     required init?(_ map: Map) {
         
     }
@@ -34,7 +38,7 @@ class MyLocation : Mappable {
         name <- map["I_name"]
         country <- map["country"]
         address <- map["address"]
-        postalCode <- map["postalcode"]
+        postalCode <- map["postalCode"]
         administrativeArea <- map["admin_area"]
         subAdministrativeArea <- map["subadmin_area"]
         locality <- map["locality"]

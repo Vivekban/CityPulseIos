@@ -33,6 +33,7 @@ class ProfileData: BaseData {
     override func mapping(map: Map) {
         super.mapping(map)
         
+        type <- map["user_type"]
         credits <- map["credits"]
         badges <- map["badges"]
         donations <- map["donation"]

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public typealias PopCallback = (newSelection : [String], forTextField : UIView)->()
+public typealias PopCallback = (newSelection : [String]?, forTextField : UIView)->()
 
 
 public class PopPicker : NSObject, UIPopoverPresentationControllerDelegate {
@@ -74,6 +74,8 @@ extension PopPicker : PopViewControllerDelegate {
             if let _data = rows {
                 _dataChanged(newSelection: _data, forTextField: textField)
             }
+            _dataChanged(newSelection: nil, forTextField: textField)
+
         }
         presented = false
     }

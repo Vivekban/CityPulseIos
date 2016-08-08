@@ -10,7 +10,7 @@ import UIKit
 
 class EditPollViewController: BaseImageEditViewController {
     
-    @IBOutlet weak var pollQuestion: FloatLabelTextField!
+    @IBOutlet weak var pollQuestion: DescriptionView!
     @IBOutlet weak var category: FloatLabelTextField!
     @IBOutlet weak var isCritical: UISwitch!
     
@@ -39,10 +39,37 @@ class EditPollViewController: BaseImageEditViewController {
         info.items![0].appendContentsOf(enty)
         
         addTextFieldForPickerPopOver(category, info: info)
+        
+        pollQuestion.delegate = self
+        
+        pollQuestion.hint = MyStrings.pollQuestion + MyStrings.pollQuestionLimit
+        
 
-        
-        
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        pollQuestion.hint = pollQuestion.hint
+        pollQuestion.textView.sizeToFit()
+        pollQuestion.textView.layoutIfNeeded()
+    }
+    
+    func onPollTextChange() {
+        
+        let remain = 100 - (pollQuestion.text.length()) ?? 0
+        
+        switch remain {
+        case 0:
+            pollQuestion.hint = MyStrings.pollQuestion + " (\(MyStrings.characters) \(MyStrings.limitReached ) )"
+        case 1:
+            pollQuestion.hint = MyStrings.pollQuestion + " ( \(remain) \(MyStrings.character) \(MyStrings.remains) )"
+            break
+        default:
+            pollQuestion.hint = MyStrings.pollQuestion + " ( \(remain) \(MyStrings.characters) \(MyStrings.remains ) )"
+
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,6 +102,13 @@ class EditPollViewController: BaseImageEditViewController {
     }
     
     
+    func textViewDidChange(textView: UITextView) {
+        onPollTextChange()
+    }
+    
+     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        return textView.text.characters.count + (text.characters.count - range.length) <= 100
+    }
     
     /*
     // MARK: - Navigation
